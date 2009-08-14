@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+		<title>IntEnz public web application</title>
+		<author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
+	</properties>
+	<body>
+		<section name="IntEnz public web application">
+            This is the <a href="http://www.ebi.ac.uk/intenz">public web
+            application</a> for the IntEnz project.
+
+			<subsection name="Requirements">
+            The application is currently running on the following configuration:
+            <ul>
+                <li>JDK 1.6</li>
+                <li>tomcat-6.0</li>
+                <li>CVS (the project is currently on the HEAD branch)</li>
+            </ul>
+            The application has also been tested on the following configuration:
+            <ul>
+                <li>JDK 1.5</li>
+                <li>tomcat-5.5</li>
+            </ul>
+            </subsection>
+		</section>
+	</body>
+</document>
