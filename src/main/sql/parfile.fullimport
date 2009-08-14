@@ -1,0 +1,6 @@
+BUFFER=99999
+FULL=N
+INDEXES=Y
+ROWS=Y
+FILE=enzyme.dmp
+LOG=enzyme.log
