@@ -1,0 +1,26 @@
+#\\<smallsub\\>(.+?)\\</smallsub\\>=$1
+#\\<smallsup\\>(.+?)\\</smallsup\\>=$1
+
+# DEPRECATED: NOT USED ANYMORE! The following DE line changes are handled by ffwriter now
+
+# Whenever you add anything here, don't forget to update the file
+# multiTransferEntries.txt in the ffwriter tool,
+# which lists the entries these rules must be applied to.
+
+^Transferred\ entry\:\ 1\\.7\\.99\\.5$=Transferred entry: 1.5.1.20
+^Transferred\ entry\:\ 1\\.1\\.1\\.284$=Transferred entry: 1.1.1.284 and 4.4.1.22
+^Transferred\ entry\:\ 2\\.6\\.1\\.5$=Transferred entry: 2.1.1.57
+^Transferred\ entry\:\ 2\\.6\\.1\\.5$=Transferred entry: 2.1.1.57
+^Transferred\ entry\:\ 2\\.7\\.10\\.1$=Transferred entry: 2.7.10.1 and 2.7.10.2
+^Transferred\ entry\:\ 3\\.4\\.13\\.18$=Transferred entry: 3.4.13.18 and 3.4.13.19
+^Transferred\ entry\:\ 3\\.4\\.16\\.5$=Transferred entry: 3.4.16.5 and 3.4.16.6
+^Transferred\ entry\:\ 3\\.4\\.14\\.9$=Transferred entry: 3.4.14.9 and 3.4.14.10
+^Transferred\ entry\:\ 3\\.4\\.21\\.68$=Transferred entry: 3.4.21.68 and 3.4.21.73
+^Transferred\ entry\:\ 3\\.4\\.22\\.32$=Transferred entry: 3.4.22.32 and 3.4.22.33
+^Transferred\ entry\:\ 3\\.4\\.22\\.52$=Transferred entry: 3.4.22.52 and 3.4.22.53
+^Transferred\ entry\:\ 3\\.4\\.23\\.18$=Transferred entry: 3.4.21.103, 3.4.23.18, 3.4.23.28 and 3.4.23.30
+^Transferred\ entry\:\ 3\\.4\\.24\\.25$=Transferred entry: 3.4.24.25, 3.4.24.32, 3.4.24.39 and 3.4.24.40
+^Transferred\ entry\:\ 3\\.4\\.21\\.73$=Transferred entry: 3.4.21.68 and 3.4.21.73
+^Transferred\ entry\:\ 3\\.13\\.1\\.2$=Transferred entry: 4.4.1.21
+^Transferred\ entry\:\ 4\\.3\\.1\\.21$=Transferred entry: 4.3.1.9
+^Transferred\ entry\:\ 4\\.2\\.2\\.5$=Transferred entry: 4.2.2.5, 4.2.2.20 and 4.2.2.21

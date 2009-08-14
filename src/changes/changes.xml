@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    <properties>
+        <title>IntEnz translator module change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+        <release version="1.0.5" date="2009-05-22" description="Un-fixed reaction rule">
+            <action dev="rafalcan" type="fix">
+            	Removed rule (4.1.1.39) to show protons again.
+                The pre-v1.0.4 rule did not work because the equation
+                had swapped sides, so the protons were not hidden.
+            </action>
+        </release>
+
+        <release version="1.0.4" date="2009-05-14" description="Fixed reaction rule">
+            <action dev="rafalcan" type="fix">
+            	Fixed rule to hide protons (4.1.1.39).
+            </action>
+        </release>
+
+        <release version="1.0.3" date="2009-03-27" description="Fixed [3Fe-4S]">
+            <action dev="rafalcan" type="fix">
+            	Fixed rule not to translate [3Fe-4S] into (3Fe-4S).
+            </action>
+            <action dev="rafalcan" type="update">
+            	Updated dependencies to xchars (core and config).
+            </action>
+        </release>
+
+        <release version="1.0.2" date="2008-11-17" description="Fixed spelling correction">
+            <action dev="rafalcan" type="fix">
+            	Fixed spelling rule for 'viron' becoming 'virion' which affected 'environment'.
+            </action>
+        </release>
+
+        <release version="1.0.1" date="2008-05-07" description="Fixed triple letters">
+            <action dev="rafalcan" type="fix">
+                Fixed spelling rules ('l' in GB to 'll' in US english) which resulted
+                in three letters in some cases.
+            </action>
+        </release>
+        
+    </body>
+</document>
