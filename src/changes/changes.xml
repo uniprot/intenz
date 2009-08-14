@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    <properties>
+        <title>IntEnz BioPAX change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+    	<release version="1.0" date="2009-05-07" description="First release">
+        	<action dev="rafalcan" type="add">
+        		Added BioPAX module to IntEnz in order to export it as XML
+                including Rhea reactions.
+        	</action>
+    	</release>
+        
+    </body>
+</document>
