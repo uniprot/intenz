@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    <properties>
+        <title>IntEnz mapper module change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+        <release version="4.2" date="2009-05-26"
+            description="Fixed issue with database cursors limit">
+            <action dev="rafalcan" type="update">
+        		Updated to latest version of rhea.mapper, which fixes bug
+        		related to too many open cursors in database connection.
+        	</action>
+        	<action dev="rafalcan" type="fix">
+        		Closed result sets in case oracle does not do it after
+        		closing the statements.
+        	</action>
+        </release>
+
+        <release version="4.1" date="2009-05-07"
+            description="Loading reactions from Rhea">
+        	<action dev="rafalcan" type="fix">
+        		Reactions with Rhea ID are now loaded from the database in full.
+        	</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest version of intenz.core.
+        	</action>
+        </release>
+        <release version="4.0.5" date="2008-11-10" description="Cofactor handling">
+        	<action dev="rafalcan" type="add">
+        		Added method to retrieve a list of all compounds acting as
+        		cofactors in the database.
+        	</action>
+        	<action dev="rafalcan" type="add">
+        		Added method to update cofactors in order to make global
+        		changes of ChEBI mapping.
+        	</action>
+            <action dev="rafalcan" type="update">
+                Updated dependencies to latest intenz.core, rhea.mapper and
+                biobabel.db modules. 
+            </action>
+        </release>
+        
+        <release version="4.0.4" date="2008-05-30" description="Updated dependencies">
+            <action dev="rafalcan" type="update">
+                Updated dependencies to latest rhea.mapper module, to use
+                its new interfaces.
+            </action>
+        </release>
+
+        <release version="4.0.3" date="2008-04-22" description="Updated dependencies">
+            <action dev="rafalcan" type="update">
+                Updated dependencies to latest intenz.core and rhea.mapper
+                modules. The first one avoids unnecessary dependency on
+                BioPAX stuff (jena, jastor).
+            </action>
+        </release>
+
+        <release version="4.0.2" date="2008-04-15" description="Updated dependency">
+            <action dev="rafalcan" type="update">
+                Updated dependency to latest intenz core module.
+            </action>
+        </release>
+
+        <release version="4.0.1" date="2008-03-28" description="Updated dependency">
+            <action dev="rafalcan" type="update">
+                Updated dependency to latest rhea.mapper module.
+            </action>
+        </release>
+        
+    </body>
+</document>
