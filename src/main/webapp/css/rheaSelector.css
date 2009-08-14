@@ -1,0 +1,11 @@
+/* ----------- REACTION SEARCH OVERRIDES ----------- */
+
+#reactionSearchBox {
+	background-color: #eee;
+	border: 1px outset;
+	padding: 1ex 1em;
+	margin-bottom: 2px;
+}
+#reactionSearchResults {
+	max-height: 34ex;
+}
