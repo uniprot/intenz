@@ -123,7 +123,7 @@
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
-			<artifactId>biobabel</artifactId>
+			<artifactId>biobabel-core</artifactId>
 			<version>0.3.1</version>
 		</dependency>
 		<dependency>
@@ -133,7 +133,7 @@
 		</dependency>
         <dependency>
             <groupId>uk.ac.ebi.biobabel</groupId>
-            <artifactId>citations</artifactId>
+            <artifactId>biobabel-citations</artifactId>
             <version>1.0.5</version>
         </dependency>
 		<dependency>
