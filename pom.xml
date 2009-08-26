@@ -56,7 +56,7 @@
         	<resource>
         		<directory>${intenz.config.dir}</directory>
         		<includes>
-        			<include>intenz-db-prod.properties</include>
+        			<include>intenz-db-*.properties</include>
         			<include>go-db-public.properties</include>
         		</includes>
         	</resource>
