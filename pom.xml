@@ -84,6 +84,7 @@
                 <directory>${intenz.config.dir}</directory>
                 <includes>
                     <include>intenz-release.properties</include>
+                    <include>intenz-db-prod.properties</include>
                 </includes>
             </resource>
         </resources>
