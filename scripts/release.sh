@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd `dirname $0`/..
-cvs update
+svn update
 mvn clean package
 [ $? != 0 ] && echo "MAVEN BUILD FAILURE" && exit 1
 

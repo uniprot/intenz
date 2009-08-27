@@ -55,21 +55,9 @@ public class ID2EC {
             System.exit(3);
         }
 
-        Connection con = null;
-        System.out.println("In ID2EC method....");
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            String url = "jdbc:oracle:thin:@" + instance.getHost() + ":" + instance.getPort() + ":" + instanceName;
-            con = DriverManager.getConnection(url, instance.getUser(), instance.getPassword());
-            con.setAutoCommit(false);
-        } catch (Exception e) {
-            System.err.println("Could not open connection to " + instanceName);
-            e.printStackTrace();
-            try {
-                if (con != null) con.close();
-            } catch (SQLException e1){
-                e1.printStackTrace();
-            }
+        Connection con = instance.getConnection();
+        if (con == null){
+            System.err.println("Could not open connection to " + instance.getName());
             System.exit(4);
         }
 
