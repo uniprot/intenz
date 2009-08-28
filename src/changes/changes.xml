@@ -5,6 +5,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+
+        <release version="52" date="2009-08-27" description="Release 52">
+        	<action dev="rafalcan" type="fix">
+        		Reorganized files. First release as open source.
+        	</action>
+        </release>
+
         <release version="51" date="2009-08-05"
         	description="Fixed problem with cofactors">
         	<action dev="rafalcan" type="fix">
