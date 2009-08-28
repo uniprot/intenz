@@ -5,11 +5,11 @@
 	<tr>
 	  <th class="headingleft" nowrap="nowrap" rowspan="2">EC numbers</th>
 	  <td class="subheadingleft" nowrap="nowrap">total</td>
-	  <td align="right" style="text-align: right !important;">4890</td>
+	  <td align="right" style="text-align: right !important;">4900</td>
 	</tr>
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap" title="not deleted, not transferred">active</td>
-	  <td align="right" style="text-align: right !important;">4140</td>
+	  <td align="right" style="text-align: right !important;">4150</td>
 	</tr>
 	<tr>
 	  <th class="headingleft" colspan="2">Classes</th>
@@ -30,11 +30,11 @@
 <table class="contenttable_lmenu stats_table" style="width: 15em">
 	<tr>
 		<th class="headingleft" nowrap="nowrap">New entries</th>
-		<td align="right" style="text-align: right !important;">10</td>
+		<td align="right" style="text-align: right !important;">none</td>
 	</tr>
 	<tr>
 		<th class="headingleft" nowrap="nowrap">Changing entries</th>
-		<td align="right" style="text-align: right !important;">2</td>
+		<td align="right" style="text-align: right !important;">none</td>
 	</tr>
 </table>
 
