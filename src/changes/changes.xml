@@ -5,6 +5,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.2.1" date="2009-09-01"
+            description="Updated dependencies">
+            <action dev="rafalcan" type="update">
+        		Updated to latest version of rhea.mapper, first available in
+        		EBI's public maven repository.
+        	</action>
+       	</release>
         <release version="4.2" date="2009-05-26"
             description="Fixed issue with database cursors limit">
             <action dev="rafalcan" type="update">
