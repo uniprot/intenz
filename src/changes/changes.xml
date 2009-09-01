@@ -5,6 +5,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.0.16" date="2009-09-01"
+        	description="Updated mapper dependency">
+            <action dev="rafalcan" type="update">
+                Updated dependency to latest mapper module.
+            </action>
+        </release>
+
         <release version="1.0.15" date="2009-08-04" description="Added DE line exceptions">
             <action dev="rafalcan" type="update">
                 Updated DE_line_modifications with fixes for many transferred/deleted entries

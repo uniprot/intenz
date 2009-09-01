@@ -6,7 +6,7 @@
     
     <groupId>uk.ac.ebi.intenz</groupId>
     <artifactId>intenz-ffwriter</artifactId>
-    <version>1.0.15</version>
+    <version>1.0.16</version>
     <name>IntEnz flat file writer</name>
     <description>ENZYME.dat flat file writer</description>
     
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-mapper</artifactId>
-            <version>4.2</version>
+            <version>4.2.1</version>
         </dependency>
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
