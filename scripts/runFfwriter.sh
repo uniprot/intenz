@@ -17,7 +17,7 @@ function addJarsToCp(){
 
 cd $SCRIPT_DIR/..
 
-mvn clean package
+mvn -P apps clean package
 
 CP=src/main/appResources
 addJarsToCp target
