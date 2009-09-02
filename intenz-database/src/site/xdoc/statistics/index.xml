@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+
+  <properties>
+    <author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
+    <title>IntEnz Project Documentation (internal)</title>
+  </properties>
+
+  <body>
+    <section name="Statistics">
+        <ul>
+            <li><b>2009</b>
+                <ul>
+                    <li><a href="./intenzStats-2009.ods">OpenDocument (OpenOffice 2+)</a></li>
+                    <li><a href="./intenzStats-2009.xls">Excel</a></li>
+                </ul>
+            </li>
+            <li><b>Until 2008</b>
+                <ul>
+                    <li><a href="./intenzStats-old.ods">OpenDocument (OpenOffice 2+)</a></li>
+                    <li><a href="./intenzStats-old.xls">Excel</a></li>
+                </ul>
+            </li>
+        </ul>
+        <p>Single release statistics:</p>
+        <ul>
+        	<li><a href="intenzStats-rel52.html">Release 52 (27 August 2009)</a></li>
+        	<li><a href="intenzStats-rel51.html">Release 51 (5 August 2009)</a></li>
+        	<li><a href="intenzStats-rel50.html">Release 50 (25 June 2009)</a></li>
+        	<li><a href="intenzStats-rel49.html">Release 49 (8 May 2009)</a></li>
+        	<li><a href="intenzStats-rel48.html">Release 48 (12 March 2009)</a></li>
+        	<li><a href="intenzStats-rel47.html">Release 47 (28 January 2009)</a></li>
+        	<li><a href="intenzStats-rel46.html">Release 46 (10 December 2008)</a></li>
+        	<li><a href="intenzStats-rel45.html">Release 45 (6 November 2008)</a></li>
+        	<li><a href="intenzStats-rel44.html">Release 44 (25 September 2008)</a></li>
+        	<li><a href="intenzStats-rel43.html">Release 43 (20 August 2008)</a></li>
+        	<li><a href="intenzStats-rel42.html">Release 42 (8 July 2008)</a></li>
+        	<li><a href="intenzStats-rel41.html">Release 41 (5 June 2008)</a></li>
+        	<li><a href="intenzStats-rel40.html">Release 40 (2 May 2008)</a></li>
+        	<li><a href="intenzStats-rel39.html">Release 39 (31 March 2008)</a></li>
+        	<li><a href="intenzStats-rel38.html">Release 38 (18 February 2008)</a></li>
+        	<li><a href="intenzStats-rel37.html">Release 37 (8 November 2007)</a></li>
+        	<li><a href="intenzStats-rel36.html">Release 36 (4 October 2007)</a></li>
+        	<li><a href="intenzStats-rel35.html">Release 35 (13 August 2007)</a></li>
+      		<li><a href="intenzStats-rel34.html">Release 34 (29 June 2007)</a></li>
+      		<li><a href="intenzStats-rel33.html">Release 33 (29 May 2007)</a></li>
+      		<li><a href="intenzStats-rel32.html">Release 32 (26 April 2007)</a></li>
+      		<li><a href="intenzStats-rel31.html">Release 31 (26 March 2007)</a></li>
+      		<li><a href="intenzStats-rel30.html">Release 30 (14 February 2007)</a></li>
+      		<li><a href="intenzStats-rel29.html">Release 29 (15 January 2007)</a></li>
+      		<li><a href="intenzStats-rel28.html">Release 28 (14 December 2006)</a></li>
+     		<li><a href="intenzStats-rel27.html">Release 27 (25 October 2006)</a></li>
+      		<li><a href="intenzStats-rel26.html">Release 26 (21 September 2006)</a></li>
+      		<li><a href="intenzStats-rel25.html">Release 25 (29 August 2006)</a></li>
+      		<li><a href="intenzStats-rel24.html">Release 24 (31 July 2006)</a></li>
+		</ul>
+
+      <hr/>
+        <table>
+          <tr>
+            <td colspan="6"><i>29 June 2006 (rel. 23)</i></td>
+          </tr>
+          <tr>
+            <td rowspan="3"><b># Enzymes</b></td>
+            <td rowspan="3">4947</td>
+            <td><i>approved</i></td>
+            <td>4854</td>
+            <td align="right">925</td>
+            <td>inactive</td>
+          </tr>
+          <tr>
+            <td><i>proposed</i></td>
+            <td>93</td>
+            <td align="right">41</td>
+            <td>inactive</td>
+          </tr>
+          <tr>
+            <td><i>suggested</i></td>
+            <td>0</td>
+            <td align="right">0</td>
+            <td>inactive</td>
+          </tr>
+          <tr>
+            <td><b># Classes</b></td>
+            <td colspan="5">6</td>
+          </tr>
+          <tr>
+            <td><b># Subclasses</b></td>
+            <td colspan="5">65</td>
+          </tr>
+          <tr>
+            <td><b># Sub-subclasses</b></td>
+            <td colspan="5">257</td>
+          </tr>
+          <tr>
+            <td><b># EC numbers</b></td>
+            <td colspan="5">4738</td>
+          </tr>
+        </table>
+
+		<hr/>
+        <table>
+          <tr>
+            <td colspan="6"><i>24 May 2006 (rel. 22)</i></td>
+          </tr>
+          <tr>
+            <td rowspan="3"><b># Enzymes</b></td>
+            <td rowspan="3">4947</td>
+            <td><i>approved</i></td>
+            <td>4854</td>
+            <td align="right">923</td>
+            <td>inactive</td>
+          </tr>
+          <tr>
+            <td><i>proposed</i></td>
+            <td>93</td>
+            <td align="right">41</td>
+            <td>inactive</td>
+          </tr>
+          <tr>
+            <td><i>suggested</i></td>
+            <td>0</td>
+            <td align="right">0</td>
+            <td>inactive</td>
+          </tr>
+          <tr>
+            <td><b># Classes</b></td>
+            <td colspan="5">6</td>
+          </tr>
+          <tr>
+            <td><b># Subclasses</b></td>
+            <td colspan="5">65</td>
+          </tr>
+          <tr>
+            <td><b># Sub-subclasses</b></td>
+            <td colspan="5">257</td>
+          </tr>
+          <tr>
+            <td><b># EC numbers</b></td>
+            <td colspan="5">4738</td>
+          </tr>
+        </table>
+
+        <hr/>
+        <table>
+          <tr>
+            <td colspan="6"><i>10 April 2006 (rel. 21)</i></td>
+          </tr>
+          <tr>
+            <td rowspan="3"><b># Enzymes</b></td>
+            <td rowspan="3">4947</td>
+            <td><i>approved</i></td>
+            <td>4854</td>
+            <td align="right">923</td>
+            <td>inactive</td>
+          </tr>
+          <tr>
+            <td><i>proposed</i></td>
+            <td>93</td>
+            <td align="right">41</td>
+            <td>inactive</td>
+          </tr>
+          <tr>
+            <td><i>suggested</i></td>
+            <td>0</td>
+            <td align="right">0</td>
+            <td>inactive</td>
+          </tr>
+          <tr>
+            <td><b># Classes</b></td>
+            <td colspan="5">6</td>
+          </tr>
+          <tr>
+            <td><b># Subclasses</b></td>
+            <td colspan="5">65</td>
+          </tr>
+          <tr>
+            <td><b># Sub-subclasses</b></td>
+            <td colspan="5">257</td>
+          </tr>
+          <tr>
+            <td><b># EC numbers</b></td>
+            <td colspan="5">4738</td>
+          </tr>
+        </table>
+
+        <hr/>
+        <table>
+          <tr>
+            <td colspan="6"><i>23 March 2006 (rel. 20)</i></td>
+          </tr>
+          <tr>
+            <td rowspan="3"><b># Enzymes</b></td>
+            <td rowspan="3">4854</td>
+            <td><i>approved</i></td>
+            <td>4854</td>
+            <td align="right">924</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><i>proposed</i></td>
+            <td>0</td>
+            <td align="right">0</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><i>suggested</i></td>
+            <td>0</td>
+            <td align="right">0</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><b># Classes</b></td>
+            <td colspan="5">6</td>
+          </tr>
+          <tr>
+            <td><b># Subclasses</b></td>
+            <td colspan="5">65</td>
+          </tr>
+          <tr>
+            <td><b># Sub-subclasses</b></td>
+            <td colspan="5">257</td>
+          </tr>
+          <tr>
+            <td><b># EC numbers</b></td>
+            <td colspan="5">4645</td>
+          </tr>
+        </table>
+
+        <hr/>
+        <table>
+          <tr>
+            <td colspan="6"><i>30 January 2006 (rel. 18)</i></td>
+          </tr>
+          <tr>
+            <td rowspan="3"><b># Enzymes</b></td>
+            <td rowspan="3">4855</td>
+            <td><i>approved</i></td>
+            <td>4815</td>
+            <td align="right">901</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><i>proposed</i></td>
+            <td>39</td>
+            <td align="right">22</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><i>suggested</i></td>
+            <td>1</td>
+            <td align="right">1</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><b># Classes</b></td>
+            <td colspan="5">6</td>
+          </tr>
+          <tr>
+            <td><b># Subclasses</b></td>
+            <td colspan="5">65</td>
+          </tr>
+          <tr>
+            <td><b># Sub-subclasses</b></td>
+            <td colspan="5">257</td>
+          </tr>
+        </table>
+
+        <hr/>
+        <table>
+          <tr>
+            <td colspan="6"><i>27 July 2005</i></td>
+          </tr>
+          <tr>
+            <td rowspan="3"><b># Enzymes</b></td>
+            <td rowspan="3">4493</td>
+            <td><i>approved</i></td>
+            <td>4492</td>
+            <td align="right">677</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><i>proposed</i></td>
+            <td>0</td>
+            <td align="right">0</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><i>suggested</i></td>
+            <td>1</td>
+            <td align="right">1</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><b># Classes</b></td>
+            <td colspan="5">6</td>
+          </tr>
+          <tr>
+            <td><b># Subclasses</b></td>
+            <td colspan="5">65</td>
+          </tr>
+          <tr>
+            <td><b># Sub-subclasses</b></td>
+            <td colspan="5">251</td>
+          </tr>
+        </table>
+
+        <hr/>
+        <table>
+          <tr>
+            <td colspan="6"><i>1 September 2004</i></td>
+          </tr>
+          <tr>
+            <td rowspan="3"><b># Enzymes</b></td>
+            <td rowspan="3">4493</td>
+            <td><i>approved</i></td>
+            <td><b>4492</b></td>
+            <td align="right">677</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><i>proposed</i></td>
+            <td>0</td>
+            <td align="right">0</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><i>suggested</i></td>
+            <td>1</td>
+            <td align="right">1</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><b># Classes</b></td>
+            <td colspan="5">6</td>
+          </tr>
+          <tr>
+            <td><b># Subclasses</b></td>
+            <td colspan="5">65</td>
+          </tr>
+          <tr>
+            <td><b># Sub-subclasses</b></td>
+            <td colspan="5">251</td>
+          </tr>
+        </table>
+        <hr/>
+        <table>
+          <tr>
+            <td colspan="6"><i>23 July 2004</i></td>
+          </tr>
+          <tr>
+            <td rowspan="3"><b># Enzymes</b></td>
+            <td rowspan="3">4514</td>
+            <td><i>approved</i></td>
+            <td><b>4473</b></td>
+            <td align="right">667</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><i>proposed</i></td>
+            <td>41</td>
+            <td align="right">27</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><i>suggested</i></td>
+            <td>0</td>
+            <td align="right">0</td>
+            <td>deleted</td>
+          </tr>
+          <tr>
+            <td><b># Classes</b></td>
+            <td colspan="5">6</td>
+          </tr>
+          <tr>
+            <td><b># Subclasses</b></td>
+            <td colspan="5">65</td>
+          </tr>
+          <tr>
+            <td><b># Sub-subclasses</b></td>
+            <td colspan="5">251</td>
+          </tr>
+        </table>
+
+    </section>
+  </body>
+</document>

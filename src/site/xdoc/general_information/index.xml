@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding='iso-8859-1'?>
+<document>
+
+  <properties>
+    <author email="kirill@ebi.ac.uk">Kirill Degtyarenko</author>
+    <title>More about IntEnz</title>
+  </properties>
+
+<body>
+
+<section name="Project: IntEnz">
+
+<a href="http://www.ebi.ac.uk/IntEnz/index.html"><img src="http://www3.ebi.ac.uk/internal/seqdb/images/intenz_small.gif" height="50" width="75" align="right" border="0"></img></a>
+<hr></hr>
+<ol>
+<li><a href="#introduction">Introduction</a> 
+    <dl>
+       <dd>1.1 <a href="#what">What is IntEnz?</a></dd> 
+       <dd>1.2 <a href="#why">Why IntEnz?</a></dd>
+       <dd>1.3 <a href="#funding">Funding</a></dd>
+       <dd>1.4 <a href="#partners">Project partners</a></dd>
+    </dl>
+</li>
+
+<li><a href="#annotation">IntEnz annotation</a>
+    <dl>
+       <dd>2.1 <a href="#general">General remarks</a></dd>
+       <dd>2.2 <a href="#chebimapping">IntEnz to ChEBI mapping</a></dd>
+       <dd>2.3 <a href="#sources">Sources of data</a></dd>
+    </dl>
+</li>
+
+<li><a href="#products">IntEnz products</a>
+    <dl>
+       <dd>3.1 <a href="#relational">Relational database</a></dd>
+       <dd>3.2 <a href="#html">HTML files</a></dd>
+       <dd>3.3 <a href="#enzyme">ENZYME flat file</a></dd>
+       <dd>3.4 <a href="#intenzxml">IntEnzXML</a></dd>
+       <dd>3.5 <a href="#biopax">BioPAX export</a></dd>
+       <dd>3.6 <a href="#curator_tool">Curator tool</a></dd>
+    </dl>
+</li>
+
+</ol>
+
+<hr></hr>
+<a name="introduction"></a>
+</section>
+
+<section name="1. Introduction">
+<a name="what"></a>
+<subsection name="1.1 What is IntEnz?">
+<p>
+<font color="darkgreen"><b>IntEnz</b></font> is the name for the <font 
+color="darkgreen"><b>Int</b></font>egrated relational <font 
+color="darkgreen"><b>Enz</b></font>yme database. IntEnz will contain
+enzyme data approved by the Nomenclature Committee of the
+<a href="http://www.iubmb.org/">International Union of Biochemistry and 
+Molecular Biology</a> (NC-IUBMB).</p>
+</subsection>
+
+<a name="why"></a>
+<subsection name="1.2 Why IntEnz?">
+<p>
+For many years, Amos Bairoch has been supporting the Enzyme 
+Nomenclature database, appropriately called <a 
+href="http://www.expasy.org/enzyme/"><b>ENZYME</b></a>. Indeed, this was 
+the only electronic version of The Enzyme Nomenclature. For the big part 
+of the bioinformatics communtity, ENZYME is <b>the</b> Enzyme 
+Nomenclature. An obvious example is its use for <a 
+href="http://www.uniprot.org">SWISS-PROT</a> annotation. However, in 
+spite of containing the <b>data</b> from The Enzyme Nomenclature, it was 
+never considered <b>an official publication</b> on The Enzyme Nomenclature 
+(as opposed to, say, <i>Enzyme Nomenclature 1992</i>, Academic Press, San 
+Diego). ENZYME exists as a plain ASCII text file.
+</p>
+<p>
+The <a href="http://www.chem.qmw.ac.uk/iubmb/enzyme/"><b>Web Version of 
+Enzyme Nomenclature</b></a> has been prepared by Gerry Moss and includes 
+the complete contents of <i>Enzyme Nomenclature 1992</i> plus subsequent 
+supplements and other changes. It is <b>official</b> and easy to navigate. 
+However it is <b>not</b> a true database but a set of manually edited HTML
+pages.</p>
+
+<p>During their course of evolution, ENZYME, Enzyme Nomenclature and 
+other databases containing enzyme-related information accumulated a number of
+<b>discrepancies</b> in the data that are 
+meant to be identical. These discrepancies could be anything e.g. typos, 
+corrections, new data or their absence.
+With more new data, it is becoming difficult to keep these sources in
+sync.
+</p>
+<p>
+The <b>goal</b> of the IntEnz project is to have a relational database that 
+integrates all of the Enzyme Nomenclature.
+</p>
+</subsection>
+
+<a name="funding"></a>
+<subsection name="1.3 Funding">
+<p>
+After the BioBabel grant, no active funding is available to actively develop IntEnz.
+None of the annotators funded by new Felics grant will be based at the EBI.
+</p>
+</subsection>
+
+<a name="partners"></a>
+<subsection name="1.4 Project partners">
+<p>
+<a href="http://www.isb-sib.ch/">SIB</a> (enzyme annotation).
+</p>
+</subsection>
+
+</section>
+
+<a name="annotation"></a>
+<section name="2. IntEnz annotation">
+<a name="general"></a>
+<subsection name="2.1 General remarks">
+<p>
+Since most of the data in IntEnz will have 
+"official" status, the mechanism of <b>approval</b> by NC-IUBMB had to be 
+implemented. The data will enter IntEnz in one of two ways: 
+
+<ul>
+  <li><b>Legacy data</b> were loaded from the two pre-existing <a 
+  href="#sources"><b>sources</b></a>. 
+  As a rule, these do not have to be formally approved since the Enzyme 
+  Classification List already <b>is</b> official. However, if there are 
+  serious discrepancies between the sources and curator thinks the change 
+  should be made to the master data, this may require an approval to 
+  <b>suggested</b> change.</li>
+
+  <li><b>New data</b> are entered directly to IntEnz via <b>IntEnz Web 
+  Tool</b>. The tool, while prevents entering incomplete data, does not 
+  check data validity. This data (whether it is a new entry or any 
+  modification of an existing entry) will be considered <b>suggested</b>. 
+  Suggested entries are visible to IntEnz curators but not to general 
+  public. An NC-IUBMB member has priveleges to move the entry status from 
+  <b>suggested</b> to <b>proposed</b>. Proposed entries or changes have to 
+  be publicly available for at least <b>2 months</b> before the next 
+  action is undertaken. This allows the scientific community to send the 
+  feedback to the NC-IUBMB. After this, the entry could be either (i) 
+  given <b>approved</b> status, (ii) <b>modified</b> and left as proposed 
+  for some more time, or (iii) <b>rejected</b> completely.</li>
+	</ul>
+	</p>
+</subsection>
+
+<a name="chebimapping"></a>
+<subsection name="2.2 IntEnz to ChEBI mapping">
+<p>
+Since IntEnz is one of the sources of terminology for
+<a href="http://www3.ebi.ac.uk/internal/seqdb/projects/chebi/">ChEBI</a> database,
+it was logical to link all the compound terms in reaction and cofactor fields of IntEnz
+to corresponding ChEBI entries.
+</p>
+<p>
+Initially, the <b>reaction</b> field in an IntEnz entry was a <b>free text</b>.
+We aimed to improve quality of reaction data
+in IntEnz and provide other databases with the new means of annotation by
+<ul>
+<li> Assigning public, stable, unique identifiers to reactions, thereby </li>
+<li> Disentangling enzyme numbers and reactions </li>
+<li> Removing redundancy </li>
+</ul>
+Partners from SIB and Uni Cologne expressed interest in this development.
+As a result, the reaction database Rhea was created.
+For more info, refer to the initial
+<a href="../specifications/intenzReactions/reactions.html">reaction
+specification</a> document and the <a href="http://rhea-ebi.sf.net">Rhea</a>
+project website.
+</p>
+
+
+</subsection>
+
+<a name="sources"></a>
+<subsection name="2.3 Sources of data">
+<p>
+<ol>
+  <li><a href="http://www.tcd.ie/">Trinity College Dublin</a> (TCD) 
+  maintains on behalf of the NC-IUBMB the Enzyme Classification List (HTML 
+  files).</li>
+  <li><a href="http://www.isb-sib.ch/">Swiss Institute of 
+  Bioinformatics</a> (SIB) produces ENZYME (ASCII file).</li>
+	</ol>
+	</p>
+</subsection>
+
+<a name="products"></a>
+</section>
+
+<section name="3. IntEnz products">
+
+<a name="relational"></a>
+
+<subsection name="3.1 Relational database">
+<p>The main product of this project is a relational database, IntEnz,
+which can be queried via the web interface.
+The updated figures can be found in the
+<a href="http://www.ebi.ac.uk/intenz/statistics.jsp"><i>statistics</i></a>
+page.<br/>
+Currently, we don't provide a downloadable database dump, which would
+be an Oracle dump only usable by Oracle installations.
+</p>
+</subsection>
+
+<a name="html"></a>
+<subsection name="3.2 HTML files">
+<p>The contents of the relational database can be browsed in form of 
+HTML files in the <a href="http://www.ebi.ac.uk/intenz">IntEnz website</a>,
+which show not only the IntEnz (integrated data) view, but
+also the NC-IUBMB and SIB views.
+</p>
+</subsection>
+
+<a name="enzyme"></a>
+<subsection name="3.3 ENZYME flat file">
+<p>
+The contents of the relational database is exported every night in form of ASCII file
+(enzyme_intenz.dat). It is essentially identical to the enzyme.dat flat file
+prepared by SIB (found at <a href="ftp://ftp.expasy.org/databases/enzyme/">
+ftp://ftp.expasy.org/databases/enzyme/</a>) which is used e.g. for UniProt anotation.
+In fact, the enzyme_intenz.dat file is used by SIB curators as a basis for their work to
+produce enzyme.dat. That way, enzyme data is curated just once using the IntEnz curator tool.
+	</p>
+	</subsection>
+
+<a name="intenzxml"></a>
+<subsection name="3.4 IntEnzXML">
+<p>IntEnz data is exported as
+<a href="ftp://ftp.ebi.ac.uk/pub/databases/intenz/xml">XML</a>,
+following the provided
+<a href="../specifications/intenzXml/intenzxml.html">specification</a>.</p>
+</subsection>
+
+<a name="biopax"></a>
+<subsection name="3.5 BioPAX export">
+<p>For compatibility with a broadly used standard, IntEnz is also exported as
+a <a href="ftp://ftp.ebi.ac.uk/pub/databases/intenz/biopax">BioPAX</a> file.</p>
+</subsection>
+
+<a name="curator_tool"></a>
+<subsection name="3.6 Curator tool">
+<p>
+Most of IntEnz annotation is done from outside of the EBI with the help of the
+<a href="../webapp/intenz-curator/index.html">IntEnz Curator Tool</a>.
+	</p>
+</subsection>
+
+</section>
+
+</body>
+</document>

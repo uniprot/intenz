@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding='iso-8859-1'?>
+<document>
+
+	<properties>
+		<author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
+		<title>Specifications</title>
+	</properties>
+
+	<body>
+		<section name="IntEnz XML">
+
+			<p>A XML format for exporting IntEnz data, containing all
+				three views.</p>
+
+			<subsection name="Background">
+				<p>We have received a number of requests for a dump of
+					IntEnz data in XML format. Though their number is
+					still little, the XML dump will prove to be useful
+					to many interested people in the future, as its parsing
+					is much more easy and straightforward than the flat file's.</p>
+			</subsection>
+			
+			<subsection name="Requirements">
+				<p>The requirements for this format have been extensively discussed
+					in a <a href="https://sourceforge.net/forum/forum.php?forum_id=529422">
+					sourceforge forum</a>.</p>
+			</subsection>
+
+			<subsection name="Documentation">
+				<p>
+					Javadoc-like documentation generated from schemas:
+				</p>
+				<ul>
+					<li>
+						<a href="enzymeXsdDoc/index.html">Single entry</a>
+						(<a href="xsd/enzyme.xsd">schema</a>)
+					</li>
+					<li>
+						<a href="intenzXsdDoc/index.html">Hierarchical tree (whole or partial)</a>
+						(<a href="xsd/intenz.xsd">schema</a>). Includes the single entry schema.
+					</li>
+				</ul>
+			</subsection>
+
+			<subsection name="Examples">
+				<ul>
+					<li>
+						<a href="examples/intenz01.xml">Single entry</a>
+					</li>
+					<li>
+						<a href="examples/intenz02.xml">Two entries within a tree</a>
+					</li>
+					<li>
+						<a href="examples/intenz03.xml">Transferred entry</a>
+					</li>
+					<li>
+						<a href="examples/intenz04.xml">Deleted entry</a>
+					</li>
+				</ul>
+
+			</subsection>
+			
+			<subsection name="Implementation">
+				<p>The implementation details for producing the XML out of the IntEnz database
+					are described in the <a href="../../../intenz-export/index.html">
+					IntEnz exporter module</a> page.</p>
+			</subsection>
+
+		</section>
+	</body>
+</document>

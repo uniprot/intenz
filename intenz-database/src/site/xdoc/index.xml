@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+		<title>IntEnz database</title>
+		<author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
+	</properties>
+	<body>
+		<section name="IntEnz database">
+			<p>This module contains scripts and documentation about the
+                IntEnz database, currently running on an Oracle server.
+			</p>
+		</section>
+	</body>
+</document>

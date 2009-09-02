@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding='iso-8859-1'?>
+<document>
+
+  <properties>
+    <author email="pmatos@ebi.ac.uk">Paula de Matos</author>
+    <title>Student Projects</title>
+  </properties>
+
+  <body>
+    <section name="Student Projects">
+       <p>
+        What follows is an outline of potential projects in IntEnz.
+       </p>
+
+       <subsection name="Reaction Ontology Project">
+          <p>An outline of the project can be found in the <a href="reaction_ontology_outline.html">Reaction Ontology Outline</a>.</p>
+
+       <p>
+          The Reaction Ontology Specification is available below:
+          <ul>
+          <li><a href="reaction_ontology_specification.html">Reaction Ontology Specification</a></li>
+      </ul>
+       </p>
+       <p>
+          A development preview can be seen here:
+          <ul>
+          <li><a href="OntologyEditService_specification.html">OES Specification</a></li>
+      </ul>
+       </p>
+        </subsection>
+
+    </section>
+  </body>
+</document>

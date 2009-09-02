@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<enzyme
+    xmlns="http://www.ebi.ac.uk/intenz"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.ebi.ac.uk/intenz ../xsd/enzyme.xsd ">
+    
+    <ec>EC 3.4.12.9</ec>
+    <deleted>
+        <note>aspartate carboxypeptidase</note>
+    </deleted>
+    <history>
+        EC 3.4.12.9 created 1972,
+        deleted 1978 (transferred to EC 3.4.17.5, deleted 1992)
+    </history>
+</enzyme>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    <properties>
+        <title>IntEnz release utils module change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+
+        <release version="1.1.2" date="2009-06-25"
+        	description="Updated dependencies">
+            <action dev="rafalcan" type="add">
+            	Updated dependencies on intenz.mapper, xchars.xchars,
+            	xchars.config and biobabel.db modules.
+            </action>
+        </release>
+
+        <release version="1.1.1" date="2008-06-06"
+        	description="Added dependency">
+            <action dev="rafalcan" type="add">
+            	Added dependency to compile scope - it was in test scope - to
+            	biobabel.db module.
+            </action>
+            <action dev="rafalcan" type="add">
+            	Added script <code>release.sh</code> to run sequentially the two
+            	main update scripts. 
+            </action>
+        </release>
+
+        <release version="1.1" date="2008-05-27"
+        	description="Reorganized directories">
+            <action dev="rafalcan" type="fix">
+                Moved sql directory under src/main. Updated scripts accordingly.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated to latest biobabel.db module dependency, to make use of
+                OracleDatabaseInstance.
+            </action>
+        </release>
+        
+    </body>
+</document>

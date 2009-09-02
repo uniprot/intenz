@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding='iso-8859-1'?>
+<document>
+
+  <properties>
+    <author email="pmatos@ebi.ac.uk">Paula de Matos</author>
+    <title>Reaction Ontology Outline</title>
+  </properties>
+
+  <body>
+    <section name="Reaction Ontology Outline">
+      <p>This outline will attempt to describe what the IntEnz Reaction Ontology project is.
+      After reading this document you should understand what the project entails, its deliverables,
+      who is involved and what timescales are expected.</p>
+       <p>The project can be subdivided into two parts, namely, specification and implementation.
+       The implementation will largely depend on what is determined during the specification process and
+       hence the implementation will not be discussed in great detail here.</p>
+       <subsection name="Reaction Ontology Specification">
+          <p>This deliverable is a technical document which will investigate various Reaction ontologies,
+          determine the use cases for our reaction ontology both internal and external. Then it should
+          come to a conclusion regarding what would be the best IntEnz scenario.</p>
+          <p>Below is an outline of what the specification should contain and the questions it should answer.</p>
+          <ol>
+             <li>Introduction</li>
+             <li>Background - mostly for your own benefit but very important for anyone with no background info into the project
+             <ul>
+                <li>What is an ontology?</li>
+                <li>What types of ontologies/graphs are there .e.g. DAG, Cyclic, hierarchical?</li>
+                <li>Why is an ontology useful?</li>
+                <li>What types of ontology formats are available e.g. OWL, OBO, DAML-OIL, RDF? Compare all
+                the benefits pros and cons?</li>
+                <li>What is IntEnz?</li>
+                <li>How would an reaction ontology fit into IntEnz data, give examples?</li>
+             </ul>
+             </li>
+             <li>User Requirements - you need to determine what users both internal and external expect from the project.
+                For this part Use Cases diagrams (UML) should be used to describe the user requirements.
+               <ul>
+                  <li>External users - all users outside of the biobabel group which might have a potential interest including the following:
+                     <ul>
+                        <li><a href="http://www.geneontology.org/">Gene Ontology</a></li>
+                        <li><a href="http://www.reactome.org/">Reactome project</a></li>
+                        <li><a href="http://www.ebi.ac.uk/thornton-srv/databases/MACiE/">MACiE</a></li>
+                        <li><a href="http://www.ebi.ac.uk/biomodels/">BioModels</a></li>
+                        <li><a href="http://www.ebi.ac.uk/pride/">PRIDE</a> and <a href="http://www.ebi.ac.uk/ontology-lookup/">OLS</a></li>
+                     </ul>
+                     In all cases you should give a description of what the database is about? How their data could link into
+                     IntEnz? How they could make use of a reaction ontology if they wanted to?
+                  </li>
+                  <li>Internal Users - all users within our group namely curators and developers.</li>
+               </ul>
+             </li>
+             <li>Available Reaction Ontologies - you need to determine what other ontologies are available and then
+                compare them. This comparison will consist of a spread sheet with benchmarks setup which will
+                depend on our user requirements. Useful websites:
+                <ul>
+                   <li><a href="http://obo.sourceforge.net/">OBO</a></li>
+                </ul>
+
+                In addition you should determine what API's are available, what components of these ontologies can
+                be reused in IntEnz and how many users actually use these ontologies.
+             </li>
+             <li>Conclusion - you should conclude all your results with comparisons over whether our requirements fit
+             into existing ontologies. What further functionality would be required etc...</li>
+          </ol>
+          <subsection name="People Involved and their roles">
+             <table>
+                <tr>
+                   <th>Name</th>
+                   <th>Role</th>
+                   <th>Description in context of project</th>
+                   <th>Location</th>
+                </tr>
+                <tr>
+                   <td>Kirill Degtyarenko</td>
+                   <td>IntEnz and ChEBI curator</td>
+                   <td>Primary source for biological background to the project.</td>
+                   <td>EBI - A239</td>
+
+                </tr>
+                <tr>
+                   <td>Rafael Alcantara</td>
+                   <td>IntEnz developer</td>
+                   <td>Primary IntEnz developer and can provide technical know-how for the project.</td>
+                   <td>EBI - A239</td>
+                </tr>
+                <tr>
+                   <td>Paula de Matos</td>
+                   <td>ChEBI developer</td>
+                   <td>Primary ChEBI developer and can provide techical ontology experience from ChEBI ontology.</td>
+                   <td>EBI - A239</td>
+                </tr>
+                <tr>
+                   <td>Marcus Ennis</td>
+                   <td>ChEBI curator</td>
+                   <td>ChEBI curator and can provide chemical knowledge in the project.</td>
+                   <td>EBI - A239</td>
+                </tr>
+                <tr>
+                   <td>Kristian Axelsen</td>
+                   <td>IntEnz curator</td>
+                   <td>IntEnz curator and can provide enzyme background to the project.</td>
+                   <td>SIB but based in Denmark</td>
+                </tr>
+                <tr>
+                   <td>Anne Morgat</td>
+                   <td>IntEnz curator</td>
+                   <td>IntEnz curator and can provide pathways knowledge to the project.</td>
+                   <td>SIB but based in Grenoble</td>
+                </tr>
+             </table>
+          </subsection>
+       </subsection>
+
+    </section>
+  </body>
+</document>

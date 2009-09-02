@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+
+    <properties>
+        <author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
+        <title>Specification for enhancement of IntEnz reactions</title>
+    </properties>
+
+    <body>
+
+        <div class="">Rhea is a biochemical reactions database already in
+            production, result of this specification.</div>
+
+       <section name="Table Of Contents">
+         <ul>
+            <li><a href="#Current_status">Current status and problems to solve</a></li>
+            <li><a href="#Goals">Goals</a></li>
+            <li><a href="#Existing_reaction">Existing reaction databases and data models</a></li>
+            <li><a href="#Potential_external">Potential external users of enhanced IntEnz reactions</a></li>
+            <li><a href="#Use-cases">Use-cases</a></li>
+            <li><a href="#Requirements">Requirements</a></li>
+            <li><a href="#Influence">Influence on existing systems</a></li>
+            <li><a href="#Conclusions">Conclusions</a></li>
+            <li><a href="#Timetable">Timetable</a></li>
+         </ul>
+       </section>
+        <a name="Current_status"/>
+        <section name="Current status and problems to solve" id="currentStatus">
+            <img src="../../../images/reactionsSpec/reactionsDbCurrentStatus.png"
+                 alt="reactions in the current DB schema"/>
+            <p>IntEnz includes one or more reactions per enzyme entry, as free
+                text. Those reactions have no unique identifiers, so if two
+                enzymes catalyze the same reaction, that means two rows in the
+                database containing the same equation string
+                (<i>redundancy</i>).
+                <br/>
+                Reactions are ordered for an enzyme entry with multiple
+                reactions, but there is currently no way to distinguish reaction
+                steps and alternative reactions (<i>ambiguity</i>).
+                <br/>
+                The string of characters which defines the equation has no link
+                to other databases for reactants and products
+                (<i>isolation</i>).
+                <br/>
+                Enzyme entries have a unique EC number which can eventually
+                change due to transfer or splitting. Besides, the curator tool
+                architecture assigns them an internal unique identifier which
+				changes whenever the entry changes its status
+                (<i>instability</i>).
+            </p>
+        </section>
+
+        <a name="Goals"/>
+        <section name="Goals">
+            <ul>
+                <li>Use a <b>controlled vocabulary of small molecules</b>
+                    available from <b><a href="http://www.ebi.ac.uk/chebi">ChEBI
+                    </a></b> and map IntEnz reactions (reactants and products)
+                    and cofactors to it. To that end, the current reaction
+                    and cofactor text will be parsed, extracting the names of
+                    compounds which will be mapped to ChEBI.</li>
+                <li><b>Stable and unique public identifiers</b> for reactions.
+                    Once achieved, it will be feasible to develop stable public
+                    identifiers for the enzyme entries themselves.</li>
+            </ul>
+        </section>
+
+        <a name="Existing_reaction"/>
+        <section name="Existing reaction databases and data models">
+        <!-- Benefits and drawbacks/ will they fit into our data structure -->
+           <subsection name="Databases">
+            <ul>
+                <li><a href="http://www.reactome.org/"><b>Reactome</b></a> has
+                    a different concept of reaction and enzyme compared to
+                    IntEnz. It takes into account the <i>compartment</i> where
+                    reactants and products are, and the <i>species</i> where
+                    reactions are found. Besides, reactions are also considered
+                    different because of their <i>catalyst</i>, which map to one
+                    UniProt entry at most.<br/>
+                    IntEnz, following NC-IUBMB design, considers a reaction as
+                    unique independently of the compartment, species or concrete
+                    catalyzing protein.
+                    <ul>
+                       <li>Database: Reactome uses the mySQL database and is pretty much tied to it
+                       via different constraints. It uses a non-traditional approach to load its
+                       schema from the database in that the schema is recreated from a 'schema_table'
+                       in the database. The traditional approach used by most EBI databases is to design
+                       tables and domain models that correspond, then use a mapping tool such as OJB,
+                       Toplink or JDBC to map the tables to the domain model. This is not done in Reactome
+                       this way because they anticipate many changes to their schema.<br/>
+                       <table>
+                          <tr><th>Advantages</th><th>Disadvantages</th></tr>
+                       <tr>
+                          <td>Generic schema format which could in theory map to any domain model.
+                          </td>
+                          <td>Non standard approach of database design - which means only a few specialised
+                          people could support it.</td>
+                       </tr>
+                       <tr>
+                          <td>--
+                          </td>
+                          <td>Would require us to move to MySQL - which would cost a minimum
+                          5 months full time development to move all our PL/SQL procedures developed
+                          for IntEnz. IntEnz does not using any generic mapping tools like Toplink or OJB
+                          so all the JDBC would need to be converted which would require a major revamp.</td>
+                       </tr>
+                          <tr>
+                          <td>--
+                          </td>
+                          <td>Long term maintenance of this project would be at risk as mySQL is not
+                          officially supported by any DBA's in our group.</td>
+                       </tr>
+                       </table><br/>
+                       </li>
+                       <li>Curator tool: Reactome has developed a standalone curator tool which uses
+                       the JAVA swing framework. The tool is dependent on using the database schema
+                       setup as described above. It is maintained by one developer based at the EBI.
+                          The tool loads in a schema setup based on the database table 'schema_table'.
+                          It then generates the domain model from this. It extracts an entry from the
+                          database and loads it locally for the curator to use. This is kind of a like
+                          a CVS facility. For any specialised treatment such as validation of the data you need to have
+                          utility classes. The tool has no validation for reactions which is a component
+                          we are desperately searching for.
+                          <table>
+                          <tr><th>Advantages</th><th>Disadvantages</th></tr>
+                       <tr>
+                          <td>Existing tool which is succesfully used in production by another group at the EBI.
+                          </td>
+                          <td>The tool is dependent on the database schema as described above. According
+                          to the developer if we deviate from using the generic database schema setup it would
+                          require a major revamp of the tool and in his opinion it would not be worth it.</td>
+                       </tr>
+                       <tr>
+                          <td>Using standard JAVA which is supported in our group.
+                          </td>
+                          <td>The validations which are currently done could cause a maintenance headache.
+                          Currently all validations are done via the STRUTS validation framework which
+                          ties in all the data neatly.</td>
+                       </tr>
+                          <tr>
+                          <td>The CVS facility is a great feature.
+                          </td>
+                          <td>Again the long term maintenance of this tool would be slightly worrying
+                          due to their non-standard approach to design. It is much easier to hire a
+                          developer who knows the STRUTS framework rather than a specific non-standard database
+                          tool.</td>
+                       </tr>
+                             <tr>
+                          <td>--
+                          </td>
+                          <td>Using tool would require some major rework and it does not make sense in
+                          the light that IntEnz already has a specialised curator tool with all the enzyme
+                          functionality in it. The IntEnz curator tool is stable and has been in production
+                          for over a year, in addition the curators are finally happy with it.</td>
+                       </tr>
+                       </table><br/>
+                       </li>
+                    </ul>
+                    </li>
+                <li><a href="http://www.ebi.ac.uk/thornton-srv/databases/MACiE/">
+                    <b>MACiE</b></a> deals with enzymatic reaction mechanisms,
+                    which means taking into account the protein structure (PDB
+                    and CATH data). That is out of the scope of IntEnz.<br/>
+                    As stated before, IntEnz reactions can't be different
+                    because of the catalyzing protein. MACiE reactions are.
+                    </li>
+<!--
+                <li><a href="http://www.brenda.uni-koeln.de/"><b>BRENDA</b></a>
+                    </li>
+ -->
+                <li><a href="http://www.genome.ad.jp/kegg/reaction/">
+                    <b>KEGG</b></a> has public reaction ids. Reactions are
+                    decomposed into reactants and products, with links to the
+                    corresponding KEGG compounds. The database can be
+                    searched - by reaction, compound or enzyme - using
+                    webservices and a
+                    <a href="http://www.genome.jp/kegg/soap/support/keggapi.jar">
+                    jar file</a> they provide. There is also a
+                    <a href="http://www.genome.jp/kegg/soap/doc/keggapi_manual.html">
+                    user manual</a> available.<br/>
+                    Although the KEGG reaction database will provide a very good
+                    validation and cross-reference source we are unable to use
+                    it because it does not contain the strict CV formatting
+                    requirements which is a must for IntEnz.<br/>
+                    However, we plan to use the KEGG reactions as an integral validation resource
+                   and also ease our cross mapping to reactions via the EC numbers.
+                    </li>
+              </ul>
+               </subsection>
+           <subsection name="Data Models">
+           <ul>
+                <li><a href="http://sbml.org/"><b>SBML</b></a>: the Systems
+                    Biology Markup Language is becoming a standard format
+                    for describing biochemical reaction networks. Based on XML
+                    and other XML standards (MathML, CellML), it is used by an
+                    increasing number of applications and databases
+                    (<a href="http://www.ebi.ac.uk/biomodels">BioModels</a> and
+                    <a href="http://reactome.org">Reactome</a> among others).
+                    <br/>
+                    SBML is not a database schema. Taken from the SBML FAQ:
+                    <br/>
+                    <i>There is no reason why SBML models could not be stored in
+                    a database, nor is there any reason why you could not use
+                    SBML as a schema. However, this was not the motivation for
+                    creating SBML. An SBML model is meant to encode a consistent
+                    view of knowledge of a biological system.</i>
+                    <br/>
+                    As BioPAX, SBML will be considered as as an import/export
+                    format for IntEnz reactions. To this end, there exist a
+                    <a href="http://jigcell.biol.vt.edu/jigcell/docs/SBML/index.html">
+                    jar file</a> by JigCell to read/write SBML level 2.
+                    </li>
+                <li><a href="http://www.biopax.org"><b>BioPAX</b></a>
+                    is a collaborative effort to create a data exchange format
+                    for biological pathway data using the OWL language.
+                    Though it tries to represent the same type of data as
+                    SBML, they differ in their views being BioPAX more
+                    qualitative, cross-reference and ontology-oriented, and SBML
+                    more quantitative and mathematics-oriented. Far from being
+                    incompatible, they can be mixed in the same XML document.
+                    <br/>
+                    BioPAX uses known standards, including pointers to GO, CML
+                    instances and SMILES format.
+                    <br/>
+                    The <a href="http://sourceforge.net/projects/jastor/">Jastor
+                    project</a> offers automatically generated APIs for several
+                    ontologies from their OWL files, among others a BioPAX API.
+                    <br/>
+                    BioPAX will be a first choice import/export format
+                    for IntEnz reactions. In addition it is attractive to use some of
+                   the interfaces provided by BioPAX in our reactions java model
+                   as they meet some of the requirements we aim at (association
+                   of EC numbers to reactions and cross-referencing of reaction
+                   participants, for example).
+                    </li>
+            </ul>
+
+            <p>The NC-IUBMB and ENZYME have strict requirements on how their
+                data and therefore their controlled vocabularies are written. It
+                is therefore not possible to use an external source as a
+                controlled vocabulary as we would be unable to guarantee the
+                formatting required by ENYZME and NC-IUBMB. For this reason we
+                need to use ChEBI as our controlled vocabulary because
+                <ul>
+                    <li>it contains all the molecules needed by IntEnz,</li>
+                	<li>it is written in the XML format required by IntEnz and
+                        hence allows conversion to the other views, i.e. ENZYME
+                        and NC-IUBMB, and</li>
+                	<li>it decreases redundancy as we will not have to maintain
+                        our own controlled vocabulary.</li>
+                </ul>
+            </p>
+           </subsection>
+        </section>
+
+        <a name="Potential_external"/>
+        <section name="Potential external users of enhanced IntEnz reactions">
+            <img src="../../../images/reactionsSpec/reactionsUsers.png"
+                 alt="IntEnz reactions users"/>
+            <ul>
+                <li><a href="http://www.ebi.ac.uk/embl/index.html">EMBL</a>:
+                	the submissions to EMBL database include annotations with
+                	EC numbers, which poses the same old problem of having
+                	instable public identifiers. In that cases, EMBL could check
+                    the EC no in IntEnz and keep a cross-reference to a
+                	reaction id.<br/>
+                	Another request from EMBL was having some kind of taxonomy
+                	information for the reaction. That is out of this
+                    specification's scope, but could be achieved by linking
+                	to Reactome of GO databases.</li>
+                <li><a href="http://www.reactome.org/">Reactome</a>:
+                    Bernard de Bono has showed interest in linking to IntEnz
+                    reactions, as well as importing them into Reactome be it
+                    using web services or an XML interchange format (BioPAX).
+                    </li>
+                <li><a href="http://www.ebi.ac.uk/interpro">InterPro</a>:
+                    metabolic pathways are described as sequences of InterPro
+                    entries, which map to EC numbers. Some of their entries
+                    have a <code>reaction</code> XML tag which contains a
+                    reaction as plain text. IntEnz reactions could be used by
+                    InterPro to link and update such information, in order to
+                    display reactions for InterPro entries. To that end, their
+                    curators would need to search the IntEnz reactions database.
+                    </li>
+            </ul>
+	    </section>
+
+       <a name="Use-cases"/>
+        <section name="Use-cases">
+            <subsection name="Abstract reactions">
+                <p>An <b>abstract reaction</b> has no clear definition of the
+                    biochemical process, the ambiguity coming from a broad range
+                    of reactants and/or products. Thus, its participants cannot
+                    be easily mapped to ChEBI. The only information for an
+                    abstract reaction is a textual description.<br/>
+                    This is the way in which every reaction is treated currently
+                    in IntEnz.</p>
+            </subsection>
+            <subsection name="Simple reactions">
+                <p>A <b>simple reaction</b> has no steps. It can be part of an
+                    overall (complex) reaction, i.e. be a <b>step reaction</b>.
+                    </p>
+                <img src="../../../images/reactionsSpec/reactionsSimpleUcd.png"
+                     alt="Use-case diagram"/>
+                <p>Deletion of reactions is actually a change of status (the
+                    data won't be removed from the database), much in the same
+                    way deletion of compounds is handled in ChEBI.</p>
+            </subsection>
+            <subsection name="Complex reactions">
+                <p>A <b>complex (overall) reaction</b> has two or more steps
+                    (simple reactions).</p>
+                <img src="../../../images/reactionsSpec/reactionsComplexUcd.png"
+                     alt="Use-case diagram"/>
+            </subsection>
+            <subsection name="Cofactors">
+                <p>Though not being part of the reaction itsef, <b>cofactors</b>
+                    will be reimplemented to take advantage of the new mapping
+                    to ChEBI, favouring the reuse of data in IntEnz.</p>
+                <img src="../../../images/reactionsSpec/reactionsCofactorsUcd.png"
+                     alt="Use-case diagram"/>
+            </subsection>
+            <subsection name="Enzyme entries">
+                <p>The assignment of reactions - simple or complex ones - to an
+                    enzyme entry will allow curators to select from existing
+                    reactions in the database, or create new ones if necessary.
+                    <br/>
+                    Several reactions assigned to the same enzyme entry are
+                    considered as alternative reactions. Sorting of alternative
+                    reactions will be implemented as well.</p>
+                <img src="../../../images/reactionsSpec/reactionsEnzymeUcd.png"
+                     alt="Use-case diagram"/>
+            </subsection>
+            <subsection name="IntEnz reactions users">
+                <p>End users and curators will query IntEnz for reactions
+                    (by EC number, reactant/product ChEBI id, reactant/product
+                    name...) using a web interface.<br/>
+                    External databases will update cross references to stable
+                    public reaction id's, querying the database or - in the
+                    future - using webservices.</p>
+                <img src="../../../images/reactionsSpec/reactionsUsersUcd.png"
+                     alt="Use-case diagram"/>
+            </subsection>
+        </section>
+
+        <a name="Requirements"/>
+        <section name="Requirements">
+
+            <subsection name="Dependencies on existing systems">
+                <p>
+                    The mapping of reactants, cofactors and products requires
+                    the use of the <b>ChEBI</b> database. It can be achieved in
+                    several ways:
+                    <ol style="list-style: lower-alpha">
+                        <li>Acting as a direct client of the ChEBI database,
+                            using JDBC for example.</li>
+                        <li>Acting as a client of the ChEBI internal Web
+                            Services, using HTTP calls.</li>
+                    </ol>
+                    The second solution seems simpler and cleaner, while
+                    providing all the information IntEnz needs about compounds.
+                    Drawback: not only the ChEBI database must be available,
+                    but the web services too.<br/>
+                    The retrieval of data from ChEBI would be only at curation
+                    time, to avoid overhead. So any needed compound information
+                    would be stored in the IntEnz DB and updated appropriately
+                    with every IntEnz release.
+               </p>
+            </subsection>
+
+            <subsection name="Platform requirements">
+                <p>
+                    IntEnz would need access to ChEBI, by adding the needed
+                    <b>web services</b> jar files and configuration files to the
+                    distribution.
+                </p>
+            </subsection>
+
+            <subsection name="Data fields required">
+                <p>An <b>unbalanced ("abstract") reaction</b> must have just a
+                    textual representation, like the current equation field.</p>
+                <p>A <b>balanced ("chemical") reaction</b> must meet the
+                    following requirements:
+                    <ul>
+                        <li>Have one or more different <b>reactants</b>.</li>
+                        <li>Have one or more different <b>products</b>.</li>
+                        <li>No reactant may exist among products, and viceversa.
+                            (there are exceptions to this rule!, in which case
+                            the reaction could be handled as unbalanced).</li>
+                        <li>Reactants and products must map to other database(s)
+                            - namely ChEBI - from which data - <b>name</b>,
+                            <b>formula</b> ... - will be collected and updated.
+                            Besides, they will have a <b>coefficient</b> for
+                            stoichiometry purposes.</li>
+                        <li>The <b>stoichiometry</b> must be valid.</li>
+                        <li>The reaction must be the same independently of
+                            the participants names (synonyms) and ordering.
+                            (This is independent of the final representation, as
+                            some reactions will need some cosmetic reordering,
+                            to put water after any other participants, for
+                            example).
+                            </li>
+                        <li>Whenever a reactant/product is shown as an option -
+                            "an aldehyde or ketone", for instance - the reaction
+                            will split into alternative reactions.</li>
+                    </ul>
+                </p>
+                <p>A reaction will have four possible <b>directions</b>:
+                	<ul>
+                		<li>"Left to right" (reactants -> products)</li>
+                		<li>"Right to left" (products -> reactants)</li>
+                		<li>Bidirectional</li>
+                		<li>Unknown directionality</li>
+               		</ul>
+               		Each of the directions will have a different unique identifier
+               		which will not include any directionality information.<br/>
+               		In case it is known that one of the directions does never
+               		happen, its status - see below - will be set to
+               		<i>obsolete</i> and so will (automatically) bidi/unknown
+               		identifiers.</p>
+                <p>Reactions will have a <b>status</b> flag to avoid real
+                    deletions in the database and hence to enforce stable
+                    identifiers.</p>
+                <p>Reactions will be <b>unique</b> within the database, that is:
+                    one reaction could be assigned to more than one enzyme
+                    (reusable).</p>
+                <p>Reactions could have <b>comments</b> and<b>links</b> to
+                	other databases (KEGG reactions, MACiE).
+                    Links (to KEGG "IUBMB" reactions, for example) will be
+                    automated whenever possible.</p>
+                <p>Reactions will have <b>qualifiers</b>:
+                	<i>"Polymerization"</i>, <i>"Class of reactions"</i> and
+                	<i>"Chemically balanced"</i>
+                	(<i><strike>"Spontaneous"</strike></i> has been discarded).
+                	These qualifiers are not mutually exclusive, and should
+                	be automated whenever possible, but still letting curators
+                	to annotate the reactions.</p>
+                <p><b>Complex (overall) reactions</b> will be made of two or
+                    more <b>single (step) reactions</b>. Summing single
+                    reactions will be possible, to yield a complex one.
+                    Splitting a simple reaction into steps will convert it
+                    into a complex one.<br/>
+                    Validation will be applied to complex reactions as well as
+                    their steps. Every step reaction will have a global
+                    coefficient in order to balance apropriately the overall
+                    reaction.<br/>
+                    For now, just one level of complexity will be allowed, that
+                    is a complex reaction of this type cannot be part (step)
+                    of another complex reaction.</p>
+                <p><strike>Step reactions will have a qualifier attached to it
+               		which defines it as a "Primary" reaction or "Secondary"
+               		reaction.</strike> (this was discarded, as it was really
+               		meant to be applied to elementary reactions - see below -,
+               		but even these cannot be qualified like this in an
+               		absolute way)</p>
+                <p>Other type of <b>complex (coupled) reactions</b> will have no
+                	specified steps, but will be the sum of two or more
+                	simultaneous unordered <b>elementary reactions</b>, which
+                	will act as reusable building blocks (for example,
+                	hydrolysis of ATP).<br/>
+                	These complex reactions without steps could act as steps
+                	in an overall transformation.</p>
+                <p>Reactions which currently include an <code>OR</code> operator
+                    in its equation text ("an aldehyde or ketone", for example)
+                    would split into two alternative reactions for the enzyme
+                    entry.</p>
+                <p>Complex <b>cofactors</b> (text including the operators ";",
+                	"and", "or") will be splitand mapped to ChEBI. The
+                	<code>OR</code> operator could have several meanings (to be
+                	decided if one is enough).</p>
+            </subsection>
+
+        </section>
+
+        <a name="Influence"/>
+        <section name="Influence on existing systems">
+            <subsection name="IntEnz database">
+                <p>
+                	The <b>database schema</b> should be modified as follows:
+                    <ul>
+                        <li>The current REACTIONS table will become
+                            obsolete, as abstract reactions will also be stored
+                            in the new table...</li>
+                        <li>A new table
+                            <b>INTENZ_REACTIONS</b> as a hub for other
+                            tables containing detailed data. It will store
+                            essential data as well as columns to speed up
+                            reactions search - FINGERPRINT - and visualization
+                            - EQUATION.</li>
+                        <li>A new table
+                            <b>REACTIONS_MAP</b> to map enzyme ids to reaction
+                            ids, as well as store the ordering of alternative
+                            reactions and web view for complex reactions (should
+                            their steps be shown?).</li>
+                        <li>A new table
+                            <b>COMPLEX_REACTIONS</b> will store a mapping for
+                            overall reactions to their steps, as well as their
+                            ordering and coefficient (if needed to balance the
+                            overall equation).</li>
+                        <li>A new table
+                            <b>REACTION_LINKS</b> for any cross references to
+                            KEGG reactions, UM-BDB...</li>
+                        <li>A new table
+                            <b>REACTION_CITATIONS</b> for any bibliographic
+                            references to the reaction.</li>
+                        <li>A new table
+                            <b>CV_REACTION_QUALIFIERS</b>.</li>
+                        <li>A new table
+                            <b>CV_REACTION_ROLES</b> will store the two possible
+                            roles in a reaction.</li>
+                        <li>A new table
+                            <b>REACTION_PARTICIPANTS</b> will link reactions to
+                            their reactants and products.</li>
+                       <li>A new table
+                            <b>CV_REACTION_PARTICIPANT_ROLE</b>.</li>
+                        <li>A new table
+                            <b>COMPOUND_DATA</b> will store data retrieved from
+                            ChEBI.</li>
+                        <li>The <b>COFACTORS</b> table will have a new column
+                            <b>COMPOUND_ID</b>, which will be primary key
+                            instead of COFACTOR_TEXT. It will also have two more
+                            columns: OPERATOR and OP_GRP, to handle complex
+                            cofactor texts.</li>
+                    </ul>
+                </p>
+                <img src="../../images/reactionsSpec/reactionsDbSchemaModifications2.png"
+                     alt="DB schema modifications"/>
+                <p>There is an <a href="reactionsExample.html">example</a>
+                    available (outdated, as of 2006-10-31).</p>
+                <p>
+                    As part of the future <b>data integrity checker</b>:
+                    <ul>
+                        <li>ChEBI id's used by IntEnz should be available in
+                            ChEBI, and should not be child compounds (these
+                            will be substituted by their parents in case of
+                            merging, during routine <b>automated ChEBI updates
+                            </b>). Whenever there is a chenge in ChEBI which
+                            propagates to IntEnz, both ChEBI and IntEnz
+                            curators should be warned to be aware of possible
+                            side effects (on enzyme.dat, for example).
+                            </li>
+                        <li>the stoichiometry of every reaction should be
+                            validated, not only at curation time but also
+                            after any ChEBI updates which could break the
+                            balance.</li>
+                    </ul>
+                </p>
+        	</subsection>
+
+            <subsection name="IntEnz data model">
+            <!--
+                <p>A new class <b><code>ReactionParticipant</code></b> is needed
+                    for reactants and products. Basically, this class would wrap
+                    a ChEBI compound and a stoichiometric coefficient. The
+                    <b><code>Compound</code></b> class doesn't need all of the
+                    complexity of ChEBI implementation, though a common
+                    interface should be used.</p>
+
+                <p>The <b><code>Reaction</code></b> class needs some
+                    refactoring:
+                    <ul>
+                        <li>constructor(s)</li>
+                        <li>add fields and accessor methods for the reaction id,
+                            reaction participants and links to external
+                            databases.</li>
+                        <li>add a field to map a reaction to a list of enzyme
+                            ids.</li>
+                        <li>equals and compare methods: should take into account
+                            the reaction participants.</li>
+                        <li>implement Commented interface.</li>
+                        <li>reaction steps could be summed to yield an overall
+                            reaction.</li>
+                        <li>generate a <i>fingerprint</i> of the reaction based
+                            on its participants and their coefficients. This is
+                            needed to quickly check the existence of a reaction
+                            in the database before inserting it.</li>
+                    </ul>
+                </p>
+
+                <p><code>Reaction</code> will have two subclasses:
+                    <b><code>OverallReaction</code></b> for complex (overall)
+                    reactions and <b><code>StepReaction</code></b> for step
+                    reactions. Objects of these classes could be connected using
+                    <b><code>ComplexReactionMap</code></b>s.</p>
+
+                <p>In order to assign reactions to enzymes, a new class
+                    <b><code>ReactionToEnzyme</code></b> will be implemented
+                    following the database schema. The
+                    <b><code>EnzymeEntry</code></b> class would be modified
+                    accordingly.</p>
+
+                <p>The <b><code>Cofactor</code></b> class will become a wrapper
+                    around <code>Compound</code>.</p>
+             -->
+
+	            <img src="../../images/reactionsSpec/reactionsDomainCd.png"
+                    alt="Class diagram"/>
+            </subsection>
+
+            <subsection name="IntEnz curator tool">
+                <p>The classes <b><code>ReactionDTO</code></b> and
+                    <b><code>CofactorDTO</code></b> should be modified according
+                    to <code>Reaction</code> and <code>Cofactor</code>.</p>
+
+                <p>A validation for stoichiometry - possibly based on the
+                    compounds formulae - should be implemented in the
+                    <code>biobabel</code> package and used by the
+                    <code>ReactionDTO</code> class.</p>
+
+                <p>A new class <b><code>ChebiHelper</code></b>
+                    should provide methods to use it as a ChEBI webservices
+                    client, retrieving information on the reaction participants:
+                    recommended name, formula, structure (image)...
+                    <br/>
+                    <img src="../../images/reactionsSpec/reactionsHelperCd.png"
+                         alt="Class diagram"/>
+                </p>
+
+                <p>A new class <b><code>CompoundMapper</code></b> would be
+                    responsible for retrieving compound data from the IntEnz
+                    database (data already imported from ChEBI). It should be
+                    used by <b><code>EnzymeReactionMapper</code></b> and
+                    <b><code>EnzymeCofactorMapper</code></b>.
+                    <br/>
+                    <img src="../../images/reactionsSpec/reactionsMapperCd.png"
+                         alt="Class diagram"/>
+                </p>
+
+                <p>The <b>web interface</b> should be extended to create and
+                    edit reactions (see a
+                    <a href="curatorToolModel/index.html">preliminary model</a>.
+                    Instead of a plain text field,
+                    buttons will be implemented to add alternative reactions,
+                    add steps or edit an existing reaction; a reaction editor
+                    will show up, including:
+                    <ul>
+                        <li>Lists of reactants and products</li>
+                        <li>Text fields and buttons to populate the mentioned
+                            lists with their content</li>
+                        <li>Fields to manage links to other databases: GO,
+                            Reactome, KEGG...</li>
+                        <li>Fields for comments on the reaction</li>
+                    </ul>
+                    Every reactant and product used by a curator in a reaction
+                    should be already present in ChEBI. In order to check this,
+                    the queries to ChEBI could be done at different times:
+                    <ol style="list-style: lower-alpha">
+                        <li>While the curator is selecting a compound.</li>
+                        <li>After the curator has submitted a compound name/id.
+                        	</li>
+                    </ol>
+                    The first option - using AJAX technology - not only helps
+                    curators, but also avoids typos and use of compounds which
+                    don't exist in ChEBI.
+                    <br/>
+                    Editing a reaction shared by two or more enzymes should
+                    display a warning message to avoid undesired changes.
+                </p>
+
+                <p>A post-condition should be added to the edition of new
+                    reactions: it must not be already present in IntEnz,
+                    otherwise the existing reaction will be used. The check
+                    would need a <i>fingerprint</i> of the reaction generated
+                    from its participants.
+                </p>
+            </subsection>
+
+            <subsection name="IntEnz releases">
+                <p>Before every IntEnz release, a ChEBI data update should be
+                    done (similar to the UniProt links import currently in use)
+                    to take into account eventual modifications of compounds
+                    (formula, name, mergings...).</p>
+            </subsection>
+
+        </section>
+
+       <a name="Conclusions"/>
+        <section name="Conclusions">
+            <p>
+               <ul>
+                  <li>Database: The database schema designed above has been viewed and corrected
+                     by various database specialists at the EBI. In addition the database has been
+                     designed with similar systems in mind such as Reactome. It was not possible
+                     to exactly adopt the Reactome database schema as it was far more complex than
+                     required by IntEnz. However the essential items such as Inputs and Outputs were
+                     adopted.<br/>
+                     There were certain constraints imposed on the Reaction schema due to our
+                     engagement with the NC-IUBMB data schema. For example, we still need to handle
+                     unbalanced reactions which are unlikely to be dealt with by NC-IUBMB in the near future.
+                     Also the cloning of enzymes means that we are forced to keep the enzymes and reactions
+                     in the same schema.
+                  </li><br/>
+                  <li>Domain Model: The Java Domain Model will be implemented using interfaces from
+                  the BioPAX project. The advantage is that we are standard compliant and because it's
+                  just an interface (it could always be easily removed if need be) we are not creating
+                  an unnecessary dependency. The decision was taken because the API resembled what we
+                  are trying to achieve with our reactions. Unfortunately there is no validation framework
+                  implemented in any of the domain models we looked at. SBML is another possible output
+                  format but it did not seem suitable to use it inhouse.</li><br/>
+                  <li>Curator tool: At this point in time there seems no clear advantage to use
+                  the Reactome Curator tool over our existing IntEnz tool. The IntEnz curator tool is a
+                   standard based system using the STRUTS web framework, Unit Of Work design pattern, STRUTS
+                     validation framework, TILES framework, JSTL tag libraries and STRUTS tag libraries.
+                     In addition the extention of this tool to accomodate Reactions would be minimal.
+                     Another advantage is that we have spent months ironing out the bugs and preferences
+                     that SIB and EBI curators had for the tool. It is now in an acceptable state.
+                     Introducing a new tool which would require the same amount of effort and bug fixes
+                     could cause major havoc to the colloborative spirit of this project.
+                  </li>
+               </ul>
+                </p>
+        </section>
+
+       <a name="Timetable"/>
+        <section name="Timetable">
+            <p>We estimate the project will take approximately 9 months. We have spent about 2 months
+               gathering requirements and writing this specification, hence we estimate in another
+               7 months we expect the project to be complete. See below for the project deliverables:
+                </p>
+           <p>
+                      <table width="100%">
+          <tr>
+            <td>
+              <b>Priority</b>
+            </td>
+            <td>
+              <b>Description</b>
+            </td>
+            <td>
+              <b>Developer</b>
+            </td>
+             <td>
+              <b>Estimate</b>
+            </td>
+          </tr>
+           <tr>
+            <td>
+              <b>1.</b>
+            </td>
+            <td>
+              Reaction database design and modelling.
+            </td>
+            <td>
+              RA and PdM
+            </td>
+            <td>
+               10 d
+            </td>
+          </tr>
+           <tr>
+            <td>
+              <b>2.</b>
+            </td>
+            <td>
+              Reaction database implementation.
+            </td>
+            <td>
+              RA
+            </td>
+              <td>20</td>
+          </tr>
+
+           <tr>
+            <td>
+              <b>3.</b>
+            </td>
+            <td>
+              Reaction mapping to ChEBI and ChEBI import.
+            </td>
+            <td>
+              RA
+            </td>
+              <td>45</td>
+          </tr>
+           <tr>
+            <td>
+              <b>4.</b>
+            </td>
+            <td>
+               Reaction validator.
+            </td>
+            <td>
+              RA
+            </td>
+              <td>20</td>
+          </tr>
+           <tr>
+            <td>
+              <b>5.</b>
+            </td>
+            <td>
+               Curator tool implementation of Reaction database.
+            </td>
+            <td>
+              RA
+            </td>
+              <td>40</td>
+          </tr>
+           <tr>
+            <td>
+              <b>6.</b>
+            </td>
+            <td>
+               Public tool implementation of Reaction database.
+            </td>
+            <td>
+              RA
+            </td>
+              <td>20</td>
+          </tr>
+              </table>
+           </p>
+        </section>
+
+    </body>
+
+</document>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <title>Import module</title>
+        <author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+        <section name="IntEnz import module">
+            Application to import cross references from external databases:
+            <ul>
+                <li><b>UniProt-SwissProt_</b> xrefs are retrieved from Kraken
+                    using the remoting API.
+                    DE lines are searched in SwissProt for active EC numbers in IntEnz.
+                </li>
+                <li><b>GO:</b> xrefs are retrieved from GO schema tables, where a
+                    cross reference to the EC classification exists.
+                </li>
+            </ul>
+            The import is done usually just before every IntEnz release, roughly every
+            month.
+        </section>
+    </body>
+</document>

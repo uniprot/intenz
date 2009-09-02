@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding='iso-8859-1'?>
+<document>
+	<properties>
+	        <author email="vast@ebi.ac.uk">Volker Ast</author>
+	        <title>Ontology Edit Service (OES) specification</title>
+	</properties>
+	
+	<body>	
+		
+		<section name="Introduction">
+		<p>
+		This document gives an overview over the planed functions, internal processes and the database
+		schema of the Ontology Edit Service (OES) tool. By using the OES tool, the user will be able to upload, edit, save and 
+		export an ontology in OBO format. 
+		</p>
+		</section>
+		
+		<section name="Content">
+         <ul>
+            <li><a href="#Functions_overview">OES style and functions</a></li>
+            <li><a href="#Workflow_diagrams">Workflow diagrams</a></li>
+            <li><a href="#Database_schema">Database schema</a></li>                        
+         </ul>
+       </section>		
+		
+		<section name="OES style and functions">
+			<a name="Functions_overview"></a>
+			<p>
+			The following PPT presentation gives an idea how the OES tool will look like and what
+			functions will be available. 
+			</p>
+			<a href="../images/oesSpecification/Ontology_Edit_Service_Outline.ppt">OES outline.</a>			
+		
+		</section>
+		
+		<section name="Workflow diagrams">
+			<a name="Workflow_diagrams"></a>
+			<p>
+			A detailed description of the used data and its workflow can be seen in the shown workflow diagrams.
+			There are graphics for the procedures Ontology Upload, Term Search, Edit Term and Manage Ontology.
+			</p>
+			<subsection name="Ontology Upload">
+			<img src="../images/oesSpecification/File_Upload.bmp" alt="File Upload"> </img>
+			</subsection>
+			
+			<subsection name="Term Search">
+			<img src="../images/oesSpecification/Term_Search.bmp" alt="Term Search"> </img>
+			</subsection>
+			
+			<subsection name="Edit Term">
+			<img src="../images/oesSpecification/Edit_Term.bmp" alt="Edit Term"> </img>
+			</subsection>
+			
+			<subsection name="Manage Ontology">
+			<img src="../images/oesSpecification/Manage_Ontology.bmp" alt="Manage Ontology"> </img>
+			</subsection>
+		
+		</section>
+	   	
+	   	<section name="Database schema">
+			<a name="Database_schema"></a>
+			<p>
+			The OES tool is based on the following database schema. This is similar to the schema
+			of the Ontology Lookup Service (OLS) but has several extensions in the tables "dbxref",
+			 "term", "annotation", "term_synonym" and "ontology". Furthermore it has three additional 
+			 tables "users", "term_access"  and "ontology_user".
+			 </p>
+			 <img src="../images/oesSpecification/OES_Table_Schema_Cleaned.gif" alt="OES Table Schema"> </img>
+			 <p>
+			The tables "term", "annotation", "term_synonym" and "dbxref" have been extended by the additional 
+			attributes "modified_by", "modified_at", "created_by" and "created_at". This should provide a traceability
+			to find out who created or modified which term, dbxref, annotation or synonym in a certain ontology and when. <br/>
+			The "ontology" table has the extra attributes "status", which can be either private or public and 
+			"allow_cycles", which indicates whether an ontology can contain cycles, i.e. a term could be linked to an ancestor term. <br/>
+			The additional table "users" contains information about registered users like name, password, email and company.			
+			The role of each user is determined in the "ontology_user" table, where a certain user can be either 
+			adminstrator or user of a certain ontology. Administrators have total access to their ontology(s)
+			and can give registered users access to a certain range of their ontology. This range is defined in the
+			table "term_access", where a certain user identified by his/her ID has access to the range specified by
+			the "term_id", i.e. all the terms which are direct or indirect descendants of this term.
+			</p>
+		</section>
+	   
+	</body>			
+</document>

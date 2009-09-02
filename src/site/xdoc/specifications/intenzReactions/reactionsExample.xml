@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    
+    <properties>
+        <author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
+        <title>Specification for enhancement of IntEnz reactions</title>
+    </properties>
+    
+    <body>
+
+    <section name="Enhanced IntEnz reactions: an example">
+    
+    <p>Let's take EC 1.1.1.27 as an example. Currently, the reaction this enzyme
+        catalyzes is stored in IntEnz as a plain String:
+        <br/>
+        <code>
+            (&lt;stereo&gt;S&lt;/stereo&gt;)-lactate + NAD&lt;smallsup&gt;+&lt;/smallsup&gt; = pyruvate + NADH + H&lt;smallsup&gt;+&lt;/smallsup&gt;
+        </code>
+        <br/>
+        It could have been stored as:
+        <br/>
+        <code>
+            NAD&lt;smallsup&gt;+&lt;/smallsup&gt; + (&lt;stereo&gt;S&lt;/stereo&gt;)-lactate  = pyruvate + NADH + H&lt;smallsup&gt;+&lt;/smallsup&gt;
+        </code>
+        <br/>
+        or any other possible combination. It would always be the same reaction
+        but for a computer it wouldn't.<br/>
+        So we intend to map every reaction participant to ChEBI so that to use
+        a public stable identifier:
+        <ul>
+            <li><code>(&lt;stereo&gt;S&lt;/stereo&gt;)-lactate</code> =
+                <a href="http://www.ebi.ac.uk/chebi/searchFreeText.do?searchString=%28S%29-lactate">CHEBI:16651</a></li>
+            <li><code>NAD&lt;smallsup&gt;+&lt;/smallsup&gt;</code> = <a href="http://www.ebi.ac.uk/chebi/searchFreeText.do?searchString=NAD%2B">CHEBI:15846</a></li>
+            <li><code>pyruvate</code> = <a href="http://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:15361">CHEBI:15361</a></li>
+            <li><code>NADH</code> = <a href="http://www.ebi.ac.uk/chebi/searchFreeText.do?searchString=NADH">CHEBI:16908</a></li>
+            <li><code>H&lt;smallsup&gt;+&lt;/smallsup&gt;</code> = <a href="http://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:15378">CHEBI:15378</a></li>
+        </ul>
+        Then, a reaction <i>could</i> look like this (it won't!):
+        <br/>
+        <code>CHEBI:15846 + CHEBI:16651  = CHEBI:15361 + CHEBI:15378 + CHEBI:16908</code>
+        <br/>
+        This reaction can't be duplicated because we are not using any synonyms
+        nor shuffling compounds. Thus, it can have a stable public identifier,
+        no matter what's the EC number of the enzyme it is assigned to.
+    </p>
+    
+    <p>This is how data would be stored:<br/>
+        <small>Note: only data for (S)-lactate is shown for tables
+        REACTION_PARTICIPANTS and COMPOUND_DATA. Current implementation in blue,
+        designed future implementation in green.</small>
+        <img src="../../images/reactionsSpec/reactionsExample.png"
+            alt="Reaction example"/>
+        <br/>
+    </p>
+    </section>
+    
+    
+
+
+    </body>
+    
+</document>

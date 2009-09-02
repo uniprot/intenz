@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    <properties>
+        <title>IntEnz import module change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+        <release version="1.0.4" date="2009-08-12"
+            description="Moved database configuration files.">
+        	<action dev="rafalcan" type="fix">
+        		Removed database configuration files from the project (will be read from
+        		a safe configuration directory, somewhere else).
+        	</action>
+        	<action dev="rafalcan" type="add">
+        		Added dependency on biobabel.db modules.
+        	</action>
+		</release>
+        <release version="1.0.3" date="2009-05-07" description="Updated remoting API">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest UniProt remoting API, avoiding deprecated
+                classes.
+        	</action>
+		</release>
+        <release version="1.0.2" date="2008-08-20" description="Updated remoting API">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest UniProt remoting API for DE line changes.
+        	</action>
+		</release>        
+    </body>
+</document>

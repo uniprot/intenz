@@ -1,0 +1,11 @@
+<Context displayName="IntEnz public webapp" path="/intenz_public"
+  docBase="${project.build.directory}/${project.build.finalName}.war">
+
+   <Parameter name="dbConfig" value="intenz-db-dev" override="false"/>
+<!--
+   <Parameter name="dbConfig" value="intenz-db-test" override="false"/>
+   <Parameter name="dbConfig" value="intenz-db-public" override="false"/>
+   <Parameter name="dbConfig" value="intenz-db-public2" override="false"/>
+ -->
+
+</Context>

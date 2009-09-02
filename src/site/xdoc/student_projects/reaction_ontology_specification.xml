@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding='iso-8859-1'?>
+<document>
+	<properties>
+        <author email="vast@ebi.ac.uk">Volker Ast</author>
+        <title>Reaction ontology specification</title>
+    </properties>
+	
+	<body>	
+		
+		<section name="Introduction">
+		<p>
+		This document should give an outline about the planed reaction ontology project.
+		An overview over several languanges/syntaxes which are suitable for
+		creating an ontology is given in the first section. The advantages and disadvantages 
+		of each language are shown. The second section describes the existing editors and API's 
+		for creating or manipulate ontologies. An overview over already existing reaction ontologies 
+		is given in section three.  
+		</p>
+		</section>
+		
+		<section name="Content">
+         <ul>
+            <li><a href="#formats">Overview over several Ontology formats</a></li>
+            <li><a href="#Available_Editors_APIs">Available editors and API's</a></li>
+            <li><a href="#Existing_Reaction_Ontologies">Existing reaction ontologies</a></li>            
+            <li><a href="#BioPAX_and_SBML">BioPAX and SBML</a></li>
+         </ul>
+       </section>
+		
+		<a name="formats"></a>
+		<section name="Overview of several Ontology formats">
+		<a name="formats"></a>
+			<table border="1">
+				<colgroup>
+				<col width="120"/>
+				<col width="120"/>
+				<col width="120"/>
+				<col width="120"/>
+				<col width="120"/>
+				</colgroup>
+				<tr>
+				 <td> </td>
+				 <td>OWL</td>
+				 <td>OBO</td>
+				 <td>DAML+OIL</td>
+				 <td>RDF(S)</td>
+				</tr>
+				<tr>
+				 <td>Use</td>
+				 <td>widely-used</td>
+				 <td>widely-used</td>
+				 <td>used, but now deprecated</td>
+				 <td>widely used as part of OWL</td>
+				</tr>
+				<tr>
+				 <td>Readability by humans</td>
+				 <td>medium</td>
+				 <td>good</td>
+				 <td>medium</td>
+				 <td>medium</td>
+				</tr>
+				<tr>
+				 <td>Documentation</td>
+				 <td>very good</td>
+				 <td>medium</td>
+				 <td>good</td>
+				 <td>good</td>
+				</tr>
+				<tr>
+				 <td>Expressiveness</td>
+				 <td>very good</td>
+				 <td>good</td>
+				 <td>medium</td>
+				 <td>poor</td>
+				</tr>
+				<tr>
+				 <td>Graphs</td>
+				 <td>allows inverse relationships</td>
+				 <td>allows inverse relationships</td>
+				 <td>DAG's</td>
+				 <td>hierarchical</td>
+				</tr>
+				<tr>
+				 <td>Editors</td>
+				 <td>COBRA, Protege, SWOOP</td>
+				 <td>AMIGO, OBO-Edit</td>
+				 <td>Protege</td>
+				 <td>COBRA, Protege, SWOOP</td>
+				</tr>
+				<tr>
+				 <td>API's</td>
+				 <td>OWL-API, Jena API, Protege API</td>
+				 <td>(Protege API)</td>
+				 <td>-</td>
+				 <td>Jena API, Protege API</td>
+				</tr>
+			</table>		
+		
+				
+		<subsection name="OWL">
+			<p>
+			OWL is the official successor of DAML+OIL and can be represented in RDF and XML syntax.
+			It is available in three different versions OWL_Lite, OWL_DL and OWL_Full with rising expressiveness.
+			OWL_Full is probably the most powerful language to describe ontologies at the moment. Depending on the OWL version, 
+			it has more possibilities to describe properties and classes than DAML+OIL or RDFS, for example 
+			cardinalities, more types and characteristics of properties, (in)equality between classes and enumerated classes.
+			Schema data and instance data are divided strictly within an OWL ontology.
+			In an OWL document it is also possible to import already existing ontologies and reuse defined classes or properties.
+			</p>			
+			<p>
+			To describe the basic statements of OWL, we have a look at the following simple model:
+			<p>
+			    
+			</p>			
+        	<img src="../images/Man_Woman_Ontology.png" alt="Man_Woman_Ontology">            
+        	</img>
+        	</p>
+        	<p>
+        	This model can be seen in 
+			<a href="examples/OWL_ontology_example.owl">OWL syntax.</a>
+			</p>
+			<p>
+			A small collection of further OWL statements can be found
+			<a href="examples/OWL_specification.owl">here.</a>
+			</p>
+			<!--
+			Source of the Man_Woman_Ontology
+			<a href="http://www.xmlaustin.org/wk/388/4/Ray_Ellis_RDF_Talk.pdf">OWL Example</a> 			
+			 -->
+			
+			<p>
+			Organisations which use the OWL format for biological ontologies are among others:
+			<ul>
+				<li><a href="http://www.co-ode.org/ontologies/bio-tutorial/">CO-ODE/HyOntUse</a></li>
+				<li><a href="http://www.cs.concordia.ca/FungalWeb/">FungalWeb</a></li>
+				<li><a href="http://www.biopax.org/">BioPAX</a></li>
+				<li><a href="http://www.mindswap.org/2003/CancerOntology/">National Cancer Institut Thesaurus</a></li>				
+				<li><a href="http://mged.sourceforge.net/ontologies/MGEDontology.php">Microarray Gene Expression Data Society</a></li>				
+			</ul>
+			</p>
+		</subsection>		
+		<subsection name="OBO">
+			<p>
+			OBO describes unrooted and possible cyclic directed graphs. The concepts which are modeled are a subset of the 
+			concepts modeled in OWL, for example you can't define as much property restrictions as in OWl. But OBO has several 
+			extensions like references or synonyms which can't be modeled in OWL.	
+			An ontology written in the OBO format can also be integrated in the Onology Lookup Service (OLS). Furthermore it is:
+			</p>
+			<ul>
+				<li> easy readable and understandable for humans</li>
+				<li> easy to parse</li>
+				<li> extensible with regard to further relationships</li>
+				<li> minimal with regard to redundancy within the document</li>				
+			</ul>
+			<p>
+			The example shown above can be seen in 
+			<a href="examples/Man_Woman_Ontology.obo">OBO syntax</a>.
+			Organisations which use the OBO format for biological ontologies are among others:
+			<ul>
+				<li><a href="http://www.brenda-enzymes.org//">BRENDA</a>(Brenda tissue ontology)</li>
+				<li><a href="http://www.inoh.org/">INHO Pathway Database</a>(Molecule role ontology)</li>
+				<li><a href="http://www.geneontology.org/">Gene Ontology</a>(Molecular Function, Biological Process and Cellular Component Ontology)</li>
+				<li><a href="http://psidev.sourceforge.net/mod/">HUPO</a>(Protein modification ontology)</li>
+				<li><a href="http://www.plantontology.org/download/download.html">Plant Ontology Consortium</a>(Plant structure/development ontology)</li>
+			</ul>	
+			</p>
+			
+		</subsection>
+		<subsection name="DAML+OIL">
+			<p>
+			DAML+OIL is the predecessor of OWL and also uses the RDF syntax. It has some more functions than RDFS, for example it 
+			has more exressiveness with regard to defining classes and allows computers to draw simple conclusions from existing knowledge.
+			Nevertheless, it is not as powerful as OWL or OBO.
+			An example ontology written in DAML can be seen here:
+			<p>
+			<a href="http://www.daml.org/2001/03/daml+oil-ex">DAML+OIL Example</a> 			
+			</p>
+			</p>
+		</subsection>
+		<subsection name="RDFS">
+			<p>
+			RDFS is the simplest language of the four and uses of course the RDF syntax too. It was actually developed to provide meta data in the www.
+			It allows the user to describe simple domain ontologies by using the class-subclass concept and to name resource types and relationships.
+			</p>
+		</subsection>
+	   </section>	   
+	   
+	   <section name="Available Editors and API's">
+	   <a name="Available_Editors_APIs"/>	
+		<subsection name="Editor specifications">
+		 <p>
+		  <a href="http://www.xspan.org/applications/cobra/index.html">COBra</a> 
+		  is an ontology editor for editing and browsing ontologies written in the GO flat file format (which
+		  is now deprecated), OWL or RDF format. Ontologies written in the OBO format can't be loaded.
+		  It supports mapping of two different ontologies by linking related terms. Therefore it is more suitable 
+		  for comparing two ontologies than for creating a new ontology. It is available for Linux, Windows and OS X and needs Java 1.4 to run.
+		 </p>
+		 <p>
+		  The <a href="http://protege.stanford.edu/">Protege</a>
+		  platform provides creating and manipulating ontologies written in the OWL or RDF format. It has many functions which 
+		  help the developer to create new ontologies, for instance creating multiple subclasses for existing superclasses, check 
+		  the consistency within the ontology or generate Java code with its API (see below). It also has a ontology graph visualization tool. It is possible to
+		  develop plugins for this tool. Protege is available for all common OS's, including Windows, Linux and OS X.		  
+		 </p>
+		 <p>
+		 The ontology editor <a href="http://www.mindswap.org/2004/SWOOP/">SWOOP</a> also supports OWL and RDF format.
+		 One advantage of this tool is the built-in address bar which allows the user to include Ontologies from the web for 
+		 mapping or comparison with other ontologies. At the moment there is no function to visualize the ontology in 
+		 a graph structure. It is available for Windows, there are no informations about other OS's.		
+		 </p>
+		 <p>
+		 <a href="http://semweb.salzburgresearch.at/apps/rdf-gravity/index.html">RDF Gravity</a> and
+		 <a href="http://maria.grci.com/codipsite/Tools/Components.html">OGraph</a> are tools for visualizing, but
+		 not for creating or editing new ontologies.
+		 </p>
+		 <p>
+		 A tool which only supports the OBO format is <a href="http://www.godatabase.org/dev/java/oboedit/docs/index.html">OBO-Edit</a>, formaly known as DAG-Edit.
+		 It offers the common features creating and editing ontologies as well as searching for terms in an ontology. 
+		 It is available for the usual OS like Windows, Linux, Unix and OS X. 
+		 </p>
+		 <p>
+		 <a href="http://www.godatabase.org/cgi-bin/amigo/go.cgi">AmiGO</a> was specially developed to browse and 
+		 visualize ontologies from the GeneOntology (GO) database. Additionally, it is possible to do requests by searching for special
+		 terms in the available ontologies.
+		 </p>		 
+		</subsection>
+		
+		<subsection name="API specifications">
+		<p>
+		<a href="http://owl.man.ac.uk/api.shtml">OWL API</a> is an open-source (cvs) interface written in Java and provides
+		programmatic access to OWL ontologies. That means concrete: you can develop an OWL document from an external source
+		as well as manipulate an existing OWL document. It also can be used to check if an OWL document is written in a 
+		correct OWL-syntax and which kind of OWL version is used (OWL-LITE, OWL-DL, OWL-FULL). However, it is still in alpha stage.
+		</p>
+		<p>
+		The <a href="http://jena.sourceforge.net/">Jena API</a> is an open-source (cvs) Java programmatic environment
+		with API's for OWL and RDF, coming from the Jena framework. It provides methods to create and manipulate OWL and RDF
+		files or do queries on these files. You also have access to a inference engine. 
+		</p>
+		<p>
+		Another open-source Java API for ontologies is <a href="http://protege.stanford.edu/plugins/owl/api/index.html">Protege API</a> which is part of the
+		Protege project (see above). You can built Java interfaces, schema classes and Protege OWL Java code automatically.
+		<a href="http://gong.man.ac.uk/downloads/">Bong</a> is a plugin for Protege which supports the
+		import of OBO-ontologies into Protege and convert them into OWL-DL or OWL-Lite. 
+		</p>
+		</subsection>	
+	   </section>
+	   <p>
+	   </p>
+	   <p>
+	   </p>
+	   
+	   <section name="Existing Reaction Ontologies">
+	   <a name="Existing_Reaction_Ontologies"/>
+	    <subsection name="System Biology Ontology">
+		 <p>
+			The <a href="http://www.ebi.ac.uk/compneur-srv/sbo/">System Biology Ontology</a> was created by
+			the group of Nicolas Le Novere @ EBI and is available in the OBO format.
+			The main focus of this ontology is to describe kinetics of biochemical reacions
+			like Michaelis-Menten equation or Hill equation. It lists several kinds of reactions like "binding"
+			or "redox reaction" abstractly, but not detailed enough. Besides it doesn't distinguish between for example
+			enzymatic and non-enzymatic or reversible and irreversible reactions.		
+		 </p>
+		 <p>
+	     <img src="../images/sbo_ontology.jpg" alt="SBO_Ontology">
+         </img>
+        	
+	     </p>	    
+	    </subsection>
+	    <subsection name="BioCyc Ontology">
+	     <p>
+	     <a href="http://biocyc.org/">BioCyc</a> is a collection of more than 200 pathway/genome databases. The BioCyc
+	     reaction ontology follows the EC hierarchy of enzymes to put the reactions in order which results in considering
+	     only enzymatic reactions. Furthermore it doesn't realize the distinction between overall reactions and reactions steps
+	     or the order of single reaction steps. There is another BioCyc ontology, the pathway ontology which is a classification
+	     hierarchy of metabolic pathways. The pathways are classified by their biological function and the classes of the metabolites
+	     which they produce.
+	     </p>
+	     <p>
+	     <img src="../images/BioCyc.jpg" alt="BioCyc_Ontology">            
+        	</img>
+	     </p>
+	    </subsection>
+	    <subsection name="KEGG Ontology">
+	    <p>
+	    <a href="http://www.genome.jp/dbget-bin/get_htext?ko00002.keg">KEGG Pathway Modules</a> classifies enzymatic reactions
+	    and the corresponding enzymes on the basis of the biochemical process, for example metabolism, protein biosynthesis or lipid
+	    biosynthesis. The reactions are numbered by unique numbers independently from the enzyme numbers. The single reactions are mapped
+	    to the according pathway or to another reaction which is for example a two-step-reaction, but the order of the reaction steps isn't
+	    considered. Furthermore, all listed reactions are only reversible reactions. 
+	    </p>
+	    <p>
+	     <img src="../images/Kegg.jpg" alt="Kegg_Ontology">            
+        	</img>
+	     </p>
+	    </subsection>
+	    <subsection name="Physico-chemical process Ontology">
+	     <p>
+	     The <a href="http://obo.sourceforge.net/cgi-bin/detail.cgi?rex">Physico-chemical process Ontology</a> is available in the OBO format and 
+	     considers biochemical reactions as a subset of other chemical reactions and physico-chemical processes. Biochemical reactions are arranged 
+	     according to their kind of reaction, for instance biological electron transfer reaction, biomacromolecule-catalysed reaction or biotransformation 
+	     reaction. Nevertheless, there are only abstract reactions listed and no concrete reactions. Furthermore it doesn't use reversible/irreversible 
+	     and enzymatic/non-enzymatic reactions as a classification criterion. However, there are also microscopic processes listed like electron transfer 
+	     or subatomic processes (not visible in the sreenshot).
+	     </p>
+	     <p>
+	     <img src="../images/rex.jpg" alt="Rex_Ontology">            
+        	</img>
+	     </p>
+	    </subsection>
+	    <subsection name="Gene Ontology">
+	     <p>
+	      Biochemical reactions are modeled in the <a href="http://www.geneontology.org">Gene Ontology</a> in two ways. On the one hand, they are 
+	      ordered as abstract kinds of metabolism like biosynthesis, catabolism or secondary metabolism. There is no distinction between reversible and
+	      irreversible or enzymatic and non-enzymatic reactions. A listing and an order of reactionsteps is also missing. On the other hand, 
+	      reactions are described as subentities of molecular functions, like binding or catalytic activity (not visible in the screenshot). 	      
+	     </p>
+	     <p>
+	     <img src="../images/gene_ontology.jpg" alt="Gene_Ontology">
+        	</img>
+	     </p>
+	    </subsection>
+	    <subsection name="Event Ontology">
+	     <p>
+	      The <a href="http://www.inoh.org/ontology-viewer/">Event Ontology</a> is available in the OBO format and lists metabolic reactions as a kind of
+	      a molecular event. The classification follows in essence the EC hierarchy, although the order differs. The main focus is the cellular compartement in 
+	      which the reaction takes place, for example there are hydrolysis in the cytosol, hydrolysis in the nucleus, hydrolysis in the plasma membran etc.
+	      A distinction between enzymatic and non-enzymatic is missing as well as distinction between reversible/irreversible reactions.
+	     </p>
+	     <p>
+	     <img src="../images/EventOntology.jpg" alt="EventOntology">            
+        	</img>
+	     </p>
+	    </subsection>   	     
+	   </section>
+	   <section name="BioPAX and SBML">
+	   <a name="BioPAX_and_SBML"></a>
+	    <subsection name="BioPAX">
+	     <p>
+	     BioPAX is a file format for the exchange of biological pathway data. BioPAX Level 1 was created to represent metabolic pathways. 
+	     BioPAX Level 2 provides some additional possibilities to represent data, like molecular binding interactions, post-translational
+	     modification or hierachical pathways. The <a href="http://www.biopax.org/release/biopax-level2.owl">BioPAX-Level2 Ontology</a>
+	     is written in the OWL-format and is the abstract representation of biological pathways, i.e. their concepts and the relationships to each other.
+	     The BioPAX file format is the implementation of the BioPAX ontology and defines the syntax of the data representation.
+	     The Jena Framework provides an Java API for creating BioPAX files.	     
+	     </p>
+	    </subsection>
+	    <subsection  name="SBML">
+	    <p>
+	    The System Biology Markup Language(SBML) is a description language for modeling biochemical reaction networks 
+	    based on XML. It also includes the representation of cell-signaling pathways and regulatory networks. 
+	    The main focus is however more on system biology and kinetics than on reaction details. It doesn't provide
+	    for example Xrefs to other databases or synonyms for reaction participants like BioPAX.
+	    </p>
+	    </subsection>
+	   </section>
+	</body>			
+</document>

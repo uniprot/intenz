@@ -1,0 +1,73 @@
+<rdf:RDF
+	
+	//defining xml namespaces
+	
+	xmlns="http://owl.protege.stanford.edu#"
+	xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:owl="http://www.w3.org/2002/07/owl#">
+
+ <owl:Ontology rdf:about="">
+  <owl:imports rdf:resource="http://protege.stanford.edu/plugins/owl/protege"/>
+ </owl:Ontology>
+ 
+ //defining classes "Person", "Man" 
+ 
+ <owl:Class rdf:ID="Person"/>
+ <owl:Class rdf:ID="Man">
+ 
+ // determine that "Man" is a subclass of "Person"
+ 
+  <rdfs:subClassOf rdf:resource="#Person"/>
+  
+  // determine that the classes "Man" and "Woman" are disjoint, that means an instance of the class "Man"
+  // can't be an instance of the class "Woman" and vice versa
+  
+  <owl:disjointWith>
+   <owl:Class rdf:about="#Woman"/>
+  </owl:disjointWith>
+ </owl:Class>
+ 
+ //defining of the class "Woman" analogous
+ 
+ <owl:Class rdf:ID="Woman">
+  <rdfs:subClassOf rdf:resource="#Person"/> 
+  <owl:disjointWith>
+   <owl:Class rdf:about="#Man"/>
+  </owl:disjointWith> 
+ </owl:Class>
+ 
+ //defining the relationship "isHusbandOf"
+ 
+ <owl:ObjectProperty rdf:ID="isHusbandOf"
+  rdf:type="http://www.w3.org/2002/07/owl#FunctionalProperty">
+  
+  //determine the domain and the range of the relationship, that means only an instance of the class "Man"
+  //can join the relationship "isHusbandOf with an instance of the class "Woman"
+    
+  <rdfs:domainrdf:resource="#Man"/>
+  <rdfs:rangerdf:resource="#Woman"/>
+  
+  //define that the relationship "isHusbandOf" is the inverse relationship of "isWifeOf"
+  
+  <owl:inverseOf rdf:resource="#isWifeOf"/>
+  
+  //determine the min and max cardinalities for this relationship, that means an instance of the class "Man"
+  //can be the husband of at least one woman and of at most one woman (except he is moslem or mormon).
+  
+  <owl:minCardinality>1</owl:minCardinality>
+  <owl:maxCardinality>1</owl:maxCardinality>
+ </owl:ObjectProperty>
+ 
+ //define the relationship "isWifeOf" analogous
+ 
+ <owl:ObjectProperty rdf:ID="isWifeOf"
+  rdf:type="http://www.w3.org/2002/07/owl#FunctionalProperty">
+  <rdfs:domainrdf:resource="#Woman"/>
+  <rdfs:rangerdf:resource="#Man"/>
+  <owl:inverseOf rdf:resource="#isHusbandOf"/>
+  <owl:minCardinality>1</owl:minCardinality>
+  <owl:maxCardinality>1</owl:maxCardinality>
+ </owl:ObjectProperty>
+</rdf:RDF>

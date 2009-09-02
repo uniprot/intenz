@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<rdf:RDF	
+	xmlns="http:owl.protege.stanford.edu#"
+	xmlns:protege="http:protege.stanford.edu/plugins/owl/protege#"
+	xmlns:rdf="http:www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http:www.w3.org/2000/01/rdf-schema#"
+	xmlns:owl="http:www.w3.org/2002/07/owl#">
+	
+<!--Defining Classes-->
+
+<owl:Class rdf:ID="Name_of_the_class"/>
+
+<!--Defining Subclasses-->
+
+<owl:Class rdf:ID="Name_of_the_subclass">
+	rdfs:subClassOf rdf:resource="#Name_of_the_superclass"/>
+</owl:Class>
+
+<!--Defining Instances of classes-->
+
+<Name_of_the_class rdf:ID="Name_of_the_instance" />
+
+<!--Defining Properties/Relationships for source_Class to target_Class-->
+
+<owl:ObjectProperty rdf:ID="Name_of_the_property">
+	<rdfs:domain rdf:resource="#Name_of_the_source_Class"/>
+	<rdfs:range rdf:resource="#Name_of_the_target_Class"/>
+</owl:ObjectProperty>
+
+<!--Defining Subproperties-->
+
+<owl:ObjectProperty rdf:ID="Name_of_the_property">
+	<rdfs:subPropertyOf rdf:resource="#Name_of_the_SuperProperty"/>
+	<rdfs:domain rdf:resource="#Name_of_the_source_Class"/>
+	<rdfs:range rdf:resource="#Name_of_the_target_Class"/>
+</owl:ObjectProperty>
+
+<!--Determine the type of the property-->
+
+<owl:ObjectProperty rdf:ID="Name_of_the_property">
+  <rdf:type rdf:resource="#owl;TransitiveProperty" />
+  <rdfs:domain rdf:resource="#Name_of_the_source_Class" />
+  <rdfs:range rdf:resource="#Name_of_the_target_Class" />
+</owl:ObjectProperty>
+
+<!-- Transitive property means if P(x,y) and P(y,z) then P(x,z)-->
+
+<owl:ObjectProperty rdf:ID="Name_of_the_property">
+  <rdf:type rdf:resource="#owl;SymmetricProperty" />
+  <rdfs:domain rdf:resource="#Name_of_the_source_Class" />
+  <rdfs:range rdf:resource="#Name_of_the_target_Class" />
+</owl:ObjectProperty>
+ 
+<!--Symetric property means P(x,y) iff P(y,x)-->
+
+<owl:ObjectProperty rdf:ID="Name_of_the_property">
+	<owl:inverseOf rdf:resource="#Name_of_the_inverse_property" />
+</owl:ObjectProperty>
+
+<!--Inverse property means P1(x,y) iff P2(y,x) -->
+
+<!--Defining cardinalities of the property-->
+
+<owl:Class rdf:ID="Name_of_the_class"> 
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#Name_of_the_property"/>  
+      <owl:cardinality rdf:datatype="#xsd;nonNegativeInteger">1</owl:cardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<!-- All instances of the class can take part in this relationship exactly one time-->
+
+<!--Defining one class as the intersection of two other classes-->
+
+<owl:Class rdf:ID="Name_of_the_class">
+  <owl:intersectionOf rdf:parseType="Collection">
+    <owl:Class rdf:about="#Name_of_the_first_class" />
+    <owl:Class rdf:about="#Name_of_the_second_class" />
+  </owl:intersectionOf> 
+</owl:Class>
+
+<!--Defining one class as the union of two other classes-->
+
+<owl:Class rdf:ID="Name_of_the_class">
+  <owl:unionOf rdf:parseType="Collection">
+    <owl:Class rdf:about="#Name_of_the_first_class" />
+    <owl:Class rdf:about="#Name_of_the_second_class" />
+  </owl:unionOf>
+</owl:Class>
+
+
+
+<!--Defining a class which is disjoint from another class-->
+
+<owl:Class rdf:ID="Name_of_the_class">  
+  <owl:disjointWith rdf:resource="#Name_of_the_disjoint_class"/>
+</owl:Class>
+</rdf:RDF>
+
+
+
+

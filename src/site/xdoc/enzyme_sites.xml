@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding='iso-8859-1'?>
+<document>
+
+  <properties>
+    <author email="rafalcan@ebi.ac.uk">Rafael Alcantara</author>
+    <title>Enzyme-related sites</title>
+  </properties>
+
+  <body>
+    <section name="IntEnz - Enzyme-related sites">
+      <p>
+       <dl>
+        <dd><a href="#databases">Databases</a></dd>
+        <dd><a href="#journals">Journals</a></dd>
+        <dd><a href="#tutorials">Tutorials</a></dd>
+        </dl>
+
+        <a name="databases"></a>
+        <h3>Databases</h3>
+
+        <ul>
+          <li><a href="http://rose.man.poznan.pl/aars/"><b>Aminoacyl-tRNA synthetases
+          database</b></a> @ Poznan, Poland</li>
+
+          <li><b>BRENDA</b>, the Comprehensive Enzyme Information System
+          <a href="http://www.brenda.uni-koeln.de/">BRENDA</a> @
+          <a href="http://www.uni-koeln.de/">Universitaet zu Koeln</a></li>
+          <li><a href="http://srs.ebi.ac.uk/srs6bin/cgi-bin/wgetz?-page+LibInfo+fun+-lib+BRENDA">BRENDA</a>
+          @ <a href="http://www.ebi.ac.uk/">EBI</a></li>
+
+        <li><a href="http://afmb.cnrs-mrs.fr/~pedro/CAZY/db.html"><b>CAZy</b></a>,
+        Carbohydrate-Active enZYmes @
+        <a href="http://afmb.cnrs-mrs.fr/">AFMB-CNRS</a>, Marseille, France</li>
+
+        <li><a href="http://ecocyc.panbio.com/ecocyc/"><b>EcoCyc and MetaCyc</b></a> WWW Server</li>
+
+        <li><b>EMP</b>, Enzymes and Metabolic Pathways database
+         <ul>
+          <li><a href="http://wit.mcs.anl.gov/EMP/">Query EMP</a> @
+          <a href="http://wit.mcs.anl.gov/WIT2/">WIT</a>,
+          <a href="http://www.anl.gov/">Argonne National Laboratory</a>, USA</li>
+          <li><a href="http://srs.ebi.ac.uk/srs6bin/cgi-bin/wgetz?-page+LibInfo+fun+-lib+EMP">SRS6</a>
+         @ <a href="http://www.ebi.ac.uk/">EBI</a></li>
+         </ul>
+          </li>
+        <li><b>ENZYME</b>, Enzyme nomenclature database
+
+         <ul>
+         <li><a href="http://www.expasy.org/enzyme/">ENZYME</a> @
+         <a href="http://www.expasy.org/">ExPASy</a>  </li>
+         <li><a href="http://srs.ebi.ac.uk/srs6bin/cgi-bin/wgetz?-page+LibInfo+fun+-lib+ENZYME">SRS6</a>
+         @ <a href="http://www.ebi.ac.uk/">EBI</a></li>
+        </ul> </li>
+        
+        <li><a href="http://www.enzyme-database.org"><b>The enzyme database</b></a> (Trinity Collect, Dublin)</li>
+
+        <li><a href="http://www.chem.qmw.ac.uk/iubmb/enzyme/"><b>Enzyme
+        Nomenclature</b></a>
+        (<a href="http://www.chem.qmw.ac.uk/iubmb/">NC-IUBMB</a> Recommendations)</li>
+
+
+
+        <li><a href="http://www.ch.ic.ac.uk/ectoc/papers/04/1-Contents.html"><b>Enzymes
+        in Organic Synthesis</b></a> @ <a href="http://www.exeter.ac.uk/">University of
+        Exeter</a>, UK </li>
+
+        <li><a href="http://hivdb.stanford.edu/hiv/"><b>HIV Reverse Transcriptase and
+        Protease Sequence Database</b></a> @ Stanford University, USA</li>
+
+        <li><a href="http://www.uta.fi/imt/bioinfo/KinMutBase/"><b>KinMutBase</b></a>,
+        A registry of disease-causing mutations in protein kinase domains @
+        <a href="http://www.uta.fi/">University of Tampere</a>, Finland</li>
+
+        <li><b>LIGAND</b>, Database for enzymes, compounds, and reactions
+
+         <ul>
+         <li><a href="http://www.genome.ad.jp/dbget/ligand.html">LIGAND</a> @
+         <a href="http://www.kuicr.kyoto-u.ac.jp/">Institute for Chemical Research</a>,
+         Kyoto, Japan </li>
+         <li>SRS6 @
+         <a href="http://www.ebi.ac.uk/">EBI</a>
+           <ul>
+            <li><a href="http://srs.ebi.ac.uk/srs6bin/cgi-bin/wgetz?-page+LibInfo+fun+-lib+LCOMPOUND">COMPOUND</a></li>
+            <li><a href="http://srs.ebi.ac.uk/srs6bin/cgi-bin/wgetz?-page+LibInfo+fun+-lib+LENZYME">ENZYME</a></li>
+           </ul></li>
+         </ul></li>
+
+        <li><a href="http://www.ebi.ac.uk/thornton-srv/databases/MACiE/">
+        <b>MACiE</b></a> (Mechanism, Annotation and Classification in Enzymes)</li>
+
+        <li><a href="http://www.agron.missouri.edu/"><b>MaizeDB</b></a>,
+        information on the genetics and molecular biology of maize,
+        USA </li>
+
+        <li><a href="http://www.merops.co.uk/merops/merops.htm"><b>MEROPS</b></a>,
+        the Protease Database developed @
+        <a href="http://www.bi.bbsrc.ac.uk/homepage.htm">Babraham Institute</a>, UK</li>
+
+        <li><a href="http://webbook.nist.gov/chemistry/"><b>NIST Chemistry
+        WebBook</b></a> @
+        <a href="http://www.nist.gov/">National Institute of Standards and
+        Technology</a>, USA  </li>
+
+        <li><a href="http://prolysis.phys.univ-tours.fr/Prolysis/"><b>PROLYSIS</b></a>,
+        a protease and protease inhibitor Web server @
+        <a href="http://www.univ-tours.fr/">University of Tours</a>, France</li>
+
+        <li><a href="http://biobase.dk/~axe/Patbase.html"><b>P-type ATPase database</b></a>
+        @ <a href="http://biobase.dk/">BioBase</a>, Denmark </li>
+
+        <li><a href="http://rebase.neb.com/rebase/rebase.html"><b>REBASE</b></a> -
+        restriction enzymes and methylases</li>
+
+        <li><b>SmallMol</b>, chemical structures for the small molecules cited in
+        BRENDA
+         <ul>
+         <li><a href="http://jura.ebi.ac.uk:6600/srs6bin/cgi-bin/wgetz?-page+LibInfo+-id+4Flds1ESG5V+-lib+SMALLMOL">SRS6</a>
+         @ <a href="http://www.ebi.ac.uk/">EBI</a></li>
+         </ul></li>
+
+
+        <li><a href="http://www.chem.qmw.ac.uk/iubmb/kinetics/"><b>Symbolism and
+        Terminology in Enzyme Kinetics</b></a>
+        (<a href="http://www.chem.qmw.ac.uk/iubmb/">NC-IUB</a> Recommendations 1981) </li>
+
+        <li><a href="http://wwwbmcd.nist.gov:8080/enzyme/enzyme.html"><b>Thermodynamics
+        of Enzyme-Catalyzed Reactions</b></a> @
+        <a href="http://www.nist.gov/">National Institute of Standards and
+        Technology</a>, USA</li>
+
+        <li><a href="http://www-biology.ucsd.edu/~msaier/transport/titlepage2.html">
+        <b>Transport Protein Classification</b></a> by Milton Saier
+        @ <a href="http://www.ucsd.edu/">University of California San Diego</a>, USA</li>
+
+        <li><b>The University of Minnesota Biocatalysis/Biodegradation Database</b>
+          <ul>
+          <li><a href="http://www.labmed.umn.edu/umbbd/">UMBBD</a> @
+              <a href="http://www.umn.edu/">University of Minnesota</a>, USA</li>
+         <li>SRS6 @
+         <a href="http://www.ebi.ac.uk/">EBI</a>
+           <ul>
+            <li><a href="http://srs.ebi.ac.uk/srs6bin/cgi-bin/wgetz?-page+LibInfo+fun+-lib+UCOMPOUND">UMBBD-COMPOUND</a></li>
+            <li><a href="http://srs.ebi.ac.uk/srs6bin/cgi-bin/wgetz?-page+LibInfo+fun+-lib+UENZYME">UMBBD-ENZYME</a></li>
+            <li><a href="http://srs.ebi.ac.uk/srs6bin/cgi-bin/wgetz?-page+LibInfo+fun+-lib+UREACTION">UMBBD-REACTION</a></li>
+           </ul></li>
+         </ul>
+
+         </li>
+
+        <li><a href="http://www.worthington-biochem.com/manual/default.html">
+        <b>Worthington Enzyme Manual</b></a></li>
+
+       </ul>
+
+        <a name="journals"></a>
+        <h3>Journals</h3>
+
+        <ul>
+        <i>
+        <li><a href="http://www.elsevier.nl/inca/publications/store/4/2/7/">Advances
+        in Enzyme Regulation</a> </li>
+
+        <li><a href="http://www.elsevier.nl/inca/publications/store/5/0/6/0/7/0/">BBA
+        - Protein Structure and Molecular Enzymology</a></li>
+
+        <li><a href="http://www.gbhap.com/journals/346/346-top.htm">Biocatalysis and
+        Biotransformation</a></li>
+
+        <li><a href="http://www.elsevier.nl/inca/publications/store/5/2/5/0/0/4/">
+        Enzyme and Microbial Technology</a></li>
+
+        <li><a href="http://www.gbhap.com/journals/335/335-top.htm">Journal of
+        Enzyme Inhibition</a></li>
+
+        <li><a href="http://www.elsevier.nl/inca/publications/store/5/2/5/2/1/1/">
+        Journal of Molecular Catalysis B: Enzymatic</a></li>
+
+        <li><a href="http://www.idealibrary.com/links/toc/meth">Methods: A Companion
+        to Methods in Enzymology</a></li>
+        </i>
+        </ul>
+
+        <a name="tutorials"></a>
+        <h3>Tutorials</h3>
+
+        <ul>
+        <li><a href="http://www.chem.wsu.edu/Chem102/102-EnzStrClassMech.html">
+        <b>Enzyme Classification, Structure and Mechanism</b></a> @
+        <a href="http://www.wsu.edu/">Washington State University</a>, USA</li>
+
+        <li><a href="http://www.chem.wsu.edu/Chem102/102-EnzInhibReg.html">
+        <b>Enzyme Inhibition and Regulation</b></a> @
+        <a href="http://www.wsu.edu/">Washington State University</a>, USA</li>
+
+        <li><a href="http://jeffline.tju.edu/CWIS/DEPT/biochemistry/kinetics/HTML/INDEX.HTML">
+        <b>Enzyme Kinetics</b></a> @
+        <a href="http://www.tju.edu/">Thomas Jefferson University</a>, USA</li>
+
+        <li><a href="http://www.fst.rdg.ac.uk/courses/fs355/enzymes.htm">
+        <b>Introduction to Enzymes</b></a> by Dr R. A. Rastall @
+        <a href="http://www.rdg.ac.uk/">University of Reading</a>, UK </li>
+
+        <li><a href="http://www.worthington-biochem.com/introBiochem/introEnzymes.html">
+        <b>Introduction to Enzymes</b></a> @
+        <a href="http://www.worthington-biochem.com/">Worthington</a></li>
+        </ul>
+      </p>
+    </section>
+  </body>
+</document>

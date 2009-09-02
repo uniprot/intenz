@@ -1,0 +1,161 @@
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+<tiles-definitions>
+
+  <!-- LAYOUTS -->
+  <definition name=".standard" path="/tiles/layouts/base.jsp" role="intenz curator">
+    <put name="head" value="/tiles/head.jsp" />
+    <put name="menu" value="/tiles/standard_menu.jsp" />
+    <put name="h_space" value="/tiles/h_space.jsp" />
+    <put name="content" value="/pages/view/intenz_entry.jsp" />
+    <put name="footer" value="/tiles/footer.jsp" />
+  </definition>
+
+  <definition name=".extended" path="/tiles/layouts/base_extended.jsp" role="intenz curator">
+    <put name="head" value="/tiles/head_with_tabs.jsp" />
+    <put name="menu" value="/tiles/standard_menu.jsp" />
+    <put name="h_space" value="/tiles/h_space.jsp" />
+    <put name="content" value="/pages/view/intenz_entry.jsp" />
+    <put name="footer" value="/tiles/footer.jsp" />
+  </definition>
+
+  <definition name=".intenz_entry_preview" path="/tiles/layouts/no_menu.jsp" role="intenz curator">
+    <put name="head" value="/tiles/head_with_tabs.jsp" />
+    <put name="h_space" value="/tiles/h_space.jsp" />
+    <put name="content" value="/pages/view/intenz_entry_preview.jsp" />
+    <put name="footer" value="/tiles/submit_footer.jsp" />
+  </definition>
+
+  <definition name=".index" extends=".standard"><put name="content" value="/pages/index.jsp" /></definition><definition name=".dynamic_menu" extends=".extended" role="intenz curator">
+    <put name="images" value="'images/blue_bullet.gif', 'images/green_bullet.gif', 'images/red_bullet.gif'" />
+    <put name="menu" value="/tiles/dynamic_menu.jsp" />
+    <put name="content" value="/pages/view/intenz_entry.jsp" />
+  </definition>
+
+  <definition name=".std_searchable" extends=".standard" role="intenz curator">
+      <put name="menu" value="/tiles/std_search_menu.jsp" />
+  </definition>
+
+
+  <!-- ********************* PAGES ***************************** -->
+
+  <!-- FORMS -->
+  <definition name=".add_sub_subclass" extends=".standard" role="intenz curator">
+    <put name="content" value="/pages/add/add_subsubclass.jsp" />
+  </definition>
+
+  <definition name=".delete_entry" extends=".standard" role="intenz curator">
+    <put name="content" value="/pages/modify/delete_entry.jsp" />
+  </definition>
+
+  <definition name=".delete_entry_update" extends=".standard" role="intenz curator">
+    <put name="content" value="/pages/modify/delete_entry_update.jsp" />
+  </definition>
+
+  <definition name=".transfer_entry" extends=".standard" role="intenz curator">
+    <put name="content" value="/pages/modify/transfer_entry.jsp" />
+  </definition>
+
+  <definition name=".amend_entry" extends=".standard" role="intenz curator">
+    <put name="content" value="/pages/modify/amend_entry.jsp" />
+  </definition>
+
+  <definition name=".create_entry" extends=".standard" role="intenz curator">
+    <put name="content" value="/pages/modify/create_entry.jsp" />
+  </definition>
+
+  <definition name=".transfer_entry_update" extends=".standard" role="intenz curator">
+    <put name="content" value="/pages/modify/transfer_entry_update.jsp" />
+  </definition>
+
+  <definition name=".amend_entry_update" extends=".standard" role="intenz curator">
+    <put name="content" value="/pages/modify/amend_entry_update.jsp" />
+  </definition>
+
+  <definition name=".create_entry_update" extends=".standard" role="intenz curator">
+    <put name="content" value="/pages/modify/create_entry_update.jsp" />
+  </definition>
+
+  <!--definition name=".export_flat_file" extends=".standard" role="intenz curator">
+    <put name="content" value="/pages/modify/export_flat_file.jsp"/>
+  </definition-->
+
+
+  <!-- VIEWS -->
+  <!-- General views -->
+  <definition name=".all_entries" extends=".std_searchable" role="intenz curator">
+    <put name="content" value="/pages/view/all_entries.jsp" />
+  </definition>
+
+  <definition name=".proposed_entries" extends=".std_searchable" role="intenz curator">
+    <put name="content" value="/pages/view/proposed_entries.jsp" />
+  </definition>
+
+  <definition name=".suggested_entries" extends=".std_searchable" role="intenz curator">
+    <put name="content" value="/pages/view/suggested_entries.jsp" />
+  </definition>
+
+  <definition name=".cofactorList" extends=".std_searchable" role="intenz curator">
+    <put name="content" value="/pages/view/cofactorList.jsp" />
+  </definition>
+
+  <definition name=".assignChebiId" extends=".std_searchable" role="intenz curator">
+    <put name="content" value="/pages/edit/assignChebiId.jsp" />
+  </definition>
+
+  <definition name=".error" extends=".std_searchable" role="intenz curator">
+    <put name="content" value="/pages/error.jsp" />
+  </definition>
+
+  <definition name=".unknown" extends=".std_searchable" role="intenz curator">
+    <put name="content" value="/pages/unknown.jsp" />
+  </definition>
+
+  <!-- EC hierarchy views -->
+  <definition name=".sub_subclass" extends=".std_searchable" role="intenz curator">
+    <put name="content" value="/pages/view/subsubclass.jsp" />
+  </definition>
+
+  <definition name=".subclass" extends=".std_searchable" role="intenz curator">
+    <put name="content" value="/pages/view/subclass.jsp" />
+  </definition>
+
+  <definition name=".enzyme_class" extends=".std_searchable" role="intenz curator">
+    <put name="content" value="/pages/view/class.jsp" />
+  </definition>
+
+  <!-- IntEnz views -->
+  <definition name=".intenz_entry" extends=".dynamic_menu" role="intenz curator">
+    <put name="content" value="/pages/view/intenz_entry.jsp" />
+  </definition>
+
+  <definition name=".deleted_intenz_entry" extends=".dynamic_menu" role="intenz curator">
+    <put name="content" value="/pages/view/intenz_entry_deleted.jsp" />
+  </definition>
+
+  <definition name=".transferred_intenz_entry" extends=".dynamic_menu" role="intenz curator">
+    <put name="content" value="/pages/view/intenz_entry_transferred.jsp" />
+  </definition>
+
+  <!-- NC-IUBMB views -->
+  <definition name=".iubmb_entry" extends=".dynamic_menu" role="intenz curator">
+    <put name="content" value="/pages/view/iubmb_entry.jsp" />
+  </definition>
+
+  <definition name=".iubmb_entry_del_trans" extends=".dynamic_menu" role="intenz curator">
+    <put name="content" value="/pages/view/iubmb_entry_del_trans.jsp" />
+  </definition>
+
+  <definition name=".iubmb_entry_preview" extends=".intenz_entry_preview" role="intenz curator">
+    <put name="content" value="/pages/view/iubmb_entry_preview.jsp" />
+  </definition>
+
+  <!-- SIB ENZYME views -->
+  <definition name=".sib_entry" extends=".dynamic_menu" role="intenz curator">
+    <put name="content" value="/pages/view/sib_entry.jsp" />
+  </definition>
+
+  <definition name=".sib_entry_preview" extends=".intenz_entry_preview" role="intenz curator">
+    <put name="content" value="/pages/view/sib_entry_preview.jsp" />
+  </definition>
+
+</tiles-definitions>

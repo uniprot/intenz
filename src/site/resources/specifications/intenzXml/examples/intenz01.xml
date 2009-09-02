@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<enzyme
+    xmlns="http://www.ebi.ac.uk/intenz"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.ebi.ac.uk/intenz ../xsd/enzyme.xsd ">
+    
+    <ec>EC 1.2.3.4</ec>
+    <accepted_name view="INTENZ,IUBMB,SIB">
+        oxalate oxidase
+    </accepted_name>
+    <systematic_name view="INTENZ,IUBMB">
+        oxalate:oxygen oxidoreductase
+    </systematic_name>
+    <synonyms>
+        <synonym view="INTENZ,IUBMB">aero-oxalo dehydrogenase</synonym>
+        <synonym view="INTENZ,IUBMB">oxalic acid oxidase</synonym>
+    </synonyms>
+    <reactions>
+        <reaction view="INTENZ,IUBMB,SIB">
+        <![CDATA[
+            oxalate + O<sub>2</sub> + 2 H<sup>+</sup> = 2 CO<sub>2</sub> + H<sub>2</sub>O<sub>2</sub>
+        ]]>
+        </reaction>
+    </reactions>
+    <cofactors>
+        <cofactor view="INTENZ,SIB">Manganese</cofactor>
+    </cofactors>
+    <comments>
+        <comment view="INTENZ,IUBMB">Contains Mn<sup>2+</sup> as a cofactor. The enzyme is
+            not a flavoprotein as had been thought [3].
+        </comment>
+    </comments>
+    <links>
+        <link db="CAS" accession_number="9031-79-2" view="INTENZ,IUBMB" href=""/>
+        <link db="GO" accession_number="GO:0050162" view="INTENZ,IUBMB"
+            href="http://www.ebi.ac.uk/ego/DisplayGoTerm?id=GO:0050162"/>
+        <link db="PROSITE" accession_number="PDOC00597" view="INTENZ,SIB"
+            href="http://www.expasy.org/prosite/PDOC00597"/>
+        <link db="UniProt" accession_number="P15290" view="INTENZ,SIB"
+            href="http://www.uniprot.org/entry/P15290">GER2_WHEAT</link>
+        <link db="UniProt" accession_number="P26759" view="INTENZ,SIB"
+            href="http://www.uniprot.org/entry/P26759">GER3_WHEAT</link>
+        <link db="UniProt" accession_number="P45850" view="INTENZ,SIB"
+            href="http://www.uniprot.org/entry/P45850">OXO1_HORVU</link>
+        <link db="UniProt" accession_number="P45851" view="INTENZ,SIB"
+            href="http://www.uniprot.org/entry/P45851">OXO2_HORVU</link>
+    </links>
+    <references>
+        <journal view="INTENZ,IUBMB">
+            <authors>Datta, P.K., Meeuse, B.J.D., Engstrom-Heg, V. and Hilal,
+                S.H.</authors>
+            <title>Moss oxalic acid oxidase - a flavoprotein</title>
+            <year>1955</year>
+            <name>Biochim. Biophys. Acta</name>
+            <volume>17</volume>
+            <first_page>602</first_page>
+            <last_page>603</last_page>
+            <pubmed>13250021</pubmed>
+        </journal>
+        <journal view="INTENZ,IUBMB">
+            <authors>Requena, L. and Bornemann, S. Barley</authors>
+            <title>(Hordeum vulgare) oxalate oxidase is a manganese-containing
+                enzyme</title>
+            <year>1999</year>
+            <name>Biochem. J.</name>
+            <volume>343</volume>
+            <first_page>185</first_page>
+            <last_page>190</last_page>
+            <pubmed>10493928</pubmed>
+        </journal>
+        <journal view="INTENZ,IUBMB">
+            <authors>Kotsira, V.P. and Clonis, Y.D.</authors>
+            <title>Oxalate oxidase from barley roots: purification to
+                homogeneity and study of some molecular, catalytic, and binding 
+                properties</title>
+            <year>1997</year>
+            <name>Arch. Biochem. Biophys.</name>
+            <volume>340</volume>
+            <first_page>239</first_page>
+            <last_page>249</last_page>
+            <pubmed>9143327</pubmed>
+        </journal>
+    </references>
+    <history>EC 1.2.3.4 created 1961</history>
+</enzyme>

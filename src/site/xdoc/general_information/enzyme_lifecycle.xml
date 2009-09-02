@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding='iso-8859-1'?>
+<document>
+
+  <properties>
+    <author email="pmatos@ebi.ac.uk">Paula de Matos</author>
+    <title>Lifecycle</title>
+  </properties>
+
+  <body>
+    <section name="Enzyme Lifecycle">
+      <p>
+        An enzyme has certain lifecycle which is described below in terms of a statechart.
+      </p>
+       <subsection name="1.	Possible states of an enzyme">
+          <p>
+        <ul>
+           <li>Approved. An entry, which has been approved by the IUBMB committee, is visible to the public and represents the current valid content. Each approved entry must have a unique EC number.</li>
+           <li>Suggested. If a committee member or a curator suggests a change to an approved/proposed entry or wants to add a new entry, this entry will have the status suggested.</li>
+           <li>Proposed. After a suggested entry has been accepted it has the status proposed. That applies also to proposed entries, whereas these entries will then have the status approved.</li>
+           <li>Rejected. Suggested and proposed entries can be rejected if the content is insufficient. These entries are no longer visible to anyone, but they still exist in the database.</li>
+        </ul>
+          </p>
+       </subsection>
+       <subsection name="2.	The enzyme's lifecycle">
+          <img src="../images/enzyme_lifecycle.gif"/>
+          <p>
+             Statechart explanation:
+             <ul>
+                <li>Green boxes indicate states</li>
+                <li>Red arrows are transitions</li>
+                <li>Each transition has a description, which is divided in max. three parts:
+                   <ul>
+                      <li>The first string (before the dash and sometimes before a left bracket) is the trigger of the transition (says when this transition is taken)</li>
+                      <li>The second string (in brackets [...]) is the so-called guard; a guard may be omitted if it is not necessary to restrict the transitions behaviour (see below)</li>
+                      <li>The last one represents the actions performed, when this transition is taken. This can also be omitted, or it can consist of several actions. A typical action is for instance the setting of a variable.</li>
+                   </ul>
+                </li>
+             </ul>
+          </p>
+          <p>The Statechart consists of five states, whereas the initial state (NOT_EXISTING) is not relevant, as it only exists to allow the creation of new suggested entries. All other states are modelled in the database and the web application respectively. </p>
+          <p>I will start describing the enzyme's lifecycle at the state APPROVED, because this is the state where usually changes to existing entries begin.
+An approved entry's state can be changed in three different ways generally:
+             <ol>
+                <li>Deletion: an approved entry which shall be deleted (trigger: deleteEntry()) is firstly cloned, as the approved entry still has to be visible to the public as an approved entry. The clone "moves" to the state SUGGESTED and its status will be set to "SU". It has also to be set to inactive (active="N"), because all deleted and transferred entries, whether they are approved or not, do not consist of any valid content any longer. Furthermore the start_timer is set to 0. The timer (its bounds are given by start_timer and end_timer) is needed to monitor how long an enzyme might be in one of the states of SUGGESTED or PROPOSED without being moved in between; the maximum is two months in each case. If the enzyme has not changed its status within these two months it will move to the next state automatically.</li>
+                <li>Transfer: analogous to 1.</li>
+                <li>Modify: analogous to 1. apart from the active setting which is now "Y", as valid but changed content is now available. In addition the old enzyme ID (enzyme ID of the approved entry) and the new enzyme ID (the clone's enzyme ID) have to be stored to be able to update the approved entry with the changes, if the clone becomes approved (see below).</li>
+             </ol>
+</p>
+          <p>All these actions may be performed by either Sinead or committee members. All other actions described from now on can only be performed by Sinead, hence all following transitions consist of guards, which restrict these changes to Sinead only.</p>
+          <p>When an enzyme has the status "SU" (is in state SUGGESTED)  it can be accepted and will move to the state PROPOSED (timer will be reset) or it can be rejected. When Sinead wants to make any changes to the suggested entry, its timer won't be reset and it keeps its status.</p>
+          <p>An entry in state PROPOSED can be rejected, modified or accepted. If the entry shall be modified, it has to move to the SUGGESTED state. The reason is, that proposed entries can be viewed by the public and are in a kind of official status. Changes to official data should always get the suggested status to keep the lifecycle consistent and easy. However to correct typos, for instance, it is still possible for Sinead to speed-up this process by changing the status of the enzyme immediately according to the given order.
+Two cases exist, if an entry shall be accepted:
+             <ol>
+                <li>The entry is a clone of an approved entry: The approved entry has to be updated, in terms of storing the old enzyme ID, storing the new ID and keeping the changes. (At this point I did not distinguish between deleted/transferred and modified entries, to keep the chart at least a bit easier.)</li>
+                <li>The entry is a new suggestion: The entry will simply be accepted as an approved new entry.</li>
+             </ol>
+</p>
+      <p>
+         If Sinead decided to delete a suggested or proposed entry it will move to the state REJECTED. From now on this entry virtually does not exist any longer, that is nobody can access this data via the web application. However within the database this entry still exists and can, in case of emergency, be resurrected easily.
+      </p>
+          <p>One exception is the suggestion of a complete new entry (maybe without an EC number), as the creation of new suggested entries is possible for Sinead and committee members as well. </p>
+       </subsection>
+    </section>
+  </body>
+</document>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    <properties>
+        <title>IntEnz domain change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+    	<release version="4.1" date="2009-05-07" description="Refactoring">
+        	<action dev="rafalcan" type="add">
+        		Added enumerations to replace constant classes.
+        	</action>
+        	<action dev="rafalcan" type="add">
+        		Added methods to use the new enumerations.
+        	</action>
+        	<action dev="rafalcan" type="fix">
+        		Refactored some getter methods.
+        	</action>
+    	</release>
+        <release version="4.0.4" date="2008-07-07" description="">
+        	<action dev="rafalcan" type="fix">
+        		Fixed UniProt URL for their new website.
+        	</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest xchars modules.
+        	</action>
+		</release>
+
+        <release version="4.0.3" date="2008-05-30" description="">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest rhea.domain module to fix problems related
+        		to MetaCyc xrefs in reactions, reflecting in IntEnz curator tool.
+        	</action>
+		</release>
+		
+        <release version="4.0.2" date="2008-04-22" description="">
+        	<action dev="rafalcan" type="update">
+        		Updated to last rhea.domain (for reaction Source class refactoring)
+        		and xchars-config (for <code>ý</code> character) versions.
+        	</action>
+        	<action dev="rafalcan" type="fix">
+        		Moved biopax code to its own module, as it is not
+        		mandatory for the curator application.
+        	</action>
+        </release>
+
+        <release version="4.0.1" date="2008-04-15" description="Fixed URL">
+        	<action dev="rafalcan" type="fix">
+        		Changed old BRENDA URL with the new one (www.brenda-enzymes.info).
+        	</action>
+        </release>
+        
+    </body>
+</document>

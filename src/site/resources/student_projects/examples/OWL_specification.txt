@@ -1,0 +1,71 @@
+Defining Classes
+
+<owl:Class rdf:ID="Name_of_the_class"/>
+
+Defining Subclasses
+
+<owl:Class rdf:ID="Name_of_the_subclass"/>
+	rdfs:subClassOf rdf:resource="#Name_of_the_superclass"/>
+</owl:Class>
+
+Defining Instances of classes
+
+<Name_of_the_class rdf:ID="Name_of_the_instance" />
+
+Defining Properties/Relationships
+
+source_Class ------> target_Class
+
+<owl:ObjectProperty rdf:ID="Name_of_the_property">
+	<rdfs:domain rdf:resource="#Name_of_the_source_Class"/>
+	<rdfs:range rdf:resource="#Name_of_the_target_Class"/>
+</owl:ObjectProperty>
+
+Defining Subproperties
+
+<owl:ObjectProperty rdf:ID="Name_of_the_property">
+	<rdfs:subPropertyOf rdf:resource="#Name_of_the_SuperProperty"/>
+	<rdfs:domain rdf:resource="#Name_of_the_source_Class"/>
+	<rdfs:range rdf:resource="#Name_of_the_target_Class"/>
+</owl:ObjectProperty>
+
+Determine the type of the property
+
+Transitive property [P(x,y) and P(y,z) then P(x,z)]: <rdf:type rdf:resource="&owl;TransitiveProperty" />
+Symetric property   [P(x,y) iff P(y,x)]            : <rdf:type rdf:resource="&owl;SymmetricProperty" />
+Inverse property 	[P1(x,y) iff P2(y,x)]		   : <owl:ObjectProperty rdf:ID="Name_of_the_property">
+					  	 							 	<owl:inverseOf rdf:resource="#Name_of_the_inverse_property" />
+					 								 </owl:ObjectProperty>
+
+
+Defining cardinalities of the property
+
+<owl:Class rdf:ID="Name_of_the_class"> 
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#Name_of_the_property"/>  
+      <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+--> every instance of the class takes part in this relationship exactly one time
+
+Defining one class as the intersection of two other classes
+
+<owl:Class rdf:ID="Name_of_the_class">
+  <owl:intersectionOf rdf:parseType="Collection">
+    <owl:Class rdf:about="#Name_of_the_first_class" />
+    <owl:Class rdf:about="#Name_of_the_second_class" />
+  </owl:intersectionOf> 
+</owl:Class>
+
+Defining one class as the union of two other classes
+
+<owl:Class rdf:ID="Name_of_the_class">
+  <owl:unionOf rdf:parseType="Collection">
+    <owl:Class rdf:about="#Name_of_the_first_class" />
+    <owl:Class rdf:about="#Name_of_the_second_class" />
+  </owl:unionOf>
+</owl:Class>
+

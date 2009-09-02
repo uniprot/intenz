@@ -1,0 +1,30 @@
+\\<b\\>m\\<\\/b\\>=m
+\\<b\\>n\\<\\/b\\>=n
+\\<b\\>n\\+1\\<\\/b\\>=n+1
+\\<b\\>n\\-1\\<\\/b\\>=n-1
+Ap=A-P
+#Cp=C-P
+# Avoid ppGpp and pppGpp:
+Gp(?!p)=G-P
+#Up=U-P
+\\+\\sh\\<greek\\>nu\\<\\/greek\\>=+ light
+(\\s)\\<b\\>(\\d+?)\\<\\/b\\>(\\s)=$1$2$3
+^\\<b\\>(\\d+?)\\<\\/b\\>(\\s)=$1$2
+
+
+# Rules to hide H(+) in 4.1.1.* reactions:
+# EC 4.1.1.2
+oxalate\\s\\+\\sH<smallsup>\\+</smallsup>\\s\=\\sformate\\s\\+\\sCO<smallsub>2</smallsub>=\
+    oxalate\ \=\ formate\ +\ CO<smallsub>2</smallsub>
+# EC 4.1.1.4
+acetoacetate\\s\\+\\sH<smallsup>\\+</smallsup>\\s\=\\sacetone\\s\\+\\sCO<smallsub>2</smallsub>=\
+    acetoacetate\ \=\ acetone\ +\ CO<smallsub>2</smallsub>
+# EC 4.1.1.39
+#(<b>)?2(</b>)?\\s3-phospho-<stereo>D</stereo>-glycerate\\s\\+\\s(<b>)?2(</b>)?\\sH<smallsup>\\+</smallsup>\\s\=\\s<stereo>D</stereo>-ribulose\\s1,5-bisphosphate\\s\\+\\sCO<smallsub>2</smallsub>\\s\\+\\sH<smallsub>2</smallsub>O=\
+#    <b>2</b>\ 3-phospho-<stereo>D</stereo>-glycerate\ \=\ <stereo>D</stereo>-ribulose\ 1,5-bisphosphate\ +\ CO<smallsub>2</smallsub>\ +\ H<smallsub>2</smallsub>O
+# EC 4.1.1.83
+\\(4-hydroxyphenyl\\)acetate\\s\\+\\sH<smallsup>\\+</smallsup>\\s\=\\s4-methylphenol\\s\\+\\sCO<smallsub>2</smallsub>=\
+    \(4-hydroxyphenyl\)acetate\ \=\ 4-methylphenol\ +\ CO<smallsub>2</smallsub>
+# EC 4.1.1.85
+3-dehydro-<stereo>L</stereo>-gulonate\\s6-phosphate\\s\\+\\sH<smallsup>\\+</smallsup>\\s\=\\s<stereo>L</stereo>-xylulose\\s5-phosphate\\s\\+\\sCO<smallsub>2</smallsub>=\
+    3-dehydro-<stereo>L</stereo>-gulonate\ 6-phosphate\ \=\ <stereo>L</stereo>-xylulose\ 5-phosphate\ +\ CO<smallsub>2</smallsub>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding='iso-8859-1'?>
+<document>
+
+  <properties>
+    <author email="mdarsow@ebi.ac.uk">Michael Darsow</author>
+    <title>About IntEnz</title>
+  </properties>
+
+  <body>
+    <section name="About IntEnz">
+      <p>
+      IntEnz is the name for the Integrated relational Enzyme database.
+      IntEnz contains enzyme data
+      that is curated and approved by the Nomenclature Committee of the International Union of
+      Biochemistry and Molecular Biology
+      (<a href="http://www.chem.qmul.ac.uk/iubmb/enzyme/">NC-IUBMB</a>).
+      The goal is to create a single relational
+      database containing enzyme data from three different sources:
+      </p>
+      <p/>
+      <ol>
+        <li>
+          <a href="http://www.tcd.ie/">Trinity College Dublin</a> (TCD)
+          maintains on behalf of the
+          Nomenclature Committee of the International Union of Biochemistry and
+          Molecular Biology
+          (<a href="http://www.chem.qmul.ac.uk/iubmb/enzyme/">NC-IUBMB</a>) the
+          Enzyme Classification list and is involved
+          in many other aspects of biochemical nomenclature.<br/>
+          In 2005 it has released an
+          <a href="http://www.enzyme-database.org">enzyme database</a>
+          based on MySQL, which seems to be the main source of data for BRENDA (see below).
+        </li>
+
+        <li>
+          The <a href="http://www.isb-sib.ch/">Swiss Institute of Bioinformatics</a>
+          (SIB) produces an
+          Enzyme Nomenclature database (<a href="http://www.expasy.org/enzyme/">ENZYME</a>).
+        </li>
+        <li>
+          The <a href="http://fileserver.bioinfo.nat.tu-bs.de/bioinf/">Technical
+          University of Braunschweig</a> produces an enzyme function database
+          (<a href="http://www.brenda-enzymes.org">BRENDA</a>),
+          which contains a large amount of information on substrates, products, and inhibitors.
+        </li>
+
+      </ol>
+      <p>
+        The EBI has already implemented a relational database version storing the most up-to-date version of
+        the Enzyme Classification list (1) which contains enzyme data curated and approved by NC-IUBMB.
+        The relational database IntEnz is further populated by corresponding data from the Enzyme
+        Classification list of SIB (2) and from BRENDA (3).<br/>
+        The EBI has developed tools to maintain the database and allow propagation of new and
+        updated biochemical terminology, which has been integrated into the database, to the other partners.
+      </p>
+      <p>
+        The EBI also set up Internet services which initially facilitate text-based searches against the
+        relational databases such as the protein sequence databases in
+        <a href="http://www.ebi.ac.uk/uniprot">UniProt</a> (Swiss-Prot, TrEMBL, TrEMBLnew), the protein
+        family signature database (<a href="http://www.ebi.ac.uk/interpro/index.html">InterPro</a>),
+        and Gene Ontology (<a href="http://www.geneontology.org/">GO</a>).
+      </p>
+
+    </section>
+  </body>
+</document>

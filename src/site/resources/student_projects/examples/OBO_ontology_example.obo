@@ -1,0 +1,37 @@
+format-version: 1.0
+
+[Term]
+id: Ontology:10000
+name: Man_Woman ontology
+
+[Term]
+id: Ontology:10001
+name: person
+def: "Abstract class Person." []
+relationship: is_part_of Ontology:10000
+
+[Term]
+id: Ontology:10002
+name: man
+def: "Abstract class Man" []
+disjoint_from: Ontology:10003
+relationship: is_Husband_of Ontology:10003
+is_a: Ontology:10001
+
+[Term]
+id: Ontology:10003
+name: woman
+def: "Abstract class woman." []
+disjoint_from: Ontology:10002
+relationship: is_Wife_of Ontology:10002
+is_a: Ontology:10001
+
+[Typedef]
+id: is_Husband_of
+name: is Husband of
+inverse_of: is_Wife_of
+
+[Typedef]
+id: is_Wife_of
+name: is Wife of
+inverse_of: is_Husband_of

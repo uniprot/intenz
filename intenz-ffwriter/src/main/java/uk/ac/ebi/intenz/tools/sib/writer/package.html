@@ -1,0 +1,15 @@
+<body>
+This package contains classes for writing the <code>enzyme.dat</code> flat file.
+<p>
+The flat file writer is comprised of classes responsible for proper formatting of the individual line types and
+classes defining rules for line wrapping. Two interfaces are provided which can be implemented to provide
+additional classes for formatting or wrapping.
+<p>
+The formatting classes take care that the lines will get the expected format in the end. At the moment two classes
+exist whereas the <code>DefaultLineFormatter</code> defines the format of all line types.
+The CC line is a special case and handled by the <code>CC_LineFormatter</code>.
+<p>
+Finally the line wrapping classes can be retrieved using the <code>LineWrapperFactory</code>. This factory contains
+some nested classes which cover different line wrapping scenarios which are usually not connected to any specific
+line type, hence the distinction of these two components.
+</body>

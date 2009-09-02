@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding='iso-8859-1'?>
+<document>
+
+	<properties>
+		<author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
+		<title>Specifications</title>
+	</properties>
+
+	<body>
+		<section name="Specifications">
+			<ul>
+				<li>
+					<a href="intenzReactions/reactions.html">Reactions
+					enhancements</a>: reactions will be no longer stored
+					as plain text, but decomposed in their reactants and products.
+					These compounds will be linked to ChEBI, whose data
+					will be used.
+				</li>
+				<li>
+					<a href="intenzXml/intenzxml.html">IntEnzXML</a>:
+					a XML format for exporting IntEnz data, which will
+					include all three views (IntEnz, IUBMB, ENZYME).
+				</li>
+			</ul>
+		</section>
+	</body>
+</document>

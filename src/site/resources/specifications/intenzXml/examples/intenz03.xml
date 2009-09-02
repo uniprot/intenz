@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<enzyme
+    xmlns="http://www.ebi.ac.uk/intenz"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.ebi.ac.uk/intenz ../xsd/enzyme.xsd ">
+    
+    <ec>EC 1.6.99.2</ec>
+    <transferred>
+        <note>
+            NAD(P)H dehydrogenase (quinone). The enzyme was erroneously
+            transferred from this sub-subclass in 1965.
+        </note>
+    </transferred>
+    <history>
+        EC 1.6.99.2 created 1961 as EC 1.6.5.2,
+        transferred 1965 to EC 1.6.99.2,
+        transferred 2005 to EC 1.6.5.2,
+        deleted 2005
+    </history>
+</enzyme>

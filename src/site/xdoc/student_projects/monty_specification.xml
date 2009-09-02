@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding='iso-8859-1'?>
+<document>
+	<properties>
+	        <author email="vast@ebi.ac.uk">Volker Ast</author>
+	        <title>MONTY specification</title>
+	</properties>
+	
+	<body>	
+		
+		<section name="Monty bugs and ToDo-list">
+			<subsection name="Upload Ontology">
+				<ul>
+					<li>
+						Keep the file path after validation or when going back from the detailed term view.
+					</li>
+					<li>
+						Enable "Submit" button while uploading process is running.
+					</li>
+					<li>
+						Display dynamic graphics while uploading process is running.
+					</li>				
+				</ul>
+			</subsection>
+			<subsection name="Term Search">
+				<ul>
+					<li>
+						Keep the choosen ontology when going back from the detailed term view.
+					</li>
+					<li>
+						Show a "No results" message when no matching terms where found.
+					</li>
+					<li>
+						Support the "Any of these words" search (only exact matching implemented at the moment) <br/>
+						Example: search for "TNT dihydride" in the ChEBI ontology will return the result "TNT dihydride Meisenheimer complex", the search for
+						"TNT complex" will not return a result.
+					</li>
+				</ul>
+			</subsection>
+			<subsection name="Detailed term view">
+				<ul>
+					<li>
+						If the synonym value in the "Synonyms" table is very long, the databse name disappears. <br/>
+						Example: formyl-CoA in the ChEBI ontology
+					</li>
+					<li>
+						The "browse full ontology" link doesn't work
+					</li>
+				</ul>
+			</subsection>
+		</section>
+		<section name="Unused files">
+			<p>
+				Files which were imported from the "Hello World" template and are not used in MONTY:
+			</p>
+			<ul>
+				<li>
+					uk.ac.ebi.oes.business.AccessCheck
+				</li>
+				<li>
+					uk.ac.ebi.oes.controller.HelloWorldAction
+				</li>
+				<li>
+					uk.ac.ebi.oes.util.logging.CustomisedDailyRollingFileAppender
+				</li>
+				<li>
+					uk.ac.ebi.oes.util.logging.LoggingInitServlet
+				</li>
+				<li>
+					src/main/webapp/pages/accessDenied.jsp
+				</li>
+				<li>
+					src/main/webapp/pages/env.jsp
+				</li>
+				<li>
+					src/main/webapp/pages/sidebarInput.jsp
+				</li>
+				<li>
+					src/main/webapp/pages/termList.jsp
+				</li>
+				<li>
+					src/main/webapp/pages/testform.jsp
+				</li>
+				<li>
+					src/main/webapp/pages/testLogger.jsp
+				</li>				
+			</ul>
+			<p>
+				Xchars.jsp is not used at the moment, but can be used to provide special characters.<br/>
+				There are two MessageRessource.properties files in the project path, but only src/main/resources/MessageResource.properties is used.
+				The file under src/main/webapp/WEB-INF/MessageResources.properties is not used.
+			</p>
+	   </section>
+	</body>			
+</document>

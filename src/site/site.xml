@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="IntEnz">
+
+	<skin>
+		<groupId>uk.ac.ebi.skins</groupId>
+		<artifactId>ebi-skin</artifactId>
+	</skin>
+
+    <publishDate position="navigation-bottom" format="MM-dd-yy"/>
+
+	<body>
+		<menu name="Steinbeck group" inherit="top">
+			<item name="ChEBI"
+				href="http://www.ebi.ac.uk/chebi/" />
+			<item name="Rhea"
+				href="http://rhea-ebi.sf.net" />
+			<item name="IntEnz"
+				href="http://intenz.sf.net" />
+		</menu>
+
+	    <menu name="IntEnz">
+	       <item name="Home" href="index.html"/>
+	       <item name="Project Description" href="/general_information/index.html"/>
+	       <item name="Enzyme Lifecycle" href="/general_information/enzyme_lifecycle.html"/>
+	    </menu>
+	
+	    <menu name="Technical documentation">
+	        <item name="Specifications" href="/specifications/index.html" collapse="true">
+		        <item name="Reactions enhancements" href="/specifications/intenzReactions/reactions.html"/>
+	            <item name="IntEnzXML" href="/specifications/intenzXml/intenzxml.html"/>
+	        </item>
+	       <item name="Student Projects" href="/student_projects/index.html"/>
+	    </menu>
+	
+	    <menu name="Other links">
+	      <item name="Enzyme sites" href="enzyme_sites.html"/>
+	    </menu>
+	 
+		<menu ref="modules" />
+		<menu ref="reports" />
+
+	</body>
+</project>

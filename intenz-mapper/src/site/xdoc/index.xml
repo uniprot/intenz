@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+		<title>IntEnz mapper module</title>
+		<author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
+	</properties>
+	<body>
+		<section name="IntEnz mapper module">
+            This is the module to get/put data from/into the IntEnz database.
+            It is also used by the public web application.
+		</section>
+	</body>
+</document>
