@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    <properties>
+        <title>IntEnz database change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+       	<release version="1.0" date="2009-08-14"
+       		description="Initial release">
+        	<action dev="rafalcan" type="add">
+        		Added this database module to svn repository.
+        	</action>
+    	</release>
+    </body>
+</document>
