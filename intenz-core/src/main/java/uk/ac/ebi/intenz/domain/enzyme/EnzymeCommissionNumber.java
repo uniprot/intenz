@@ -1,5 +1,7 @@
 package uk.ac.ebi.intenz.domain.enzyme;
 
+import uk.ac.ebi.biobabel.validator.DbIdentifierValidator;
+import uk.ac.ebi.biobabel.validator.ValidatorType;
 import uk.ac.ebi.intenz.domain.DomainObject;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
 
@@ -11,7 +13,7 @@ import java.util.regex.Pattern;
  * This class represents an Enzyme Commission (EC) number.
  * <p/>
  * The general valid format looks as follows:<p/>
- * <code>\d+(?:\.\d+(?:\.\d+(?:\.\d+){0,1}){0,1}){0,1}</code>
+ * <code>\d+(?:\.\d+(?:\.\d+(?:\.n?\d+){0,1}){0,1}){0,1}</code>
  * <p/>
  * <p/>
  * For instance, the first enzyme has the EC <code>1.1.1.1</code>.
@@ -19,7 +21,8 @@ import java.util.regex.Pattern;
  * The first digit is the number of the class the enzyme belongs to.<br>
  * The second digit is the number of the subclass the enzyme belongs to.<br>
  * The third digit is the number of the sub-subclass the enzyme belongs to.<br>
- * The last digit is the number of the enzyme within the sub-subclass.
+ * The last digit is the number of the enzyme within the sub-subclass. In case
+ * of preliminary EC numbers, it is prefixed with <code>n</code>.
  * <p/>
  * Instances of this class are immutable.
  *
@@ -30,32 +33,27 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
   /**
    * Constant for an undefined EC which can be used for new enzyme suggestions where the EC number is not known (yet).
    */
-  public final static EnzymeCommissionNumber UNDEF = new EnzymeCommissionNumber(-1, -1, -1, -1);
+  public final static EnzymeCommissionNumber UNDEF =
+	  new EnzymeCommissionNumber(-1, -1, -1, -1, false);
 
   /**
-   * The EC number is undefined.
+   * Type of EC number.
+   * @author rafalcan
    */
-  public static final int TYPE_UNDEF = 0;
-
-  /**
-   * Only the first digit is > 0 which means that this EC is a class EC.
-   */
-  public static final int TYPE_CLASS = 1;
-
-  /**
-   * Only the first two digits are > 0 which means that this EC is a subclass EC.
-   */
-  public static final int TYPE_SUBCLASS = 2;
-
-  /**
-   * Only the first three digits are > 0 which means that this EC is a sub-subclass EC.
-   */
-  public static final int TYPE_SUBSUBCLASS = 3;
-
-  /**
-   * All digits are > 0 which means that this EC is an enzyme EC.
-   */
-  public static final int TYPE_ENZYME = 4;
+  public static enum Type {
+	  /** The EC number is undefined. */
+	  UNDEF,
+	  /** Only the first digit is > 0 which means that this EC is a class EC. */
+	  CLASS,
+	  /** Only the first two digits are > 0 which means that this EC is a subclass EC. */
+	  SUBCLASS,
+	  /** Only the first three digits are > 0 which means that this EC is a sub-subclass EC. */
+	  SUBSUBCLASS,
+	  /** All digits are > 0 which means that this EC is an enzyme EC. */
+	  ENZYME,
+	  /** Like {@link #ENZYME}, but not provided by NC-IUBMB. */
+	  PRELIMINARY
+  }
 
   /**
    * The enzyme's class number.
@@ -76,6 +74,11 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
    * The enzyme's number.
    */
   private int ec4;
+  
+  /**
+   * This EC number's type.
+   */
+  private Type type;
 
 
   /**
@@ -85,13 +88,19 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
    * @param ec2 The enzyme's subclass number.
    * @param ec3 The enzyme's sub-subclass number.
    * @param ec4 The enzyme's number.
+   * @param preliminary is this a preliminary EC number?
    */
-  private EnzymeCommissionNumber(int ec1, int ec2, int ec3, int ec4) {
+  private EnzymeCommissionNumber(int ec1, int ec2, int ec3, int ec4, boolean preliminary) {
     super();
     this.ec1 = ec1;
     this.ec2 = ec2;
     this.ec3 = ec3;
     this.ec4 = ec4;
+    this.type = (ec1 == -1)? Type.UNDEF:
+    	(ec2 == -1)? Type.CLASS:
+    		(ec3 == -1)? Type.SUBCLASS:
+    			(ec4 == -1)? Type.SUBSUBCLASS:
+    				preliminary? Type.PRELIMINARY : Type.ENZYME;
   }
 
   /**
@@ -106,7 +115,7 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
    */
   public static EnzymeCommissionNumber valueOf(int ec1) throws EcException {
     if (ec1 < 1) throw new EcException("The class number is invalid.");
-    return new EnzymeCommissionNumber(ec1, -1, -1, -1);
+    return new EnzymeCommissionNumber(ec1, -1, -1, -1, false);
   }
 
   /**
@@ -129,7 +138,7 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
     if (ec1 < 1) throw new EcException("The class number is invalid.");
     if (ec2 < 0) throw new EcException("The subclass number is invalid.");
 
-    return new EnzymeCommissionNumber(ec1, ec2, -1, -1);
+    return new EnzymeCommissionNumber(ec1, ec2, -1, -1, false);
   }
 
   /**
@@ -160,7 +169,7 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
       if (ec3 > 0) throw new EcException("Invalid EC.");
     }
 
-    return new EnzymeCommissionNumber(ec1, ec2, ec3, -1);
+    return new EnzymeCommissionNumber(ec1, ec2, ec3, -1, false);
   }
 
   /**
@@ -180,38 +189,57 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
    * @return an <code>EnzymeCommissionNumber</code> instance.
    * @throws EcException if one of the parameters is invalid.
    */
-  public static EnzymeCommissionNumber valueOf(int ec1, int ec2, int ec3, int ec4) throws EcException {
-    if (ec1 < 1) throw new EcException("The class number is invalid.");
-    if (ec2 == 0) {
-      if (ec3 > 0 || ec4 > 0) throw new EcException("Invalid EC.");
-    }
-    if (ec2 < 0) {
-      if (ec3 > -1 || ec4 > -1) throw new EcException("Invalid EC.");
-    }
-    if (ec3 == 0) {
-      if (ec4 > 0) throw new EcException("Invalid EC.");
-    }
-    if (ec3 < 0) {
-      if (ec4 > -1) throw new EcException("Invalid EC.");
-    }
-
-    return new EnzymeCommissionNumber(ec1, ec2, ec3, ec4);
+  public static EnzymeCommissionNumber valueOf(int ec1, int ec2, int ec3, int ec4)
+  throws EcException {
+    return valueOf(ec1, ec2, ec3, ec4, false);
+  }
+  
+  /**
+   * Constructor allowing preliminary EC numbers.
+   * @param ec1
+   * @param ec2
+   * @param ec3
+   * @param ec4
+   * @param preliminary is this a preliminary EC number?
+   * @return An EC number instance.
+   * @throws EcException if the EC number is not valid.
+   */
+  public static EnzymeCommissionNumber valueOf(int ec1, int ec2, int ec3, int ec4,
+		  boolean preliminary) throws EcException{
+	    if (ec1 < 1) throw new EcException("The class number is invalid.");
+	    if (ec2 == 0) {
+	      if (ec3 > 0 || ec4 > 0) throw new EcException("Invalid EC.");
+	    }
+	    if (ec2 < 0) {
+	      if (ec3 > -1 || ec4 > -1) throw new EcException("Invalid EC.");
+	    }
+	    if (ec3 == 0) {
+	      if (ec4 > 0) throw new EcException("Invalid EC.");
+	    }
+	    if (ec3 < 0) {
+	      if (ec4 > -1) throw new EcException("Invalid EC.");
+	    }
+	    if (preliminary && (ec1 < 1 || ec2 < 1 || ec3 < 1 || ec4 < 1))
+	    	throw new EcException("Invalid preliminary EC");
+	    return new EnzymeCommissionNumber(ec1, ec2, ec3, ec4, preliminary);
   }
 
   /**
    * Returns an <code>EnzymeCommissionNumber</code> instance defined by the given string.
    * <p/>
-   * Calls {@link EnzymeCommissionNumber#valueOf(int, int, int, int)}.
+   * Calls {@link EnzymeCommissionNumber#valueOf(int, int, int, int, boolean)}.
    *
    * @param ecString A string representing an EC number.
    * @throws NullPointerException  if <code>ecString</code> is <code>null</code>.
    * @throws EcException           if one of the parameters is invalid.
    * @throws NumberFormatException if <code>ecString</code> contained invalid characters.
    */
-  public static EnzymeCommissionNumber valueOf(String ecString) throws EcException, NumberFormatException {
-    if (ecString == null) throw new NullPointerException("Parameter 'ecString' must not be null.");
+  public static EnzymeCommissionNumber valueOf(String ecString)
+  throws EcException, NumberFormatException {
+    if (ecString == null) 
+    	throw new NullPointerException("Parameter 'ecString' must not be null.");
     int ec1 = -1, ec2 = -1, ec3 = -1, ec4 = -1;
-
+    boolean preliminary = false;
     int iii = 1;
     for (StringTokenizer stringTokenizer = new StringTokenizer(ecString, "."); stringTokenizer.hasMoreTokens();) {
       String ecPart = stringTokenizer.nextToken();
@@ -226,13 +254,16 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
           ec3 = Integer.parseInt(ecPart);
           break;
         case 4:
+        	while (!Character.isDigit(ecPart.charAt(0))){
+        		preliminary = true;
+        		ecPart = ecPart.substring(1);
+        	}
           ec4 = Integer.parseInt(ecPart);
           break;
       }
       iii++;
     }
-
-    return EnzymeCommissionNumber.valueOf(ec1, ec2, ec3, ec4);
+    return EnzymeCommissionNumber.valueOf(ec1, ec2, ec3, ec4, preliminary);
   }
 
   /**
@@ -243,8 +274,10 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
    * @throws NullPointerException if <code>ecToCopy</code> is <code>null</code>.
    */
   public static EnzymeCommissionNumber copy(EnzymeCommissionNumber ecToCopy) {
-    if (ecToCopy == null) throw new NullPointerException("Parameter 'ecToCopy' must not be null.");
-    return new EnzymeCommissionNumber(ecToCopy.ec1, ecToCopy.ec2, ecToCopy.ec3, ecToCopy.ec4);
+    if (ecToCopy == null)
+    	throw new NullPointerException("Parameter 'ecToCopy' must not be null.");
+    return new EnzymeCommissionNumber(ecToCopy.ec1, ecToCopy.ec2, ecToCopy.ec3,
+    		ecToCopy.ec4, Type.PRELIMINARY.equals(ecToCopy.getType()));
   }
 
   /**
@@ -263,7 +296,10 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
     int ec3Diff = ec3 - ec.ec3;
     if (ec3Diff != 0) return ec3Diff;
 
-    return ec4 - ec.ec4;
+    int ec4Diff = ec4 - ec.ec4;
+    if (ec4Diff != 0) return ec4Diff;
+
+    return type.ordinal() - ec.type.ordinal();
   }
 
   /**
@@ -273,12 +309,8 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
    *
    * @return the type code.
    */
-  public int getType() {
-    if (ec1 == -1) return TYPE_UNDEF;
-    if (ec2 == -1) return TYPE_CLASS;
-    if (ec3 == -1) return TYPE_SUBCLASS;
-    if (ec4 == -1) return TYPE_SUBSUBCLASS;
-    return TYPE_ENZYME;
+  public Type getType() {
+	return type;
   }
 
   /**
@@ -301,77 +333,8 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
    * @return <code>true</code>, if the EC is valid.
    */
   public static boolean isValid(String ecString) {
-    int ec1 = 0, ec2 = 0, ec3 = 0, ec4 = 0;
-    if (ecString == null) return false;
-    if (!Pattern.matches("(\\d+)(?:\\.(\\d+)(?:\\.(\\d+)(?:\\.(\\d+)){0,1}){0,1}){0,1}", ecString)) return false;
-    Pattern ecPattern = Pattern.compile("(\\d+)(?:\\.(\\d+)(?:\\.(\\d+)(?:\\.(\\d+)){0,1}){0,1}){0,1}");
-    Matcher ecMatcher = ecPattern.matcher(ecString);
-    try {
-      if (ecMatcher.find()) {
-        ec1 = Integer.parseInt(ecMatcher.group(1));
-        if (ec1 < 0) return false;
-        if (ecMatcher.group(2) != null) {
-          ec2 = Integer.parseInt(ecMatcher.group(2));
-          if (ec2 < 0) return false;
-          if (ecMatcher.group(3) != null) {
-            ec3 = Integer.parseInt(ecMatcher.group(3));
-            if (ec3 < 0) return false;
-            if (ecMatcher.group(4) != null) {
-              ec4 = Integer.parseInt(ecMatcher.group(4));
-              if (ec4 < 0) return false;
-            }
-          }
-        }
-      }
-    } catch (NumberFormatException e) {
-      return false;
-    }
-
-    if (ec1 == 0) {
-      if (ec2 > 0 || ec3 > 0 || ec4 > 0) return false;
-    }
-    if (ec2 == 0) {
-      if (ec3 > 0 || ec4 > 0) return false;
-    }
-    if (ec3 == 0) {
-      if (ec4 > 0) return false;
-    }
-
-    return true;
-  }
-
-  /**
-   * Checks whether two EC numbers are equal or not.
-   *
-   * @param o object to be compared with this one
-   * @return <code>true</code>, if the two EC instances are equal.
-   */
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof EnzymeCommissionNumber)) return false;
-
-    final EnzymeCommissionNumber enzymeCommissionNumber = (EnzymeCommissionNumber) o;
-
-    if (ec1 != enzymeCommissionNumber.ec1) return false;
-    if (ec2 != enzymeCommissionNumber.ec2) return false;
-    if (ec3 != enzymeCommissionNumber.ec3) return false;
-    if (ec4 != enzymeCommissionNumber.ec4) return false;
-
-    return true;
-  }
-
-  /**
-   * Creates a unique hash code derived from the EC number.
-   *
-   * @return the hash code.
-   */
-  public int hashCode() {
-    int result;
-    result = ec1;
-    result = 29 * result + ec2;
-    result = 29 * result + ec3;
-    result = 29 * result + ec4;
-    return result;
+	  return DbIdentifierValidator.getInstance()
+	  	.validate(ecString, DbIdentifierValidator.EC_NUMBER);
   }
 
   /**
@@ -400,6 +363,8 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
           ecString.append(ec3);
           if (ec4 > 0) {
             ecString.append(".");
+            if (Type.PRELIMINARY.equals(type))
+            	ecString.append('n');
             ecString.append(ec4);
           }
         }
@@ -409,9 +374,44 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
     return ecString.toString();
   }
 
-  // --------------------  GETTER & SETTER -----------------------
+  @Override
+public int hashCode() {
+	final int prime = 31;
+	int result = super.hashCode();
+	result = prime * result + ec1;
+	result = prime * result + ec2;
+	result = prime * result + ec3;
+	result = prime * result + ec4;
+	result = prime * result + ((type == null) ? 0 : type.hashCode());
+	return result;
+}
 
-  /**
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (!super.equals(obj))
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	EnzymeCommissionNumber other = (EnzymeCommissionNumber) obj;
+	if (ec1 != other.ec1)
+		return false;
+	if (ec2 != other.ec2)
+		return false;
+	if (ec3 != other.ec3)
+		return false;
+	if (ec4 != other.ec4)
+		return false;
+	if (type == null) {
+		if (other.type != null)
+			return false;
+	} else if (!type.equals(other.type))
+		return false;
+	return true;
+}
+
+/**
    * Returns the enzyme's class number.
    *
    * @return the enzyme's class number.
