@@ -7,7 +7,7 @@ import java.util.List;
 import junit.framework.TestCase;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
 import uk.ac.ebi.intenz.domain.enzyme.DataComment;
@@ -44,7 +44,7 @@ public class EnzymeLinkMapperTest extends TestCase {
     }
 
     public void testInsert() throws Exception {
-        elm.insert(getSampleLinks(), id, EnzymeStatusConstant.SUGGESTED, con);
+        elm.insert(getSampleLinks(), id, Status.SUGGESTED, con);
         List entries = elm.find(id, con);
         assertTrue(entries != null);
         assertTrue(entries.size() == 2);

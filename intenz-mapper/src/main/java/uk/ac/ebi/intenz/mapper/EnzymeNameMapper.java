@@ -13,8 +13,8 @@ import org.apache.log4j.Logger;
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameQualifierConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameTypeConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeName;
 
 /**
@@ -222,7 +222,7 @@ public class EnzymeNameMapper {
     return result;
   }
 
-  public void update(EnzymeName name, Long enzymeId, EnzymeStatusConstant status, int orderIn, Connection con)
+  public void update(EnzymeName name, Long enzymeId, Status status, int orderIn, Connection con)
           throws SQLException {
     if (name == null) throw new NullPointerException("Parameter 'name' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
@@ -244,7 +244,7 @@ public class EnzymeNameMapper {
     }
   }
 
-  public void insertNames(List<EnzymeName> names, Long enzymeId, EnzymeStatusConstant status, Connection con)
+  public void insertNames(List<EnzymeName> names, Long enzymeId, Status status, Connection con)
           throws SQLException {
     if (names == null) throw new NullPointerException("Parameter 'names' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
@@ -255,7 +255,7 @@ public class EnzymeNameMapper {
     }
   }
 
-  public void insert(EnzymeName enzymeName, Long enzymeId, EnzymeStatusConstant status, int orderIn, Connection con)
+  public void insert(EnzymeName enzymeName, Long enzymeId, Status status, int orderIn, Connection con)
           throws SQLException {
     if (enzymeName == null) throw new NullPointerException("Parameter 'enzymeName' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
@@ -276,7 +276,7 @@ public class EnzymeNameMapper {
     }
   }
 
-  public void reload(List<EnzymeName> names, Long enzymeId, EnzymeNameTypeConstant type, EnzymeStatusConstant status,
+  public void reload(List<EnzymeName> names, Long enzymeId, EnzymeNameTypeConstant type, Status status,
                      Connection con)
           throws SQLException {
     deleteNames(enzymeId, type, con);
@@ -342,7 +342,7 @@ public class EnzymeNameMapper {
    * @param insertStatement ...
    * @throws SQLException
    */
-  private void doInsert(EnzymeName name, Long enzymeId, EnzymeStatusConstant status, int orderIn,
+  private void doInsert(EnzymeName name, Long enzymeId, Status status, int orderIn,
                         PreparedStatement insertStatement) throws SQLException {
     assert name != null : "Parameter 'name' must not be null.";
     assert enzymeId != null : "Parameter 'enzymeId' must not be null.";
@@ -364,7 +364,7 @@ public class EnzymeNameMapper {
     insertStatement.setString(9, name.getView().toString());
   }
 
-  private void doUpdate(EnzymeName name, Long enzymeId, EnzymeStatusConstant status, int orderIn,
+  private void doUpdate(EnzymeName name, Long enzymeId, Status status, int orderIn,
                         PreparedStatement updateStatement) throws SQLException {
     assert name != null : "Parameter 'name' must not be null.";
     assert enzymeId != null : "Parameter 'enzymeId' must not be null.";

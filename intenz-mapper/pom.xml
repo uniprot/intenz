@@ -8,7 +8,7 @@
 	<artifactId>intenz-mapper</artifactId>
     <name>IntEnz mapper module</name>
 	<packaging>jar</packaging>
-	<version>4.2.1</version>
+	<version>4.3-SNAPSHOT</version>
 	<description>IntEnz - Mapper package</description>
 
 	<parent>
@@ -32,13 +32,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-core</artifactId>
-			<version>4.1</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>rhea-domain</artifactId>
-					<groupId>uk.ac.ebi.rhea</groupId>
-				</exclusion>
-			</exclusions>
+			<version>4.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
@@ -58,7 +52,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.oracle.driver</groupId>
-			<artifactId>classes12</artifactId>
+			<artifactId>ojdbc14</artifactId>
 			<version>10.2.0.3</version>
 			<scope>test</scope>
 		</dependency>

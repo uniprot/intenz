@@ -8,7 +8,7 @@ import java.sql.Statement;
 import junit.framework.TestCase;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 
 public class EventPackageMapperTest extends TestCase {
@@ -19,7 +19,7 @@ public class EventPackageMapperTest extends TestCase {
 	private Statement stm;
 	private Long id1, id2;
 	private EnzymeCommissionNumber ec1, ec2;
-	private EnzymeStatusConstant status;
+	private Status status;
 	private EnzymeSourceConstant source;
 
 	private final String NEW = "NEW";
@@ -40,7 +40,7 @@ public class EventPackageMapperTest extends TestCase {
 		id2 = new Long(-2L);
 		ec1 = EnzymeCommissionNumber.valueOf(1,1,1,9999);
 		ec2 = EnzymeCommissionNumber.valueOf(1,1,1,9998);
-		status = EnzymeStatusConstant.APPROVED;
+		status = Status.APPROVED;
 		source = EnzymeSourceConstant.INTENZ;
 	}
 

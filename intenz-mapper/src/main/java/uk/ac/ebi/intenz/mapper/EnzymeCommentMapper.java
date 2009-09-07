@@ -10,8 +10,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeComment;
 
 /**
@@ -136,7 +136,7 @@ public class EnzymeCommentMapper {
     return result;
   }
 
-  public void reload(List<EnzymeComment> comments, Long enzymeId, EnzymeStatusConstant status, Connection con)
+  public void reload(List<EnzymeComment> comments, Long enzymeId, Status status, Connection con)
           throws SQLException {
     deleteAll(enzymeId, con);
     insert(comments, enzymeId, status, con);
@@ -160,10 +160,6 @@ public class EnzymeCommentMapper {
       deleteAllStatement = con.prepareStatement(deleteAllStatement());
       deleteAllStatement.setLong(1, enzymeId.longValue());
       deleteAllStatement.execute();
-//      con.commit();
-//    } catch (SQLException e) {
-//      con.rollback();
-//      throw e;
     } finally {
       if (deleteAllStatement != null) deleteAllStatement.close();
     }
@@ -178,7 +174,7 @@ public class EnzymeCommentMapper {
    * @param con      ...
    * @throws SQLException
    */
-  public void insert(List<EnzymeComment> comments, Long enzymeId, EnzymeStatusConstant status, Connection con)
+  public void insert(List<EnzymeComment> comments, Long enzymeId, Status status, Connection con)
           throws SQLException {
     if (comments == null) throw new NullPointerException("Parameter 'comments' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
@@ -192,17 +188,13 @@ public class EnzymeCommentMapper {
         EnzymeComment enzymeComment = comments.get(iii);
         doInsert(enzymeComment, enzymeId, (iii+1), status, insertStatement);
         insertStatement.execute();
-//        con.commit();
       }
-//    } catch (SQLException e) {
-//      con.rollback();
-//      throw e;
     } finally {
       if (insertStatement != null) insertStatement.close();
     }
   }
 
-  public void update(EnzymeComment comment, Long enzymeId, EnzymeStatusConstant status, int orderIn, Connection con) throws SQLException {
+  public void update(EnzymeComment comment, Long enzymeId, Status status, int orderIn, Connection con) throws SQLException {
     if (comment == null) throw new NullPointerException("Parameter 'comment' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
     if (status == null) throw new NullPointerException("Parameter 'status' must not be null.");
@@ -214,10 +206,6 @@ public class EnzymeCommentMapper {
       updateStatement = con.prepareStatement(updateStatement());
       doUpdate(comment, enzymeId, status, orderIn, updateStatement);
       updateStatement.execute();
-//      con.commit();
-//    } catch (SQLException e) {
-//      con.rollback();
-//      throw e;
     } finally {
       if (updateStatement != null) updateStatement.close();
     }
@@ -257,7 +245,7 @@ public class EnzymeCommentMapper {
    * @param insertStatement ...
    * @throws SQLException
    */
-  private void doInsert(EnzymeComment comment, Long enzymeId, int orderIn, EnzymeStatusConstant status,
+  private void doInsert(EnzymeComment comment, Long enzymeId, int orderIn, Status status,
                         PreparedStatement insertStatement)
           throws SQLException {
     assert comment != null : "Parameter 'comment' must not be null.";
@@ -273,7 +261,7 @@ public class EnzymeCommentMapper {
     insertStatement.setString(6, comment.getView().toString());
   }
 
-  private void doUpdate(EnzymeComment comment, Long enzymeId, EnzymeStatusConstant status, int orderIn,
+  private void doUpdate(EnzymeComment comment, Long enzymeId, Status status, int orderIn,
                         PreparedStatement updateStatement)
           throws SQLException {
     assert comment != null : "Parameter 'comment' must not be null.";

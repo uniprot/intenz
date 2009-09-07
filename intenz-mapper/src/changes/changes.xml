@@ -5,6 +5,15 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.3" date=""
+    		description="Preliminary EC numbers.">
+       		<action dev="rafalcan" type="add">
+       			Added implementation for preliminary EC numbers.
+       		</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest intenz-core.
+        	</action>
+    	</release>
         <release version="4.2.1" date="2009-09-01"
             description="Updated dependencies">
             <action dev="rafalcan" type="update">

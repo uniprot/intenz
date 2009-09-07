@@ -19,8 +19,8 @@ import org.apache.log4j.Logger;
 
 import uk.ac.ebi.biobabel.util.collections.OperatorSet;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.Cofactor;
 import uk.ac.ebi.rhea.domain.Compound;
 import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
@@ -186,7 +186,7 @@ public class EnzymeCofactorMapper {
    * @param con       ...
    * @throws SQLException
    */
-  public void insert(Collection<Object> cofactors, Long enzymeId, EnzymeStatusConstant status, Connection con)
+  public void insert(Collection<Object> cofactors, Long enzymeId, Status status, Connection con)
   throws SQLException {
 	  if (cofactors == null) throw new NullPointerException("Parameter 'cofactors' must not be null.");
 	  if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
@@ -223,7 +223,7 @@ public class EnzymeCofactorMapper {
    * @param con       ...
    * @throws SQLException
    */
-  public void reload(Collection<Object> cofactors, Long enzymeId, EnzymeStatusConstant status, Connection con)
+  public void reload(Collection<Object> cofactors, Long enzymeId, Status status, Connection con)
   throws SQLException {
     if (cofactors == null) throw new NullPointerException("Parameter 'cofactors' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
@@ -342,7 +342,7 @@ public class EnzymeCofactorMapper {
 	  return result;
   }
 
-  private int doInsert(OperatorSet cofactors, Long enzymeId, int orderIn, EnzymeStatusConstant status,
+  private int doInsert(OperatorSet cofactors, Long enzymeId, int orderIn, Status status,
   		String operatorGroup, int currentGroup, PreparedStatement insertStatement)
   throws SQLException{
   	for (Object o : cofactors) {
@@ -370,7 +370,7 @@ public class EnzymeCofactorMapper {
    * @param insertStatement ...
    * @throws java.sql.SQLException
    */
-  private void doInsert(Cofactor cofactor, Long enzymeId, int orderIn, EnzymeStatusConstant status,
+  private void doInsert(Cofactor cofactor, Long enzymeId, int orderIn, Status status,
                         String operator, String operatorGroup, PreparedStatement insertStatement)
           throws SQLException {
     assert cofactor != null : "Parameter 'cofactor' must not be null.";

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
 import uk.ac.ebi.intenz.domain.enzyme.DataComment;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
@@ -268,7 +268,7 @@ public class EnzymeLinkMapper {
    * @param con      ...
    * @throws SQLException
    */
-  public void insert(List<EnzymeLink> links, Long enzymeId, EnzymeStatusConstant status, Connection con)
+  public void insert(List<EnzymeLink> links, Long enzymeId, Status status, Connection con)
   throws SQLException {
     if (links == null) throw new NullPointerException("Parameter 'links' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
@@ -285,23 +285,18 @@ public class EnzymeLinkMapper {
         if (link.getXrefDatabaseConstant().isXref()) {
           doInsertXref(link, enzymeId, status, insertXrefStatement);
           insertXrefStatement.execute();
-//          con.commit();
         } else {
           doInsert(link, enzymeId, status, insertStatement);
           insertStatement.execute();
-//          con.commit();
         }
       }
-//    } catch (SQLException e) {
-//      con.rollback();
-//      throw e;
     } finally {
       insertStatement.close();
       insertXrefStatement.close();
     }
   }
 
-  public void insertLink(EnzymeLink link, Long enzymeId, EnzymeStatusConstant status, Connection con) throws SQLException {
+  public void insertLink(EnzymeLink link, Long enzymeId, Status status, Connection con) throws SQLException {
     if (link == null) throw new NullPointerException("Parameter 'link' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
     if (status == null) throw new NullPointerException("Parameter 'status' must not be null.");
@@ -312,16 +307,12 @@ public class EnzymeLinkMapper {
       insertStatement = con.prepareStatement(insertStatement());
       doInsert(link, enzymeId, status, insertStatement);
       insertStatement.execute();
-//      con.commit();
-//    } catch (SQLException e) {
-//      con.rollback();
-//      throw e;
     } finally {
       insertStatement.close();
     }
   }
 
-  public void updateLinkUrl(EnzymeLink link, Long enzymeId, EnzymeStatusConstant status, Connection con) throws SQLException {
+  public void updateLinkUrl(EnzymeLink link, Long enzymeId, Status status, Connection con) throws SQLException {
     if (link == null) throw new NullPointerException("Parameter 'link' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
     if (status == null) throw new NullPointerException("Parameter 'status' must not be null.");
@@ -338,16 +329,12 @@ public class EnzymeLinkMapper {
       else
         updateStatement.setString(4, link.getXrefDatabaseConstant().toString());
       updateStatement.execute();
-//      con.commit();
-//    } catch (SQLException e) {
-//      con.rollback();
-//      throw e;
     } finally {
       updateStatement.close();
     }
   }
 
-  public void reloadLinks(List<EnzymeLink> links, Long enzymeId, EnzymeStatusConstant status, Connection con) throws SQLException {
+  public void reloadLinks(List<EnzymeLink> links, Long enzymeId, Status status, Connection con) throws SQLException {
     if (links == null) throw new NullPointerException("Parameter 'links' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
     if (status == null) throw new NullPointerException("Parameter 'status' must not be null.");
@@ -610,7 +597,7 @@ public class EnzymeLinkMapper {
    * @param insertStatement ...
    * @throws SQLException
    */
-  private void doInsert(EnzymeLink link, Long enzymeId, EnzymeStatusConstant status,
+  private void doInsert(EnzymeLink link, Long enzymeId, Status status,
                         PreparedStatement insertStatement) throws SQLException {
     assert link != null : "Parameter 'link' must not be null.";
     assert enzymeId != null : "Parameter 'enzymeId' must not be null.";
@@ -637,7 +624,7 @@ public class EnzymeLinkMapper {
     }
   }
 
-  private void doInsertXref(EnzymeLink xref, Long enzymeId, EnzymeStatusConstant status,
+  private void doInsertXref(EnzymeLink xref, Long enzymeId, Status status,
                             PreparedStatement insertXrefStatement) throws SQLException {
     assert xref != null : "Parameter 'xref' must not be null.";
     assert enzymeId != null : "Parameter 'enzymeId' must not be null.";
