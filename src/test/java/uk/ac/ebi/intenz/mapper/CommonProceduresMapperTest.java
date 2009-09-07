@@ -10,8 +10,8 @@ import junit.framework.TestCase;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameTypeConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeComment;
@@ -35,7 +35,7 @@ public class CommonProceduresMapperTest extends TestCase {
 	private EnzymeReferenceMapper erefm;
 	private Long fakeId, cloneId;
 	private EnzymeCommissionNumber fakeEc;
-	private EnzymeStatusConstant fakeStatus;
+	private Status fakeStatus;
 	private EnzymeSourceConstant fakeSource;
 	private EnzymeViewConstant fakeView;
 	private Long fakePubId;
@@ -69,7 +69,7 @@ public class CommonProceduresMapperTest extends TestCase {
 		erefm = new EnzymeReferenceMapper();
 		fakeId = new Long(-1L);
 		fakeEc = EnzymeCommissionNumber.valueOf(1,1,1,9999);
-		fakeStatus = EnzymeStatusConstant.APPROVED;
+		fakeStatus = Status.APPROVED;
 		fakeSource = EnzymeSourceConstant.INTENZ;
 		fakeView = EnzymeViewConstant.INTENZ;
 		fakePubId = new Long(-666);

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.reference.Book;
 import uk.ac.ebi.intenz.domain.reference.Journal;
 import uk.ac.ebi.intenz.domain.reference.Patent;
@@ -167,7 +167,7 @@ public class EnzymeReferenceMapper {
     return result;
   }
 
-  public void insert(Reference reference, Long enzymeId, EnzymeStatusConstant status, Connection con) throws SQLException {
+  public void insert(Reference reference, Long enzymeId, Status status, Connection con) throws SQLException {
     if (reference == null) throw new NullPointerException("Parameter 'reference' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
     if (status == null) throw new NullPointerException("Parameter 'status' must not be null.");
@@ -232,7 +232,7 @@ public class EnzymeReferenceMapper {
    * @param con        ...
    * @throws SQLException
    */
-  public void insert(List<Reference> references, Long enzymeId, EnzymeStatusConstant status, Connection con)
+  public void insert(List<Reference> references, Long enzymeId, Status status, Connection con)
   throws SQLException {
     if (references == null) throw new NullPointerException("Parameter 'references' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
@@ -245,13 +245,13 @@ public class EnzymeReferenceMapper {
     }
   }
 
-  public void reload(List<Reference> references, Long enzymeId, EnzymeStatusConstant status, Connection con)
+  public void reload(List<Reference> references, Long enzymeId, Status status, Connection con)
   throws SQLException {
     deleteAll(enzymeId, con);
     insert(references, enzymeId, status, con);
   }
 
-  public void update(Reference reference, Long enzymeId, EnzymeStatusConstant status, Connection con) throws SQLException {
+  public void update(Reference reference, Long enzymeId, Status status, Connection con) throws SQLException {
     if (reference == null) throw new NullPointerException("Parameter 'reference' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
     if (status == null) throw new NullPointerException("Parameter 'status' must not be null.");
@@ -291,7 +291,7 @@ public class EnzymeReferenceMapper {
     }
   }
 
-  public void update(List<Reference> references, Long enzymeId, EnzymeStatusConstant status, Connection con)
+  public void update(List<Reference> references, Long enzymeId, Status status, Connection con)
   throws SQLException {
     if (references == null) throw new NullPointerException("Parameter 'references' must not be null.");
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
@@ -511,7 +511,7 @@ public class EnzymeReferenceMapper {
    * @param insertCitationStatement ...
    * @throws SQLException
    */
-  private void doInsertCitation(Long enzymeId, Long pubId, int orderIn, EnzymeStatusConstant status, EnzymeSourceConstant source,
+  private void doInsertCitation(Long enzymeId, Long pubId, int orderIn, Status status, EnzymeSourceConstant source,
                                 PreparedStatement insertCitationStatement) throws SQLException {
     insertCitationStatement.setLong(1, enzymeId.longValue());
     insertCitationStatement.setLong(2, pubId.longValue());

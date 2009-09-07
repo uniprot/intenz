@@ -10,8 +10,8 @@ import java.util.Vector;
 
 import oracle.jdbc.driver.OraclePreparedStatement;
 import oracle.jdbc.driver.OracleResultSet;
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
 import uk.ac.ebi.intenz.domain.constants.EventConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.domain.history.FutureEvent;
@@ -192,7 +192,7 @@ public class EnzymeFutureMapper extends EnzymeHistoryMapper {
     futureEvent.setDate(eventYear);
     futureEvent.setNote(eventNote);
     futureEvent.setEventClass(EventConstant.valueOf(eventClass));
-    futureEvent.setStatus(EnzymeStatusConstant.valueOf(status));
+    futureEvent.setStatus(Status.valueOf(status));
     futureEvent.setTimeout(timeout);
 
     return futureEvent;
