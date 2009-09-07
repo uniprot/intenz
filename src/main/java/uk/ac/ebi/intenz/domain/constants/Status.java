@@ -9,7 +9,8 @@ public enum Status {
 
 	APPROVED("OK"),
 	SUGGESTED("SU"),
-	PROPOSED("PR");
+	PROPOSED("PR"),
+	PRELIMINARY("PM");
 	
 	private String code;
 	

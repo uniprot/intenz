@@ -1,6 +1,6 @@
 package uk.ac.ebi.intenz.domain.history;
 
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 
 /**
  * A future event adds some information to a history event as it has a status and a timeout associated.
@@ -10,7 +10,7 @@ import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
  */
 public class FutureEvent extends HistoryEvent {
 
-  private EnzymeStatusConstant status;
+  private Status status;
 
   private Timeout timeout;
 
@@ -19,7 +19,7 @@ public class FutureEvent extends HistoryEvent {
    */
   public FutureEvent() {
     super();
-    status = EnzymeStatusConstant.SUGGESTED;
+    status = Status.SUGGESTED;
     timeout = new Timeout();
   }
 
@@ -59,11 +59,11 @@ public class FutureEvent extends HistoryEvent {
 
   // --------------------- GETTER -----------------------------
 
-  public EnzymeStatusConstant getStatus() {
+  public Status getStatus() {
     return status;
   }
 
-  public void setStatus(EnzymeStatusConstant status) {
+  public void setStatus(Status status) {
     if (status == null) throw new NullPointerException("Parameter 'status' must not be null.");
     this.status = status;
   }

@@ -5,6 +5,16 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+       	<release version="4.2" date=""
+       		description="Preliminary EC numbers.">
+       		<action dev="rafalcan" type="add">
+       			Added implementation for preliminary EC numbers.
+       		</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest rhea-domain and biobabel-core (updated
+        		validator with support for preliminary EC numbers).
+        	</action>
+    	</release>
     	<release version="4.1" date="2009-05-07" description="Refactoring">
         	<action dev="rafalcan" type="add">
         		Added enumerations to replace constant classes.

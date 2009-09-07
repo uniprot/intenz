@@ -10,8 +10,8 @@ import java.util.TreeSet;
 import uk.ac.ebi.biobabel.util.collections.OperatorSet;
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameTypeConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.constants.View;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
 import uk.ac.ebi.intenz.domain.exceptions.EnzymeNameException;
@@ -122,7 +122,7 @@ public class EnzymeEntry {
   /**
    * The status of this enzyme (can be suggested, proposed or approved).
    */
-  private EnzymeStatusConstant status;
+  private Status status;
 
   /**
    * The source of the enzyme (can be IUBMB, SIB, BRENDA or INTENZ).
@@ -162,7 +162,7 @@ public class EnzymeEntry {
     HistoryNode currentNode = new HistoryNode();
     currentNode.setEnzymeEntry(this);
     historyGraph = new HistoryGraph(currentNode);
-    status = EnzymeStatusConstant.SUGGESTED;
+    status = Status.SUGGESTED;
     source = EnzymeSourceConstant.INTENZ;
     isActive = true;
     isGhost = false;
@@ -987,7 +987,7 @@ public class EnzymeEntry {
     this.historyGraph = historyGraph;
   }
 
-  public EnzymeStatusConstant getStatus() {
+  public Status getStatus() {
     return status;
   }
 
@@ -997,7 +997,7 @@ public class EnzymeEntry {
    * @param status The enzyme's status.
    * @throws NullPointerException if <code>status</code> is <code>null</code>.
    */
-  public void setStatus(EnzymeStatusConstant status) {
+  public void setStatus(Status status) {
     if (status == null) throw new NullPointerException("Parameter 'status' must not be null.");
     this.status = status;
   }
