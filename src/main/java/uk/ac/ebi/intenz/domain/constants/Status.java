@@ -18,4 +18,11 @@ public enum Status {
 	
 	public String getCode(){ return code; }
 	
+	public Status fromCode(String code){
+		for (Status status : Status.values()){
+			if (status.code.equals(code)) return status;
+		}
+		return null;
+	}
+	
 }
