@@ -1,13 +1,10 @@
 package uk.ac.ebi.intenz.domain.enzyme;
 
+import java.util.StringTokenizer;
+
 import uk.ac.ebi.biobabel.validator.DbIdentifierValidator;
-import uk.ac.ebi.biobabel.validator.ValidatorType;
 import uk.ac.ebi.intenz.domain.DomainObject;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
-
-import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * This class represents an Enzyme Commission (EC) number.
@@ -304,10 +301,7 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
 
   /**
    * Returns the type of this EC number.
-   * <p/>
-   * See class constants for more information of the supported types.
-   *
-   * @return the type code.
+   * @return the type.
    */
   public Type getType() {
 	return type;
