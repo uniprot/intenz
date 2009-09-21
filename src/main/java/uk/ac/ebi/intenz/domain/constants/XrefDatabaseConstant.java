@@ -25,11 +25,18 @@ public class XrefDatabaseConstant implements Comparable<XrefDatabaseConstant> {
                                                                             "", false);
 
   /**
-   * <a href="http://www.brenda.uni-koeln.de/">BRENDA</a> collects functional data about enzymes.
+   * <a href="http://www.brenda.uni-koeln.de/">BRENDA</a> collects functional
+   * data about enzymes. NOTE: this is now considered as xref, as the identifiers
+   * we are linking to are their preliminary EC numbers.
    */
-  public static final XrefDatabaseConstant BRENDA = new XrefDatabaseConstant("BRENDA", "BRENDA",
-                                                                             "http://www.brenda-enzymes.info/php/result_flat.php4?ecno=", false);
+  public static final XrefDatabaseConstant BRENDA = new XrefDatabaseConstant(
+		  "BRENDA", "BRENDA",
+		  "http://www.brenda-enzymes.info/php/result_flat.php4?ecno=", true);
 
+  public static final XrefDatabaseConstant METACYC = new XrefDatabaseConstant(
+		  "MCYC", "MetaCyc",
+		  "http://biocyc.org/META/NEW-IMAGE?type=REACTION&object=", true);
+  
   /**
    * <a href="http://www.cas.org/">CAS</a> is commercial and cannot be linked to.
    */
