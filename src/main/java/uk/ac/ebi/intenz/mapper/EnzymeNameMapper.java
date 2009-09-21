@@ -25,7 +25,8 @@ import uk.ac.ebi.intenz.domain.enzyme.EnzymeName;
  */
 public class EnzymeNameMapper {
 
-  private static final Logger LOGGER = Logger.getLogger(EnzymeNameMapper.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(EnzymeNameMapper.class.getName());
 
   private static final String COLUMNS = "enzyme_id, name, name_class, warning, status, source, note, order_in, web_view";
 
@@ -34,10 +35,9 @@ public class EnzymeNameMapper {
 
   private String exportSibNamesStatement() {
     return "SELECT " + COLUMNS +
-           " FROM names" +
-           " WHERE enzyme_id = ? AND (web_view = ? OR web_view = ? OR web_view = ? OR web_view = ?)" +
-           " FOR UPDATE" +
-           " ORDER BY UPPER(name)";
+           " FROM names WHERE enzyme_id = ?" +
+           " AND (web_view = ? OR web_view = ? OR web_view = ? OR web_view = ?)" +
+           " FOR UPDATE ORDER BY UPPER(name)";
   }
 
   private String findStatement() {

@@ -33,7 +33,8 @@ import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
  */
 public class EnzymeCofactorMapper {
 
-  private static final Logger LOGGER = Logger.getLogger(EnzymeCofactorMapper.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(EnzymeCofactorMapper.class.getName());
   
   protected RheaCompoundDbReader rheaCompoundReader;
 

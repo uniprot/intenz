@@ -192,7 +192,7 @@ public class EnzymeFutureMapper extends EnzymeHistoryMapper {
     futureEvent.setDate(eventYear);
     futureEvent.setNote(eventNote);
     futureEvent.setEventClass(EventConstant.valueOf(eventClass));
-    futureEvent.setStatus(Status.valueOf(status));
+    futureEvent.setStatus(Status.fromCode(status));
     futureEvent.setTimeout(timeout);
 
     return futureEvent;

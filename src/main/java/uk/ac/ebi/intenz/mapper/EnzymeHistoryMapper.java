@@ -26,7 +26,7 @@ import oracle.sql.DATE;
  */
 public class EnzymeHistoryMapper {
 
-  private Logger LOGGER = Logger.getLogger(EnzymeHistoryMapper.class);
+  private Logger LOGGER = Logger.getLogger(EnzymeHistoryMapper.class.getName());
 
   protected Hashtable visitedNodes;
 
@@ -38,8 +38,7 @@ public class EnzymeHistoryMapper {
 
   private String findStatement() {
     return "SELECT " + COLUMNS +
-           " FROM history_events" +
-           " WHERE before_id = ? OR after_id = ?";
+           " FROM history_events WHERE before_id = ? OR after_id = ?";
   }
 
   public HistoryGraph find(EnzymeEntry enzymeEntry, Connection con) throws SQLException, DomainException {
