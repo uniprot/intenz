@@ -10,6 +10,14 @@
        		<action dev="rafalcan" type="add">
        			Added implementation for preliminary EC numbers.
        		</action>
+       		<action dev="rafalcan" type="add">
+       			Added MetaCyc as xref for enzymes (their preliminary EC
+       			numbers).
+       		</action>
+       		<action dev="rafalcan" type="fix">
+       			Fixed Brenda, now considered as xref (to their preliminary
+       			EC numbers).
+       		</action>
         	<action dev="rafalcan" type="update">
         		Updated to latest rhea-domain and biobabel-core (updated
         		validator with support for preliminary EC numbers).
