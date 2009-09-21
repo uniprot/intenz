@@ -18,7 +18,7 @@ import java.util.Enumeration;
  */
 public class EntryLockSingleton {
 
-  private Logger LOGGER = Logger.getLogger(EntryLockSingleton.class);
+  private Logger LOGGER = Logger.getLogger(EntryLockSingleton.class.getName());
 
   /**
    * Creates a single statically availble instance of this class, which cannot be redefined.

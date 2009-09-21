@@ -1,19 +1,26 @@
 package uk.ac.ebi.intenz.webapp.controller.modification;
 
-import org.apache.struts.action.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
 import uk.ac.ebi.intenz.mapper.AuditPackageMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeSubSubclassMapper;
 import uk.ac.ebi.intenz.webapp.dtos.EcSearchForm;
 import uk.ac.ebi.intenz.webapp.dtos.EnzymeSubSubclassDTO;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  * This Action ...
@@ -34,7 +41,7 @@ public class AddSubSubclassAction extends Action {
     EnzymeCommissionNumber ec = EnzymeCommissionNumber.valueOf(subSubclassDTO.getEc());
 
     // Check whether this EC is a sub-subclass EC.
-    if (ec.getType() != EnzymeCommissionNumber.TYPE_SUBSUBCLASS) {
+    if (!ec.getType().equals(Type.SUBSUBCLASS)) {
       errors.add("ec", new ActionMessage("errors.form.subsubclass.invalidEc"));
       saveErrors(request, errors);
       return mapping.getInputForward();

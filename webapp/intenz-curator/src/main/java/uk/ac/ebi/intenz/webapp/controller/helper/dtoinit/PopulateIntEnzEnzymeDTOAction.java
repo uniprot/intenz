@@ -59,7 +59,8 @@ import uk.ac.ebi.xchars.domain.EncodingType;
 public class PopulateIntEnzEnzymeDTOAction extends Action {
   private static final XCharsASCIITranslator TRANSLATOR = XCharsASCIITranslator.getInstance();
 
-  private static final Logger LOGGER = Logger.getLogger(PopulateIntEnzEnzymeDTOAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(PopulateIntEnzEnzymeDTOAction.class.getName());
   private static final String INTENZ_ENTRY_JSP_FWD = "intenz_entry";
   private static final String DELETED_INTENZ_ENTRY_JSP_FWD = "deleted_intenz_entry";
   private static final String TRANSFERRED_INTENZ_ENTRY_JSP_FWD = "transferred_intenz_entry";

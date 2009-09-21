@@ -292,3 +292,27 @@ function trim(str){
     str = str.replace(/\s+$/g, '');
     return str;
 }
+
+/**
+ * Checks that the EC number and the status is consistent for preliminary
+ * entries, fixing any of them if needed.
+ * @param ev the event triggering the check
+ */
+function checkPreliminary(ev){
+	var ec = document.getElementById('ec');
+	if (ec == null) return;
+	var statusCode = document.getElementById('statusCode');
+	if (ev.target == ec){
+		if (ec.value.indexOf('n') != -1){
+			statusCode.value = 'PM';
+		} else {
+			statusCode.value = 'SU'; // FIXME
+		}
+	} else if (ev.target == statusCode){
+		if (statusCode.value == 'PM' && ec.value.indexOf('n') == -1){
+			
+		} else if (statusCode.value != 'PM' && ec.value.indexOf('n') != -1){
+			ec.value = ec.value.replace('n', '', 'gi');
+		}
+	}		
+}

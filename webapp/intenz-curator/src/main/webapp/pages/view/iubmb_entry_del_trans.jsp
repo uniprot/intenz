@@ -7,6 +7,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
   <table height="100%" width="100%" border="0" cellspacing="8" cellpadding="0">
       <tr>
@@ -22,7 +23,6 @@
       </tr>
       <tr height="100%">
         <td valign="top" align="center">
-          <table width="100%" class="content_table_with_menu" border="0" cellspacing="20" cellpadding="0">
 
           <!-- Tabs -->
           <div id="menuDiv">
@@ -32,7 +32,13 @@
               <li><a href="searchId.do?id=<bean:write name="iubmbEnzymeDTO" property="id"/>&view=SIB&<%=Constants.TOKEN_KEY%>=<%= request.getAttribute(Constants.TOKEN_KEY) %>" title="ENZYME view of this enzyme"><img width="14" border="0" height="12" src="images/red_bullet.gif"/>&nbsp;ENZYME</a></li>
             </ul>
           </div>
+<c:choose>
+<c:when test="${iubmbEnzymeDTO.statusCode eq 'PM'}">
+<br/>This is a preliminary entry, neither proposed nor accepted by NC-IUBMB.
+</c:when>
+<c:otherwise>
 
+          <table width="100%" class="content_table_with_menu" border="0" cellspacing="20" cellpadding="0">
           <tr>
             <logic:equal value="transferred" name="iubmbEnzymeDTO" property="latestHistoryEventClass">
               <td nowrap="nowrap" class="data_region_name_cell">Transferred entry:</td>
@@ -62,6 +68,8 @@
             </td>
           </tr>
           </table>
+</c:otherwise>
+</c:choose>
         </td>
       </tr>
     </table>

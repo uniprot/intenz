@@ -27,7 +27,8 @@ import uk.ac.ebi.intenz.webapp.utilities.IntEnzUtilities;
 public class PopulateEnzymeClassDTOAction extends Action {
   private final static String CLASS_JSP_FWD = "enzyme_class";
 
-  private static final Logger LOGGER = Logger.getLogger(PopulateEnzymeClassDTOAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(PopulateEnzymeClassDTOAction.class.getName());
 
     @Override
   public ActionForward execute(ActionMapping mapping,

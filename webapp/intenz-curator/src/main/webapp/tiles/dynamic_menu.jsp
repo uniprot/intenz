@@ -2,6 +2,7 @@
                  org.apache.struts.taglib.html.Constants,
                  uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO,uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant,uk.ac.ebi.intenz.domain.constants.EventConstant"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <ul id="udm" class="udm">
   <li><a href=".">Home</a></li>
@@ -19,42 +20,38 @@
     <%
       EnzymeDTO enzymeDTO = (EnzymeDTO) request.getSession().getAttribute("enzymeDTO");
       String urlToLink = new StringBuffer(Constants.TOKEN_KEY).append("=").append(request.getAttribute(Constants.TOKEN_KEY)).append("&id=").append(enzymeDTO.getId()).append("&statusCode=").append(enzymeDTO.getStatusCode()).append("&ec=").append(enzymeDTO.getEc()).toString();
-
-      if(enzymeDTO.getStatusCode().equals(EnzymeStatusConstant.APPROVED.getCode())) {
-        if(enzymeDTO.isActive()) {
-        %>
+    %>
+        <c:choose>
+            <c:when test="${enzymeDTO.statusCode eq 'OK'}">
+                <c:if test="${enzymeDTO.active}">
         <li><a href="amendEntryFWD.do?<%=urlToLink%>">Amend</a></li>
         <li><a href="transferEntryFWD.do?<%=urlToLink%>">Transfer</a></li>
         <li><a href="deleteEntryFWD.do?<%=urlToLink%>">Delete</a></li>
-        <%
-        }
-    %>
-      <li><a href="createEntryFWD.do?<%=urlToLink%>">Create</a></li>
-    <%
-      } else {
-        if(enzymeDTO.getLatestHistoryEventClass().equals(EventConstant.MODIFICATION.toString())) {
-          %>
+                </c:if>
+        <li><a href="createEntryFWD.do?<%=urlToLink%>">Create</a></li>
+            </c:when>
+            <c:when test="${enzymeDTO.statusCode eq 'PM'}">
+                <c:if test="${enzymeDTO.active}">
+        <li><a href="amendEntryUpdateFWD.do?<%=urlToLink%>">Amend (<i>update</i>)</a></li>
+        <li><a href="transferEntryFWD.do?<%=urlToLink%>">Transfer</a></li>
+                </c:if>
+        <li><a href="createEntryFWD.do?<%=urlToLink%>">Create</a></li>
+            </c:when>
+            <c:otherwise>
+                <c:if test="${enzymeDTO.latestHistoryEventClass eq 'modified'}">
             <li><a href="amendEntryUpdateFWD.do?<%=urlToLink%>">Amend (<i>update</i>)</a></li>
-          <%
-        }
-        if(enzymeDTO.getLatestHistoryEventClass().equals(EventConstant.TRANSFER.toString())) {
-          %>
+                </c:if>
+                <c:if test="${enzymeDTO.latestHistoryEventClass eq 'transferred'}">
             <li><a href="transferEntryUpdateFWD.do?<%=urlToLink%>">Transfer (<i>update</i>)</a></li>
-          <%
-        }
-        if(enzymeDTO.getLatestHistoryEventClass().equals(EventConstant.DELETION.toString())) {
-          %>
+                </c:if>
+                <c:if test="${enzymeDTO.latestHistoryEventClass eq 'deleted'}">
           <li><a href="deleteEntryUpdateFWD.do?<%=urlToLink%>">Delete (<i>update</i>)</a></li>
-          <%
-        }
-        if(enzymeDTO.getLatestHistoryEventClass().equals(EventConstant.CREATION.toString())) {
-          %>
+                </c:if>
+                <c:if test="${enzymeDTO.latestHistoryEventClass eq 'created'}">
           <li><a href="createEntryUpdateFWD.do?<%=urlToLink%>">Create (<i>update</i>)</a></li>
-          <%
-        }
-
-      }
-      %>
+                </c:if>
+            </c:otherwise>
+        </c:choose>
         <li><html:link action="addSubSubclassFWD" >Create Sub-Subclass</html:link></li>
       <%
       if( enzymeDTO.getXcharsView().indexOf("false")!=-1) {

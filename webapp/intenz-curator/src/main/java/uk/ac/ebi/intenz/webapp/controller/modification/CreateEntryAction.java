@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.*;
 
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
 import uk.ac.ebi.intenz.mapper.AuditPackageMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
@@ -25,7 +26,8 @@ import java.sql.SQLException;
  * @version $Revision: 1.3 $ $Date: 2008/11/17 17:14:10 $
  */
 public class CreateEntryAction extends CurationAction {
-  private static final Logger LOGGER = Logger.getLogger(CreateEntryAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(CreateEntryAction.class.getName());
   private final static String SEARCH_BY_EC_ACTION_FWD = "searchEc";
 
   public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
@@ -56,8 +58,10 @@ public class CreateEntryAction extends CurationAction {
       LOGGER.info("Data subimtted");
 
       // Store event.
-      EventPackageMapper eventPackageMapper = new EventPackageMapper();
-      eventPackageMapper.insertFutureCreationEvent(new Long(enzymeDTO.getId()), con);
+      if (!ec.getType().equals(Type.PRELIMINARY)){
+        EventPackageMapper eventPackageMapper = new EventPackageMapper();
+        eventPackageMapper.insertFutureCreationEvent(new Long(enzymeDTO.getId()), con);
+      }
 
       con.commit();
 

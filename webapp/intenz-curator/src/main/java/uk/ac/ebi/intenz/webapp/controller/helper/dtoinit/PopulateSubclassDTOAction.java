@@ -28,7 +28,8 @@ import uk.ac.ebi.intenz.webapp.utilities.IntEnzUtilities;
 public class PopulateSubclassDTOAction extends Action {
   private final static String SUBCLASS_JSP_FWD = "subclass";
 
-  private static final Logger LOGGER = Logger.getLogger(PopulateSubclassDTOAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(PopulateSubclassDTOAction.class.getName());
 
   public ActionForward execute(ActionMapping mapping,
                                ActionForm form,

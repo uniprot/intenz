@@ -3,6 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
 	EnzymeDTO enzymeDTO = (EnzymeDTO) request.getSession().getAttribute("enzymeDTO");
@@ -44,7 +45,7 @@
                         </logic:messagesPresent>
                         <tr>
                           <td align="right" nowrap="nowrap"><b>New EC:</b></td>
-                          <td width="100%"><html:text property="transferredEc" tabindex="1" size="15" /></td>
+                          <td><html:text property="transferredEc" tabindex="1" size="15" /></td>
                         </tr>
                         <tr>
                           <td colspan="2" nowrap="nowrap"><b>New History Line:</b></td>

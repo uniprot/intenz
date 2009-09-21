@@ -4,7 +4,7 @@
 
   <head>
     <title>Log on - IntEnz Curator Web Application</title>
-    <link rel="stylesheet" href="<html:rewrite forward='intenzStyle'/>" type="text/css">
+    <link rel="stylesheet" href="css/intenz.css" type="text/css">
     
     <%-- Make it clear whenever we are using a development database: --%>
 	<%@ include file="pages/testWatermark.jsp" %>

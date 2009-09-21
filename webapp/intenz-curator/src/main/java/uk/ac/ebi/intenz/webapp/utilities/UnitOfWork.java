@@ -15,8 +15,8 @@ import uk.ac.ebi.biobabel.util.collections.OperatorSet;
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameQualifierConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameTypeConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
 import uk.ac.ebi.intenz.domain.enzyme.Cofactor;
 import uk.ac.ebi.intenz.domain.enzyme.DataComment;
@@ -51,7 +51,6 @@ import uk.ac.ebi.intenz.webapp.exceptions.DeregisterException;
 import uk.ac.ebi.rhea.domain.Compound;
 import uk.ac.ebi.rhea.domain.Database;
 import uk.ac.ebi.rhea.domain.Reaction;
-import uk.ac.ebi.rhea.domain.Status;
 import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
 
 /**
@@ -88,7 +87,7 @@ public class UnitOfWork {
 	 * {@link UnitOfWork#register(uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO)} and
 	 * {@link UnitOfWork#commit(uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO, java.sql.Connection)} phases.
 	 */
-	private static final Logger LOGGER = Logger.getLogger(UnitOfWork.class);
+	private static final Logger LOGGER = Logger.getLogger(UnitOfWork.class.getName());
 
 	/**
 	 * The EnzymeDTO instance the curator is working on.
@@ -155,21 +154,21 @@ public class UnitOfWork {
 
 		compareCoreData(enzymeUnderDevelopment, copy, con);
 		reloadNames(enzymeUnderDevelopment.getCommonNames(), new Long(enzymeUnderDevelopment.getId()),
-				EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()),
+				Status.fromCode(enzymeUnderDevelopment.getStatusCode()),
 				EnzymeNameTypeConstant.COMMON_NAME, con);
 		reloadReactions(enzymeUnderDevelopment.getReactionDtos(), new Long(enzymeUnderDevelopment.getId()),
-				EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()), con);
+				Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
 		compareSystematicName(enzymeUnderDevelopment, copy, con);
 		reloadNames(enzymeUnderDevelopment.getSynonyms(), new Long(enzymeUnderDevelopment.getId()),
-				EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()),
+				Status.fromCode(enzymeUnderDevelopment.getStatusCode()),
 				EnzymeNameTypeConstant.OTHER_NAME, con);
 		reloadCofactors(enzymeUnderDevelopment.getCofactors(), new Long(enzymeUnderDevelopment.getId()),
-				EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()), con);
+				Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
 		reloadLinks(enzymeUnderDevelopment, con);
 		reloadComments(enzymeUnderDevelopment.getComments(), new Long(enzymeUnderDevelopment.getId()),
-				EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()), con);
+				Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
 		reloadReferences(enzymeUnderDevelopment.getReferences(), new Long(enzymeUnderDevelopment.getId()),
-				EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()),
+				Status.fromCode(enzymeUnderDevelopment.getStatusCode()),
 				EnzymeSourceConstant.valueOf(enzymeUnderDevelopment.getSource()), con);
 		LOGGER.info("... commit completed.");
 	}
@@ -211,7 +210,7 @@ public class UnitOfWork {
 			EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
 			enzymeEntryMapper.update(new Long(enzymeUnderDevelopment.getId()),
 					EnzymeCommissionNumber.valueOf(enzymeUnderDevelopment.getEc()),
-					EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()),
+					Status.fromCode(enzymeUnderDevelopment.getStatusCode()),
 					EnzymeSourceConstant.valueOf(enzymeUnderDevelopment.getSource()),
 					enzymeUnderDevelopment.getNote(),
 					enzymeUnderDevelopment.getHistoryLine(),
@@ -219,7 +218,7 @@ public class UnitOfWork {
 		}
 	}
 
-	private void reloadReactions(List<ReactionDTO> reactions, Long enzymeId, EnzymeStatusConstant status, Connection con)
+	private void reloadReactions(List<ReactionDTO> reactions, Long enzymeId, Status status, Connection con)
 	throws SQLException {
 		assert reactions != null : "Parameter 'reactions' must not be null.";
 		assert enzymeId != null : "Parameter 'enzymeId' must not be null.";
@@ -233,7 +232,7 @@ public class UnitOfWork {
 		enzymeReactionMapper.update(enzymeId, er, con);
 	}
 
-	private void reloadNames(List names, Long enzymeId, EnzymeStatusConstant status, EnzymeNameTypeConstant type,
+	private void reloadNames(List names, Long enzymeId, Status status, EnzymeNameTypeConstant type,
 			Connection con) throws SQLException {
 		assert names != null : "Parameter 'names' must not be null.";
 		assert enzymeId != null : "Parameter 'enzymeId' must not be null.";
@@ -272,15 +271,15 @@ public class UnitOfWork {
 			if (copy.getSystematicName().getXmlName().equals("")){
 				// There was no systematic name in the database
 				enzymeNameMapper.insert(enzymeName, new Long(enzymeUnderDevelopment.getId()),
-						EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()), 1, con);
+						Status.fromCode(enzymeUnderDevelopment.getStatusCode()), 1, con);
 			} else {
 				enzymeNameMapper.update(enzymeName, new Long(enzymeUnderDevelopment.getId()),
-						EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()), 1, con);
+						Status.fromCode(enzymeUnderDevelopment.getStatusCode()), 1, con);
 			}
 		}
 	}
 
-	private void reloadCofactors(List<CofactorDTO> cofactors, Long enzymeId, EnzymeStatusConstant status, Connection con)
+	private void reloadCofactors(List<CofactorDTO> cofactors, Long enzymeId, Status status, Connection con)
 	throws SQLException, CommitException {
 		assert cofactors != null : "Parameter 'names' must not be null.";
 		assert enzymeId != null : "Parameter 'enzymeId' must not be null.";
@@ -313,10 +312,10 @@ public class UnitOfWork {
 		List links = getEnzymeLinkObjects(enzymeUnderDevelopment.getLinks(), enzymeUnderDevelopment.getUniProtLinks());
 		EnzymeLinkMapper enzymeLinkMapper = new EnzymeLinkMapper();
 		enzymeLinkMapper.reloadLinks(links, new Long(enzymeUnderDevelopment.getId()),
-				EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()), con);
+				Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
 	}
 
-	private void reloadComments(List comments, Long enzymeId, EnzymeStatusConstant status, Connection con)
+	private void reloadComments(List comments, Long enzymeId, Status status, Connection con)
 	throws SQLException {
 		assert comments != null : "Parameter 'names' must not be null.";
 		assert enzymeId != null : "Parameter 'enzymeId' must not be null.";
@@ -332,7 +331,7 @@ public class UnitOfWork {
 
 	}
 
-	private void reloadReferences(List references, Long enzymeId, EnzymeStatusConstant status,
+	private void reloadReferences(List references, Long enzymeId, Status status,
 			EnzymeSourceConstant source, Connection con) throws SQLException {
 		assert references != null : "Parameter 'names' must not be null.";
 		assert enzymeId != null : "Parameter 'enzymeId' must not be null.";
@@ -386,7 +385,7 @@ public class UnitOfWork {
 		Long newEnzymeId = enzymeEntryMapper.findNextEnzymeId(con);
 		enzymeUnderDevelopment.setId(newEnzymeId.toString());
 		enzymeEntryMapper.insert(newEnzymeId, EnzymeCommissionNumber.valueOf(enzymeUnderDevelopment.getEc()),
-				EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()),
+				Status.fromCode(enzymeUnderDevelopment.getStatusCode()),
 				EnzymeSourceConstant.valueOf(enzymeUnderDevelopment.getSource()),
 				enzymeUnderDevelopment.getNote(), enzymeUnderDevelopment.getHistoryLine(), true, con);
 	}
@@ -414,7 +413,7 @@ public class UnitOfWork {
 				!enzymeUnderDevelopment.getSystematicName().getXmlName().equals(""))
 			enzymeNames.add(getEnzymeNameObject(enzymeUnderDevelopment.getSystematicName()));
 		enzymeNameMapper.insertNames(enzymeNames, new Long(enzymeUnderDevelopment.getId()),
-				EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()), con);
+				Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
 
 	}
 
@@ -456,7 +455,7 @@ public class UnitOfWork {
 		if (enzymeCofactors.size() > 0) {
 			EnzymeCofactorMapper enzymeCofactorMapper = new EnzymeCofactorMapper();
 			enzymeCofactorMapper.insert(enzymeCofactors, new Long(enzymeUnderDevelopment.getId()),
-					EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()), con);
+					Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
 		}
 	}
 
@@ -473,7 +472,7 @@ public class UnitOfWork {
 		if (enzymeLinks.size() > 0) {
 			EnzymeLinkMapper enzymeLinkMapper = new EnzymeLinkMapper();
 			enzymeLinkMapper.insert(enzymeLinks, new Long(enzymeUnderDevelopment.getId()),
-					EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()), con);
+					Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
 		}
 	}
 
@@ -495,7 +494,7 @@ public class UnitOfWork {
 		if (enzymeComments.size() > 0) {
 			EnzymeCommentMapper enzymeCommentMapper = new EnzymeCommentMapper();
 			enzymeCommentMapper.insert(enzymeComments, new Long(enzymeUnderDevelopment.getId()),
-					EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()), con);
+					Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
 		}
 	}
 
@@ -517,7 +516,7 @@ public class UnitOfWork {
 		if (enzymeReferences.size() > 0) {
 			EnzymeReferenceMapper enzymeReferenceMapper = new EnzymeReferenceMapper();
 			enzymeReferenceMapper.insert(enzymeReferences, new Long(enzymeUnderDevelopment.getId()),
-					EnzymeStatusConstant.valueOf(enzymeUnderDevelopment.getStatusCode()), con);
+					Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
 		}
 	}
 
@@ -558,7 +557,7 @@ public class UnitOfWork {
 		assert reactionDTO != null : "Parameter 'reactionDTO' must not be null.";
 		Reaction reaction = new Reaction(reactionDTO.getId(), reactionDTO.getXmlTextualRepresentation(),
 				Database.valueOf(reactionDTO.getSource()));
-		reaction.setStatus(Status.valueOf(reactionDTO.getStatus()));
+		reaction.setStatus(uk.ac.ebi.rhea.domain.Status.valueOf(reactionDTO.getStatus()));
 		return reaction;
 	}
 

@@ -25,7 +25,8 @@ import java.sql.SQLException;
  * @version $Revision: 1.3 $ $Date: 2008/11/17 17:14:10 $
  */
 public class DeleteEntryUpdateAction extends CurationAction {
-  private static final Logger LOGGER = Logger.getLogger(DeleteEntryUpdateAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(DeleteEntryUpdateAction.class.getName());
   private final static String SEARCH_BY_EC_ACTION_FWD = "searchEc";
 
   public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,

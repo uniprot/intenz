@@ -13,6 +13,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
 import uk.ac.ebi.intenz.mapper.AuditPackageMapper;
 import uk.ac.ebi.intenz.mapper.EventPackageMapper;
@@ -29,7 +30,8 @@ import uk.ac.ebi.intenz.webapp.utilities.UnitOfWork;
  * @version $Revision: 1.3 $ $Date: 2008/11/17 17:14:10 $
  */
 public class AmendEntryUpdateAction extends CurationAction {
-  private static final Logger LOGGER = Logger.getLogger(AmendEntryUpdateAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(AmendEntryUpdateAction.class.getName());
   private final static String SEARCH_BY_EC_ACTION_FWD = "searchEc";
 
     @Override
@@ -58,11 +60,12 @@ public class AmendEntryUpdateAction extends CurationAction {
       auditPackageMapper.setRemark(AuditPackageMapper.STANDARD_REMARK, con);
 
       // Store event.
-      EventPackageMapper eventPackageMapper = new EventPackageMapper();
-      eventPackageMapper.updateFutureModificationEvent(Integer.parseInt(enzymeDTO.getLatestHistoryEventGroupId()),
+      if (!enzymeDTO.getStatusCode().equals(Status.PRELIMINARY.getCode())){
+          EventPackageMapper eventPackageMapper = new EventPackageMapper();
+          eventPackageMapper.updateFutureModificationEvent(Integer.parseInt(enzymeDTO.getLatestHistoryEventGroupId()),
                                                        Integer.parseInt(enzymeDTO.getLatestHistoryEventId()),
                                                        enzymeDTO.getStatusCode(), con);
-
+      }
       // Commit
       LOGGER.info("Committing form data.");
       unitOfWork.commit(enzymeDTO, con);

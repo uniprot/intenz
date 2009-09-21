@@ -1,22 +1,25 @@
 package uk.ac.ebi.intenz.webapp.controller.helper.forwards;
 
-import org.apache.log4j.Logger;
-import org.apache.struts.actions.ForwardAction;
-import org.apache.struts.action.*;
-import org.apache.struts.taglib.html.Constants;
+import java.sql.Connection;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.actions.ForwardAction;
+import org.apache.struts.taglib.html.Constants;
+
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO;
-import uk.ac.ebi.intenz.webapp.dtos.GhostEnzymeDTO;
 import uk.ac.ebi.intenz.webapp.utilities.ControlFlowToken;
 import uk.ac.ebi.intenz.webapp.utilities.EntryLockSingleton;
-
-import java.util.Map;
-import java.sql.Connection;
 
 /**
  * This class ...
@@ -26,7 +29,8 @@ import java.sql.Connection;
  */
 public class ModifyEnzymeFWDAction extends ForwardAction {
 
-  private static final Logger LOGGER = Logger.getLogger(ModifyEnzymeFWDAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(ModifyEnzymeFWDAction.class.getName());
   private final static String SEARCH_BY_ID_ACTION_FWD = "searchId";
   private final static String ERROR_FWD = "error";
 
@@ -62,7 +66,7 @@ public class ModifyEnzymeFWDAction extends ForwardAction {
     }
 
     // Check if a clone already exists.
-    if (enzymeDTO.getStatusCode().equals(EnzymeStatusConstant.APPROVED.getCode())) {
+    if (enzymeDTO.getStatusCode().equals(Status.APPROVED.getCode())) {
       EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
       Connection con = (Connection) request.getSession().getAttribute("connection");
       if (enzymeEntryMapper.cloneExists(enzymeId, con)) {

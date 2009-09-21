@@ -1,8 +1,20 @@
 package uk.ac.ebi.intenz.webapp.controller.search;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
-import org.apache.struts.action.*;
 import org.apache.struts.Globals;
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 import org.apache.struts.taglib.html.Constants;
 
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
@@ -10,12 +22,6 @@ import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.webapp.utilities.ControlFlowToken;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Map;
 
 /**
  * This Action ...
@@ -31,7 +37,8 @@ public class SearchIdAction extends Action {
   private final static String POPULATE_IUBMB_ENZYME_DTO_ACTION = "populateIubmbEnzymeDTO";
   private final static String POPULATE_SIB_ENZYME_DTO_ACTION = "populateSibEnzymeDTO";
 
-  private static final Logger LOGGER = Logger.getLogger(SearchIdAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(SearchIdAction.class.getName());
 
   public ActionForward execute(ActionMapping mapping,
                                ActionForm form,

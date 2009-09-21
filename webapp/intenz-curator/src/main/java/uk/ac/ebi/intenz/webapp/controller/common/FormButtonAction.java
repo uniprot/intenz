@@ -61,7 +61,8 @@ import uk.ac.ebi.rhea.updater.ChebiUpdater;
  */
 public class FormButtonAction extends CurationAction {
 
-	private static final Logger LOGGER = Logger.getLogger(FormButtonAction.class);
+	private static final Logger LOGGER =
+		Logger.getLogger(FormButtonAction.class.getName());
 
 	private static enum Forward { RHEACTION_SELECTOR, COFACTOR_SELECTOR };
 

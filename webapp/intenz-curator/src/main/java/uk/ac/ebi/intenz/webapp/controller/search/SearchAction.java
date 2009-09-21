@@ -30,7 +30,8 @@ public class SearchAction extends Action {
     "SELECT CONTAINS(text, ?, 1) AS score, " + COLUMNS + " FROM enzyme.intenz_text WHERE enzyme_id IN " +
     "(SELECT enzyme_id FROM enzyme.intenz_text WHERE CONTAINS(text, ?, 2) > 0)";
 
-  private static final Logger LOGGER = Logger.getLogger(SearchAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(SearchAction.class.getName());
 
   /**
    * Returns the SQL statement for full text searching using a text index (ORACLE interMedia text).

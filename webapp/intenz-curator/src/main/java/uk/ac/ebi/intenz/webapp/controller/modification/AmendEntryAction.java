@@ -14,7 +14,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
 import uk.ac.ebi.intenz.mapper.AuditPackageMapper;
 import uk.ac.ebi.intenz.mapper.CommonProceduresMapper;
@@ -33,7 +33,8 @@ import uk.ac.ebi.intenz.webapp.utilities.UnitOfWork;
  * @version $Revision: 1.3 $ $Date: 2008/11/17 17:14:10 $
  */
 public class AmendEntryAction extends CurationAction {
-  private static final Logger LOGGER = Logger.getLogger(AmendEntryAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(AmendEntryAction.class.getName());
   private final static String ERROR_FWD = "error";
   private final static String SEARCH_BY_EC_ACTION_FWD = "searchEc";
 
@@ -53,7 +54,7 @@ public class AmendEntryAction extends CurationAction {
     ActionMessages errors = new ActionMessages();
     EnzymeDTO enzymeDTO = (EnzymeDTO) form;
 
-    boolean keepApproved = enzymeDTO.getStatusCode().equals(EnzymeStatusConstant.APPROVED.getCode());
+    boolean keepApproved = enzymeDTO.getStatusCode().equals(Status.APPROVED.getCode());
     Connection con = (Connection) request.getSession().getAttribute("connection");
     EntryLockSingleton els = (EntryLockSingleton) request.getSession().getServletContext().getAttribute("entryLock");
     EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
