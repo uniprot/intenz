@@ -1,5 +1,7 @@
 package uk.ac.ebi.intenz.domain.constants;
 
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
+
 /**
  * Enzyme entry status.
  * @author rafalcan
@@ -7,10 +9,14 @@ package uk.ac.ebi.intenz.domain.constants;
  */
 public enum Status {
 
-	APPROVED("OK"),
+	/**
+	 * This preliminary status should only be applied to enzymes with
+	 * {@link Type#PRELIMINARY preliminary} EC type and vice-versa.
+	 */
+	PRELIMINARY("PM"),
 	SUGGESTED("SU"),
 	PROPOSED("PR"),
-	PRELIMINARY("PM");
+	APPROVED("OK");
 	
 	private String code;
 	
@@ -18,7 +24,7 @@ public enum Status {
 	
 	public String getCode(){ return code; }
 	
-	public Status fromCode(String code){
+	public static Status fromCode(String code){
 		for (Status status : Status.values()){
 			if (status.code.equals(code)) return status;
 		}
