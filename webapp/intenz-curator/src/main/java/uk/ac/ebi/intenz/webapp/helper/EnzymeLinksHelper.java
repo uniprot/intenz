@@ -11,6 +11,7 @@ import java.util.*;
  *
  * @author Michael Darsow
  * @version $Revision: 1.2 $ $Date: 2008/01/28 12:33:08 $
+ * @deprecated this class is an aberration. Please, use HTML somewhere else.
  */
 public class EnzymeLinksHelper {
 
@@ -209,8 +210,7 @@ public static String renderIubmbLinks(List links) {
     html.append("<tr>");
 
     // Predefined links are disabled.
-    if (link.getDatabaseName().equals(XrefDatabaseConstant.BRENDA.getDisplayName()) ||
-        link.getDatabaseName().equals(XrefDatabaseConstant.KEGG.getDisplayName()) ||
+    if (link.getDatabaseName().equals(XrefDatabaseConstant.KEGG.getDisplayName()) ||
 //        link.getDatabaseName().equals(XrefDatabaseConstant.GO.getDisplayName()) ||
         link.getDatabaseName().equals(XrefDatabaseConstant.ERGO.getDisplayName()) ||
         link.getDatabaseName().equals(XrefDatabaseConstant.NIST74.getDisplayName()) ||
@@ -223,7 +223,9 @@ public static String renderIubmbLinks(List links) {
       html.append(renderAccessionTextField(index, link.getAccession(), true));
       html.append(renderNameTextField(index, link.getName(), true));
     } else {
-      if (link.getDatabaseName().equals(XrefDatabaseConstant.CAS.getDisplayName())) {
+      if (link.getDatabaseName().equals(XrefDatabaseConstant.BRENDA.getDisplayName()) ||
+        link.getDatabaseName().equals(XrefDatabaseConstant.METACYC.getDisplayName()) ||
+        link.getDatabaseName().equals(XrefDatabaseConstant.CAS.getDisplayName())) {
         html.append(renderDatabaseNameComboBox(index, link.getDatabaseName(), true));
         html.append(renderURLTextField(index, link.getUrl(), true));
         html.append("</tr>\n<tr>");
@@ -318,6 +320,15 @@ public static String renderIubmbLinks(List links) {
     html.append("\">");
     html.append(XrefDatabaseConstant.BRENDA.getDisplayName());
     html.append("</option>\n");
+    
+    html.append("<option")
+    	.append(databaseName.equals(XrefDatabaseConstant.METACYC.getDisplayName())?
+    			"\" selected=\"selected\"" : "")
+    	.append(" value=\"")
+		.append(XrefDatabaseConstant.METACYC.getDisplayName())
+		.append("\">")
+		.append(XrefDatabaseConstant.METACYC.getDisplayName())
+		.append("</option>\n");
 
     // GO
 //    if (databaseName.equals(XrefDatabaseConstant.GO.getDisplayName()))

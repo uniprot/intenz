@@ -66,7 +66,8 @@ function setPatentFields(name, index) {
 
 function setLinkFields(databaseSource, url, ac, name) {
   if(databaseSource == "NONE") setEmptyLinkFields(url, ac, name);
-  if(databaseSource == "BRENDA") setBrendaLinkFields(url, ac, name);
+  if(databaseSource == "BRENDA") setXrefLinkFields(url, ac, name);
+  if(databaseSource == "MetaCyc") setXrefLinkFields(url, ac, name);
   if(databaseSource == "KEGG") setKeggLinkFields(url, ac, name);
   if(databaseSource == "ERGO") setErgoLinkFields(url, ac, name);
   if(databaseSource == "PROSITE") setPrositeLinkFields(url, ac, name);
@@ -93,7 +94,7 @@ function setEmptyLinkFields(url, ac, name) {
 }
 
 function setBrendaLinkFields(url, ac, name) {
-	setPredefinedLinkFields(url, ac, name);
+	setXrefLinkFields(url, ac, name);
 }
 
 function setKeggLinkFields(url, ac, name) {
@@ -118,7 +119,6 @@ function setSpLinkFields(url, ac, name) {
 }
 
 function setPrositeLinkFields(url, ac, name) {
-
   document.enzymeDTO.elements[url].value = "(predefined)";
   document.enzymeDTO.elements[url].disabled = true;
   document.enzymeDTO.elements[url].style.backgroundColor = "#dbdbdb";
@@ -131,7 +131,6 @@ function setPrositeLinkFields(url, ac, name) {
 }
 
 function setMimLinkFields(url, ac, name) {
-
   document.enzymeDTO.elements[url].value = "n/a";
   document.enzymeDTO.elements[url].disabled = true;
   document.enzymeDTO.elements[url].style.backgroundColor = "#dbdbdb";
@@ -144,30 +143,12 @@ function setMimLinkFields(url, ac, name) {
 }
 
 function setCasLinkFields(url, ac, name) {
-
-  document.enzymeDTO.elements[url].value = "n/a";
-  document.enzymeDTO.elements[url].disabled = true;
-  document.enzymeDTO.elements[url].style.backgroundColor = "#dbdbdb";
-  document.enzymeDTO.elements[ac].value = "";
-  document.enzymeDTO.elements[ac].disabled = false;
-  document.enzymeDTO.elements[ac].style.backgroundColor = "#ffffff";
-  document.enzymeDTO.elements[name].value = "n/a";
-  document.enzymeDTO.elements[name].disabled = true;
-  document.enzymeDTO.elements[name].style.backgroundColor = "#dbdbdb";
+	setXrefLinkFields(url, ac, name);
 }
 
 
 function setGoLinkFields(url, ac, name) {
-
-  document.enzymeDTO.elements[url].value = "(predefined)";
-  document.enzymeDTO.elements[url].disabled = true;
-  document.enzymeDTO.elements[url].style.backgroundColor = "#dbdbdb";
-  document.enzymeDTO.elements[ac].value = "";
-  document.enzymeDTO.elements[ac].disabled = false;
-  document.enzymeDTO.elements[ac].style.backgroundColor = "#ffffff";
-  document.enzymeDTO.elements[name].value = "n/a";
-  document.enzymeDTO.elements[name].disabled = true;
-  document.enzymeDTO.elements[name].style.backgroundColor = "#dbdbdb";
+	setXrefLinkFields(url, ac, name);
 }
 
 function setGtdLinkFields(url, ac, name) {
@@ -218,17 +199,17 @@ function setNIST74LinkFields(url, ac, name) {
 }
 
 function setPdbLinkFields(url, ac, name) {
-  document.enzymeDTO.elements[url].value = "(predefined)";
-  document.enzymeDTO.elements[url].disabled = true;
-  document.enzymeDTO.elements[url].style.backgroundColor = "#dbdbdb";
-  document.enzymeDTO.elements[ac].value = "";
-  document.enzymeDTO.elements[ac].disabled = false;
-  document.enzymeDTO.elements[ac].style.backgroundColor = "#ffffff";
-  document.enzymeDTO.elements[name].value = "n/a";
-  document.enzymeDTO.elements[name].disabled = true;
-  document.enzymeDTO.elements[name].style.backgroundColor = "#dbdbdb";
+	setXrefLinkFields(url, ac, name);
 }
 
+/**
+ * Does not allow any edition of the link (based on EC number of the current
+ * entry).
+ * @param url
+ * @param ac
+ * @param name
+ * @return
+ */
 function setPredefinedLinkFields(url, ac, name){
 	  document.enzymeDTO.elements[url].value = "(predefined)";
 	  document.enzymeDTO.elements[url].disabled = true;
@@ -239,6 +220,25 @@ function setPredefinedLinkFields(url, ac, name){
 	  document.enzymeDTO.elements[name].value = "n/a";
 	  document.enzymeDTO.elements[name].disabled = true;
 	  document.enzymeDTO.elements[name].style.backgroundColor = "#dbdbdb";
+}
+
+/**
+ * Allows edition of the accession number (predefined URL).
+ * @param url
+ * @param ac
+ * @param name
+ * @return
+ */
+function setXrefLinkFields(url, ac, name) {
+  document.enzymeDTO.elements[url].value = "(predefined)";
+  document.enzymeDTO.elements[url].disabled = true;
+  document.enzymeDTO.elements[url].style.backgroundColor = "#dbdbdb";
+  document.enzymeDTO.elements[ac].value = "";
+  document.enzymeDTO.elements[ac].disabled = false;
+  document.enzymeDTO.elements[ac].style.backgroundColor = "#ffffff";
+  document.enzymeDTO.elements[name].value = "n/a";
+  document.enzymeDTO.elements[name].disabled = true;
+  document.enzymeDTO.elements[name].style.backgroundColor = "#dbdbdb";
 }
 
 /* Opens a prompt dialog to edit the comment associated to a data item.
