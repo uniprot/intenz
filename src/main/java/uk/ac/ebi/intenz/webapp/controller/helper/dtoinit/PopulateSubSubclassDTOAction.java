@@ -1,12 +1,17 @@
 package uk.ac.ebi.intenz.webapp.controller.helper.dtoinit;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
 import uk.ac.ebi.intenz.domain.constants.EventConstant;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeName;
@@ -18,11 +23,6 @@ import uk.ac.ebi.intenz.webapp.utilities.IntEnzUtilities;
 import uk.ac.ebi.xchars.SpecialCharacters;
 import uk.ac.ebi.xchars.domain.EncodingType;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This Action ...
  *
@@ -31,7 +31,8 @@ import java.util.List;
  */
 public class PopulateSubSubclassDTOAction extends Action {
 
-  private static final Logger LOGGER = Logger.getLogger(PopulateSubSubclassDTOAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(PopulateSubSubclassDTOAction.class.getName());
 
   public ActionForward execute(ActionMapping mapping,
                                ActionForm form,

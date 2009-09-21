@@ -8,6 +8,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script type="text/javascript" src="resources/form.js"></script>
 <script type="text/javascript" src="resources/jt/jt_.js"></script>
@@ -90,7 +91,10 @@
                           <td nowrap="nowrap" class="data_region_name_cell">EC:</td>
 
                           <%-- EC number --%>
-                          <td colspan="5" nowrap="nowrap" width="100%"><html:text name="enzymeDTO" property="ec" size="15"/></td>
+                          <td colspan="5" nowrap="nowrap" width="100%">
+                          	<html:text name="enzymeDTO" styleId="ec" property="ec"
+                          		size="15" onblur="checkPreliminary(event)"/>
+                          </td>
                         </tr>
                       </table>
                     </td>
@@ -762,9 +766,9 @@
                                       <table width="100%">
                                         <tr>
                                           <td>
-                                            <html:radio name="reference" property="type" value="J" indexed="true" onclick="<%= "setPubFields('J', '"+index+"')" %>" />&nbsp;Journal&nbsp;|
-                                            <html:radio name="reference" property="type" value="B" indexed="true" onclick="<%= "setPubFields('B', '"+index+"')" %>" />&nbsp;Book&nbsp;|
-                                            <html:radio name="reference" property="type" value="P" indexed="true" onclick="<%= "setPubFields('P', '"+index+"')" %>" />&nbsp;Patent
+                                            <html:radio name="reference" property="type" value="J" indexed="true" onclick="setPubFields('J', '${index}')" />&nbsp;Journal&nbsp;|
+                                            <html:radio name="reference" property="type" value="B" indexed="true" onclick="setPubFields('B', '${index}')" />&nbsp;Book&nbsp;|
+                                            <html:radio name="reference" property="type" value="P" indexed="true" onclick="setPubFields('P', '${index}')" />&nbsp;Patent
                                           </td>
                                         </tr>
                                       </table>
@@ -1054,24 +1058,18 @@
 
                           <%-- Status info --%>
                           <td width="100%">
-                            <html:select name="enzymeDTO" property="statusCode" size="1">
-                            <logic:equal name="update" value="Update">
-                              <logic:equal value="SU" name="enzymeDTO" property="statusCode">
-                                <html:option value="SU">suggested</html:option>
-                                <html:option value="PR">proposed</html:option>
-                              </logic:equal>
-                              <logic:notEqual value="SU" name="enzymeDTO" property="statusCode">
-                                <html:option value="SU">suggested</html:option>
-                                <html:option value="PR">proposed</html:option>
-                                <html:option value="OK">approved</html:option>
-                              </logic:notEqual>
-                            </logic:equal>
-                            <logic:notEqual name="update" value="Update">
-                            	<html:option value="SU">suggested</html:option>
-<% if (modification.equals("Amend")){ %>
-        						<html:option value="OK">approved</html:option>
-<% } %>
-                            </logic:notEqual>
+                            <html:select name="enzymeDTO" property="statusCode" size="1"
+                            	styleId="statusCode" onchange="checkPreliminary(event)">
+                             	<html:option value="PM"
+                             		disabled="${modification ne 'Create' and enzymeDTO.statusCode ne 'PM'}">preliminary</html:option>
+                               	<html:option value="SU"
+                               		disabled="${update eq 'Update' and enzymeDTO.statusCode eq 'PM'}">suggested</html:option>
+                                <html:option value="PR"
+                                	disabled="${(update eq 'Update' and enzymeDTO.statusCode eq 'PM') or update ne 'Update'}">proposed</html:option>
+                                <html:option value="OK"
+                                	disabled="${(update eq 'Update' and enzymeDTO.statusCode eq 'PM')
+                                	or (update eq 'Update' and enzymeDTO.statusCode eq 'SU')
+                                	or (update ne 'Update' and modification ne 'Amend')}">approved</html:option>
                             </html:select>
                           </td>
                           <td>&nbsp;</td>

@@ -122,7 +122,7 @@
 	<tr>
 		<td height="100%" class="footer_font" align="center" valign="top">
 		<br />
-		Version <bean:message key="intenz.curator.webapp.version" /> - <bean:message
-			key="intenz.curator.webapp.date" /></td>
+		Version <bean:message key="intenz.curator.webapp.version" />
+		</td>
 	</tr>
 </table>

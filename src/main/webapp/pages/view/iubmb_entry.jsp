@@ -9,6 +9,9 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://www.ebi.ac.uk/xchars" prefix="xchars" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<% IubmbEnzymeDTO iubmbEnzymeDTO = ((IubmbEnzymeDTO) request.getAttribute("iubmbEnzymeDTO")); %>
 
   <table height="100%" width="100%" border="0" cellspacing="8" cellpadding="0">
       <tr>
@@ -24,17 +27,30 @@
       </tr>
       <tr height="100%">
         <td valign="top" align="center">
-          <table width="100%" class="content_table_with_menu" border="0" cellspacing="20" cellpadding="0">
-
           <!-- Tabs -->
+		<c:set var="tabUrl">searchId.do?id=${iubmbEnzymeDTO.id}&amp;<%=Constants.TOKEN_KEY%>=<%= request.getAttribute(Constants.TOKEN_KEY) %></c:set>
           <div id="menuDiv">
             <ul id="menuList">
-              <li><a href="searchId.do?id=<bean:write name="iubmbEnzymeDTO" property="id"/>&view=INTENZ&<%=Constants.TOKEN_KEY%>=<%= request.getAttribute(Constants.TOKEN_KEY) %>" title="IntEnz view of this enzyme containing all available data"><img border="0" width="14" height="12" src="images/blue_bullet.gif"/>&nbsp;IntEnz*</a></li>
-              <li class="selected"><a class="selected" name="here" href="#here"><img width="14" height="12" border="0" src="images/green_bullet.gif"/>&nbsp;NC-IUBMB</a></li>
-              <li><a href="searchId.do?id=<bean:write name="iubmbEnzymeDTO" property="id"/>&view=SIB&<%=Constants.TOKEN_KEY%>=<%= request.getAttribute(Constants.TOKEN_KEY) %>" title="ENZYME view of this enzyme"><img width="14" border="0" height="12" src="images/red_bullet.gif"/>&nbsp;ENZYME</a></li>
+              <li><a href="${preview? 'populatePreviewIntEnzEnzymeDTO.do' : tabUrl}${preview? '' : '&view=INTENZ'}"
+              	title="IntEnz view of this enzyme containing all available data"><img
+              		border="0" width="14" height="12"
+              		src="images/blue_bullet.gif"/>&nbsp;IntEnz*</a></li>
+              <li class="selected"><a class="selected" name="here" href="#here"><img
+              	width="14" height="12" border="0" src="images/green_bullet.gif"/>&nbsp;NC-IUBMB</a></li>
+              <li><a href="${preview? 'populatePreviewSibEnzymeDTO.do' : tabUrl}${preview? '' : '&view=SIB'}"
+              	title="ENZYME view of this enzyme"><img
+              		width="14" border="0" height="12"
+              		src="images/red_bullet.gif"/>&nbsp;ENZYME</a></li>
             </ul>
           </div>
 
+<c:choose>
+<c:when test="${iubmbEnzymeDTO.statusCode eq 'PM'}">
+<br/>This is a preliminary entry, neither proposed nor accepted by NC-IUBMB.
+</c:when>
+<c:otherwise>
+
+          <table width="100%" class="content_table_with_menu" border="0" cellspacing="20" cellpadding="0">
           <!-- Common name(s) -->
           <bean:size id="listSize" name="iubmbEnzymeDTO" property="commonNames" />
           <logic:greaterThan name="listSize" value="0">
@@ -153,8 +169,8 @@
           </logic:greaterThan>
 
           <!-- Systematic name -->
-          <logic:notEqual value="" name="enzymeDTO" property="systematicName.name">
-          <logic:notEqual value="-" name="enzymeDTO" property="systematicName.name">
+          <logic:notEqual value="" name="iubmbEnzymeDTO" property="systematicName.name">
+          <logic:notEqual value="-" name="iubmbEnzymeDTO" property="systematicName.name">
             <tr>
               <td width="130px" class="data_region_name_cell">Systematic name:</td>
               <td width="100%">
@@ -202,7 +218,6 @@
             <tr>
               <td width="130px" class="data_region_name_cell" valign="top">Links to other databases:</td>
               <td>
-                <% IubmbEnzymeDTO iubmbEnzymeDTO = ((IubmbEnzymeDTO) request.getAttribute("iubmbEnzymeDTO")); %>
                 <%= EnzymeLinksHelper.renderIubmbLinks(iubmbEnzymeDTO.getLinks(), iubmbEnzymeDTO.getEc()) %>
               </td>
             </tr>
@@ -211,7 +226,6 @@
 
           <!-- References -->
           <bean:size id="listSize" name="iubmbEnzymeDTO" property="references" />
-          <% IubmbEnzymeDTO iubmbEnzymeDTO = ((IubmbEnzymeDTO) request.getAttribute("iubmbEnzymeDTO")); %>
 
           <logic:greaterThan name="listSize" value="0">
             <logic:equal name="listSize" value="1">
@@ -235,6 +249,8 @@
             </td>
           </tr>
           </table>
+</c:otherwise>
+</c:choose>
         </td>
       </tr>
     </table>

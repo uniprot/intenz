@@ -1,10 +1,22 @@
 package uk.ac.ebi.intenz.webapp.controller.modification;
 
-import org.apache.log4j.Logger;
-import org.apache.struts.action.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
 import uk.ac.ebi.intenz.mapper.AuditPackageMapper;
 import uk.ac.ebi.intenz.mapper.CommonProceduresMapper;
@@ -16,11 +28,6 @@ import uk.ac.ebi.intenz.webapp.exceptions.DeregisterException;
 import uk.ac.ebi.intenz.webapp.utilities.EntryLockSingleton;
 import uk.ac.ebi.intenz.webapp.utilities.UnitOfWork;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.SQLException;
-
 /**
  * This Action ...
  *
@@ -28,7 +35,11 @@ import java.sql.SQLException;
  * @version $Revision: 1.3 $ $Date: 2008/11/17 17:14:10 $
  */
 public class TransferEntryAction extends CurationAction {
-  private static final Logger LOGGER = Logger.getLogger(TransferEntryAction.class);
+
+  private static final Logger LOGGER =
+	  Logger.getLogger(TransferEntryAction.class.getName());
+  private static final Logger MAIL_LOGGER = Logger.getLogger("mailLogger");
+  
   private final static String ERROR_FWD = "error";
   private final static String SEARCH_BY_EC_ACTION_FWD = "searchEc";
 
@@ -41,6 +52,8 @@ public class TransferEntryAction extends CurationAction {
 //    EnzymeDTO sessionEnzymeDTO = (EnzymeDTO) request.getSession().getAttribute("enzymeDTO");
     EnzymeDTO enzymeDTO = (EnzymeDTO) form;
     String ec = enzymeDTO.getEc();
+    boolean transferFromPreliminary =
+        EnzymeCommissionNumber.valueOf(ec).getType().equals(Type.PRELIMINARY);
     Long enzymeId = new Long(enzymeDTO.getId());
     Connection con = (Connection) request.getSession().getAttribute("connection");
     EntryLockSingleton els = (EntryLockSingleton) request.getSession().getServletContext().getAttribute("entryLock");
@@ -49,14 +62,21 @@ public class TransferEntryAction extends CurationAction {
     UnitOfWork unitOfWork = (UnitOfWork) request.getSession().getAttribute("uow");
     try {
       // Check if the new EC number is valid.
-      EnzymeCommissionNumber transferredEc = EnzymeCommissionNumber.valueOf(enzymeDTO.getTransferredEc());
+      EnzymeCommissionNumber transferredEc =
+    	  EnzymeCommissionNumber.valueOf(enzymeDTO.getTransferredEc());
       if (!isValidEc(transferredEc, errors, con)) {
         saveErrors(request, errors);
         keepToken(request);
         return mapping.getInputForward();
       }
-      enzymeDTO.setEc(transferredEc.toString());
-
+      // Check that we are not transferring to a preliminary EC:
+      if (transferredEc.getType().equals(Type.PRELIMINARY)){
+        errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+            "errors.application.transfer.preliminary", transferredEc.toString()));
+        saveErrors(request, errors);
+        keepToken(request);
+        return mapping.getInputForward();
+      }
       // Check if a clone already exists.
       if (enzymeEntryMapper.cloneExists(enzymeId, con)) {
         errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("errors.application.clone.exists", ec));
@@ -72,13 +92,15 @@ public class TransferEntryAction extends CurationAction {
 
       // Create clone.
       CommonProceduresMapper commonProceduresMapper = new CommonProceduresMapper();
-      Long transferredEnzymeId = commonProceduresMapper.createClone(enzymeId, con);
+      Long transferredEnzymeId = commonProceduresMapper.createClone(enzymeId, con); // SU, inactive
       LOGGER.info("EC " + ec + " (ID: " + enzymeId + ") cloned. New enzyme ID: " + transferredEnzymeId);
-      enzymeDTO.setId(transferredEnzymeId.toString());
 
-      // Always set the status to 'suggested'.
-      enzymeDTO.setStatusCode(EnzymeStatusConstant.SUGGESTED.getCode());
-      enzymeDTO.setStatusText(EnzymeStatusConstant.SUGGESTED.toString());
+      enzymeDTO.setId(transferredEnzymeId.toString()); // now the DTO is the new enzyme!
+      enzymeDTO.setEc(transferredEc.toString());
+      Status newStatus = transferFromPreliminary?
+    		  Status.APPROVED : Status.SUGGESTED;
+      enzymeDTO.setStatusCode(newStatus.getCode());
+      enzymeDTO.setStatusText(newStatus.toString());
 
       // Commit
       LOGGER.info("Committing form data.");
@@ -89,10 +111,24 @@ public class TransferEntryAction extends CurationAction {
       EventPackageMapper eventPackageMapper = new EventPackageMapper();
       eventPackageMapper.insertFutureTransferEvent(enzymeId, transferredEnzymeId,
                                                    enzymeDTO.getLatestHistoryEventNote(), con);
-      con.commit();
+      LOGGER.info("Transfer scheduled in the database.");
 
-      LOGGER.info("Transfer event stored.");
+      if (transferFromPreliminary){
+    	  LOGGER.info("Finishing transfer from preliminary EC...");
+    	  // Reload the preliminary entry to get the group and event IDs from history graph:
+    	  final EnzymeEntry prelim = enzymeEntryMapper.findById(Long.valueOf(enzymeId), con);
+		  // The preliminary EC is still active, the official one (target) inactive:
+          eventPackageMapper.updateFutureTransferEvent(
+               prelim.getHistory().getLatestHistoryEventOfRoot().getGroupId().intValue(),
+               prelim.getHistory().getLatestHistoryEventOfRoot().getEventId().intValue(),
+               enzymeDTO.getLatestHistoryEventNote(), Status.APPROVED.getCode(),
+               "Preliminary entry into NC-IUBMB", con);
+          LOGGER.info("Transfer from preliminary EC successful.");
+      }
+      
+      con.commit();
     } catch (SQLException e){
+	    MAIL_LOGGER.error("Unfinished EC transfer", e);
         con.rollback();
         throw e;
     } catch (EcException e) {

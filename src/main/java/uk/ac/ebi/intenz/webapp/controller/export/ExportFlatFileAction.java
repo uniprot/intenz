@@ -30,7 +30,8 @@ import java.util.List;
  */
 public class ExportFlatFileAction extends Action {
 
-  private static final Logger LOGGER = Logger.getLogger(ExportFlatFileAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(ExportFlatFileAction.class.getName());
 
   private final static String RESULT_JSP = "result";
   private final static String ERROR_JSP_FWD = "error";

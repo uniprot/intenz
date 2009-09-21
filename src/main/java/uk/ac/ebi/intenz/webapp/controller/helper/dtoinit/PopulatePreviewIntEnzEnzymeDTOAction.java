@@ -1,29 +1,15 @@
 package uk.ac.ebi.intenz.webapp.controller.helper.dtoinit;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
-import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
-import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeCrossReference;
-import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeEntryImpl;
-import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeXrefFactory;
-import uk.ac.ebi.intenz.tools.sib.translator.XCharsASCIITranslator;
-import uk.ac.ebi.intenz.tools.sib.writer.EnzymeFlatFileWriteException;
-import uk.ac.ebi.intenz.tools.sib.writer.EnzymeFlatFileWriter;
-import uk.ac.ebi.intenz.webapp.dtos.*;
-import uk.ac.ebi.interfaces.sptr.SPTRCrossReference;
-import uk.ac.ebi.interfaces.sptr.SPTRException;
-import uk.ac.ebi.xchars.SpecialCharacters;
-import uk.ac.ebi.xchars.domain.EncodingType;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Iterator;
-import java.util.List;
+import uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO;
 
 /**
  * This Action ...
@@ -34,7 +20,8 @@ import java.util.List;
 public class PopulatePreviewIntEnzEnzymeDTOAction extends Action {
   private final static String INTENZ_ENTRY_PREVIEW_JSP_FWD = "intenz_entry_preview";
 
-  private static final Logger LOGGER = Logger.getLogger(PopulatePreviewIntEnzEnzymeDTOAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(PopulatePreviewIntEnzEnzymeDTOAction.class.getName());
 
   public ActionForward execute(ActionMapping mapping,
                                ActionForm form,

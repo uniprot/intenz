@@ -20,7 +20,8 @@ import java.util.Map;
  */
 public class CurationAction extends Action {
 
-  private static final Logger LOGGER = Logger.getLogger(CurationAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(CurationAction.class.getName());
   private final static String SEARCH_BY_ID_ACTION_FWD = "searchId";
 
   public ActionForward execute(ActionMapping mapping,

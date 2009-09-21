@@ -37,7 +37,8 @@ public class SearchProposedAction extends Action {
 
   private final static String PROPOSED_ENTRIES_JSP_FWD = "proposed_entries";
 
-  private static final Logger LOGGER = Logger.getLogger(SearchProposedAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(SearchProposedAction.class.getName());
 
   public ActionForward execute(ActionMapping mapping,
                                ActionForm form,

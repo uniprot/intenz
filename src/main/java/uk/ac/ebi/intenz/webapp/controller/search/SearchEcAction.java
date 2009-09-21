@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.*;
 
 import uk.ac.ebi.intenz.domain.enzyme.*;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.mapper.EnzymeClassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
@@ -36,7 +37,8 @@ public class SearchEcAction extends Action {
   private final static String POPULATE_SUB_SUBCLASS_DTO_ACTION = "populateSubSubclassDTO";
   private final static String POPULATE_SUBCLASS_DTO_ACTION = "populateSubclassDTO";
 
-  private static final Logger LOGGER = Logger.getLogger(SearchEcAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(SearchEcAction.class.getName());
 
   public ActionForward execute(ActionMapping mapping,
                                ActionForm form,
@@ -54,16 +56,18 @@ public class SearchEcAction extends Action {
   // ------------------- PRIVATE METHODS ------------------------
 
   /**
-   * Tries to retrieve the demanded domain object(s) and returns the key which value contains the JSP to forward to.
+   * Tries to retrieve the demanded domain object(s) and returns the key whose
+   * value contains the JSP to forward to.
    * <p/>
-   * If the result is empty a message will be displayed otherwise the corresponding data page of the requested object.
+   * If the result is empty a message will be displayed otherwise the
+   * corresponding data page of the requested object.
    * TODO: Split up this Action and use proper forms for the results.
    *
    * @param ec      The enzyme's EC to search for.
    * @param errors  To store errors if the result is empty.
-   * @param request To store the retreived object (either in request or session scope).
+   * @param request To store the retrieved object (either in request or session scope).
    * @return The forward constant (see class constants).
-   * @throws SQLException    if database errors occured.
+   * @throws SQLException    if database errors occurred.
    * @throws DomainException if any error related to domain information occurs.
    */
   private String findForward(EnzymeCommissionNumber ec, ActionMessages errors,
@@ -74,7 +78,7 @@ public class SearchEcAction extends Action {
     assert con != null : "Parameter 'con' must not be null.";
 
     switch (ec.getType()) {
-      case 1:
+      case CLASS:
         LOGGER.debug("Find class information for EC " + ec.toString());
         EnzymeClass enzymeClass = findEnzymeClass(ec, con);
         if (enzymeClass != null) {
@@ -86,7 +90,7 @@ public class SearchEcAction extends Action {
         }
         LOGGER.debug("No enzyme class found.");
         break;
-      case 2:
+      case SUBCLASS:
         LOGGER.debug("Find subclass information for EC " + ec.toString());
         EnzymeSubclass enzymeSubclass = findEnzymeSubclass(ec, con);
         if (enzymeSubclass != null) {
@@ -99,7 +103,7 @@ public class SearchEcAction extends Action {
         }
         LOGGER.debug("No enzyme subclass found.");
         break;
-      case 3:
+      case SUBSUBCLASS:
         LOGGER.debug("Find sub-subclass information for EC " + ec.toString());
         EnzymeSubSubclass enzymeSubSubclass = findEnzymeSubSubclass(ec, con);
         if (enzymeSubSubclass != null) {
@@ -115,7 +119,8 @@ public class SearchEcAction extends Action {
         }
         LOGGER.debug("No enzyme sub-subclass found.");
         break;
-      case 4:
+      case ENZYME:
+      case PRELIMINARY:
         LOGGER.debug("Find enzyme entries for EC " + ec.toString());
         List enzymeEntries = findEnzymeEntries(ec, con); // Loads ghost entry/ies only!
         if (enzymeEntries != null) {
@@ -216,7 +221,8 @@ public class SearchEcAction extends Action {
    */
   private List findEnzymeEntries(EnzymeCommissionNumber ec, Connection con) throws SQLException, DomainException {
     EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
-    return enzymeEntryMapper.findAllByEc(ec.getEc1(), ec.getEc2(), ec.getEc3(), ec.getEc4(), con);
+    return enzymeEntryMapper.findAllByEc(ec.getEc1(), ec.getEc2(), ec.getEc3(),
+    		ec.getEc4(), ec.getType().equals(Type.PRELIMINARY), con);
   }
 
 }

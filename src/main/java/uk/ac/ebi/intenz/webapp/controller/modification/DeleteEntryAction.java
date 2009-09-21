@@ -1,24 +1,29 @@
 package uk.ac.ebi.intenz.webapp.controller.modification;
 
-import org.apache.log4j.Logger;
-import org.apache.struts.action.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.GregorianCalendar;
 
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.mapper.AuditPackageMapper;
 import uk.ac.ebi.intenz.mapper.CommonProceduresMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.mapper.EventPackageMapper;
 import uk.ac.ebi.intenz.webapp.dtos.EcSearchForm;
 import uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO;
+import uk.ac.ebi.intenz.webapp.exceptions.DeregisterException;
 import uk.ac.ebi.intenz.webapp.utilities.EntryLockSingleton;
 import uk.ac.ebi.intenz.webapp.utilities.UnitOfWork;
-import uk.ac.ebi.intenz.webapp.exceptions.DeregisterException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.GregorianCalendar;
 
 /**
  * This Action ...
@@ -27,7 +32,8 @@ import java.util.GregorianCalendar;
  * @version $Revision: 1.3 $ $Date: 2008/11/17 17:14:10 $
  */
 public class DeleteEntryAction extends CurationAction {
-  private static final Logger LOGGER = Logger.getLogger(DeleteEntryAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(DeleteEntryAction.class.getName());
   private final static String ERROR_FWD = "error";
   private final static String SEARCH_BY_EC_ACTION_FWD = "searchEc";
 
@@ -69,8 +75,8 @@ public class DeleteEntryAction extends CurationAction {
       enzymeDTO.setHistoryLine(getNewHistoryLine(enzymeDTO.getHistoryLine()));
 
       // Always set the status to 'suggested'.
-      enzymeDTO.setStatusCode(EnzymeStatusConstant.SUGGESTED.getCode());
-      enzymeDTO.setStatusText(EnzymeStatusConstant.SUGGESTED.toString());
+      enzymeDTO.setStatusCode(Status.SUGGESTED.getCode());
+      enzymeDTO.setStatusText(Status.SUGGESTED.toString());
 
       // Commit
       LOGGER.info("Committing form data.");

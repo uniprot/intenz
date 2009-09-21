@@ -1,16 +1,14 @@
 package uk.ac.ebi.intenz.webapp.utilities;
 
-import org.apache.log4j.Logger;
-import org.apache.struts.Globals;
-import org.apache.struts.taglib.html.Constants;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.util.Hashtable;
 import java.util.Map;
 
-import uk.ac.ebi.intenz.webapp.controller.search.SearchIdAction;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+import org.apache.struts.taglib.html.Constants;
 
 /**
  * This class provides a mechanism to guarantee correct control flow, that is using "back" or "reload" buttons of
@@ -27,7 +25,8 @@ import uk.ac.ebi.intenz.webapp.controller.search.SearchIdAction;
  */
 public class ControlFlowToken {
 
-  private static final Logger LOGGER = Logger.getLogger(ControlFlowToken.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(ControlFlowToken.class.getName());
 
   /**
    * Sets a control flow token in the session and in the request.

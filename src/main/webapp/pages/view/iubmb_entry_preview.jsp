@@ -8,7 +8,11 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="preview" value="true" scope="request"/>
+<jsp:include page="iubmb_entry.jsp" />
+<%--
 <% IubmbEnzymeDTO iubmbEnzymeDTO = ((IubmbEnzymeDTO) request.getAttribute("iubmbEnzymeDTO")); %>
 
   <table height="100%" width="100%" border="0" cellspacing="8" cellpadding="0">
@@ -237,3 +241,7 @@
         </td>
       </tr>
     </table>
+    
+</c:otherwise>
+</c:choose>
+ --%>

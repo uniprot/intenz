@@ -49,7 +49,8 @@ import uk.ac.ebi.xchars.domain.EncodingType;
  * @version $Revision: 1.6 $ $Date: 2008/03/12 12:29:16 $
  */
 public class PopulateIubmbEnzymeDTOAction extends Action {
-  private static final Logger LOGGER = Logger.getLogger(PopulateIubmbEnzymeDTOAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(PopulateIubmbEnzymeDTOAction.class.getName());
   private static final String IUBMB_ENTRY_JSP_FWD = "iubmb_entry";
   private static final String DELETED_TRANSFERRED_IUBMB_ENTRY_JSP_FWD = "iubmb_entry_del_trans";
 

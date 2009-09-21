@@ -38,7 +38,8 @@ import java.util.SortedSet;
 public class PopulateEnzymeListDTOAction extends Action {
   private final static String ALL_ENTRIES_JSP_FWD = "entries";
 
-  private static final Logger LOGGER = Logger.getLogger(PopulateEnzymeListDTOAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(PopulateEnzymeListDTOAction.class.getName());
 
   public ActionForward execute(ActionMapping mapping,
                                ActionForm form,

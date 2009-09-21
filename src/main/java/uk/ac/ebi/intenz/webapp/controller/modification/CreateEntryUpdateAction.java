@@ -1,8 +1,19 @@
 package uk.ac.ebi.intenz.webapp.controller.modification;
 
-import org.apache.log4j.Logger;
-import org.apache.struts.action.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
 import uk.ac.ebi.intenz.mapper.AuditPackageMapper;
 import uk.ac.ebi.intenz.mapper.EventPackageMapper;
@@ -11,12 +22,6 @@ import uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO;
 import uk.ac.ebi.intenz.webapp.exceptions.DeregisterException;
 import uk.ac.ebi.intenz.webapp.utilities.EntryLockSingleton;
 import uk.ac.ebi.intenz.webapp.utilities.UnitOfWork;
-import uk.ac.ebi.intenz.webapp.utilities.IntEnzValidations;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  * This Action ...
@@ -25,7 +30,8 @@ import java.sql.SQLException;
  * @version $Revision: 1.3 $ $Date: 2008/11/17 17:14:10 $
  */
 public class CreateEntryUpdateAction extends CurationAction {
-  private static final Logger LOGGER = Logger.getLogger(CreateEntryUpdateAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(CreateEntryUpdateAction.class.getName());
   private final static String SEARCH_BY_EC_ACTION_FWD = "searchEc";
 
   public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
@@ -58,10 +64,12 @@ public class CreateEntryUpdateAction extends CurationAction {
       LOGGER.info("Data subimtted");
 
       // Store event.
-      EventPackageMapper eventPackageMapper = new EventPackageMapper();
-      eventPackageMapper.updateFutureCreationEvent(Integer.parseInt(enzymeDTO.getLatestHistoryEventGroupId()),
+      if (!enzymeDTO.getStatusCode().equals(Status.PRELIMINARY.getCode())){
+        EventPackageMapper eventPackageMapper = new EventPackageMapper();
+        eventPackageMapper.updateFutureCreationEvent(Integer.parseInt(enzymeDTO.getLatestHistoryEventGroupId()),
                                                    Integer.parseInt(enzymeDTO.getLatestHistoryEventId()),
                                                    enzymeDTO.getStatusCode(), con);
+      }
       con.commit();
 
       LOGGER.info("Create event (update) finished.");

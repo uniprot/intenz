@@ -27,6 +27,10 @@
 	
 	<build>
         <resources>
+        	<resource>
+        		<directory>src/main/resources</directory>
+        		<filtering>true</filtering>
+        	</resource>
             <resource>
                 <directory>${intenz.config.dir}</directory>
                 <includes>
@@ -41,10 +45,29 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
+                    <overlays>
+                        <overlay></overlay>
+                        <overlay>
+                            <groupId>uk.ac.ebi.rhea.webapp</groupId>
+                            <artifactId>rhea-find-struts1</artifactId>
+                            <excludes>
+                                <exclude>WEB-INF/lib/commons-beanutils-1.6.1.jar</exclude>
+                                <exclude>WEB-INF/lib/antlr-*.jar</exclude>
+                            </excludes>
+                        </overlay>
+                        <overlay>
+                            <groupId>uk.ac.ebi.rhea.webapp</groupId>
+                            <artifactId>rhea-chebiIdAssigner</artifactId>
+                            <excludes>
+                                <exclude>WEB-INF/lib/antlr-*.jar</exclude>
+                            </excludes>
+                        </overlay>
+                    </overlays>
 					<dependentWarExcludes>
 						WEB-INF/web.xml,
-						WEB-INF/lib/xchars-*.jar,
+						WEB-INF/lib/antlr-2.7.*.jar,
 						WEB-INF/lib/commons-lang-*.jar,
+						WEB-INF/lib/xchars-*.jar,
 						pages/view/reaction_minimal.jsp
 					</dependentWarExcludes>
 				</configuration>
@@ -69,35 +92,56 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-mapper</artifactId>
-			<version>4.2</version>
+			<version>4.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-ffwriter</artifactId>
-			<version>1.0.15</version>
+			<version>1.0.17-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>antlr</artifactId>
+					<groupId>antlr</groupId>
+				</exclusion>
+            </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-chebiIdAssigner</artifactId>
-			<version>1.1</version>
+			<version>1.1.1</version>
 			<type>war</type>
+            <scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>uk.ac.ebi.rhea.webapp</groupId>
+			<artifactId>rhea-chebiIdAssigner</artifactId>
+			<version>1.1.1</version>
+			<type>warpath</type>
 			<exclusions>
 				<exclusion>
 					<artifactId>rhea-mapper</artifactId>
 					<groupId>uk.ac.ebi.rhea</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>biobabel-core</artifactId>
+					<groupId>uk.ac.ebi.biobabel</groupId>
+				</exclusion>
+                <exclusion>
+                    <artifactId>commons-beanutils</artifactId>
+                    <groupId>commons-beanutils</groupId>
+                </exclusion>
+                <!--
+                <exclusion>
+                    <artifactId>antlr</artifactId>
+                    <groupId>antlr</groupId>
+                </exclusion>
+                -->
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>uk.ac.ebi.rhea.webapp</groupId>
-			<artifactId>rhea-chebiIdAssigner</artifactId>
-			<version>1.1</version>
-			<type>warpath</type>
 		</dependency>
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
             <artifactId>rhea-chebiUpdater</artifactId>
-            <version>1.1.16</version>
+            <version>1.1.18</version>
             <exclusions>
             	<exclusion>
             		<artifactId>commons-lang</artifactId>
@@ -124,6 +168,7 @@
 			<artifactId>xchars-palette</artifactId>
 			<version>1.1</version>
 			<type>war</type>
+            <scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.xchars</groupId>
@@ -133,12 +178,18 @@
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
 			<artifactId>biobabel-core</artifactId>
-			<version>0.3.1</version>
+			<version>0.3.2</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel.webapp</groupId>
 			<artifactId>biobabel-webapp</artifactId>
 			<version>0.1.4</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>biobabel-core</artifactId>
+					<groupId>uk.ac.ebi.biobabel</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
@@ -158,6 +209,14 @@
 				<exclusion>
 					<artifactId>commons-lang</artifactId>
 					<groupId>commons-lang</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-beanutils</artifactId>
+					<groupId>commons-beanutils</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>antlr</artifactId>
+					<groupId>antlr</groupId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -241,6 +300,20 @@
             <version>2.0</version>
             <scope>provided</scope>
         </dependency>
+		<dependency>
+			<groupId>uk.ac.ebi.rhea.webapp</groupId>
+			<artifactId>rhea-find-struts1</artifactId>
+			<version>1.1.2</version>
+			<type>war</type>
+            <scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>uk.ac.ebi.rhea.webapp</groupId>
+			<artifactId>rhea-search-struts1</artifactId>
+			<version>1.1.1</version>
+			<type>war</type>
+            <scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 </project>

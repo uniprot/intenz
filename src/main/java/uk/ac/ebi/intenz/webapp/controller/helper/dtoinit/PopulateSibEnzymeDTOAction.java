@@ -29,7 +29,8 @@ import uk.ac.ebi.xchars.domain.EncodingType;
 public class PopulateSibEnzymeDTOAction extends Action {
   private static final String SIB_ENTRY_JSP_FWD = "sib_entry";
 
-  private static final Logger LOGGER = Logger.getLogger(PopulateSibEnzymeDTOAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(PopulateSibEnzymeDTOAction.class.getName());
 
   public ActionForward execute(ActionMapping mapping,
                                ActionForm form,

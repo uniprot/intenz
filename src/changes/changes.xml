@@ -10,6 +10,15 @@
     		<action dev="rafalcan" type="update">
     			Updated dependencies.
     		</action>
+    		<action dev="rafalcan" type="fix">
+    			Refactored authentication:
+    			Users identify themselves at login using the method configured
+    			in the application container (web.xml or context file), so that
+    			their passwords are stored in just one place, not three.
+    			All of them share the database user, but their work is
+    			distinguished in the audit tables by their v$session.osuser
+    			(now set when opening the connection).
+    		</action>
     	</release>
 
     	<release version="4.1.3" date="2009-01-26"

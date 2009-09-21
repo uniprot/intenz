@@ -1,11 +1,10 @@
 package uk.ac.ebi.intenz.webapp.controller;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +24,8 @@ import uk.ac.ebi.rhea.mapper.IRheaReader;
 import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
 import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbWriter;
 import uk.ac.ebi.rhea.mapper.db.RheaDbReader;
-import uk.ac.ebi.rhea.mapper.util.db.ChebiDbHelper;
 import uk.ac.ebi.rhea.mapper.util.IChebiHelper;
+import uk.ac.ebi.rhea.mapper.util.db.ChebiDbHelper;
 import uk.ac.ebi.rhea.updater.ChebiUpdater;
 import uk.ac.ebi.xchars.SpecialCharacters;
 
@@ -38,7 +37,8 @@ import uk.ac.ebi.xchars.SpecialCharacters;
  */
 public class IntEnzActionServlet extends ActionServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(IntEnzActionServlet.class);
+    private static final Logger LOGGER =
+    	Logger.getLogger(IntEnzActionServlet.class.getName());
 
     /**
      * Creates a <code>SpecialCharacters</code> instance and establishes a connection.
@@ -143,19 +143,14 @@ public class IntEnzActionServlet extends ActionServlet {
         } else { // Create new connection and store in the session.
             DatabaseInstance odbi = OracleDatabaseInstance.getInstance(
                 this.getServletConfig().getServletContext().getInitParameter("dbConfig"));
-            String url = odbi.getUrl();
-            String driver = odbi.getDriver();
-            String schema = odbi.getSchema();
-            Principal principal = request.getUserPrincipal();
-            String user = principal.getName();
-            String password = request.getParameter("j_password");
-            Class.forName(driver);
-            con = DriverManager.getConnection(url, user, password);
+            Properties props = new Properties();
+            props.put("user", odbi.getUser());
+            props.put("password", odbi.getPassword());
+            props.put("v$session.osuser",
+            		request.getUserPrincipal().getName() + "-webapp");
+            Class.forName(odbi.getDriver());
+            con = DriverManager.getConnection(odbi.getUrl(), props);
             con.setAutoCommit(false);
-            // Use the right schema:
-            Statement stm = con.createStatement();
-            stm.execute("ALTER SESSION SET CURRENT_SCHEMA = \"" + schema + "\"");
-            stm.close();
             request.getSession().setAttribute("connectionBindingListener", new ConnectionBindingListener(con));
             request.getSession().setAttribute("connection", con);
         }

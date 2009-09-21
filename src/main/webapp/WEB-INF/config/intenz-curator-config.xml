@@ -62,8 +62,12 @@
 		<action path="/transferEntryUpdateFWD" type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.TransferEntryUpdateFWDAction" parameter=".transfer_entry_update" roles="intenz curator" scope="request" />
 		<action path="/amendEntryFWD" type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.AmendEntryFWDAction" parameter=".amend_entry" roles="intenz curator" scope="request" />
 		<action path="/amendEntryUpdateFWD" type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.AmendEntryUpdateFWDAction" parameter=".amend_entry_update" roles="intenz curator" scope="request" />
-		<action path="/createEntryFWD" type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.CreateEntryFWDAction" parameter=".create_entry" roles="intenz curator" scope="request" />
-		<action path="/createEntryUpdateFWD" type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.CreateEntryUpdateFWDAction" parameter=".create_entry_update" roles="intenz curator" scope="request" />
+		<action path="/createEntryFWD"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.CreateEntryFWDAction"
+			parameter=".create_entry" roles="intenz curator" scope="request" />
+		<action path="/createEntryUpdateFWD"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.CreateEntryUpdateFWDAction"
+			parameter=".create_entry_update" roles="intenz curator" scope="request" />
 		<action path="/searchEc" type="uk.ac.ebi.intenz.webapp.controller.search.SearchEcAction" name="ecSearchForm" input="/index.jsp" validate="true" roles="intenz curator" scope="request">
 			<exception type="uk.ac.ebi.intenz.webapp.exceptions.EcException" key="errors.application.ec.detail" handler="uk.ac.ebi.intenz.webapp.utilities.IntEnzExceptionHandler" />
 			<forward name="populateIntEnzEnzymeDTO" path="/populateIntEnzEnzymeDTO.do" />
@@ -84,7 +88,9 @@
 		<action path="/searchSuggested" type="uk.ac.ebi.intenz.webapp.controller.search.SearchSuggestedAction" name="ghostEnzymeListDTO" validate="false" roles="intenz curator" scope="request">
 			<forward name="suggested_entries" path=".suggested_entries" />
 		</action>
-		<action path="/populateIntEnzEnzymeDTO" type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateIntEnzEnzymeDTOAction" name="enzymeDTO" validate="false" roles="intenz curator" scope="session">
+		<action path="/populateIntEnzEnzymeDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateIntEnzEnzymeDTOAction"
+			name="enzymeDTO" validate="false" roles="intenz curator" scope="session">
 			<forward name="searchId" path="/searchId.do" />
 		</action>
 		<action path="/populatePreviewIntEnzEnzymeDTO" type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulatePreviewIntEnzEnzymeDTOAction" validate="false" roles="intenz curator" scope="request" />
@@ -114,7 +120,9 @@
 			<forward name="searchEc" path="/searchEc.do" />
 			<forward name="searchId" path="/searchId.do" />
 		</action>
-		<action path="/transferEntry" type="uk.ac.ebi.intenz.webapp.controller.modification.TransferEntryAction" name="enzymeDTO" input=".transfer_entry" validate="true" roles="intenz curator" scope="session">
+		<action path="/transferEntry"
+            type="uk.ac.ebi.intenz.webapp.controller.modification.TransferEntryAction"
+            name="enzymeDTO" input=".transfer_entry" validate="true" roles="intenz curator" scope="session">
 			<forward name="searchEc" path="/searchEc.do" />
 		</action>
 		<action path="/transferEntryUpdate" type="uk.ac.ebi.intenz.webapp.controller.modification.TransferEntryUpdateAction" name="enzymeDTO" input=".transfer_entry_update" validate="true" roles="intenz curator" scope="session">
@@ -126,7 +134,9 @@
 		<action path="/amendEntryUpdate" type="uk.ac.ebi.intenz.webapp.controller.modification.AmendEntryUpdateAction" name="enzymeDTO" input=".amend_entry_update" validate="true" roles="intenz curator" scope="session">
 			<forward name="searchEc" path="/searchEc.do" />
 		</action>
-		<action path="/createEntry" type="uk.ac.ebi.intenz.webapp.controller.modification.CreateEntryAction" name="enzymeDTO" input=".create_entry" validate="true" roles="intenz curator" scope="session">
+		<action path="/createEntry" name="enzymeDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.CreateEntryAction"
+			input=".create_entry" validate="true" roles="intenz curator" scope="session">
 			<forward name="populateIntEnzEnzymeDTO" path="/populateIntEnzEnzymeDTO.do" />
 			<forward name="searchEc" path="/searchEc.do" />
 		</action>

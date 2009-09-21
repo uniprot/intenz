@@ -34,7 +34,8 @@ import uk.ac.ebi.xchars.domain.EncodingType;
  * @version $Revision: 1.3 $ $Date: 2008/03/12 12:29:16 $
  */
 public class PopulatePreviewIubmbEnzymeDTOAction extends Action {
-  private static final Logger LOGGER = Logger.getLogger(PopulatePreviewIubmbEnzymeDTOAction.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(PopulatePreviewIubmbEnzymeDTOAction.class.getName());
   private static final String IUBMB_ENTRY_PREVIEW_JSP_FWD = "iubmb_entry_preview";
 
     @Override

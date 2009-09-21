@@ -25,8 +25,8 @@ import org.apache.struts.validator.ValidatorForm;
 import uk.ac.ebi.biobabel.validator.DbIdentifierValidator;
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameTypeConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
@@ -367,6 +367,10 @@ public class EnzymeDTO extends ValidatorForm {
 
   public void setEc(String ec) {
     this.ec = ec;
+  }
+
+  public boolean isPreliminaryEc(){
+    return ec.indexOf("n") > -1;
   }
 
   public String getHistoryLine() {
@@ -1127,7 +1131,7 @@ public class EnzymeDTO extends ValidatorForm {
 
   private void updateStatus() {
     if (statusCode != null && !statusCode.equals("")) {
-      statusText = EnzymeStatusConstant.valueOf(statusCode).toString();
+      statusText = Status.fromCode(statusCode).toString();
     }
   }
 }

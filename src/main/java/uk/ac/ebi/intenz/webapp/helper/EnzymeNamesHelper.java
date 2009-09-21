@@ -1,12 +1,14 @@
 package uk.ac.ebi.intenz.webapp.helper;
 
+import java.util.Comparator;
+import java.util.List;
+
 import org.apache.log4j.Logger;
-import uk.ac.ebi.intenz.webapp.dtos.EnzymeNameDTO;
+
+import uk.ac.ebi.biobabel.util.StringUtil;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeName;
-import uk.ac.ebi.biobabel.util.StringUtil;
-
-import java.util.*;
+import uk.ac.ebi.intenz.webapp.dtos.EnzymeNameDTO;
 
 /**
  * This class ...
@@ -16,7 +18,8 @@ import java.util.*;
  */
 public class EnzymeNamesHelper {
 
-   private static final Logger LOGGER = Logger.getLogger(EnzymeNamesHelper.class);
+   private static final Logger LOGGER =
+	   Logger.getLogger(EnzymeNamesHelper.class.getName());
    private static EnzymeNameComparator ENZYME_NAME_CASING_COMPARATOR =
          new EnzymeNameComparator();
 

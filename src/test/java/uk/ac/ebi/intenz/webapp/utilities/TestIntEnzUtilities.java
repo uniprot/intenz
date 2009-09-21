@@ -27,7 +27,7 @@ import org.apache.log4j.Logger;
  */
 public class TestIntEnzUtilities extends TestCase {
 
-   Logger LOGGER = Logger.getLogger(TestIntEnzUtilities.class);
+   Logger LOGGER = Logger.getLogger(TestIntEnzUtilities.class.getName());
 
    /** TESTS **/
 

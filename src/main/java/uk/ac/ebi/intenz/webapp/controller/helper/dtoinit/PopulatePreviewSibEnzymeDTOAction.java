@@ -50,7 +50,8 @@ public class PopulatePreviewSibEnzymeDTOAction extends Action {
 
    private final static String SIB_ENTRY_PREVIEW_JSP_FWD = "sib_entry_preview";
 
-   private static final Logger LOGGER = Logger.getLogger(PopulatePreviewSibEnzymeDTOAction.class);
+   private static final Logger LOGGER =
+	   Logger.getLogger(PopulatePreviewSibEnzymeDTOAction.class.getName());
 
     @Override
    public ActionForward execute (ActionMapping mapping,

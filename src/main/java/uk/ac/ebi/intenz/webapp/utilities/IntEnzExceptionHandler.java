@@ -23,7 +23,8 @@ import uk.ac.ebi.intenz.domain.exceptions.EcException;
  */
 public class IntEnzExceptionHandler extends ExceptionHandler {
 
-  private static final Logger LOGGER = Logger.getLogger(IntEnzExceptionHandler.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(IntEnzExceptionHandler.class.getName());
 
   public ActionForward execute(Exception ex, ExceptionConfig ae, ActionMapping mapping, ActionForm formInstance,
                                HttpServletRequest request, HttpServletResponse response) throws ServletException {
