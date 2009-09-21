@@ -35,7 +35,8 @@ import java.io.FileInputStream;
  */
 public class ApplicationResources extends PropertyResourceBundle {
 
-   static Logger LOGGER = Logger.getLogger(ApplicationResources.class);
+   private static Logger LOGGER =
+	   Logger.getLogger(ApplicationResources.class.getName());
 
    static ApplicationResources resources;
 

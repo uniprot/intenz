@@ -35,7 +35,8 @@ import uk.ac.ebi.xchars.domain.EncodingType;
  */
 public class EnzymeHelper {
 
-  private static final Logger LOGGER = Logger.getLogger(EnzymeHelper.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(EnzymeHelper.class.getName());
 
    /**
     * @deprecated Use uk.ac.ebi.intenz.webapp.helper.SibEntryHelper

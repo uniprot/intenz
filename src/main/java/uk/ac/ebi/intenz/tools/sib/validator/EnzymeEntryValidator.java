@@ -19,7 +19,8 @@ import uk.ac.ebi.intenz.tools.sib.exceptions.EnzymeEntryValidationException;
  */
 public class EnzymeEntryValidator {
 
-  private static final Logger LOGGER = Logger.getLogger(EnzymeEntryValidator.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(EnzymeEntryValidator.class.getName());
 
   private static final String ID_LINE_CONTENT_REGEXP = "\\d+?\\.\\d+?\\.\\d+?\\.\\d+?\n";
   private static final String DE_AN_CF_LINE_CONTENT_REGEXP = ".+?\\.\n";

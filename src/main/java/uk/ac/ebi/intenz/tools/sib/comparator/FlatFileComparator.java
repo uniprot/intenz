@@ -21,7 +21,8 @@ import java.util.ArrayList;
  */
 public class FlatFileComparator {
 
-   private static final Logger LOGGER = Logger.getLogger(FlatFileComparator.class);
+   private static final Logger LOGGER =
+	   Logger.getLogger(FlatFileComparator.class.getName());
    private static final Logger LOGGER_ID = Logger.getLogger("ID");
    private static final Logger LOGGER_DE = Logger.getLogger("DE");
    private static final Logger LOGGER_AN = Logger.getLogger("AN");

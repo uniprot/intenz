@@ -3,7 +3,6 @@ package uk.ac.ebi.intenz.tools.sib;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,7 +12,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
+import uk.ac.ebi.intenz.domain.constants.Status;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.tools.sib.helper.SibEntryHelper;
@@ -31,7 +33,8 @@ import uk.ac.ebi.xchars.domain.EncodingType;
  */
 public class EnzymeFlatFileWriterApp {
 
-  private static final Logger LOGGER = Logger.getLogger(EnzymeFlatFileWriterApp.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(EnzymeFlatFileWriterApp.class.getName());
 
 
   private static float versionNumber = 1.0f;
@@ -41,8 +44,11 @@ public class EnzymeFlatFileWriterApp {
    * <p/>
    * The resulting file follows the same format as the <code><b>enzyme.dat</b></code> file format.
    *
-   * @param args ec1, ec2, ec3 and ec4 of a single entry.
-   * 	If not passed, the whole database is dumped.
+   * @param args
+   * <ol>
+   * 	<li>EC number of a single entry.</li>
+   * </ol>
+   * If not passed, the whole database is dumped.
    */
   public static void main(String[] args) {
 
@@ -82,10 +88,15 @@ public class EnzymeFlatFileWriterApp {
    }
 
   /**
-   * Retreives all ENZYME data and stores the individual entries in an {@link java.util.ArrayList}.
-   *
-   * @return an {@link java.util.ArrayList} of all entries containing only ENZYME data or <code>null</code> if an
-   *         error occured.
+   * Retrieves all ENZYME data and stores the individual entries in an
+   * {@link java.util.ArrayList}.
+   * @param args
+   * <ol>
+   * 	<li>EC number of a single entry.</li>
+   * </ol>
+   * If not passed, the whole database is dumped.
+   * @return an {@link java.util.ArrayList} of all entries containing only
+   * ENZYME data or <code>null</code> if an error occured.
    */
   private static List getAllEnzymes(String[] args) {
     LOGGER.debug("Getting all enzymes.");
@@ -103,7 +114,11 @@ public class EnzymeFlatFileWriterApp {
     	  sibEntries = enzymeEntryMapper.exportApprovedSibEntries(con);
       } else {
     	  sibEntries = new ArrayList();
-    	  sibEntries.add(enzymeEntryMapper.findByEc(args[0], args[1], args[2], args[3], con));
+    	  EnzymeCommissionNumber ec = EnzymeCommissionNumber.valueOf(args[0]);
+    	  sibEntries.add(enzymeEntryMapper.findByEc(
+    			  ec.getEc1(), ec.getEc2(), ec.getEc3(), ec.getEc4(),
+    			  ec.getType().equals(Type.PRELIMINARY)? Status.PRELIMINARY : Status.APPROVED,
+    			  con));
       }
       if (sibEntries != null) {
         SpecialCharacters encoding = SpecialCharacters.getInstance(null);
