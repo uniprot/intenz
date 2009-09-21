@@ -25,7 +25,8 @@ public class EnzymeCommentMapper {
 
   private static final String COLUMNS = "enzyme_id, comment_text, order_in, status, source, web_view";
 
-  private static final Logger LOGGER = Logger.getLogger(EnzymeCofactorMapper.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(EnzymeCofactorMapper.class.getName());
 
   public EnzymeCommentMapper() {
   }
@@ -38,10 +39,9 @@ public class EnzymeCommentMapper {
 
   private String exportSibCommentsStatement() {
     return "SELECT " + COLUMNS +
-           " FROM comments" +
-           " WHERE enzyme_id = ? AND (web_view = ? OR web_view = ? OR web_view = ? OR web_view = ?)" +
-           " FOR UPDATE" +
-           " ORDER BY order_in";
+           " FROM comments WHERE enzyme_id = ?" +
+           " AND (web_view = ? OR web_view = ? OR web_view = ? OR web_view = ?)" +
+           " FOR UPDATE ORDER BY order_in";
   }
 
   private String insertStatement() {

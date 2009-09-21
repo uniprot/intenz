@@ -85,11 +85,25 @@ public class EnzymeEntryMapper {
    * @return the SQL statement.
    */
   private String findAllByEcStatement() {
-    return new StringBuilder("SELECT ").append(COLUMNS)
-       .append(" FROM enzymes e, classes s1, subclasses s2, subsubclasses s3")
-       .append(" WHERE e.ec1 = ? AND e.ec2 = ? AND e.ec3 = ? AND e.ec4 = ?")
-       .append(" AND s1.ec1 = ? AND s2.ec1 = ? AND s2.ec2 = ?")
-       .append(" AND s3.ec1 = ? AND s3.ec2 = ? AND s3.ec3 = ?").toString();
+    return findAllByEcStatement(null);
+  }
+  
+  /**
+   * @param preliminary Search only for preliminary (<code>true</code>)
+   * 		or only non-preliminary (<code>false</code>)? If <code>null</code>,
+   * 		both are included in the search.
+   * @return
+   */
+  private String findAllByEcStatement(Boolean preliminary){
+	    StringBuilder sb = new StringBuilder("SELECT ").append(COLUMNS)
+	       .append(" FROM enzymes e, classes s1, subclasses s2, subsubclasses s3")
+	       .append(" WHERE e.ec1 = ? AND e.ec2 = ? AND e.ec3 = ? AND e.ec4 = ?")
+	       .append(" AND s1.ec1 = ? AND s2.ec1 = ? AND s2.ec2 = ?")
+	       .append(" AND s3.ec1 = ? AND s3.ec2 = ? AND s3.ec3 = ?");
+	    if (preliminary != null){
+	    	sb.append(" AND e.status ").append(preliminary? "=" : "!=").append(" 'PM'");
+	    }
+	    return sb.toString();
   }
 
   /**
@@ -268,7 +282,7 @@ public class EnzymeEntryMapper {
    * @param ec3 Number of sub-subclass to search for.
    * @param ec4 Number of entry to search for.
    * @param status the status of the searched enzyme.
-   * 	If <code>null</code>, it defaults to OK.
+   * 	If <code>null</code>, it defaults to {@link Status#APPROVED}.
    * @param con The logical connection.
    * @return an <code>EnzymeEntry</code> instance or <code>null</code> if
    * nothing has been found.
@@ -307,6 +321,52 @@ public class EnzymeEntryMapper {
 
     return result;
   }
+  
+  public List<EnzymeEntry> findAllByEc(int ec1, int ec2, int ec3, int ec4,
+		  Boolean preliminary, Connection con)
+  throws SQLException, DomainException {
+	    if (con == null) throw new NullPointerException("Parameter 'con' must not be null.");
+	    PreparedStatement findAllByEcStatement = null;
+	    ResultSet rs = null;
+	    List<EnzymeEntry> result = new ArrayList<EnzymeEntry>();
+
+	    try {
+	      // Core information.
+	      findAllByEcStatement = con.prepareStatement(findAllByEcStatement(preliminary));
+	      findAllByEcStatement.setInt(1, ec1);
+	      findAllByEcStatement.setInt(2, ec2);
+	      findAllByEcStatement.setInt(3, ec3);
+	      findAllByEcStatement.setInt(4, ec4);
+	      findAllByEcStatement.setInt(5, ec1);
+	      findAllByEcStatement.setInt(6, ec1);
+	      findAllByEcStatement.setInt(7, ec2);
+	      findAllByEcStatement.setInt(8, ec1);
+	      findAllByEcStatement.setInt(9, ec2);
+	      findAllByEcStatement.setInt(10, ec3);
+	      rs = findAllByEcStatement.executeQuery();
+	      while (rs.next()) {
+	        EnzymeEntry enzymeEntry = doLoadGhost(rs);
+
+	        // History information
+	        loadHistoryGraph(enzymeEntry, con);
+
+	        // Common name
+	        EnzymeNameMapper nameMapper = new EnzymeNameMapper();
+	        List<EnzymeName> commonNames = nameMapper.findCommonNames(enzymeEntry.getId(), con);
+	        if (commonNames != null) enzymeEntry.setCommonNames(commonNames);
+
+	        result.add(enzymeEntry);
+	      }
+	    } finally {
+	    	if (rs != null) rs.close();
+	      if (findAllByEcStatement != null) findAllByEcStatement.close();
+	    }
+
+	    if (result.size() == 0) return null;
+	    return result;
+	  
+	  
+  }
 
   /**
    * Tries to find entry information about all enzymes specified by the given EC.
@@ -324,53 +384,22 @@ public class EnzymeEntryMapper {
    */
   public List<EnzymeEntry> findAllByEc(int ec1, int ec2, int ec3, int ec4, Connection con)
   throws SQLException, DomainException {
-    if (con == null) throw new NullPointerException("Parameter 'con' must not be null.");
-    PreparedStatement findAllByEcStatement = null;
-    ResultSet rs = null;
-    List<EnzymeEntry> result = new ArrayList<EnzymeEntry>();
-
-    try {
-      // Core information.
-      findAllByEcStatement = con.prepareStatement(findAllByEcStatement());
-      findAllByEcStatement.setInt(1, ec1);
-      findAllByEcStatement.setInt(2, ec2);
-      findAllByEcStatement.setInt(3, ec3);
-      findAllByEcStatement.setInt(4, ec4);
-      findAllByEcStatement.setInt(5, ec1);
-      findAllByEcStatement.setInt(6, ec1);
-      findAllByEcStatement.setInt(7, ec2);
-      findAllByEcStatement.setInt(8, ec1);
-      findAllByEcStatement.setInt(9, ec2);
-      findAllByEcStatement.setInt(10, ec3);
-      rs = findAllByEcStatement.executeQuery();
-      while (rs.next()) {
-        EnzymeEntry enzymeEntry = doLoadGhost(rs);
-
-        // History information
-        loadHistoryGraph(enzymeEntry, con);
-
-        // Common name
-        EnzymeNameMapper nameMapper = new EnzymeNameMapper();
-        List<EnzymeName> commonNames = nameMapper.findCommonNames(enzymeEntry.getId(), con);
-        if (commonNames != null) enzymeEntry.setCommonNames(commonNames);
-
-        result.add(enzymeEntry);
-      }
-    } finally {
-    	if (rs != null) rs.close();
-      if (findAllByEcStatement != null) findAllByEcStatement.close();
-    }
-
-    if (result.size() == 0) return null;
-    return result;
+	  return findAllByEc(ec1, ec2, ec3, ec4, null, con);
   }
 
 	private HistoryGraph getHistoryGraph(Connection con, EnzymeEntry enzymeEntry)
 			throws SQLException, DomainException {
 		HistoryGraph historyGraph;
 		switch (enzymeEntry.getStatus()){
-		case APPROVED:
 		case PRELIMINARY:
+			if (enzymeEntry.isActive()){
+				// look into the future in case it is being transferred:
+			    EnzymeFutureMapper futureEventsMapper = new EnzymeFutureMapper();
+			    historyGraph = futureEventsMapper.find(enzymeEntry, con);
+				break;
+			}
+			// else it has been transferred, look past like for APPROVED:
+		case APPROVED:
 		    EnzymeHistoryMapper historyEventsMapper = new EnzymeHistoryMapper();
 		    historyGraph = historyEventsMapper.find(enzymeEntry, con);
 			break;
@@ -849,7 +878,7 @@ public class EnzymeEntryMapper {
         ec2 = rs.getInt("ec2");
         ec3 = rs.getInt("ec3");
         ec4 = rs.getInt("ec4");
-        status = Status.valueOf(rs.getString("status"));
+        status = Status.fromCode(rs.getString("status"));
       }
     } finally {
     	if (rs != null) rs.close();
@@ -1281,7 +1310,7 @@ public class EnzymeEntryMapper {
     if (rs.getString(13) != null) subSubclassName = rs.getString(13);
 
     EnzymeEntry enzymeEntry = new EnzymeEntry();
-    Status st = Status.valueOf(status);
+    Status st = Status.fromCode(status);
     enzymeEntry.setId(enzymeId);
     EnzymeCommissionNumber ec = EnzymeCommissionNumber.valueOf(
     		ec1, ec2, ec3, ec4, st.equals(Status.PRELIMINARY));
@@ -1331,7 +1360,7 @@ public class EnzymeEntryMapper {
 
     EnzymeEntry enzymeEntry = new EnzymeEntry();
     enzymeEntry.setId(enzymeId);
-    Status st = Status.valueOf(status);
+    Status st = Status.fromCode(status);
     EnzymeCommissionNumber ec = EnzymeCommissionNumber.valueOf(
     		ec1, ec2, ec3, ec4, st.equals(Status.PRELIMINARY));
     enzymeEntry.setEc(ec);
@@ -1395,7 +1424,7 @@ public class EnzymeEntryMapper {
     if (rs.getString("active") != null) active = rs.getString("active");
 
     EnzymeEntry enzymeEntry = new EnzymeEntry();
-	Status st = Status.valueOf(status);
+	Status st = Status.fromCode(status);
     enzymeEntry.setId(enzymeId);
     EnzymeCommissionNumber ec = EnzymeCommissionNumber.valueOf(
     		ec1, ec2, ec3, ec4, st.equals(Status.PRELIMINARY));

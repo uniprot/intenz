@@ -27,7 +27,8 @@ import uk.ac.ebi.rhea.mapper.db.RheaDbReader;
  */
 public class EnzymeReactionMapper {
 
-	private Logger LOGGER = Logger.getLogger(EnzymeReactionMapper.class);
+	private static final Logger LOGGER =
+		Logger.getLogger(EnzymeReactionMapper.class.getName());
 	
 	protected RheaDbReader rheaReader;
 	

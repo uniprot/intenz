@@ -28,7 +28,8 @@ public class EnzymeClassMapper {
   
   private static final String SELECT_ALL = "SELECT " + COLUMNS + " FROM classes";
 
-  private static final Logger LOGGER = Logger.getLogger(EnzymeClassMapper.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(EnzymeClassMapper.class.getName());
 
   public EnzymeClassMapper() {
   }
