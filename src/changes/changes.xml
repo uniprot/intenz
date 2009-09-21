@@ -6,7 +6,11 @@
     </properties>
     <body>
     	<release version="4.1.4" date=""
-            description="Updated dependencies">
+            description="Preliminary EC numbers and maintainable authentication">
+            <action dev="rafalcan" type="add">
+            	Added support for preliminary EC numbers: create, amend, transfer,
+            	search, list.
+            </action>
     		<action dev="rafalcan" type="update">
     			Updated dependencies.
     		</action>
