@@ -16,7 +16,8 @@ import org.apache.log4j.Logger;
  */
 public class EnzymeFlatFileComparatorApp {
 
-  private static final Logger LOGGER = Logger.getLogger(EnzymeFlatFileComparatorApp.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(EnzymeFlatFileComparatorApp.class.getName());
 
   /**
    * Compares the content of two ENZYME flat files.

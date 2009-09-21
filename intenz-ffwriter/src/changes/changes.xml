@@ -5,6 +5,18 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.0.17" date=""
+        	description="Updated mapper dependency">
+            <action dev="rafalcan" type="update">
+                Updated dependency to latest mapper module, which cascades to
+                a newer biobabel-core version, which allows validation of
+                preliminary EC numbers.
+            </action>
+            <action dev="rafalcan" type="fix">
+            	Delegating EC number validation on biobabel-core module.
+            </action>
+        </release>
+
         <release version="1.0.16" date="2009-09-01"
         	description="Updated mapper dependency">
             <action dev="rafalcan" type="update">

@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import uk.ac.ebi.biobabel.validator.DbIdentifierValidator;
 import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeCrossReference;
 import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeEntryImpl;
 import uk.ac.ebi.interfaces.sptr.SPTRCrossReference;
@@ -98,7 +99,8 @@ import uk.ac.ebi.interfaces.sptr.SPTRException;
  */
 public class EnzymeFlatFileWriter {
 
-  private static final Logger LOGGER = Logger.getLogger(EnzymeFlatFileWriter.class);
+  private static final Logger LOGGER =
+	  Logger.getLogger(EnzymeFlatFileWriter.class.getName());
   
   /** EC numbers of entries which have been transferred more than once,
    * or to more than one entry, or deleted but actually transferred,
@@ -304,7 +306,8 @@ public class EnzymeFlatFileWriter {
    */
   private static String createIDLine(String ec) throws SPTRException {
     assert ec != null : ec;
-    if (!isValidEc(ec)) throw new EnzymeFlatFileWriteException("Parameter ec does not contain a valid ec.");
+    if (!DbIdentifierValidator.getInstance().validate(ec, DbIdentifierValidator.EC_NUMBER))
+    	throw new EnzymeFlatFileWriteException("Parameter ec does not contain a valid ec.");
 
     LOGGER.debug("EC: " + ec);
 
@@ -577,53 +580,6 @@ public class EnzymeFlatFileWriter {
     }
 
     return name11.toString();
-  }
-
-  /**
-   * Checks if the given EC is valid (syntax is correct).
-   *
-   * @param ecString The EC to be checked.
-   * @return <code>true</code> if the EC is valid.
-   */
-  private static boolean isValidEc(String ecString) {
-    assert ecString != null : ecString;
-
-    int ec1 = 0, ec2 = 0, ec3 = 0, ec4 = 0;
-    if (!Pattern.matches("(\\d+)(?:\\.(\\d+)(?:\\.(\\d+)(?:\\.(\\d+)){0,1}){0,1}){0,1}", ecString)) return false;
-    Pattern ecPattern = Pattern.compile("(\\d+)(?:\\.(\\d+)(?:\\.(\\d+)(?:\\.(\\d+)){0,1}){0,1}){0,1}");
-    Matcher ecMatcher = ecPattern.matcher(ecString);
-    try {
-      if (ecMatcher.find()) {
-        ec1 = Integer.parseInt(ecMatcher.group(1));
-        if (ec1 < 0) return false;
-        if (ecMatcher.group(2) != null) {
-          ec2 = Integer.parseInt(ecMatcher.group(2));
-          if (ec2 < 0) return false;
-          if (ecMatcher.group(3) != null) {
-            ec3 = Integer.parseInt(ecMatcher.group(3));
-            if (ec3 < 0) return false;
-            if (ecMatcher.group(4) != null) {
-              ec4 = Integer.parseInt(ecMatcher.group(4));
-              if (ec4 < 0) return false;
-            }
-          }
-        }
-      }
-    } catch (NumberFormatException e) {
-      return false;
-    }
-
-    if (ec1 == 0) {
-      if (ec2 > 0 || ec3 > 0 || ec4 > 0) return false;
-    }
-    if (ec2 == 0) {
-      if (ec3 > 0 || ec4 > 0) return false;
-    }
-    if (ec3 == 0) {
-      if (ec4 > 0) return false;
-    }
-
-    return true;
   }
 
   /**
