@@ -67,7 +67,7 @@ begin
   SELECT ''''||replace(comments,'''','''''')||''''||CHR(10)
     into all_comments
     from all_tab_comments
-    where table_name = upper(t_name)
+    where table_name = upper(t_name) and owner = 'ENZYME'
     ;
   return all_comments;  
 end;
