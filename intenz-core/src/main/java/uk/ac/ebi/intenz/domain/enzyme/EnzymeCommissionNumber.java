@@ -34,6 +34,11 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
 	  new EnzymeCommissionNumber(-1, -1, -1, -1, false);
 
   /**
+   * The character prefixing the fourth digit in preliminary EC numbers.
+   */
+  public static final char PRELIMINARY_PREFIX = 'n';
+  
+  /**
    * Type of EC number.
    * @author rafalcan
    */
@@ -329,6 +334,17 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
   public static boolean isValid(String ecString) {
 	  return DbIdentifierValidator.getInstance()
 	  	.validate(ecString, DbIdentifierValidator.EC_NUMBER);
+  }
+  
+  /**
+   * Checks lazily if the given EC number is preliminary (according to UniProt
+   * format of preliminary EC numbers, see {@link #PRELIMINARY_PREFIX}).
+   * @param ecString
+   * @return <code>true</code> if the parameter contains the prefix for
+   * 	preliminary EC numbers.
+   */
+  public static boolean isPreliminary(String ecString){
+	  return ecString.indexOf(PRELIMINARY_PREFIX) > -1;
   }
 
   /**

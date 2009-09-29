@@ -148,6 +148,7 @@ public class XrefDatabaseConstant implements Comparable<XrefDatabaseConstant> {
     NIST74,
     KEGG,
     MEROPS,
+    METACYC,
     MIM,
     PROSITE,
     SWISSPROT,
@@ -164,6 +165,7 @@ public class XrefDatabaseConstant implements Comparable<XrefDatabaseConstant> {
     ENZYME,
     NC_IUBMB,
     GO,
+    METACYC,
     NIST74,
     KEGG,
     //MIM,
@@ -350,7 +352,7 @@ public class XrefDatabaseConstant implements Comparable<XrefDatabaseConstant> {
       XrefDatabaseConstant sourceConstant = it.next();
       if (databaseName.equals(sourceConstant.getDisplayName())) return sourceConstant.getDatabaseCode();
     }
-    throw new IllegalArgumentException("The 'databaseName' paramter is invalid.");
+    throw new IllegalArgumentException("The 'databaseName' parameter is invalid:" + databaseName);
   }
 
   public String getDatabaseCode() {
