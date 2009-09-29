@@ -100,10 +100,12 @@ public class EnzymeReactionMapper {
         }
 
         EnzymaticReactions result = find(enzymeId, con, FIND_STM);
-        if (result == null) {
-            result = find(enzymeId, con, FIND_ABSTRACT_STM);
+    	EnzymaticReactions abstractReactions =
+    		find(enzymeId, con, FIND_ABSTRACT_STM);
+        if (result == null) { // no Rhea reactions
+            result = abstractReactions;
         } else {
-            result.add(find(enzymeId, con, FIND_ABSTRACT_STM));
+        	if (abstractReactions != null) result.add(abstractReactions);
         }
         return result;
     }
@@ -143,8 +145,7 @@ public class EnzymeReactionMapper {
 		  rs = findStatement.executeQuery();
 		  while (rs.next()) {
 			  if (result == null) result = new EnzymaticReactions();
-              // TODO
-			  result.add(loadReaction(rs), rs.getString("web_view"));
+              result.add(loadReaction(rs), rs.getString("web_view"));
 		  }
 	  } finally {
 		  if (rs != null) rs.close();
