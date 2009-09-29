@@ -5,7 +5,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="1.0.17" date=""
+        <release version="1.0.17" date="2009-09-29"
         	description="Updated mapper dependency">
             <action dev="rafalcan" type="update">
                 Updated dependency to latest mapper module, which cascades to
