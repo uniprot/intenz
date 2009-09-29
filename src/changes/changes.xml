@@ -5,22 +5,25 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-       	<release version="4.2" date=""
+       	<release version="4.2" date="2009-09-29"
        		description="Preliminary EC numbers.">
        		<action dev="rafalcan" type="add">
        			Added implementation for preliminary EC numbers.
        		</action>
        		<action dev="rafalcan" type="add">
-       			Added MetaCyc as xref for enzymes (their preliminary EC
+       			Added MetaCyc as xref for enzymes (to their preliminary EC
        			numbers).
        		</action>
        		<action dev="rafalcan" type="fix">
-       			Fixed Brenda, now considered as xref (to their preliminary
-       			EC numbers).
+       			Fixed XrefDatabaseConstant.BRENDA, now considered as xref
+       			(to their preliminary EC numbers).
        		</action>
         	<action dev="rafalcan" type="update">
         		Updated to latest rhea-domain and biobabel-core (updated
         		validator with support for preliminary EC numbers).
+        	</action>
+         	<action dev="rafalcan" type="remove">
+        		Obsolete class DataComment is not used any longer.
         	</action>
     	</release>
     	<release version="4.1" date="2009-05-07" description="Refactoring">

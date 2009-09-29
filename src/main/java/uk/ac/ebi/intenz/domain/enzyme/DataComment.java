@@ -2,11 +2,7 @@ package uk.ac.ebi.intenz.domain.enzyme;
 
 
 /**
- * Created by IntelliJ IDEA.
- * User: rafalcan
- * Date: 29-Sep-2005
- * Time: 15:19:01
- * To change this template use File | Settings | File Templates.
+ * @deprecated use a plain String.
  */
 public class DataComment {
 

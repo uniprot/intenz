@@ -1,12 +1,12 @@
 package uk.ac.ebi.intenz.domain.enzyme;
 
-import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
-import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
-
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
+
+import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
+import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
+import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
 
 /**
  * An enzyme link is used to store cross-reference information.
@@ -31,7 +31,14 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
    */
   public static final EnzymeLink BRENDA =
 	  new EnzymeLink(XrefDatabaseConstant.BRENDA, XrefDatabaseConstant.BRENDA.getUrl(),
-			  "", "", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
+			  "", "BRENDA", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
+  
+  /**
+   * Link to MetaCyc.
+   */
+  public static final EnzymeLink METACYC =
+	  new EnzymeLink(XrefDatabaseConstant.METACYC, XrefDatabaseConstant.METACYC.getUrl(),
+			  "", "MetaCyc", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
 
   /**
    * Static link to the KEGG database.
@@ -108,6 +115,7 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
   static {
     STATIC_LINKS = new TreeMap<XrefDatabaseConstant, EnzymeLink>();
     STATIC_LINKS.put(BRENDA.getXrefDatabaseConstant(), BRENDA);
+    STATIC_LINKS.put(METACYC.getXrefDatabaseConstant(), METACYC);
     STATIC_LINKS.put(KEGG.getXrefDatabaseConstant(), KEGG);
     STATIC_LINKS.put(EXPASY.getXrefDatabaseConstant(), EXPASY);
     STATIC_LINKS.put(ERGO.getXrefDatabaseConstant(), ERGO);
@@ -144,7 +152,7 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
    */
   private EnzymeViewConstant view;
 
-    private DataComment dataComment;
+    private String dataComment;
 
     /**
    * Object cannot be created outside this class.
@@ -175,16 +183,26 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
    * @throws NullPointerException     if <code>xrefDatabaseConstant</code> is <code>null</code>.
    * @throws IllegalArgumentException if the arguments are not sufficient to create a link.
    */
-  public static EnzymeLink valueOf(XrefDatabaseConstant xrefDatabaseConstant, String specificUrl, String accession, String name,
-                                   EnzymeSourceConstant source, EnzymeViewConstant view) {
+  public static EnzymeLink valueOf(XrefDatabaseConstant xrefDatabaseConstant,
+		  String specificUrl, String accession, String name,
+          EnzymeSourceConstant source, EnzymeViewConstant view) {
     if (xrefDatabaseConstant == null) throw new NullPointerException("Parameter 'xrefDatabaseConstant' must not be null.");
     if (source == null) throw new NullPointerException("Parameter 'source' must not be null.");
     if (view == null) throw new NullPointerException("Parameter 'view' must not be null.");
 
     // Static links.
 //      if (view.toString().equals("") && STATIC_LINKS.containsKey(xrefDatabaseConstant))
-    if (STATIC_LINKS.containsKey(xrefDatabaseConstant))
-        return STATIC_LINKS.get(xrefDatabaseConstant);
+    // Links based on EC number, except when they are passed as accession (BRENDA):
+    if (STATIC_LINKS.containsKey(xrefDatabaseConstant)){
+    	if (accession == null){
+            return STATIC_LINKS.get(xrefDatabaseConstant);
+    	} else {
+    		// A static link to an EC number, but we have an accession? Preliminary ECs
+    		return new EnzymeLink(xrefDatabaseConstant,
+    				xrefDatabaseConstant.getUrl(),
+    				accession, accession, source, view);
+    	}
+    }
 
     if ((specificUrl == null || specificUrl.equals("")) && (accession == null || accession.equals("")) &&
         (name == null || name.equals("")))
@@ -205,7 +223,7 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
    * @return
    */
   public static EnzymeLink valueOf(XrefDatabaseConstant xrefDatabaseConstant, String specificUrl, String accession, String name,
-                                   EnzymeSourceConstant source, EnzymeViewConstant view, DataComment dataComment){
+                                   EnzymeSourceConstant source, EnzymeViewConstant view, String dataComment){
       EnzymeLink el = EnzymeLink.valueOf(xrefDatabaseConstant, specificUrl, accession, name, source, view);
       el.setDataComment(dataComment);
       return el;
@@ -343,7 +361,7 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
   }
 
   /**
-   * Links with the EC numbder as identifier need to call this method to get the correct URL.
+   * Links with the EC number as identifier need to call this method to get the correct URL.
    *
    * @param ec The EC number.
    * @return the full URL.
@@ -351,16 +369,10 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
    */
   public String getFullUrl(String ec) {
     if (ec == null) throw new NullPointerException();
-//    if (xrefDatabaseConstant == BRENDA.getXrefDatabaseConstant() ||
-//        xrefDatabaseConstant == KEGG.getXrefDatabaseConstant() ||
-//        xrefDatabaseConstant == EXPASY.getXrefDatabaseConstant() ||
-//        xrefDatabaseConstant == NIST74.getXrefDatabaseConstant() ||
-//        xrefDatabaseConstant == ERGO.getXrefDatabaseConstant() ||
-//        xrefDatabaseConstant == UMBBD.getXrefDatabaseConstant()) {
-//      return specificUrl + ec;
-//    }
     if (STATIC_LINKS.keySet().contains(xrefDatabaseConstant)){
-        return specificUrl + ec;
+    	boolean withAccession = EnzymeCommissionNumber.isPreliminary(ec)
+    		&& accession != null && accession.length() > 0;
+        return specificUrl + (withAccession? accession : ec);
     }
     if (xrefDatabaseConstant == XrefDatabaseConstant.CSA){
         StringTokenizer st = new StringTokenizer(ec, ".");
@@ -375,7 +387,9 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
         xrefDatabaseConstant == XrefDatabaseConstant.SWISSPROT ||
         xrefDatabaseConstant == XrefDatabaseConstant.MIM ||
         xrefDatabaseConstant == XrefDatabaseConstant.PDB ||
-        xrefDatabaseConstant == XrefDatabaseConstant.GO){
+        xrefDatabaseConstant == XrefDatabaseConstant.GO ||
+        xrefDatabaseConstant == XrefDatabaseConstant.BRENDA ||
+        xrefDatabaseConstant == XrefDatabaseConstant.METACYC){
         StringBuffer sb = new StringBuffer(xrefDatabaseConstant.getUrl());
         sb.append(accession);
         return sb.toString();
@@ -416,11 +430,11 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
     return source;
   }
 
-    public DataComment getDataComment() {
+    public String getDataComment() {
         return dataComment;
     }
 
-    public void setDataComment(DataComment comment) {
+    public void setDataComment(String comment) {
         dataComment = comment;
     }
 }
