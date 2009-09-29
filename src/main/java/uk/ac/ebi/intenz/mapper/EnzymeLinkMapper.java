@@ -11,7 +11,6 @@ import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
-import uk.ac.ebi.intenz.domain.enzyme.DataComment;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 
@@ -505,15 +504,13 @@ public class EnzymeLinkMapper {
     String url = "";
     String source = "";
     String webView = "";
-    DataComment dataComment = null;
+    String dataComment = null;
 
     if (rs.getString("display_name") != null) displayName = rs.getString("display_name");
     if (rs.getString("url") != null) url = rs.getString("url");
     if (rs.getString("source") != null) source = rs.getString("source");
     if (rs.getString("web_view") != null) webView = rs.getString("web_view");
-    if (rs.getString("data_comment") != null){
-        dataComment = new DataComment(rs.getString("data_comment"));
-    }
+    if (rs.getString("data_comment") != null) dataComment = rs.getString("data_comment");
 
     if (displayName.equals("UM-BBD")) displayName = "UMBBD";
     if (displayName.equals("NIST 74")) displayName = "NIST74";
@@ -535,7 +532,8 @@ public class EnzymeLinkMapper {
         result = EnzymeLink.ERGO;
     } else if (displayName.equals(XrefDatabaseConstant.CAS.getDatabaseCode())) {
         if(url.trim().equals("")) return null;
-        result = EnzymeLink.valueOf(XrefDatabaseConstant.CAS, "", url, "", EnzymeSourceConstant.valueOf(source), EnzymeViewConstant.valueOf(webView), dataComment);
+        result = EnzymeLink.valueOf(XrefDatabaseConstant.CAS, "", url, "",
+        		EnzymeSourceConstant.valueOf(source), EnzymeViewConstant.valueOf(webView), dataComment);
     }
 
     if (result == null){ // not a static link
@@ -565,16 +563,14 @@ public class EnzymeLinkMapper {
     String name = "";
     String source = "";
     String webView = "";
-    DataComment dataComment = null;
+    String dataComment = null;
 
     if (rs.getString("database_code") != null) databaseCode = rs.getString("database_code");
     if (rs.getString("database_ac") != null) accession = rs.getString("database_ac");
     if (rs.getString("name") != null) name = rs.getString("name");
     if (rs.getString("source") != null) source = rs.getString("source");
     if (rs.getString("web_view") != null) webView = rs.getString("web_view");
-    if (rs.getString("data_comment") != null){
-        dataComment = new DataComment(rs.getString("data_comment"));
-    }
+    if (rs.getString("data_comment") != null) dataComment = rs.getString("data_comment");
 
     if (databaseCode.equals("S")) databaseCode = "SWISSPROT";
     if (databaseCode.equals("P")) databaseCode = "PROSITE";
@@ -617,10 +613,10 @@ public class EnzymeLinkMapper {
     insertStatement.setString(4, status.getCode());
     insertStatement.setString(5, link.getSource().toString());
     insertStatement.setString(6, link.getView().toString());
-    if (link.getDataComment() == null || link.getDataComment().getComment().equals("")){
+    if (link.getDataComment() == null || link.getDataComment().equals("")){
         insertStatement.setNull(7, java.sql.Types.VARCHAR);
     } else {
-        insertStatement.setString(7, link.getDataComment().getComment());
+        insertStatement.setString(7, link.getDataComment());
     }
   }
 
@@ -645,10 +641,10 @@ public class EnzymeLinkMapper {
     insertXrefStatement.setString(5, status.getCode());
     insertXrefStatement.setString(6, xref.getSource().toString());
     insertXrefStatement.setString(7, xref.getView().toString());
-    if (xref.getDataComment() == null || xref.getDataComment().getComment().equals("")){
+    if (xref.getDataComment() == null || xref.getDataComment().equals("")){
         insertXrefStatement.setNull(8, java.sql.Types.VARCHAR);
     } else {
-        insertXrefStatement.setString(8, xref.getDataComment().getComment());
+        insertXrefStatement.setString(8, xref.getDataComment());
     }
   }
 }

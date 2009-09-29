@@ -5,7 +5,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="4.3" date=""
+    	<release version="4.3" date="2009-09-29"
     		description="Preliminary EC numbers.">
        		<action dev="rafalcan" type="add">
        			Added implementation for preliminary EC numbers.

@@ -7,10 +7,9 @@ import java.util.List;
 import junit.framework.TestCase;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
-import uk.ac.ebi.intenz.domain.enzyme.DataComment;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 
 /**
@@ -27,9 +26,6 @@ public class EnzymeLinkMapperTest extends TestCase {
 
     // NOTE: For these tests to work, the database must contain an entry with this id:
     private static Long id = new Long(16059l);
-
-    private static Long cid1 = new Long(4321l);
-    private static Long cid2 = new Long(9876l);
 
     public void testFind() throws Exception {
         Long id1002 = new Long(1002l);
@@ -69,11 +65,11 @@ public class EnzymeLinkMapperTest extends TestCase {
         // One non-xref:
         EnzymeLink sl1 = EnzymeLink.valueOf(XrefDatabaseConstant.KEGG, "http://www.google.com", "G666",
             "TestLinkG", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
-        sl1.setDataComment(new DataComment(cid1, "a google kegg comment 4321"));
+        sl1.setDataComment("a google kegg comment 4321");
         // One xref:
         EnzymeLink sl2 = EnzymeLink.valueOf(XrefDatabaseConstant.SWISSPROT, "http://www.yahoo.com", "Y666",
             "TestLinkY", EnzymeSourceConstant.IUBMB, EnzymeViewConstant.IUBMB_INTENZ);
-        sl2.setDataComment(new DataComment(cid2, "a yahoo swissprot comment 9876"));
+        sl2.setDataComment("a yahoo swissprot comment 9876");
         sampleLinks.add(sl1);
         sampleLinks.add(sl2);
         return sampleLinks;
