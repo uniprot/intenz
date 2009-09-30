@@ -25,30 +25,7 @@ import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.xml.sax.SAXException;
 
-import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
-
 import uk.ac.ebi.biobabel.util.collections.OperatorSet;
-import uk.ac.ebi.intenz.tools.export.jaxb.BookType;
-import uk.ac.ebi.intenz.tools.export.jaxb.CofactorType;
-import uk.ac.ebi.intenz.tools.export.jaxb.DatabaseType;
-import uk.ac.ebi.intenz.tools.export.jaxb.EcClassType;
-import uk.ac.ebi.intenz.tools.export.jaxb.EcSubclassType;
-import uk.ac.ebi.intenz.tools.export.jaxb.EcSubsubclassType;
-import uk.ac.ebi.intenz.tools.export.jaxb.Editorial;
-import uk.ac.ebi.intenz.tools.export.jaxb.EntryType;
-import uk.ac.ebi.intenz.tools.export.jaxb.EnzymeNameQualifierType;
-import uk.ac.ebi.intenz.tools.export.jaxb.EnzymeType;
-import uk.ac.ebi.intenz.tools.export.jaxb.Intenz;
-import uk.ac.ebi.intenz.tools.export.jaxb.JournalType;
-import uk.ac.ebi.intenz.tools.export.jaxb.LinkType;
-import uk.ac.ebi.intenz.tools.export.jaxb.ObjectFactory;
-import uk.ac.ebi.intenz.tools.export.jaxb.PatentType;
-import uk.ac.ebi.intenz.tools.export.jaxb.ReactionType;
-import uk.ac.ebi.intenz.tools.export.jaxb.ReferenceType;
-import uk.ac.ebi.intenz.tools.export.jaxb.ViewType;
-import uk.ac.ebi.intenz.tools.export.jaxb.ViewableType;
-import uk.ac.ebi.intenz.tools.export.jaxb.XmlContentType;
-import uk.ac.ebi.intenz.tools.sib.translator.XCharsASCIITranslator;
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameQualifierConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
@@ -56,6 +33,7 @@ import uk.ac.ebi.intenz.domain.enzyme.Cofactor;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeClass;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeComment;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeName;
@@ -65,8 +43,31 @@ import uk.ac.ebi.intenz.domain.reference.Book;
 import uk.ac.ebi.intenz.domain.reference.Journal;
 import uk.ac.ebi.intenz.domain.reference.Patent;
 import uk.ac.ebi.intenz.domain.reference.Reference;
-import uk.ac.ebi.intenz.tools.export.jaxb.EnzymeNameType;
+import uk.ac.ebi.intenz.tools.sib.translator.XCharsASCIITranslator;
+import uk.ac.ebi.intenz.xml.jaxb.BookType;
+import uk.ac.ebi.intenz.xml.jaxb.CofactorType;
+import uk.ac.ebi.intenz.xml.jaxb.DatabaseType;
+import uk.ac.ebi.intenz.xml.jaxb.EcClassType;
+import uk.ac.ebi.intenz.xml.jaxb.EcSubclassType;
+import uk.ac.ebi.intenz.xml.jaxb.EcSubsubclassType;
+import uk.ac.ebi.intenz.xml.jaxb.Editorial;
+import uk.ac.ebi.intenz.xml.jaxb.EntryType;
+import uk.ac.ebi.intenz.xml.jaxb.EnzymeNameQualifierType;
+import uk.ac.ebi.intenz.xml.jaxb.EnzymeNameType;
+import uk.ac.ebi.intenz.xml.jaxb.EnzymeType;
+import uk.ac.ebi.intenz.xml.jaxb.Intenz;
+import uk.ac.ebi.intenz.xml.jaxb.JournalType;
+import uk.ac.ebi.intenz.xml.jaxb.LinkType;
+import uk.ac.ebi.intenz.xml.jaxb.ObjectFactory;
+import uk.ac.ebi.intenz.xml.jaxb.PatentType;
+import uk.ac.ebi.intenz.xml.jaxb.ReactionType;
+import uk.ac.ebi.intenz.xml.jaxb.ReferenceType;
+import uk.ac.ebi.intenz.xml.jaxb.ViewType;
+import uk.ac.ebi.intenz.xml.jaxb.ViewableType;
+import uk.ac.ebi.intenz.xml.jaxb.XmlContentType;
 import uk.ac.ebi.rhea.domain.Reaction;
+
+import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
 /**
  * Exporter of IntEnz data in XML format.
@@ -133,7 +134,7 @@ public class XmlExporter {
         buildNameQualifiersMap();
         buildViewMap();
         buildDbMap();
-        JAXBContext context = JAXBContext.newInstance("uk.ac.ebi.intenz.tools.export.jaxb");
+        JAXBContext context = JAXBContext.newInstance("uk.ac.ebi.intenz.xml.jaxb");
         marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,
@@ -491,7 +492,7 @@ public class XmlExporter {
                 }
             }
             if (link.getDataComment() != null)
-                jaxbLink.setComment(link.getDataComment().getComment());
+                jaxbLink.setComment(link.getDataComment());
             jaxbLink.getContent().add(link.getName());
             jaxbLink.setView(VIEWS.get(link.getView()));
             jaxbEnzyme.getLinks().getLink().add(jaxbLink);
@@ -561,9 +562,10 @@ public class XmlExporter {
         EnzymaticReactions er = entry.getEnzymaticReactions();
         for (int i = 0; i < er.size(); i++) {
             Reaction reaction = er.getReaction(i);
-			// For now, Rhea-ctions won't appear in IntEnzXML:
-			if (reaction.getId() > Reaction.NO_ID_ASSIGNED /*&& !reaction.getStatus().equals(Status.OK)*/)
-				// Not accepted Rhea-ction
+			// Rhea-ctions won't appear in IntEnzXML except for preliminary ECs:
+			if (reaction.getId() > Reaction.NO_ID_ASSIGNED
+					/*&& !reaction.getStatus().equals(Status.OK)*/
+					&& !EnzymeCommissionNumber.isPreliminary(entry.getEc().toString()))
 				continue;
             if (jaxbEnzyme.getReactions() == null)
                 jaxbEnzyme.setReactions(of.createReactions());

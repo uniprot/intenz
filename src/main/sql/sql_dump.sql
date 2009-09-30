@@ -928,7 +928,7 @@ select 'alter table reaction_xrefs_audit comment = '||f_table_comment('reaction_
 select 'insert into reaction_xrefs_audit (REACTION_ID,DB_CODE,DB_ACCESSION,TIMESTAMP,AUDIT_ID,DBUSER,OSUSER,REMARK,ACTION) values ('||CHR(10)
 	||REACTION_ID                                     ||','||CHR(10)
     ||''''||TRIM(DB_CODE                             )||''','||CHR(10)
-    ||''''||TRIM(DB_ACCESSION                        )||''','||CHR(10)
+    ||''''||TRIM(replace(DB_ACCESSION,'''','''''')   )||''','||CHR(10)
     ||''''||to_char(TIMESTAMP,'YYYY-MM-DD HH:MI:SS') ||''','||CHR(10)
     ||is_null_int(AUDIT_ID)                              ||','||CHR(10)
     ||''''||TRIM(DBUSER                             )||''','||CHR(10)
