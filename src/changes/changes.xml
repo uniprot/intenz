@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    <properties>
+        <title>IntEnz XML module change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+
+    	<release version="1.0" date="2009-09-30"
+    		description="First release">
+    		<action dev="rafalcan" type="add">
+    			First release as a separate module from intenz-export.
+    		</action>
+    	</release>
+
+    </body>
+</document>
