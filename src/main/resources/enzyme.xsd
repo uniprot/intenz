@@ -65,14 +65,14 @@
             <xs:enumeration value="IUBMB">
                 <xs:annotation>
                     <xs:documentation>
-                        IntEnz, IUBMB and SIB
+                        IUBMB
                     </xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="SIB">
                 <xs:annotation>
                     <xs:documentation>
-                        IntEnz, IUBMB and SIB
+                        SIB
                     </xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
@@ -93,7 +93,7 @@
             <xs:enumeration value="IUBMB,SIB">
                 <xs:annotation>
                     <xs:documentation>
-                        IntEnz, IUBMB and SIB
+                        IUBMB and SIB
                     </xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
