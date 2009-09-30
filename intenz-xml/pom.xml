@@ -58,7 +58,7 @@
                         <param>${basedir}/src/main/resources/intenz.xsd</param>
                         <param>${basedir}/src/main/resources/enzyme.xsd</param>
                     </generatorParams>
-                    <outputFolder>src/site/resources/xsddocs</outputFolder>
+                    <outputFolder>xsdocs</outputFolder>
                     <name>XSDoc</name>
                     <description>XML schema for IntEnz</description>
                 </configuration>
