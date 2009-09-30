@@ -25,10 +25,13 @@ import org.xml.sax.SAXException;
 import uk.ac.ebi.biobabel.util.StringUtil;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.biopax.level2.Biopax;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeClass;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubSubclass;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubclass;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.mapper.EnzymeClassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
@@ -68,7 +71,11 @@ public class ExporterApp {
      *      <li><code>intenz-export.properties</code>: containing parameters
      *          for the application (database instance, output directories)</li>
      * </ul>
-     * @param args 
+     * @param args
+     * 		<ol>
+     * 			<li>EC number (optional). If <code>null</code>, all public
+     * 				enzymes will be exported</li>
+     * 		</ol>
      * @throws DomainException
      * @throws IOException
      * @throws SQLException
@@ -77,7 +84,7 @@ public class ExporterApp {
     @SuppressWarnings("unchecked")
     public static void main(String[] args)
     throws ClassNotFoundException, SQLException, IOException, DomainException {
-        ExporterApp app = new ExporterApp();
+        ExporterApp app = new ExporterApp(args.length == 0? null : args[0]);
         String formats = app.props.getProperty("intenz.export.format");
         if (!StringUtil.isNullOrEmpty(formats)){
             StringTokenizer st = new StringTokenizer(formats, " ,;");
@@ -126,20 +133,18 @@ public class ExporterApp {
         }
     }
 
-    private ExporterApp()
+    private ExporterApp(String ecString)
     throws ClassNotFoundException, SQLException, IOException, DomainException {
         Connection con = null;
         props = new Properties();
-		spotlights = new Properties();
         try {
 			props.load(ExporterApp.class.getClassLoader().getResourceAsStream("intenz-export.properties"));
             props.load(ExporterApp.class.getClassLoader().getResourceAsStream("intenz-release.properties"));
-            spotlights.load(ExporterApp.class.getClassLoader().getResourceAsStream("spotlights.properties"));
 
             String dbName = props.getProperty("intenz.export.db.instance");
             con = OracleDatabaseInstance.getInstance(dbName).getConnection();
             LOGGER.info("Retrieving IntEnz entries from " + dbName);
-            getEnzymeList(con);
+            getEnzymeList(con, ecString);
             LOGGER.info("Retrieved IntEnz entries");
             LOGGER.info("Retrieving IntEnz descriptions from " + dbName);
             getDescriptions(con);
@@ -150,15 +155,27 @@ public class ExporterApp {
     }
 
     /**
-     * Gets the whole list of <i>exportable</i> enzymes.
+     * Gets the list of enzymes to be exported.
      * @param con
+     * @param ec An EC number. If <code>null</code>, every exportable enzyme is
+     * 		included.
      * @throws SQLException
      * @throws DomainException
      */
     @SuppressWarnings("unchecked")
-	private void getEnzymeList(Connection con) throws SQLException, DomainException{
+	private void getEnzymeList(Connection con, String ecString)
+    throws SQLException, DomainException{
         EnzymeEntryMapper mapper = new EnzymeEntryMapper();
-        enzymeList = mapper.exportAllEntries(con);
+        if (ecString != null){
+        	EnzymeCommissionNumber ec = EnzymeCommissionNumber.valueOf(ecString);
+        	Status status = ec.getType().equals(Type.PRELIMINARY)?
+        			Status.PRELIMINARY : Status.APPROVED;
+    		enzymeList = Collections.singletonList(
+    				mapper.findByEc(ec.getEc1(), ec.getEc2(), ec.getEc3(),
+    						ec.getEc4(), status, con));
+        } else {
+        	enzymeList = mapper.exportAllEntries(con);
+        }
     }
 
     /**
@@ -266,6 +283,9 @@ public class ExporterApp {
     		urls.add(sb.toString());
 		}
 		// Spotlights:
+		spotlights = new Properties();
+        spotlights.load(ExporterApp.class.getClassLoader()
+        		.getResourceAsStream("spotlights.properties"));
 		for (Object ec : spotlights.keySet()){
 			StringBuffer spotSb = new StringBuffer(spotlightUrl);
 			spotSb.append((String) ec);

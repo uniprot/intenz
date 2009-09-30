@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+	targetNamespace="http://maven.apache.org/changes/1.0.0"
+	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+
     <properties>
         <title>IntEnz export module change log</title>
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+
+    	<release version="1.3" date="2009-09-30"
+    		description="Preliminary EC numbers">
+    		<action dev="rafalcan" type="add">
+    			Added support for preliminary EC numbers in exported files.
+    		</action>
+    		<action dev="rafalcan" type="update">
+    			Updated dependencies on rhea.domain, rhea.mapper, intenz.mapper
+    			and biobabel.db modules.
+    		</action>
+    		<action dev="rafalcan" type="remove">
+    			Moved XML schema and generated code to a new independent module
+    			(intenz-xml).
+    		</action>
+    	</release>
 
     	<release version="1.2.1" date="2009-06-25" description="Updated dependencies">
     		<action dev="rafalcan" type="update">
