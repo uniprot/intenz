@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+		<title>IntEnz XML</title>
+		<author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
+	</properties>
+	<body>
+		<section name="IntEnz XML module">
+            <div>
+                The IntEnz XML module includes the schemas for IntEnz,
+                as well as java code automatically generated from them
+                using JAXB.
+            </div>
+        </section>
+	</body>
+</document>
