@@ -41,7 +41,16 @@
             <email>pmatos@ebi.ac.uk</email>
             <organization>EMBL-EBI</organization>
             <roles>
-                <role>Developer</role>
+                <role>Coordinator</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>steinbeck</id>
+            <name>Christoph Steinbeck</name>
+            <email>steinbeck@ebi.ac.uk</email>
+            <organization>EMBL-EBI</organization>
+            <roles>
+                <role>Team leader</role>
             </roles>
         </developer>
     </developers>
@@ -87,6 +96,20 @@
 			<layout>default</layout>
 		</repository>
     </repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Maven 2 Repository</name>
+			<url>http://download.java.net/maven/2</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>maven-repository.dev.java.net</id>
+			<name>Java.net Maven 1 Repository (legacy)</name>
+			<url>http://download.java.net/maven/1</url>
+			<layout>legacy</layout>
+		</pluginRepository>
+	</pluginRepositories>
 
     <build>
         <plugins>
