@@ -26,7 +26,8 @@ import uk.ac.ebi.intenz.domain.exceptions.EcException;
  * @author Michael Darsow
  * @version $Revision: 1.2 $ $Date: 2008/01/28 12:33:00 $
  */
-public class EnzymeCommissionNumber extends DomainObject implements Comparable<EnzymeCommissionNumber> {
+public class EnzymeCommissionNumber extends DomainObject
+implements Comparable<EnzymeCommissionNumber> {
   /**
    * Constant for an undefined EC which can be used for new enzyme suggestions where the EC number is not known (yet).
    */
@@ -43,8 +44,6 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
    * @author rafalcan
    */
   public static enum Type {
-	  /** The EC number is undefined. */
-	  UNDEF,
 	  /** Only the first digit is > 0 which means that this EC is a class EC. */
 	  CLASS,
 	  /** Only the first two digits are > 0 which means that this EC is a subclass EC. */
@@ -54,7 +53,9 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
 	  /** All digits are > 0 which means that this EC is an enzyme EC. */
 	  ENZYME,
 	  /** Like {@link #ENZYME}, but not provided by NC-IUBMB. */
-	  PRELIMINARY
+	  PRELIMINARY,
+	  /** The EC number is undefined. */
+	  UNDEF
   }
 
   /**
@@ -283,8 +284,9 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
   }
 
   /**
-   * Makes instances of this class comparable.
-   *
+   * Compares this EC number with another one. The four digits are considered
+   * one after the other, but within the same subsubclass a preliminary EC
+   * is always lesser than an 'official' one, independently of the fourth digit.
    * @param ec The object to be compared to this instance.
    * @return a pos. integer if this instance is greater than, a neg. integer if it is less than or 0 if it equals o.
    */
@@ -297,7 +299,10 @@ public class EnzymeCommissionNumber extends DomainObject implements Comparable<E
 
     int ec3Diff = ec3 - ec.ec3;
     if (ec3Diff != 0) return ec3Diff;
-
+	  
+	  int typeDiff = type.ordinal() - ec.type.ordinal();
+	  if (typeDiff != 0) return typeDiff;
+	  
     int ec4Diff = ec4 - ec.ec4;
     if (ec4Diff != 0) return ec4Diff;
 

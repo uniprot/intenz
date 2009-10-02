@@ -8,13 +8,13 @@
 	<artifactId>intenz-core</artifactId>
     <name>IntEnz core module</name>
 	<packaging>jar</packaging>
-	<version>4.2</version>
+	<version>4.2.1</version>
 	<description>IntEnz - Core package</description>
 
 	<parent>
 		<groupId>uk.ac.ebi.intenz</groupId>
 		<artifactId>intenz</artifactId>
-		<version>4.0</version>
+		<version>4.1</version>
 	</parent>
 
 	<dependencies>
