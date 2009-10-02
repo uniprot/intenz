@@ -2,6 +2,8 @@ package uk.ac.ebi.intenz.tools.release;
 
 import uk.ac.ebi.biobabel.util.db.DatabaseInstance;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
+import uk.ac.ebi.rhea.domain.Status;
 
 import java.io.IOException;
 import java.sql.*;
@@ -16,15 +18,14 @@ import java.sql.*;
  */
 public class ID2EC {
 
-    private static final String LIST_COLUMNS = "enzyme_id, ec1, ec2, ec3, ec4, status, source";
-
     private static String findAllStatement() {
-        return "SELECT " + LIST_COLUMNS +
-                " FROM enzyme.enzymes" +
-                " WHERE ( status = ? OR status = ? )" +
-                " AND enzyme_id NOT IN" +
-                " ( SELECT before_id FROM enzyme.history_events WHERE event_class = ? )" +
-                " ORDER BY ec1, ec2, ec3, ec4";
+        return new StringBuilder("SELECT enzyme_id, ec1, ec2, ec3, ec4, status, source")
+        	.append(" FROM enzyme.enzymes WHERE status IN ('OK','PR','PM')")
+            .append(" AND enzyme_id NOT IN")
+            .append(" (SELECT before_id FROM enzyme.history_events")
+            .append(" WHERE event_class = 'MOD')")
+            .append(" ORDER BY ec1, ec2, ec3, ec4")
+            .toString();
     }
 
     private static String DELETE_ALL = "DELETE FROM id2ec";
@@ -33,10 +34,16 @@ public class ID2EC {
         return "INSERT INTO id2ec (enzyme_id, ec, status, source) VALUES ( ?, ?, ?, ? )";
     }
 
+    /**
+     * Re-generates the ID2EC table in the database, which maps EC number of
+     * public entries to their internal IDs.
+     * @param args
+     * 		<ol><li>database instance name</li></ol>
+     */
     public static void main(String[] args) {
 
         if (args.length == 0){
-            System.err.println("ID2EC needs one parameter");
+            System.err.println("ID2EC needs one parameter (DB instance name)");
             System.exit(1);
         }
 
@@ -63,12 +70,12 @@ public class ID2EC {
 
         Statement deleteAllStatement = null;
         try {
-        	System.out.print("Deleting id2ec table...");
+        	System.out.print("Deleting ID2EC table...");
             deleteAllStatement = con.createStatement();
             deleteAllStatement.execute(DELETE_ALL);
-            System.out.println(" Deleted!");
+            System.out.println("... Deleted!");
         } catch (SQLException e) {
-            System.err.println("Could not clear table id2ec on " + instanceName);
+            System.err.println("Could not clear table ID2EC on " + instanceName);
             e.printStackTrace();
             try {
                 if (deleteAllStatement != null) deleteAllStatement.close();
@@ -79,26 +86,31 @@ public class ID2EC {
             System.exit(5);
         }
 
-        PreparedStatement getAllPRAndOKEnzymes = null, insertIntoID2EC = null;
+        PreparedStatement getAllPublicEnzymes = null, insertIntoID2EC = null;
         ResultSet rs = null;
 
-        System.out.println("Start populating database ....");
+        System.out.println("Starting ID2EC index...");
         try {
             insertIntoID2EC = con.prepareStatement(insertIDAndECStatement());
 
             // Enzymes
-            getAllPRAndOKEnzymes = con.prepareStatement(findAllStatement());
-            getAllPRAndOKEnzymes.setString(1, "OK");
-            getAllPRAndOKEnzymes.setString(2, "PR");
-            getAllPRAndOKEnzymes.setString(3, "MOD");
-            rs = getAllPRAndOKEnzymes.executeQuery();
+            getAllPublicEnzymes = con.prepareStatement(findAllStatement());
+            rs = getAllPublicEnzymes.executeQuery();
 
             while (rs.next()) {
-                String id = rs.getString(1);
+            	final String id = rs.getString(1);
+                final String status = rs.getString("status");
+                final String ec = new StringBuilder(rs.getString("ec1"))
+                	.append('.').append(rs.getString("ec2"))
+                	.append('.').append(rs.getString("ec3"))
+                	.append('.').append(Status.valueOf(status).equals(Status.PM)? "n" : "")
+                	.append(rs.getString("ec4"))
+                	.toString();
+                final String source = rs.getString("source");
                 insertIntoID2EC.setString(1, id);
-                insertIntoID2EC.setString(2, rs.getString("ec1") + "." + rs.getString("ec2") + "." + rs.getString("ec3") + "." + rs.getString("ec4"));
-                insertIntoID2EC.setString(3, rs.getString("status"));
-                insertIntoID2EC.setString(4, rs.getString("source"));
+				insertIntoID2EC.setString(2, ec);
+                insertIntoID2EC.setString(3, status);
+                insertIntoID2EC.setString(4, source);
                 insertIntoID2EC.executeUpdate();
                 insertIntoID2EC.clearParameters();
             }
@@ -113,7 +125,7 @@ public class ID2EC {
             e.printStackTrace();
         } finally {
             try {
-                if (getAllPRAndOKEnzymes != null) getAllPRAndOKEnzymes.close();
+                if (getAllPublicEnzymes != null) getAllPublicEnzymes.close();
                 if (insertIntoID2EC != null) insertIntoID2EC.close();
                 con.close();
             } catch (SQLException e) {
@@ -121,7 +133,7 @@ public class ID2EC {
             }
         }
 
-        System.out.println("... population successfully ended.");
+        System.out.println("Indexing finished!");
     }
 
 }

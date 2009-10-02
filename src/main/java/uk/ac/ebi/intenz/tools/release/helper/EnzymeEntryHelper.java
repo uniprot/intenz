@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
-import uk.ac.ebi.intenz.domain.enzyme.Cofactor;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeComment;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
@@ -26,70 +24,14 @@ import uk.ac.ebi.xchars.domain.EncodingType;
  */
 public class EnzymeEntryHelper {
 
-   public static String newStatusChoicesHTML (String oldStatusCode, long enzymeId) {
-      StringBuffer html = new StringBuffer();
-      final EnzymeStatusConstant oldStatus = EnzymeStatusConstant.valueOf(oldStatusCode);
-
-      html.append("<select name=\"newStatus\" size=\"1\">\n");
-
-      if ( oldStatus == EnzymeStatusConstant.SUGGESTED ) {
-         html.append("<option selected=\"selected\" value=\"");
-         html.append(EnzymeStatusConstant.SUGGESTED.getCode());
-         html.append("\">");
-         html.append(EnzymeStatusConstant.SUGGESTED.toString());
-         html.append("</option>");
-         // New enzyme suggestions (id < 1) cannot get the status proposed directly.
-         if ( enzymeId > 0 ) {
-            html.append("<option value=\"");
-            html.append(EnzymeStatusConstant.PROPOSED.getCode());
-            html.append("\">");
-            html.append(EnzymeStatusConstant.PROPOSED.toString());
-            html.append("</option>");
-         }
-      }
-
-      if ( oldStatus == EnzymeStatusConstant.PROPOSED ) {
-         html.append("<option value=\"");
-         html.append(EnzymeStatusConstant.SUGGESTED.getCode());
-         html.append("\">");
-         html.append(EnzymeStatusConstant.SUGGESTED.toString());
-         html.append("</option>");
-         html.append("<option selected=\"selected\" value=\"");
-         html.append(EnzymeStatusConstant.PROPOSED.getCode());
-         html.append("\">");
-         html.append(EnzymeStatusConstant.PROPOSED.toString());
-         html.append("</option>");
-         html.append("<option value=\"");
-         html.append(EnzymeStatusConstant.APPROVED.getCode());
-         html.append("\">");
-         html.append(EnzymeStatusConstant.APPROVED.toString());
-         html.append("</option>");
-      }
-
-      if ( oldStatus == EnzymeStatusConstant.APPROVED ) {
-         html.append("<option selected=\"selected\" value=\"");
-         html.append(EnzymeStatusConstant.SUGGESTED.getCode());
-         html.append("\">");
-         html.append(EnzymeStatusConstant.SUGGESTED.toString());
-         html.append("</option>");
-         html.append("<option value=\"");
-         html.append(EnzymeStatusConstant.APPROVED.getCode());
-         html.append("\">");
-         html.append(EnzymeStatusConstant.APPROVED.toString());
-         html.append("</option>");
-      }
-
-      html.append("</select>\n");
-
-      return html.toString();
-   }
-
    public static String toXML (EnzymeEntry enzymeEntry, SpecialCharacters encoding, EnzymeViewConstant view,
                                boolean intenzTextXML) {
       if ( enzymeEntry.getHistory().isDeletedRootNode() || enzymeEntry.getHistory().isTransferredRootNode() ) {
-         return intenzTextXML ? deletedEntryToIntEnzTextXML(enzymeEntry, encoding) : deletedEntryToXML();
+         return intenzTextXML ?
+        		 deletedEntryToIntEnzTextXML(enzymeEntry, encoding) : "";
       } else {
-         return intenzTextXML ? entryToIntEnzTextXML(enzymeEntry, encoding, view) : entryToXML();
+         return intenzTextXML ?
+        		 entryToIntEnzTextXML(enzymeEntry, encoding, view) : "";
       }
    }
 
@@ -239,14 +181,23 @@ public class EnzymeEntryHelper {
       if ( reactions != null ) {
          for ( int iii = 0; iii < reactions.size(); iii++ ) {
             Reaction reaction = (Reaction) reactions.get(iii);
-			if (reaction.getId() > Reaction.NO_ID_ASSIGNED /* && !reaction.getStatus().equals(Status.OK) */) continue;
+			if (reaction.getId() > Reaction.NO_ID_ASSIGNED
+					&& !reaction.getStatus().isPublic()){
+				continue; // Rhea reaction not public
+			}
             xmlStringBuffer.append("<reaction>");
-            xmlStringBuffer.append(removeFormatting(encoding.xml2Display(reaction.getTextualRepresentation())));
+            xmlStringBuffer.append(removeFormatting(
+                encoding.xml2Display(reaction.getTextualRepresentation())));
             xmlStringBuffer.append("</reaction>");
             xmlStringBuffer.append("<reaction>");
             xmlStringBuffer.append(removeFormatting(
-                  encoding.xml2Display(reaction.getTextualRepresentation(), EncodingType.SWISSPROT_CODE)));
+                encoding.xml2Display(reaction.getTextualRepresentation(), EncodingType.SWISSPROT_CODE)));
             xmlStringBuffer.append("</reaction>");
+            if (reaction.getId() > Reaction.NO_ID_ASSIGNED){
+                xmlStringBuffer.append("<reaction>");
+                xmlStringBuffer.append("RHEA:" + reaction.getId());
+                xmlStringBuffer.append("</reaction>");
+            }
          }
       }
       xmlStringBuffer.append("</reactions>");
@@ -346,6 +297,7 @@ public class EnzymeEntryHelper {
       SortedSet links = enzymeEntry.getLinks(view);
       if ( links.size() > 0 || links.size() > 0 ) {
          for ( Iterator it = links.iterator(); it.hasNext(); ) {
+        	 // remove links from preliminary ECs to external preliminary ECs?
             EnzymeLink link = (EnzymeLink) it.next();
             xmlStringBuffer.append("<link>");
             xmlStringBuffer.append(link.getAccession());
@@ -412,16 +364,6 @@ public class EnzymeEntryHelper {
       return xmlStringBuffer.toString();
    }
 
-// TODO: Not implemented yet.
-   private static String deletedEntryToXML () {
-      return "";
-   }
-
-// TODO: Not implemented yet.
-   private static String entryToXML () {
-      return "";
-   }
-
    protected static String removeFormatting (String text) {
       text = text.replaceAll("\\<\\/?small\\>", "");
       text = text.replaceAll("\\<\\/?sup\\>", "");
@@ -430,69 +372,6 @@ public class EnzymeEntryHelper {
       text = text.replaceAll("\\<\\/?i\\>", "");
       text = text.replaceAll("\\<\\/?p\\/?\\>", "");
       return text;
-   }
-
-   public String getStaticLinksHTML (EnzymeEntry enzymeEntry) {
-      StringBuffer html = new StringBuffer();
-
-      html.append("<tr>\n<td>&nbsp;</td>\n<td colspan=\"2\">\n" +
-            "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tr>\n");
-
-      final SortedSet links = enzymeEntry.getLinks();
-      if ( links.contains(EnzymeLink.BRENDA) ) {
-         html.append(
-               "<td><input type=\"checkbox\" name=\"links\" value=\"BRENDA\" checked=\"checked\"></td><td>BRENDA</td>");
-      } else {
-         html.append("<td><input type=\"checkbox\" name=\"links\" value=\"BRENDA\"></td><td>BRENDA</td>");
-      }
-
-      html.append("<td>&nbsp;</td>\n<td><font color=\"#336666\">&nbsp;|&nbsp;</font></td>\n<td>&nbsp;</td>\n");
-
-      if ( links.contains(EnzymeLink.EXPASY) ) {
-         html.append(
-               "<td><input type=\"checkbox\" name=\"links\" value=\"EXPASY\" checked=\"checked\"></td><td>EXPASY</td>");
-      } else {
-         html.append("<td><input type=\"checkbox\" name=\"links\" value=\"EXPASY\"></td><td>EXPASY</td>");
-      }
-
-      html.append("<td>&nbsp;</td>\n<td><font color=\"#336666\">&nbsp;|&nbsp;</font></td>\n<td>&nbsp;</td>\n");
-
-      if ( links.contains(EnzymeLink.KEGG) ) {
-         html.append(
-               "<td><input type=\"checkbox\" name=\"links\" value=\"KEGG\" checked=\"checked\"></td><td>KEGG</td>");
-      } else {
-         html.append("<td><input type=\"checkbox\" name=\"links\" value=\"KEGG\"></td><td>KEGG</td>");
-      }
-
-      html.append("<td>&nbsp;</td>\n<td><font color=\"#336666\">&nbsp;|&nbsp;</font></td>\n<td>&nbsp;</td>\n");
-
-      if ( links.contains(EnzymeLink.ERGO) ) {
-         html.append(
-               "<td><input type=\"checkbox\" name=\"links\" value=\"ERGO\" checked=\"checked\"></td><td>ERGO</td>");
-      } else {
-         html.append("<td><input type=\"checkbox\" name=\"links\" value=\"ERGO\"></td><td>ERGO</td>");
-      }
-
-      html.append("<td>&nbsp;</td>\n<td><font color=\"#336666\">&nbsp;|&nbsp;</font></td>\n<td>&nbsp;</td>\n");
-
-      if ( links.contains(EnzymeLink.GO) ) {
-         html.append("<td><input type=\"checkbox\" name=\"links\" value=\"GO\" checked=\"checked\"></td><td>GO</td>");
-      } else {
-         html.append("<td><input type=\"checkbox\" name=\"links\" value=\"GO\"></td><td>GO</td>");
-      }
-
-      html.append("<td>&nbsp;</td>\n<td><font color=\"#336666\">&nbsp;|&nbsp;</font></td>\n<td>&nbsp;</td>\n");
-
-      if ( links.contains(EnzymeLink.NIST74) ) {
-         html.append(
-               "<td><input type=\"checkbox\" name=\"links\" value=\"NIST74\" checked=\"checked\"></td><td>NIST 74</td>");
-      } else {
-         html.append("<td><input type=\"checkbox\" name=\"links\" value=\"NIST74\"></td><td>NIST 74</td>");
-      }
-
-      html.append("<td width=\"100%\">&nbsp;</td>\n</tr>\n</table>\n</td>\n<td width=\"100%\">&nbsp;</td></tr>\n");
-
-      return html.toString();
    }
 
 
