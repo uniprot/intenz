@@ -37,25 +37,32 @@ import uk.ac.ebi.xchars.SpecialCharacters;
  */
 public class IntEnzText {
 
-  private static final String LIST_COLUMNS = "enzyme_id, ec1, ec2, ec3, ec4, history, note, status, source, active";
-
   /**
    * SQL statement used for loading the list of all approved enzymes.
    * <p/>
-   * Because of modified enzymes which still have the same EC number (and are both approved) only the most up-to-date
+   * Because of modified enzymes which still have the same EC number
+   * (and are both approved) only the most up-to-date
    * version should be loaded. This is done by the sub-statement.
    */
-  private static String FIND_ALL = "SELECT " + LIST_COLUMNS +
-            " FROM enzyme.enzymes" +
-            " WHERE ( status = ? OR status = ? ) AND source = ?" +
-            " AND enzyme_id NOT IN" +
-            " ( SELECT before_id FROM enzyme.history_events WHERE event_class = ? )" +
-            " ORDER BY ec1, ec2, ec3, ec4";
+  private static String FIND_ALL = new StringBuilder()
+		  .append("SELECT enzyme_id, ec1, ec2, ec3, ec4,")
+		  .append(" history, note, status, source, active")
+		  .append(" FROM enzyme.enzymes")
+  		  .append(" WHERE status IN ('OK','PR','PM') AND source = 'INTENZ'")
+  		  .append(" AND enzyme_id NOT IN")
+  		  .append(" (SELECT before_id FROM enzyme.history_events")
+  		  .append(" WHERE event_class = 'MOD')")
+  		  .append(" ORDER BY ec1, ec2, ec3, ec4")
+  		  .toString();
 
     private static String DELETE_ALL = "DELETE FROM intenz_text";
 
-    private static String INSERT = "INSERT INTO intenz_text (enzyme_id, ec, common_name, " +
-              "status, source, text_order, text) VALUES ( ?, ?, ?, ?, ?, ?, ? )";
+    private static String INSERT = new StringBuilder()
+    	.append("INSERT INTO intenz_text (enzyme_id, ec, common_name,")
+    	.append(" status, source, text_order, text)")
+    	.append(" VALUES ( ?, ?, ?, ?, ?, ?, ? )")
+    	.toString();
+    
   /** 
    * Refreshes the intenz_text table.<br/>
    * The first and only parameter is the database instance to be updated.
@@ -115,7 +122,8 @@ public class IntEnzText {
           System.exit(5);
       }
 
-    PreparedStatement findAllStatement = null, insertStatement = null, selectEcStatement = null;
+    PreparedStatement findAllStatement = null, insertStatement = null,
+    	selectEcStatement = null;
     ResultSet rs = null;
     EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
     EnzymeClassMapper enzymeClassMapper = new EnzymeClassMapper();
@@ -126,7 +134,7 @@ public class IntEnzText {
 //    final EnzymeViewConstant view = EnzymeViewConstant.IUBMB;
     final EnzymeViewConstant view = EnzymeViewConstant.INTENZ;
 
-    System.out.println("Start populating database ....");
+    System.out.println("Starting INTENZ_TEXT indexing...");
     long timeElapsed = System.currentTimeMillis();
     try {
       int countEnzymes = 0;
@@ -136,10 +144,6 @@ public class IntEnzText {
       // Enzymes
       System.out.println("   Loading enzymes ... ");
       findAllStatement = con.prepareStatement(FIND_ALL);
-      findAllStatement.setString(1, "OK");
-      findAllStatement.setString(2, "PR");
-      findAllStatement.setString(3, "INTENZ");
-      findAllStatement.setString(4, "MOD");
       rs = findAllStatement.executeQuery();
 
       while (rs.next()) {
