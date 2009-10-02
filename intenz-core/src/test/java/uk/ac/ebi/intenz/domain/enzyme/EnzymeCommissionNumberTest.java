@@ -67,5 +67,29 @@ public class EnzymeCommissionNumberTest extends TestCase {
 		ec = EnzymeCommissionNumber.valueOf(1, 2, 3, 4, true);
 		assertEquals("1.2.3.n4", ec.toString());
 	}
+	
+	public void testCompareTo() throws NumberFormatException, EcException{
+		EnzymeCommissionNumber ec1, ec2;
+		ec1 = EnzymeCommissionNumber.valueOf("1.2.3.4");
+		ec2 = EnzymeCommissionNumber.valueOf("2.3.4.5");
+		assertTrue(ec1.compareTo(ec2) < 0);
+		assertTrue(ec2.compareTo(ec1) > 0);
+		ec2 = EnzymeCommissionNumber.valueOf("1.2.3");
+		assertTrue(ec2.compareTo(ec1) < 0);
+		ec2 = EnzymeCommissionNumber.valueOf("1.2");
+		assertTrue(ec2.compareTo(ec1) < 0);
+		ec2 = EnzymeCommissionNumber.valueOf("1");
+		assertTrue(ec2.compareTo(ec1) < 0);
+		ec2 = EnzymeCommissionNumber.valueOf("2.3.4");
+		assertTrue(ec2.compareTo(ec1) > 0);
+		ec2 = EnzymeCommissionNumber.valueOf("2.3");
+		assertTrue(ec2.compareTo(ec1) > 0);
+		ec2 = EnzymeCommissionNumber.valueOf("2");
+		assertTrue(ec2.compareTo(ec1) > 0);
+		ec2 = EnzymeCommissionNumber.valueOf("1.2.3.n1");
+		assertTrue(ec2.compareTo(ec1) > 0);
+		ec1 = EnzymeCommissionNumber.valueOf("1.2.3.n4");
+		assertTrue(ec2.compareTo(ec1) < 0);
+	}
 
 }

@@ -1,10 +1,24 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
     <properties>
         <title>IntEnz domain change log</title>
-        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael AlcÃ¡ntara</author>
     </properties>
     <body>
+    	<release version="4.2.1" date="2009-10-02"
+    		description="EC and enzyme comparisons">
+    		<action dev="rafalcan" type="fix">
+    			Fixed EnzymeCommissionNumber.compare method in order to take
+    			into account preliminary EC numbers.
+    		</action>
+       		<action dev="rafalcan" type="add">
+       			Added comparators for enzyme entries based on EC number
+       			and common name.
+       		</action>
+   		</release>
        	<release version="4.2" date="2009-09-29"
        		description="Preliminary EC numbers.">
        		<action dev="rafalcan" type="add">
@@ -56,7 +70,7 @@
         <release version="4.0.2" date="2008-04-22" description="">
         	<action dev="rafalcan" type="update">
         		Updated to last rhea.domain (for reaction Source class refactoring)
-        		and xchars-config (for <code>ý</code> character) versions.
+        		and xchars-config (for Ã½ character) versions.
         	</action>
         	<action dev="rafalcan" type="fix">
         		Moved biopax code to its own module, as it is not
