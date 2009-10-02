@@ -2,7 +2,7 @@
 <%@ taglib uri="http://www.ebi.ac.uk/xchars" prefix="xchars" %>
 
 <span class="rheaId">${r.id}</span>
-<a href="view.do?id=${r.id}&embed=true" target="_blank">
+<a href="${initParam['rhea.curator.url']}view.do?id=${r.id}&embed=true" target="_blank">
 	<img src="${pageContext.request.contextPath}/img/Zoom16.gif"
 		alt="View RHEA:${r.id}" title="View RHEA:${r.id}"/></a>
 

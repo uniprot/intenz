@@ -7,6 +7,7 @@
       <ul>
           <li><html:link action="searchProposed">Show Proposed Enzymes</html:link></li>
           <li><html:link action="searchSuggested">Show Suggested Enzymes</html:link></li>
+	      <li><html:link action="searchPreliminary">Show Preliminary ECs</html:link></li>
           <li><html:link action="cofactorList">List cofactors</html:link></li>
           <%--      <li><a href="handler?cmd=SearchStatistic">Statistics</a></li>--%>
       </ul>

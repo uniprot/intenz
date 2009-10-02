@@ -175,23 +175,14 @@ public class PopulateIubmbEnzymeDTOAction extends Action {
         enzymeLinkDTO.setName(encoding.xml2Display(enzymeLink.getName(), encodingType));
         enzymeLinkDTO.setAccession(enzymeLink.getAccession());
         enzymeLinkDTO.setView(enzymeLink.getView().toString());
-        enzymeLinkDTO.setDataComment(getDataCommentDTO(enzymeLink.getDataComment(), encoding, encodingType));
+        if (enzymeLink.getDataComment() != null)
+        	enzymeLinkDTO.setDataComment(encoding.xml2Display(enzymeLink.getDataComment()));
         linksList.add(enzymeLinkDTO);
       }
     }
 
     return linksList;
   }
-
-    private DataCommentDTO getDataCommentDTO(DataComment dataComment, SpecialCharacters encoding, EncodingType encodingType){
-        DataCommentDTO dataCommentDTO = new DataCommentDTO();
-        if (dataComment != null){
-            dataCommentDTO.setId(dataComment.getId().toString());
-            dataCommentDTO.setXmlComment(dataComment.getComment());
-            dataCommentDTO.setDisplayComment(encoding.xml2Display(dataComment.getComment(), encodingType));
-        }
-        return dataCommentDTO;
-    }
 
   private List getCommentsList(List comments, SpecialCharacters encoding, EncodingType encodingType) {
     assert comments != null : "Parameter 'comments' must not be null.";

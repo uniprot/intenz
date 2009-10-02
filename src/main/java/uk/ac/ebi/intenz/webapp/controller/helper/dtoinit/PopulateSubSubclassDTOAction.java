@@ -1,6 +1,7 @@
 package uk.ac.ebi.intenz.webapp.controller.helper.dtoinit;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.apache.struts.action.ActionMapping;
 
 import uk.ac.ebi.intenz.domain.constants.EventConstant;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntryEcComparator;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeName;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubSubclass;
 import uk.ac.ebi.intenz.domain.history.HistoryEvent;
@@ -69,8 +71,9 @@ public class PopulateSubSubclassDTOAction extends Action {
     enzymeSubSubclassDTO.setSubclassName(encoding.xml2Display(enzymeSubSubclass.getSubclassName(), encodingType));
     enzymeSubSubclassDTO.setSubclassEc(enzymeSubSubclass.getEc().getEc1() + "." + enzymeSubSubclass.getEc().getEc2());
 
-    List enzymeEntries = enzymeSubSubclass.getEntries();
-    List ghostEntries = new ArrayList();
+    List<EnzymeEntry> enzymeEntries = enzymeSubSubclass.getEntries();
+    Collections.sort(enzymeEntries, new EnzymeEntryEcComparator());
+    List<GhostEnzymeDTO> ghostEntries = new ArrayList<GhostEnzymeDTO>();
     for (int iii = 0; iii < enzymeEntries.size(); iii++) {
       EnzymeEntry enzymeEntry = (EnzymeEntry) enzymeEntries.get(iii);
       GhostEnzymeDTO ghostEnzymeDTO = new GhostEnzymeDTO();

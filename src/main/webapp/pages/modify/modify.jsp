@@ -378,10 +378,13 @@
                             <%-- 'Plus' buttons --%>
                             <td colspan="4" width="100%">
                             <td valign="top">
+                            	<c:if test="${not enzymeDTO.preliminaryEc}">
                               <input title="Add free text reaction"
+                              		 id="addFtReaction"
                                      type="button"
                                      value="+"
                                      onclick="formButtonAction('plus', 'reactions', '<%= enzymeDTO.getReactionDtos().size() %>', '<%=formButtonAction%>')"/>
+                            	</c:if>
                               <button title="Add Rhea reaction"
                                      type="button"
                                      onclick="openRheactionSelector(event, '<%=formButtonAction%>')"/>
@@ -615,11 +618,10 @@
                                 <table width="80%" style="float: left" >
                                   <%= EnzymeLinksHelper.renderEditableLink((EnzymeLinkDTO)link, index.intValue()) %>
                                 </table><div style="height: 20px">&nbsp;</div>
-                                <html:hidden name="link" property="dataComment.id" indexed="true" />
-                                <html:hidden name="link" property="dataComment.xmlComment" indexed="true" />
+                                <html:hidden name="link" property="dataComment" indexed="true" />
                                 <% String commentedObjectName = "link[" + index.toString() + "]"; %>
                                 <a href="javascript:editDataComment('<%= commentedObjectName %>')" title="Comment link">
-                                    <img border="0" id="<%= commentedObjectName %>.dataComment.xmlComment.edit" />
+                                    <img border="0" id="<%= commentedObjectName %>.dataComment.edit" />
                                     <script language="JavaScript">
                                     updateDataCommentEditLink('<%= commentedObjectName %>');
                                     </script>

@@ -94,6 +94,10 @@
     <put name="content" value="/pages/view/suggested_entries.jsp" />
   </definition>
 
+  <definition name=".preliminary_ecs" extends=".std_searchable" role="intenz curator">
+    <put name="content" value="/pages/view/preliminary_ecs.jsp" />
+  </definition>
+
   <definition name=".cofactorList" extends=".std_searchable" role="intenz curator">
     <put name="content" value="/pages/view/cofactorList.jsp" />
   </definition>

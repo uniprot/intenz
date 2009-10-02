@@ -49,6 +49,7 @@
       <logic:equal value="PR" name="enzymeDTO" property="statusCode">
     	  <tr><td class="proposed" align="center"><bean:message bundle="form" key="title.entry.status.proposal" /></td></tr>
       </logic:equal>
+      <c:if test="${not preview}">
       <tr>
         <td class="data_region_header_row">Classification</td>
       </tr>
@@ -70,6 +71,7 @@
           </table>
         </td>
       </tr>
+      </c:if>
       <tr>
         <td height="30">&nbsp;</td>
       </tr>
@@ -78,11 +80,17 @@
           <table width="100%" class="content_table_with_menu" border="0" cellspacing="20" cellpadding="0">
 
           <!-- Tabs -->
+		<c:set var="tabUrl">searchId.do?id=${enzymeDTO.id}&amp;<%=Constants.TOKEN_KEY%>=<%= request.getAttribute(Constants.TOKEN_KEY) %></c:set>
           <div id="menuDiv">
             <ul id="menuList">
-              <li class="selected"><a class="selected" name="here" href="#here"><img border="0" width="14" height="12" src="images/blue_bullet.gif"/>&nbsp;IntEnz*</a></li>
-              <li><a href="searchId.do?id=<bean:write name="enzymeDTO" property="id"/>&view=IUBMB&<%=Constants.TOKEN_KEY%>=<%= request.getAttribute(Constants.TOKEN_KEY) %>" title="NC-IUBMB view of this enzyme"><img width="14" height="12" border="0" src="images/green_bullet.gif"/>&nbsp;NC-IUBMB</a></li>
-              <li><a href="searchId.do?id=<bean:write name="enzymeDTO" property="id"/>&view=SIB&<%=Constants.TOKEN_KEY%>=<%= request.getAttribute(Constants.TOKEN_KEY) %>" title="ENZYME view of this enzyme"><img width="14" height="12" border="0" src="images/red_bullet.gif"/>&nbsp;ENZYME</a></li>
+              <li class="selected"><a class="selected" name="here" href="#here"><img
+              	border="0" width="14" height="12" src="images/blue_bullet.gif"/>&nbsp;IntEnz*</a></li>
+              <li><a href="${preview? 'populatePreviewIubmbEnzymeDTO.do' : tabUrl}${preview? '' : '&view=IUBMB'}"
+              	title="NC-IUBMB view of this enzyme"><img
+              		width="14" height="12" border="0" src="images/green_bullet.gif"/>&nbsp;NC-IUBMB</a></li>
+              <li><a href="${preview? 'populatePreviewSibEnzymeDTO.do' : tabUrl}${preview? '' : '&view=SIB'}"
+              	title="ENZYME view of this enzyme"><img
+              		width="14" height="12" border="0" src="images/red_bullet.gif"/>&nbsp;ENZYME</a></li>
             </ul>
           </div>
 
@@ -296,7 +304,29 @@
                   <tr>
                     <td colspan="4">&nbsp;</td>
                   </tr>
-                    <%= EnzymeLinksHelper.renderLinks(enzymeDTO.getAllLinks(), enzymeDTO.getEc()) %>
+                  <c:choose>
+	                  <c:when test="${enzymeDTO.xcharsView}">
+	                    <%= EnzymeLinksHelper.renderLinks(enzymeDTO.getAllLinks(), enzymeDTO.getEc()) %>
+	                  </c:when>
+	                  <c:otherwise>
+	                  	<xchars:translate>
+                    	<%= EnzymeLinksHelper.renderLinks(enzymeDTO.getAllLinks(), enzymeDTO.getEc()) %>
+	                  	</xchars:translate>
+	                  </c:otherwise>
+                  </c:choose>
+<%--
+                    <tr style="background-color: #ffa">
+	                    <c:forEach var="linkDTO" items="${enzymeDTO.allLinks}">
+	                    	<c:choose>
+	                    		<c:when test="${linkDTO.databaseCode ne 'SWISSPROT'}">
+	                    		</c:when>
+	                    		<c:otherwise>
+	                    		</c:otherwise>
+	                    	</c:choose>
+	                    </c:forEach>
+	                    <%@ include file="autoLinks.jspf" %>
+                    </tr>
+ --%>
                   <tr>
                     <td height="40px" colspan="4">&nbsp;</td>
                   </tr>

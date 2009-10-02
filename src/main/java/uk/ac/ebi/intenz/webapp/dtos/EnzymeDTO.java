@@ -28,9 +28,11 @@ import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.webapp.utilities.AutoGrowingList;
+import uk.ac.ebi.rhea.domain.Reaction;
 
 /**
  * This ActionForm stores all enzyme properties in a <code>Map</code> since the number of properties needs to
@@ -370,7 +372,7 @@ public class EnzymeDTO extends ValidatorForm {
   }
 
   public boolean isPreliminaryEc(){
-    return ec.indexOf("n") > -1;
+    return EnzymeCommissionNumber.isPreliminary(ec);
   }
 
   public String getHistoryLine() {
@@ -1124,7 +1126,9 @@ public class EnzymeDTO extends ValidatorForm {
       if (staticLink != null) {
         enzymeLinkDTO.setDatabaseName(staticLink.getXrefDatabaseConstant().getDisplayName());
         enzymeLinkDTO.setName(staticLink.getName());
-        enzymeLinkDTO.setUrl(staticLink.getFullUrl(ec));
+        enzymeLinkDTO.setUrl(staticLink.getFullUrl(
+        		EnzymeCommissionNumber.isPreliminary(ec)?
+        				enzymeLinkDTO.getAccession() : ec));
       }
     }
   }

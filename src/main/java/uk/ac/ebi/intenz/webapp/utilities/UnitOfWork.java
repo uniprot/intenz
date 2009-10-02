@@ -19,7 +19,6 @@ import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
 import uk.ac.ebi.intenz.domain.enzyme.Cofactor;
-import uk.ac.ebi.intenz.domain.enzyme.DataComment;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeComment;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
@@ -40,7 +39,6 @@ import uk.ac.ebi.intenz.mapper.EnzymeReactionMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeReferenceMapper;
 import uk.ac.ebi.intenz.webapp.dtos.CofactorDTO;
 import uk.ac.ebi.intenz.webapp.dtos.CommentDTO;
-import uk.ac.ebi.intenz.webapp.dtos.DataCommentDTO;
 import uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO;
 import uk.ac.ebi.intenz.webapp.dtos.EnzymeLinkDTO;
 import uk.ac.ebi.intenz.webapp.dtos.EnzymeNameDTO;
@@ -616,24 +614,22 @@ public class UnitOfWork {
 		List enzymeLinks = new ArrayList();
 		for (int iii = 0; iii < links.size(); iii++) {
 			EnzymeLinkDTO enzymeLinkDTO = (EnzymeLinkDTO) links.get(iii);
-			DataCommentDTO dataCommentDTO = enzymeLinkDTO.getDataComment();
 			EnzymeLink enzymeLink = EnzymeLink.valueOf(XrefDatabaseConstant.valueOf(enzymeLinkDTO.getDatabaseCode()),
 					enzymeLinkDTO.getUrl(), enzymeLinkDTO.getAccession(),
 					enzymeLinkDTO.getName(),
 					EnzymeSourceConstant.valueOf(enzymeLinkDTO.getSource()),
 					EnzymeViewConstant.valueOf(enzymeLinkDTO.getView()),
-					DataComment.valueOf(dataCommentDTO.getId(), dataCommentDTO.getXmlComment()));
+					enzymeLinkDTO.getDataComment());
 			enzymeLinks.add(enzymeLink);
 		}
 		for (int iii = 0; iii < uniprotLinks.size(); iii++) {
 			EnzymeLinkDTO enzymeLinkDTO = (EnzymeLinkDTO) uniprotLinks.get(iii);
-			DataCommentDTO dataCommentDTO = enzymeLinkDTO.getDataComment();
 			EnzymeLink enzymeLink = EnzymeLink.valueOf(XrefDatabaseConstant.valueOf(enzymeLinkDTO.getDatabaseCode()),
 					enzymeLinkDTO.getUrl(), enzymeLinkDTO.getAccession(),
 					enzymeLinkDTO.getName(),
 					EnzymeSourceConstant.valueOf(enzymeLinkDTO.getSource()),
 					EnzymeViewConstant.valueOf(enzymeLinkDTO.getView()),
-					DataComment.valueOf(dataCommentDTO.getId(), dataCommentDTO.getXmlComment()));
+					enzymeLinkDTO.getDataComment());
 			enzymeLinks.add(enzymeLink);
 		}
 		return enzymeLinks;

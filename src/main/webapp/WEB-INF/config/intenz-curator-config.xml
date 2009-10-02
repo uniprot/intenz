@@ -88,6 +88,11 @@
 		<action path="/searchSuggested" type="uk.ac.ebi.intenz.webapp.controller.search.SearchSuggestedAction" name="ghostEnzymeListDTO" validate="false" roles="intenz curator" scope="request">
 			<forward name="suggested_entries" path=".suggested_entries" />
 		</action>
+		<action path="/searchPreliminary"
+			type="uk.ac.ebi.intenz.webapp.controller.search.SearchPreliminaryAction"
+			validate="false" roles="intenz curator" scope="request">
+			<forward name="preliminary_ecs" path=".preliminary_ecs"/>
+		</action>
 		<action path="/populateIntEnzEnzymeDTO"
 			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateIntEnzEnzymeDTOAction"
 			name="enzymeDTO" validate="false" roles="intenz curator" scope="session">
@@ -101,10 +106,14 @@
 		<action path="/populatePreviewIubmbEnzymeDTO" type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulatePreviewIubmbEnzymeDTOAction" name="iubmbEnzymeDTO" validate="false" roles="intenz curator" scope="request">
 			<forward name="iubmb_entry_preview" path=".iubmb_entry_preview" />
 		</action>
-		<action path="/populateSibEnzymeDTO" type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateSibEnzymeDTOAction" name="sibEnzymeDTO" validate="false" roles="intenz curator" scope="request">
+		<action path="/populateSibEnzymeDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateSibEnzymeDTOAction"
+			name="sibEnzymeDTO" validate="false" roles="intenz curator" scope="request">
 			<forward name="searchId" path="/searchId.do" />
 		</action>
-		<action path="/populatePreviewSibEnzymeDTO" type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulatePreviewSibEnzymeDTOAction" name="sibEnzymeDTO" validate="false" roles="intenz curator" scope="request" />
+		<action path="/populatePreviewSibEnzymeDTO" 
+			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulatePreviewSibEnzymeDTOAction"
+			name="sibEnzymeDTO" validate="false" roles="intenz curator" scope="request" />
 		<action path="/populateEnzymeListDTO" type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateEnzymeListDTOAction" name="enzymeListDTO" validate="false" roles="intenz curator" scope="request" />
 		<action path="/populateSubSubclassDTO" type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateSubSubclassDTOAction" name="subSubclassDTO" validate="false" roles="intenz curator" scope="request" />
 		<action path="/populateSubclassDTO" type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateSubclassDTOAction" name="subclassDTO" validate="false" roles="intenz curator" scope="request" />
@@ -150,7 +159,7 @@
 		<action path="/formButtonAmendUpdate" type="uk.ac.ebi.intenz.webapp.controller.common.FormButtonAction" name="enzymeDTO" input=".amend_entry_update" validate="false" roles="intenz curator" scope="session" />
 		<action path="/searchRhea" forward="/pages/search/rheactionSelector.jsp" />
 		<action path="/searchReaction" type="uk.ac.ebi.rhea.webapp.controller.search.SearchReactionAction"
-			name="reactionSearchForm" validate="false">
+			name="reactionSearchForm" validate="false" scope="request">
 			<forward name="success_embed" path="/pages/search/reactionsList.jsp" redirect="false" />
 			<forward name="success" path="/pages/search/rheactionSelector.jsp" redirect="false" />
 		</action>
