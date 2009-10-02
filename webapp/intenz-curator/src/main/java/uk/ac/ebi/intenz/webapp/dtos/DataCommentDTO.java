@@ -13,11 +13,7 @@ import uk.ac.ebi.xchars.SpecialCharacters;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by IntelliJ IDEA.
- * User: rafalcan
- * Date: 30-Sep-2005
- * Time: 10:37:17
- * To change this template use File | Settings | File Templates.
+ * @deprecated
  */
 public class DataCommentDTO extends ActionForm {
 

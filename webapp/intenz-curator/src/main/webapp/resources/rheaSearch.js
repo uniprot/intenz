@@ -3,7 +3,7 @@ function endSearchReaction(ajaxResponse){
 	var reactionList = document.getElementById('reactionSearchResults');
 	var reactionListSize = reactionList.getElementsByTagName('div').length;
 	var data = document.getElementById('reactionData');
-	hideIndicator();
+	hideIndicator(ajaxResponse);
 	if (reactionListSize == 0){
 		data.textContent = '(No matching reaction)';
 		top.document.getElementById('rheaId').value = '';
@@ -15,7 +15,7 @@ function endSearchReaction(ajaxResponse){
 /** Overrides rhea-search function */
 function endGetReaction(ajaxResponse){
 	top.document.getElementById('rheaId').value = document.getElementById('selectedReactionId').value;
-	hideIndicator();
+	hideIndicator(ajaxResponse);
 }
 
 /** Overrides rhea-search function */

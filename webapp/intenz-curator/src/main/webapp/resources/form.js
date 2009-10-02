@@ -247,7 +247,7 @@ function setXrefLinkFields(url, ac, name) {
  * @param elemName The name of the commented element
  */
 function editDataComment(elemName){
-    var comment = document.enzymeDTO.elements[elemName+'.dataComment.xmlComment'].value;
+    var comment = document.enzymeDTO.elements[elemName+'.dataComment'].value;
     var dbName = document.enzymeDTO.elements[elemName+'.databaseName'].value;
     var accession = document.enzymeDTO.elements[elemName+'.accession'].value;
     var promptText = "Link to " + dbName;
@@ -256,15 +256,15 @@ function editDataComment(elemName){
     var newComment = window.prompt(promptText, comment);
 
     if (newComment != null){
-        document.enzymeDTO.elements[elemName+'.dataComment.xmlComment'].value = trim(newComment);
+        document.enzymeDTO.elements[elemName+'.dataComment'].value = trim(newComment);
     }
     updateDataCommentEditLink(elemName);
 }
 
 /** Updates the appearance of the link to the comment mini-editor */
 function updateDataCommentEditLink(elemName){
-    var link = document.getElementById(elemName+'.dataComment.xmlComment.edit');
-    var comment = document.enzymeDTO.elements[elemName+'.dataComment.xmlComment'].value;
+    var link = document.getElementById(elemName+'.dataComment.edit');
+    var comment = document.enzymeDTO.elements[elemName+'.dataComment'].value;
     //link.setAttribute('style', getStyle(comment));
     link.setAttribute('src', getIconUrl(comment));
 }
@@ -302,17 +302,20 @@ function checkPreliminary(ev){
 	var ec = document.getElementById('ec');
 	if (ec == null) return;
 	var statusCode = document.getElementById('statusCode');
+	var isPreliminary = false;
 	if (ev.target == ec){
-		if (ec.value.indexOf('n') != -1){
+		isPreliminary = ec.value.indexOf('n') != -1;
+		if (isPreliminary){
 			statusCode.value = 'PM';
 		} else {
 			statusCode.value = 'SU'; // FIXME
 		}
 	} else if (ev.target == statusCode){
-		if (statusCode.value == 'PM' && ec.value.indexOf('n') == -1){
+		isPreliminary = statusCode.value == 'PM';
+		if (isPreliminary && ec.value.indexOf('n') == -1){
 			
-		} else if (statusCode.value != 'PM' && ec.value.indexOf('n') != -1){
+		} else if (!isPreliminary && ec.value.indexOf('n') != -1){
 			ec.value = ec.value.replace('n', '', 'gi');
 		}
-	}		
+	}
 }

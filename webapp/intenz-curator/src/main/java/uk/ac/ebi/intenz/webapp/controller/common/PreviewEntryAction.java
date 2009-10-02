@@ -1,16 +1,15 @@
 package uk.ac.ebi.intenz.webapp.controller.common;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessages;
+import org.apache.struts.taglib.html.Constants;
+
 import uk.ac.ebi.intenz.webapp.controller.modification.CurationAction;
 import uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO;
-import uk.ac.ebi.intenz.webapp.utilities.ControlFlowToken;
-import uk.ac.ebi.intenz.webapp.utilities.IntEnzValidations;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * This Action ...
@@ -28,6 +27,7 @@ public class PreviewEntryAction extends CurationAction {
                                HttpServletRequest request,
                                HttpServletResponse response) throws Exception {
      request.setAttribute("title", "Preview entry " + ((EnzymeDTO) request.getSession().getAttribute("enzymeDTO")).getEc() + " - IntEnz Curator Application");
+     request.setAttribute(Constants.TOKEN_KEY, request.getParameter(Constants.TOKEN_KEY));
      // Get rid of "/preview":
      String previewFrom = mapping.getPath().substring(8);
       // Put on the request the action to be taken afterwards:

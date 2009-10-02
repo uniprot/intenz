@@ -26,7 +26,7 @@
     <context-param>
         <description>URL for Rhea curator tool</description>
         <param-name>rhea.curator.url</param-name>
-        <param-value>http://www.ebi.ac.uk/internal-tools/rhea/curation</param-value>
+        <param-value>http://www.ebi.ac.uk/intenz/curation/rhea</param-value>
     </context-param>
     
     <!-- Standard Action Servlet Configuration -->

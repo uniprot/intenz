@@ -318,7 +318,8 @@ private List getNamesList(List names, SpecialCharacters encoding, EncodingType e
       enzymeLinkDTO.setView(enzymeLink.getView().toString());
       enzymeLinkDTO.setViewDisplayImage(enzymeLink.getView().toDisplayImage());
       enzymeLinkDTO.setViewDisplayString(enzymeLink.getView().toDisplayString());
-      enzymeLinkDTO.setDataComment(getDataCommentDTO(enzymeLink.getDataComment(), encoding, encodingType));
+      if (enzymeLink.getDataComment() != null)
+    	  enzymeLinkDTO.setDataComment(encoding.xml2Display(enzymeLink.getDataComment()));
 
       if (getUniProtLinksOnly) {
         if (enzymeLinkDTO.getDatabaseCode().equals(XrefDatabaseConstant.SWISSPROT.getDatabaseCode())) {
@@ -333,16 +334,6 @@ private List getNamesList(List names, SpecialCharacters encoding, EncodingType e
 
     return getUniProtLinksOnly ? uniProtLinksList : linksList;
   }
-
-    private DataCommentDTO getDataCommentDTO(DataComment dataComment, SpecialCharacters encoding, EncodingType encodingType){
-        DataCommentDTO dataCommentDTO = new DataCommentDTO();
-        if (dataComment != null){
-            if (dataComment.getId() != null) dataCommentDTO.setId(dataComment.getId().toString());
-            dataCommentDTO.setXmlComment(dataComment.getComment());
-            dataCommentDTO.setDisplayComment(encoding.xml2Display(dataComment.getComment(), encodingType));
-        }
-        return dataCommentDTO;
-    }
 
     private List getCommentsList(List comments, SpecialCharacters encoding, EncodingType encodingType) {
     assert comments != null : "Parameter 'comments' must not be null.";

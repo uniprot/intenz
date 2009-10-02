@@ -7,13 +7,14 @@
 	pageContext.setAttribute("reactionStatus", Status.values());
 %>
 
-<script type="text/javascript" src="js/prototype-1.4.0.js"></script>
-<script type="text/javascript" src="js/scriptaculous.js"></script>
-<script type="text/javascript" src="js/controls.js"></script>
+<script type="text/javascript" src="js/prototype/prototype.js"></script>
+<script type="text/javascript" src="js/scriptaculous/scriptaculous.js"></script>
+<script type="text/javascript" src="js/scriptaculous/controls.js"></script>
 <script type="text/javascript" src="js/ajaxtags-1.2b3.js"></script>
-<script type="text/javascript" src="js/overlibmws.js"></script>
+<script type="text/javascript" src="js/overlibmws/overlibmws.js"></script>
 <script type="text/javascript" src="js/rhea-view.js"></script>
 <script type="text/javascript" src="js/rhea-search.js"></script>
+<script type="text/javascript" src="js/rhea-search-options.js"></script>
 <script type="text/javascript" src="resources/rheaSearch.js"></script>
 
 <style>

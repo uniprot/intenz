@@ -1,13 +1,13 @@
 package uk.ac.ebi.intenz.webapp.dtos;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Michael Darsow
@@ -26,7 +26,7 @@ public class EnzymeLinkDTO extends ActionForm implements Comparable {
   private String view;
   private String viewDisplayString;
   private String viewDisplayImage;
-  private DataCommentDTO dataComment;
+  private String dataComment;
 
   // --------------------------- CONSTRUCTORS ---------------------------
 
@@ -41,7 +41,7 @@ public class EnzymeLinkDTO extends ActionForm implements Comparable {
     sourceDisplay = "IntEnz";
     viewDisplayString = "all views";
     viewDisplayImage = "<img src=\"images/blue_bullet.gif\"/><img src=\"images/green_bullet.gif\"/><img src=\"images/red_bullet.gif\"/>";
-    dataComment = new DataCommentDTO();
+    dataComment = "";
   }
 
   public EnzymeLinkDTO(EnzymeLinkDTO enzymeLinkDTO) {
@@ -55,7 +55,7 @@ public class EnzymeLinkDTO extends ActionForm implements Comparable {
     setView(enzymeLinkDTO.getView());
     setViewDisplayString(enzymeLinkDTO.getViewDisplayString());
     setViewDisplayImage(enzymeLinkDTO.getViewDisplayImage());
-    setDataComment(new DataCommentDTO(enzymeLinkDTO.getDataComment()));
+    setDataComment(enzymeLinkDTO.getDataComment());
   }
 
   // --------------------- GETTER / SETTER METHODS ---------------------
@@ -149,11 +149,11 @@ public class EnzymeLinkDTO extends ActionForm implements Comparable {
     this.viewDisplayString = viewDisplayString;
   }
 
-    public DataCommentDTO getDataComment() {
+    public String getDataComment() {
         return dataComment;
     }
 
-    public void setDataComment(DataCommentDTO dataComment) {
+    public void setDataComment(String dataComment) {
         this.dataComment = dataComment;
     }
 
@@ -266,7 +266,6 @@ public class EnzymeLinkDTO extends ActionForm implements Comparable {
 
   public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
     ActionErrors errors = new ActionErrors();
-    errors.add(dataComment.validate(mapping, request));
     updateView();
     return errors;
   }

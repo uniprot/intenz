@@ -16,9 +16,11 @@ import org.apache.struts.action.ActionMapping;
 
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.rhea.domain.Reaction;
 import uk.ac.ebi.rhea.domain.Status;
 import uk.ac.ebi.intenz.tools.sib.helper.FFWriterHelper;
+import uk.ac.ebi.intenz.tools.sib.helper.SibEntryHelper;
 import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeCrossReference;
 import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeEntryImpl;
 import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeXrefFactory;
@@ -82,6 +84,18 @@ public class PopulatePreviewSibEnzymeDTOAction extends Action {
    }
 
 
+   /**
+    * Embarrassingly similar to the
+    * {@link SibEntryHelper#getSibEnzymeEntry(uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry, SpecialCharacters, EncodingType)}
+    * method, the main difference being that this one takes an {@link EnzymeDTO}
+    * instead of an {@link EnzymeEntry} as parameter.
+    * @param enzymeDTO
+    * @param encoding
+    * @param encodingType
+    * @param translate
+    * @return
+    * @throws SPTRException
+    */
    private EnzymeEntryImpl getSibEnzymeEntry (EnzymeDTO enzymeDTO, SpecialCharacters encoding, EncodingType encodingType,
                                               boolean translate) throws SPTRException {
       EnzymeEntryImpl sibEnzymeEntry = new EnzymeEntryImpl();
@@ -128,15 +142,14 @@ public class PopulatePreviewSibEnzymeDTOAction extends Action {
          List<ReactionDTO> reactions = enzymeDTO.getReactionDtos();
          for ( int iii = 0; iii < reactions.size(); iii++ ) {
         	 ReactionDTO reactionDTO = reactions.get(iii);
-        	 if (reactionDTO.getId() > Reaction.NO_ID_ASSIGNED)
-        		 continue; // Ignore Rhea-ctions
+        	 if (reactionDTO.getId() > Reaction.NO_ID_ASSIGNED
+        			 && !enzymeDTO.isPreliminaryEc())
+        		 continue; // Ignore Rhea-ctions except for preliminary ECs
         	 if ( EnzymeViewConstant.isInSIBView(reactionDTO.getView()) ) {
-        		 String rtr = null;
-        		 reactionDTO.getXmlTextualRepresentation().trim()
-        		 	.replace(" <?> "," = ").replace(" => "," = ").replace(" <= "," = ").replace(" <=> "," = ");
-        		 rtr = translate?
-        			 TRANSLATOR.toASCII(reactionDTO.getXmlTextualRepresentation(), true, false) :
-        			 reactionDTO.getTextualRepresentation();
+        		 String rtr = reactionDTO.getXmlTextualRepresentation().trim()
+        		 	.replace(" <?> "," = ").replace(" => "," = ")
+        		 	.replace(" <= "," = ").replace(" <=> "," = ");
+        		 if (translate) rtr = TRANSLATOR.toASCII(rtr, true, false);
     			 sibEnzymeEntry.addReaction(encoding.xml2Display(rtr, encodingType));
         	 }
          }

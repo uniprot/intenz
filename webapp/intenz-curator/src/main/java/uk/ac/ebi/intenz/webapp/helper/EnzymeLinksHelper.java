@@ -1,22 +1,29 @@
 package uk.ac.ebi.intenz.webapp.helper;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 import uk.ac.ebi.intenz.webapp.dtos.EnzymeLinkDTO;
-
-import java.util.*;
 
 /**
  * This class ...
  *
  * @author Michael Darsow
  * @version $Revision: 1.2 $ $Date: 2008/01/28 12:33:08 $
- * @deprecated this class is an aberration. Please, use HTML somewhere else.
+ * @deprecated this class is an aberration. Its name should have been
+ * 		EnzymeLinksHell. Please, use HTML somewhere else.
  */
 public class EnzymeLinksHelper {
 
 //  private static final Logger LOGGER = Logger.getLogger(EnzymeLinksHelper.class);
-
+	
   public static String renderLinks(List links) {
     return renderLinks(links, true);
   }
@@ -29,7 +36,10 @@ public class EnzymeLinksHelper {
    */
   public static String renderLinks(List links, String ec){
 	  List completeLinks = new ArrayList(links);
-      addAutoLinks(completeLinks, ec);
+	  if (EnzymeCommissionNumber.isPreliminary(ec))
+		  completeLinks.add(getDto(EnzymeLink.EXPASY, ec));
+	  else
+		  addAutoLinks(completeLinks, ec);
 	  return renderLinks(completeLinks, true);
   }
 
@@ -39,7 +49,8 @@ public class EnzymeLinksHelper {
       Set databaseNames = new HashSet();
       for (Iterator it = sortedLinks.iterator(); it.hasNext();) {
         EnzymeLinkDTO link = (EnzymeLinkDTO) it.next();
-        if (link.getDatabaseName().equals(XrefDatabaseConstant.SWISSPROT.getDisplayName())) continue; // Skip UniProt links for now.
+        if (link.getDatabaseName().equals(XrefDatabaseConstant.SWISSPROT.getDisplayName()))
+        	continue; // Skip UniProt links for now.
         html.append(getLinkHTMLTableRow(link, databaseNames.contains(link.getDatabaseName()), displayViewImgs));
         databaseNames.add(link.getDatabaseName());
       }
@@ -51,8 +62,10 @@ public class EnzymeLinksHelper {
 
   private static EnzymeLinkDTO getDto(EnzymeLink link, String ec) {
 	EnzymeLinkDTO dto = new EnzymeLinkDTO();
-	dto.setAccession(link.getAccession());
-	dto.setName(link.getName());
+	boolean preliminary = EnzymeCommissionNumber.isPreliminary(ec);
+	// for preliminary ECs, set EC as accession and name:
+	dto.setAccession(preliminary? ec : link.getAccession());
+	dto.setName(preliminary? ec : link.getName());
 	dto.setDatabaseName(link.getXrefDatabaseConstant().getDisplayName());
 	dto.setDatabaseCode(link.getXrefDatabaseConstant().getDatabaseCode());
 	dto.setUrl(link.getFullUrl(ec));
@@ -129,7 +142,7 @@ public static String renderIubmbLinks(List links) {
           EnzymeLinkDTO cas = (EnzymeLinkDTO) casNumbers.get(i);
           if (i > 0) html.append(", ");
           html.append(cas.getAccession());
-          String comment = cas.getDataComment().getDisplayComment();
+          String comment = cas.getDataComment();
           if (!comment.trim().equals("")){
               html.append(" (").append(comment).append(")");
           }
@@ -229,7 +242,8 @@ public static String renderIubmbLinks(List links) {
         html.append(renderDatabaseNameComboBox(index, link.getDatabaseName(), true));
         html.append(renderURLTextField(index, link.getUrl(), true));
         html.append("</tr>\n<tr>");
-        html.append(renderAccessionTextField(index, link.getAccession(), false));
+        html.append(renderAccessionTextField(index, link.getAccession(),
+        		link.getAccession() == null || link.getAccession().length() == 0));
         html.append(renderNameTextField(index, link.getName(), true));
       }
       if (link.getDatabaseName().equals(XrefDatabaseConstant.MEROPS.getDisplayName())) {
@@ -323,7 +337,7 @@ public static String renderIubmbLinks(List links) {
     
     html.append("<option")
     	.append(databaseName.equals(XrefDatabaseConstant.METACYC.getDisplayName())?
-    			"\" selected=\"selected\"" : "")
+    			" selected=\"selected\"" : "")
     	.append(" value=\"")
 		.append(XrefDatabaseConstant.METACYC.getDisplayName())
 		.append("\">")
@@ -491,7 +505,11 @@ public static String renderIubmbLinks(List links) {
   }
 
   private static String getLinkHTMLTableRow(EnzymeLinkDTO link, boolean isNotFirstLink){
-      return getLinkHTMLTableRow(link, isNotFirstLink, true);
+      return getLinkHTMLTableRow(link, isNotFirstLink,
+    		  !((link.getDatabaseCode().equals("BRENDA")
+    				  || link.getDatabaseCode().equals("MCYC"))
+    				  && link.getAccession() != null
+    				  && link.getAccession().length() > 0));
   }
 
   private static String getLinkHTMLTableRow(EnzymeLinkDTO link, boolean isNotFirstLink, boolean showViewImgs) {
@@ -515,7 +533,7 @@ public static String renderIubmbLinks(List links) {
         link.getDatabaseName().equals("ERGO") || link.getDatabaseName().equals("NIST 74") ||
         link.getDatabaseName().equals("UM-BBD") || link.getDatabaseCode().equals("PDB") ||
         link.getDatabaseName().equals("PROSITE") || link.getDatabaseCode().equals("CSA") ||
-        link.getDatabaseCode().equals("NCIUBMB")) {
+        link.getDatabaseCode().equals("NCIUBMB") || link.getDatabaseCode().equals("MCYC")) {
       html.append("<a class=\"link\" target=\"new\" href=\"" + link.getUrl() + "\">");
       html.append(link.getUrl());
       html.append("</a>");
@@ -543,9 +561,8 @@ public static String renderIubmbLinks(List links) {
       html.append("</a>");
     }
     html.append(")");
-    if (link.getDataComment() != null &&
-        !link.getDataComment().getDisplayComment().equals("")){
-        html.append(" [").append(link.getDataComment().getDisplayComment()).append("]");
+    if (link.getDataComment() != null && !link.getDataComment().equals("")){
+        html.append(" [").append(link.getDataComment()).append("]");
     }
     html.append("</td>\n");
 
