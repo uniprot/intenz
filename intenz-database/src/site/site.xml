@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="Intenz">
+<project name="Intenz"
+   xmlns="http://maven.apache.org/DECORATION/1.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
 
 	<skin>
 		<groupId>uk.ac.ebi.skins</groupId>
 		<artifactId>ebi-skin</artifactId>
 	</skin>
 	<body>
-
 		<menu ref="parent" />
 		<menu name="IntEnz database">
 			<item name="Home" href="index.html" />
@@ -14,6 +15,6 @@
 			<item name="Statistics" href="statistics/index.html" />
 		</menu>
 		<menu ref="reports" />
-
 	</body>
+	<publishDate format="yyyy-MM-dd"/>
 </project>
