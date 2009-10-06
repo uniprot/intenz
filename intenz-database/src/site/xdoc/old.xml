@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+		<title>IntEnz database</title>
+		<author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
+	</properties>
+	<body>
+		<section name="IntEnz database - old documentation">
+			<p>Documentation created during the analysis in the
+				beginning of the project:
+				<ul>
+					<li>
+						<a href="analysis/index.html">Analysis</a>
+					</li>
+				</ul>
+			</p>
+		</section>
+	</body>
+</document>

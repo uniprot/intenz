@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding='iso-8859-1'?>
+<document>
+
+  <properties>
+    <author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
+    <title>Diagram</title>
+  </properties>
+
+  <body>
+    <section name="Diagram">
+      <p>
+   		Legend:
+   			<span style="background-color: #edf">Controlled vocabularies</span>
+   			<span style="background-color: #ffd">Search-related tables</span> 
+   			<span style="background-color: #fdd">Internal workflow tables</span> 
+   			<span style="background-color: #def">Rhea tables</span> 
+      </p>
+        <center>
+       		<img src="../images/intenzSchema.png" border="0"/>
+   		</center>
+    </section>
+  </body>
+</document>
