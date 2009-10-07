@@ -175,6 +175,7 @@ public class BiopaxCatalysis {
         dataSource bpDataSource =
             Biopax.getBpDataSource(Database.valueOf(enzymeEntry.getSource().toString()), model);
 
+        // FIXME: some NPE (transferred/deleted entries) can be avoided here:
         for (Reaction r : enzymeEntry.getEnzymaticReactions().getReactions(View.INTENZ)){
             String catalysisId = Biopax.fixId(getBiopaxId(enzymeEntry, r));
             catalysis c = model.addNew(catalysis.class, catalysisId);
