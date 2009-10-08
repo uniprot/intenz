@@ -1,0 +1,95 @@
+<html>
+<head>
+<script src="../dbdoc.js" type="text/javascript"></script>
+<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+</head>
+<body class="object">
+<div id="header"><h2>CHEBI_XREFS</h2>
+<div class="tabs clearfix">
+
+<div class="tab"><div><a href="CHEBI_XREFS.html">Columns</a></div></div>
+<div class="tab"><div><a href="CHEBI_XREFS_Grants.html">Grants</a></div></div>
+<div class="tab"><div><a href="CHEBI_XREFS_Dependencies.html">Dependencies</a></div></div>
+<div class="tab" id="current"><div><a href="CHEBI_XREFS_Details.html">Details</a></div></div>
+<div class="tab"><div><a href="CHEBI_XREFS_Triggers.html">Triggers</a></div></div>
+</div></div><br/>
+<div class="tab-panes">
+<div id="Details"> <table cellpadding="0" cellspacing="0" cellspacing="0" summary=""><tr>
+	<th>Name</th>
+	<th>Value</th>
+</tr>
+	<tr>
+<td>CREATED</td>
+<td>2009-04-14 16:57:17.0</td>
+	</tr>
+	<tr>
+<td>LAST_DDL_TIME</td>
+<td>2009-04-15 09:36:12.0</td>
+	</tr>
+	<tr>
+<td>OWNER</td>
+<td>ENZYME</td>
+	</tr>
+	<tr>
+<td>VIEW_NAME</td>
+<td>CHEBI_XREFS</td>
+	</tr>
+	<tr>
+<td>TEXT_LENGTH</td>
+<td>865</td>
+	</tr>
+	<tr>
+<td>TEXT</td>
+<td>select unique cd.accession chebi_id, ie.enzyme_id, ie.ec, n.name enzyme_name
+-- cofactors
+from compound_data cd, id2ec ie, cofactors cf, names n
+where
+  cd.accession is not null
+  and cd.compound_id = cf.compound_id
+  and cf.enzyme_id = ie.enzyme_id
+  and ie.enzyme_id = n.enzyme_id
+  and n.name_class = 'COM'
+  and n.web_view like '%INTENZ'
+UNION
+-- reaction participants
+select unique cd.accession chebi_id, ie.enzyme_id, ie.ec, n.name enzyme_name
+from compound_data cd, id2ec ie, reaction_participants rp, intenz_reactions ir, reactions_map rm, names n
+where
+  cd.accession is not null
+  and cd.compound_id = rp.compound_id
+  and (rp.reaction_id = ir.reaction_id or rp.reaction_id = ir.un_reaction)
+  and ir.reaction_id = rm.reaction_id
+  and rm.enzyme_id = ie.enzyme_id
+  and ie.enzyme_id = n.enzyme_id
+  and n.name_class = 'COM'
+  and n.web_view like '%INTENZ'</td>
+	</tr>
+	<tr>
+<td>TYPE_TEXT_LENGTH</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>TYPE_TEXT</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>OID_TEXT_LENGTH</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>OID_TEXT</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>VIEW_TYPE_OWNER</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>VIEW_TYPE</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>SUPERVIEW_NAME</td>
+<td>null</td>
+	</tr>
+</table></div>

@@ -1,0 +1,221 @@
+<html>
+<head>
+<script src="../dbdoc.js" type="text/javascript"></script>
+<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+</head>
+<body class="object">
+<div id="header"><h2>SUBSUBCLASSES</h2>
+<div class="tabs clearfix">
+
+<div class="tab"><div><a href="SUBSUBCLASSES.html">Columns</a></div></div>
+<div class="tab" id="current"><div><a href="SUBSUBCLASSES_Constraints.html">Constraints</a></div></div>
+<div class="tab"><div><a href="SUBSUBCLASSES_Grants.html">Grants</a></div></div>
+<div class="tab"><div><a href="SUBSUBCLASSES_Statistics.html">Statistics</a></div></div>
+<div class="tab"><div><a href="SUBSUBCLASSES_Triggers.html">Triggers</a></div></div>
+<div class="tab"><div><a href="SUBSUBCLASSES_Dependencies.html">Dependencies</a></div></div>
+<div class="tab"><div><a href="SUBSUBCLASSES_Details.html">Details</a></div></div>
+<div class="tab"><div><a href="SUBSUBCLASSES_Partitions.html">Partitions</a></div></div>
+<div class="tab"><div><a href="SUBSUBCLASSES_Indexes.html">Indexes</a></div></div>
+</div></div><br/>
+<div class="tab-panes">
+<div id="Constraints"> <table cellpadding="0" cellspacing="0" cellspacing="0" summary=""><tr>
+	<th>CONSTRAINT_NAME</th>
+	<th>CONSTRAINT_TYPE</th>
+	<th>SEARCH_CONDITION</th>
+	<th>R_OWNER</th>
+	<th>R_TABLE_NAME</th>
+	<th>R_CONSTRAINT_NAME</th>
+	<th>DELETE_RULE</th>
+	<th>STATUS</th>
+	<th>DEFERRABLE</th>
+	<th>VALIDATED</th>
+	<th>GENERATED</th>
+	<th>BAD</th>
+	<th>RELY</th>
+	<th>LAST_CHANGE</th>
+	<th>INDEX_OWNER</th>
+	<th>INDEX_NAME</th>
+	<th>INVALID</th>
+	<th>VIEW_RELATED</th>
+</tr>
+	<tr>
+<td>CK_SUBSUBCLASSES$ACTIVE</td>
+<td>Check</td>
+<td>active IN ('Y','N')</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2007-02-16 09:29:10.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>CK_SUBSUBCLASSES$EC3_ZERO</td>
+<td>Check</td>
+<td>ec3 > 0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2007-02-16 09:29:10.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>CK_SUBSUBCLASSES$NAME_WS</td>
+<td>Check</td>
+<td>name = TRIM(TRIM(chr(9)  FROM TRIM(chr(10) FROM TRIM(chr(13) FROM name))))</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2007-02-16 09:29:10.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>FK_SUBSUBCLASSES$EC1$EC2</td>
+<td>Foreign_Key</td>
+<td>null</td>
+<td>ENZYME</td>
+<td>SUBCLASSES</td>
+<td>PK_SUBCLASSES</td>
+<td>NO ACTION</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2007-02-16 09:29:11.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>PK_SUBSUBCLASSES</td>
+<td>Primary_Key</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2007-02-16 09:28:50.0</td>
+<td>null</td>
+<td>PK_SUBSUBCLASSES</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>SYS_C004094</td>
+<td>Check</td>
+<td>"EC1" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2007-02-16 09:28:50.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>SYS_C004095</td>
+<td>Check</td>
+<td>"EC2" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2007-02-16 09:28:50.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>SYS_C004096</td>
+<td>Check</td>
+<td>"EC3" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2007-02-16 09:28:50.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>SYS_C004097</td>
+<td>Check</td>
+<td>"ACTIVE" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2007-02-16 09:28:50.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+</table></div>
