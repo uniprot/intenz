@@ -6,7 +6,7 @@
     
     <groupId>uk.ac.ebi.intenz</groupId>
     <artifactId>intenz-ffwriter</artifactId>
-    <version>1.0.17</version>
+    <version>1.1</version>
     <name>IntEnz flat file writer</name>
     <description>ENZYME.dat flat file writer</description>
     
@@ -56,9 +56,6 @@
                 <resources>
                     <resource>
                         <directory>src/main/resources</directory>
-                    </resource>
-                    <resource>
-                        <directory>src/main/appResources</directory>
                     </resource>
                     <resource>
                         <directory>${intenz.config.dir}</directory>
