@@ -1,0 +1,4 @@
+SET DOC OFF
+SET ECHO ON;
+
+DELETE FROM intenz_text; 
