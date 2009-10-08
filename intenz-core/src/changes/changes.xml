@@ -8,6 +8,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.2.2" date="2009-10-07"
+    		description="Fixed automatic links">
+    		<action dev="rafalcan" type="fix">
+    			Fixed automatic links: preliminary EC numbers will only have
+                one to ENZYME in INTENZ view.
+    		</action>
+   		</release>
     	<release version="4.2.1" date="2009-10-02"
     		description="EC and enzyme comparisons">
     		<action dev="rafalcan" type="fix">

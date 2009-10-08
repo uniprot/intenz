@@ -881,17 +881,22 @@ public class EnzymeEntry {
 		  if (isInView) linksInView.add(link);
 	  }
 	  // Automatic links (not in the database):
-	  switch (theView) {
-	  case INTENZ:
-		  linksInView.add(EnzymeLink.CSA);
-		  linksInView.add(EnzymeLink.NC_IUBMB);
-	  case IUBMB:
-		  linksInView.add(EnzymeLink.PDB);
-		  linksInView.add(EnzymeLink.EXPASY);
-		  linksInView.add(EnzymeLink.BRENDA);
-		  linksInView.add(EnzymeLink.KEGG);
-		  break;
-	  }
+      if (status.equals(Status.PRELIMINARY)){
+          if (theView == View.INTENZ)
+              linksInView.add(EnzymeLink.EXPASY);
+      } else {
+          switch (theView) {
+          case INTENZ:
+              linksInView.add(EnzymeLink.CSA);
+              linksInView.add(EnzymeLink.NC_IUBMB);
+          case IUBMB:
+              linksInView.add(EnzymeLink.PDB);
+              linksInView.add(EnzymeLink.BRENDA);
+              linksInView.add(EnzymeLink.EXPASY);
+              linksInView.add(EnzymeLink.KEGG);
+              break;
+          }
+      }
 	  return linksInView;
   }
 
