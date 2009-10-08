@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><?xml version="1.0" encoding="UTF-8"?>
+
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>IntEnz release utils module change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+
+        <release version="1.2" date="2009-10-08"
+        	description="Preliminary EC numbers.">
+            <action dev="rafalcan" type="add">
+            	Added support for preliminary EC numbers.
+			</action>
+            <action dev="rafalcan" type="add">
+            	Added Rhea IDs to the text index.
+			</action>
+			<action dev="rafalcan" type="remove">
+				Removed unused methods from EnzymeEntryHelper.
+			</action>
+		</release>
+		
+        <release version="1.1.2" date="2009-06-25"
+        	description="Updated dependencies">
+            <action dev="rafalcan" type="add">
+            	Updated dependencies on intenz.mapper, xchars.xchars,
+            	xchars.config and biobabel.db modules.
+            </action>
+        </release>
+
+        <release version="1.1.1" date="2008-06-06"
+        	description="Added dependency">
+            <action dev="rafalcan" type="add">
+            	Added dependency to compile scope - it was in test scope - to
+            	biobabel.db module.
+            </action>
+            <action dev="rafalcan" type="add">
+            	Added script <code>release.sh</code> to run sequentially the two
+            	main update scripts. 
+            </action>
+        </release>
+
+        <release version="1.1" date="2008-05-27"
+        	description="Reorganized directories">
+            <action dev="rafalcan" type="fix">
+                Moved sql directory under src/main. Updated scripts accordingly.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated to latest biobabel.db module dependency, to make use of
+                OracleDatabaseInstance.
+            </action>
+        </release>
+        
+    </body>
+</document>
