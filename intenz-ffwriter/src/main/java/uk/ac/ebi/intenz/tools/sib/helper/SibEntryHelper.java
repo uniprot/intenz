@@ -13,8 +13,10 @@ import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeComment;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeName;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
 import uk.ac.ebi.intenz.domain.history.HistoryEvent;
 import uk.ac.ebi.intenz.domain.history.HistoryNode;
 import uk.ac.ebi.rhea.domain.Reaction;
@@ -84,13 +86,15 @@ public class SibEntryHelper {
       EnzymaticReactions reactions = enzymeEntry.getEnzymaticReactions();
       for (int iii = 0; iii < reactions.size(); iii++) {
         Reaction reaction = reactions.getReaction(iii);
-        // For now, Rhea-ctions won't appear in enzyme.dat:
-        if (reaction.getId() > Reaction.NO_ID_ASSIGNED /*&& !reaction.getStatus().equals(Status.OK)*/)
-        	// Not accepted Rhea-ction
+        // Rhea-ctions won't appear in enzyme.dat except for preliminary ECs:
+        if (reaction.getId() > Reaction.NO_ID_ASSIGNED
+        		&& !enzymeEntry.getEc().getType().equals(Type.PRELIMINARY)
+        		/*&& !reaction.getStatus().equals(Status.OK)*/)
         	continue;
         if (EnzymeViewConstant.isInSIBView(reactions.getReactionView(iii).toString())) {
         	String rtr = reaction.getTextualRepresentation().trim()
-        		.replace(" <?> "," = ").replace(" => "," = ").replace(" <= "," = ").replace(" <=> "," = ");
+        		.replace(" <?> "," = ").replace(" => "," = ")
+        		.replace(" <= "," = ").replace(" <=> "," = ");
           sibEnzymeEntry.addReaction(encoding.xml2Display(translator.toASCII(rtr, true, false), encodingType));
         }
       }

@@ -1,6 +1,7 @@
 #!/bin/bash
-# Parameters (optional):
-#   $1: EC number to be exported (just one)
+# Parameters:
+#   $1: configuration directory (optional)
+#   $2: EC number to be exported (just one) (optional)
 # If none provided, all SIB entries are exported.
 
 SCRIPT_DIR=`dirname $0`
@@ -16,10 +17,16 @@ cd $SCRIPT_DIR/..
 
 mvn -P apps clean package
 
-#CP=src/main/appResources
+if [ -d $1 ]
+then
+	CONF_DIR=$1
+	shift
+fi
+
+CP=${CONF_DIR:-$SCRIPT_DIR/../src/main/appResources}
 addJarsToCp target
 date
-echo "Exporting ${1-all SIB entries}..."
+echo "Exporting ${1:-all SIB entries}..."
 java -Xmx512M -cp $CP uk.ac.ebi.intenz.tools.sib.EnzymeFlatFileWriterApp $@
 date
 echo "Finished"
