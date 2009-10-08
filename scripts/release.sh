@@ -11,6 +11,6 @@ mvn clean package
 . scripts/updateId2Ec.sh
 [ $? != 0 ] && echo "FAILURE UPDATING id2ec TABLE!" && exit 1
 
-DB_MODULE_HOME=$(dirname $0)/../rhea-database
-sqlplus ${DB_USER}/${DB_PASSWD}@${DB_INSTANCE} \
+DB_MODULE_HOME=$(dirname $0)/../intenz-database
+echo exit | sqlplus ${DB_USER}/${DB_PASSWD}@${DB_INSTANCE} \
     @${DB_MODULE_HOME}/src/main/sql/grant_to_roles 

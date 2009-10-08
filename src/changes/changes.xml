@@ -9,10 +9,13 @@
     </properties>
     <body>
 
-        <release version="1.2" date=""
+        <release version="1.2" date="2009-10-08"
         	description="Preliminary EC numbers.">
             <action dev="rafalcan" type="add">
             	Added support for preliminary EC numbers.
+			</action>
+            <action dev="rafalcan" type="add">
+            	Added Rhea IDs to the text index.
 			</action>
 			<action dev="rafalcan" type="remove">
 				Removed unused methods from EnzymeEntryHelper.
