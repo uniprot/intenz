@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
   <properties>
-    <author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
     <title>IntEnz Project Documentation (internal)</title>
+    <author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
   </properties>
 
   <body>
@@ -24,6 +26,7 @@
         </ul>
         <p>Single release statistics:</p>
         <ul>
+        	<li><a href="intenzStats-rel53.html">Release 53 (8 October 2009)</a></li>
         	<li><a href="intenzStats-rel52.html">Release 52 (27 August 2009)</a></li>
         	<li><a href="intenzStats-rel51.html">Release 51 (5 August 2009)</a></li>
         	<li><a href="intenzStats-rel50.html">Release 50 (25 June 2009)</a></li>

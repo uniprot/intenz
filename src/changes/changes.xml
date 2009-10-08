@@ -7,10 +7,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="1.0.1" date="2009-10-06"
+    	<release version="1.0.1" date="2009-10-08"
     		description="Database grants">
         	<action dev="rafalcan" type="add">
         		Added missing grant on REACTION_MERGINGS table.
+        	</action>
+        	<action dev="rafalcan" type="add">
+        		Added missing objects in the drop_all script.
         	</action>
     	</release>
        	<release version="1.0" date="2009-08-14"
