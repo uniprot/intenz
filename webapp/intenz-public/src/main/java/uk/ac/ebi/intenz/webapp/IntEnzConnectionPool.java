@@ -35,7 +35,6 @@ public class IntEnzConnectionPool {
       ods.setDriverType(dbInitValues[1]);
       ods.setUser(dbInitValues[2]);
       ods.setPassword(dbInitValues[3]);
-
       // Set the limit of phys. connections.
       ods.setMaxLimit(4);
       ods.setCacheScheme(OracleConnectionCacheImpl.FIXED_RETURN_NULL_SCHEME);

@@ -1,6 +1,7 @@
 <%@ page import="uk.ac.ebi.xchars.SpecialCharacters,
                  uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant,
                  uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber,
+                 uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type,
                  java.util.ArrayList,
                  java.net.URLEncoder,
                  uk.ac.ebi.intenz.webapp.controller.SearchCommand.Result"%>
@@ -75,8 +76,19 @@
           <tr>
             <td align="right" valign="top"><%= start+iii+1 %>.</td>
             <td>
+<%--
+            
+            <a href="query?cmd=Search${ec.type eq 'ENZYME' or ec.type eq 'PRELIMINARY'?
+            	'ID&id=' : 'EC&ec='}${ec.type eq 'ENZYME' or ec.type eq 'PRELIMINARY'?
+            	enzymeId : ecString}"
+            	class="${ecString eq query? 'queryEc' : ''}">${ecString}</a>
+            
+            &nbsp;<small><b class="${status eq 'PR' or result.active? '' : 'inactiveEntry'}">
+            	${status eq 'PR'? '(proposal)' : result.active? '' : 'inactive entry'}
+            	</b></small>
+ --%>            
             <%
-              if(ec.getType() == 4) {
+              if(ec.getType() == Type.ENZYME || ec.getType() == Type.PRELIMINARY) {
             %>
            <a href="query?cmd=SearchID&id=<%= enzymeId %>"
             	class="<%= ecString.equals(request.getAttribute("query"))? "queryEc" : "" %>"><%= ecString %></a>

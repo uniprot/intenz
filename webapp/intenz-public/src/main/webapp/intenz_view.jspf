@@ -16,6 +16,10 @@
 	IntEnz Enzyme Nomenclature<br/>
 	<span style="font-size: 150%">EC ${entry.ec}</span>
 	<c:if test="${entry.status eq 'PROPOSED'}"><br/>(proposal)</c:if>
+	<c:if test="${entry.status eq 'PRELIMINARY'}">
+		<div>This is a preliminary EC number. The content has not yet been
+		validated and included in the official IUBMB Enzyme list.</div>
+	</c:if>
 </div>
 
 <i:getSynonyms view="INTENZ" var="synonyms" entry="${entry}"/>
@@ -113,7 +117,7 @@
     </c:if>
 </c:forEach>
 <c:if test="${not empty entry.casNumbers}">,
-CAS Registry Number${fn:length(entry.casNumbers) > 1? 's' : '' }:
+CAS Registry Number${fn:length(entry.casNumbers) gt 1? 's' : '' }:
     <c:forEach var="casNo" items="${entry.casNumbers}" varStatus="i">
         ${casNo.accession}
         <c:if test="${not empty casNo.dataComment}">(${casNo.dataComment})</c:if>

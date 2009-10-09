@@ -2,7 +2,6 @@ package uk.ac.ebi.intenz.webapp.helper;
 
 import java.util.*;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
-import uk.ac.ebi.intenz.domain.enzyme.DataComment;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 
 /**
@@ -106,9 +105,9 @@ public class EnzymeLinkHelper {
           EnzymeLink cas = (EnzymeLink) casNumbers.get(i);
           if (i > 0) html.append(", ");
           html.append(cas.getAccession());
-          DataComment dc = cas.getDataComment();
-          if (dc != null && dc.getComment().length() > 0){
-        	  html.append(" (").append(dc.getComment()).append(")");
+          String dc = cas.getDataComment();
+          if (dc != null && dc.length() > 0){
+        	  html.append(" (").append(dc).append(")");
           }
       }
     }

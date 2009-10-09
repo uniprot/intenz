@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<document>
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+
     <properties>
         <title>IntEnz public webapp change log</title>
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
 
+        <release version="53" date="2009-10-08" description="Release 53">
+        	<action dev="rafalcan" type="add">
+        		Added support for preliminary EC numbers.
+        	</action>
+        	<action dev="rafalcan" type="add">
+        		Added Rhea identifiers to the text index (part of the
+        		intenz-dbIndexing module, actually).
+        	</action>
+        	<action dev="rafalcan" type="remove">
+        		Removed IUBMB view and proposed entries list.
+        	</action>
+        </release>
+
         <release version="52" date="2009-08-27" description="Release 52">
         	<action dev="rafalcan" type="fix">
-        		Reorganized files. First release as open source.
+        		Reorganised files. First release as open source.
         	</action>
         </release>
 
@@ -106,11 +122,8 @@
         
         <release version="38.0" date="2008-02-18" description="Release 38">
             <action dev="rafalcan" type="update">
-                <ul>
-                    <li>First release with a mavenized webapp</li>
-                    <li>Using Rhea packages</li>
-                    <li>Cofactors linked to ChEBI</li>
-                </ul>
+            	First release with a mavenized webapp. Using Rhea packages.
+            	Cofactors linked to ChEBI.
             </action>
         </release>
         
