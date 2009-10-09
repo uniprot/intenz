@@ -116,6 +116,7 @@
 				%><a class="navbar" href="browse.jsp"
 					title="Browse the enzyme classification">Browse EC</a><% } %>
 				</li>
+<%--
 				<li class="large"><%
 				if (title.equals("Proposed changes")) {
 				%><span class="navbarCurrent">Proposed changes</span><%
@@ -123,6 +124,7 @@
 				%><a class="navbar" href="query?cmd=SearchProposed"
 					title="Proposed additions and amendments to the enzyme classification">Proposed changes</a><% } %>
 				</li>
+--%>
 				<li class="<% if (title.equals("How to Name and Classify Your Enzyme")) { %>clickmeopen<% } %>"><a href="#"></a>Data submission
 					<ul>
 						<li><a class="navbar externalLink" target="_blank"
@@ -214,7 +216,7 @@ docs.add("Statistics");
 	<div class="iconboxcontents" style="margin-bottom: 1em">
 		<%@include file="news_content.html" %>
 	</div>
-
+<%--
 	<div class="iconboxheading">Plugins</div>
 	<div class="iconboxcontents" style="margin-bottom: 1em">
 		<img src="images/firefoxIcon.png" alt="Firefox" class="centered"/>
@@ -226,7 +228,7 @@ docs.add("Statistics");
 			(not needed with Firefox 2+ or IE 7+).
 		</div>
 	</div>
-
+ --%>
 	<div class="iconboxheading">Partners</div>
 	<div class="iconboxcontents" style="margin-bottom: 1em">
      	<div align="center">

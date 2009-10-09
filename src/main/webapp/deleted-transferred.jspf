@@ -17,6 +17,10 @@
 	${param.view eq 'IUBMB'? 'NC-IUBMB' : 'IntEnz'} Enzyme Nomenclature<br/>
 	<span style="font-size: 150%">EC ${entry.ec}</span>
 	<c:if test="${entry.status eq 'PROPOSED'}"><br/>(proposal)</c:if>
+    <c:if test="${entry.status eq 'PRELIMINARY'}">
+        <div>This is a preliminary EC number. The content was
+        validated and included in the official IUBMB Enzyme list.</div>
+    </c:if>
 </div>
 
 <table width="100%" border="0">

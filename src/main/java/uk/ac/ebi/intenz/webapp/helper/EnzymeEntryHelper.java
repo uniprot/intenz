@@ -15,6 +15,7 @@ import uk.ac.ebi.intenz.domain.constants.EnzymeNameQualifierConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.EventConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.Cofactor;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeComment;
@@ -62,13 +63,15 @@ public class EnzymeEntryHelper {
 
   /**
    * Return the HTML representation of a deleted entry.
- * @param encodingType TODO
-   *
+   * @param enzymeEntry
+   * @param encoding
+   * @param encodingType
+   * @param view
    * @return the HTML representation.
    * @throws SPTRException
    */
-  private static String deletedEntryToHTML(EnzymeEntry enzymeEntry, SpecialCharacters encoding,
-                                           EncodingType encodingType, EnzymeViewConstant view)
+  private static String deletedEntryToHTML(EnzymeEntry enzymeEntry,
+		  SpecialCharacters encoding, EncodingType encodingType, EnzymeViewConstant view)
   throws SPTRException {
     StringBuffer htmlStringBuffer = new StringBuffer();
     HistoryEvent latestHistoryEvent = enzymeEntry.getHistory().getLatestHistoryEventOfRoot();
@@ -115,7 +118,7 @@ public class EnzymeEntryHelper {
                                                    SpecialCharacters encoding, boolean isIubmbView) {
     StringBuffer htmlStringBuffer = new StringBuffer();
 
-		if (!isIubmbView && !enzymeEntry.getStatus().equals(EnzymeStatusConstant.PROPOSED)){
+		if (!isIubmbView && !enzymeEntry.getStatus().equals(Status.PROPOSED)){
 			htmlStringBuffer.append(getXmlLink(enzymeEntry));
 		}
 
@@ -129,7 +132,7 @@ public class EnzymeEntryHelper {
     htmlStringBuffer.append("</b></td></tr>\n");
     htmlStringBuffer.append("<tr><td class=\"centered\"><b style=\"font-size: 150%\">EC ")
     		.append(enzymeEntry.getEc().toString()).append("</b></td></tr>\n");
-    if (enzymeEntry.getStatus() == EnzymeStatusConstant.PROPOSED) {
+    if (enzymeEntry.getStatus() == Status.PROPOSED) {
         htmlStringBuffer.append("<tr><td class=\"centered\">(proposal)</td></tr>\n");
     }
 	htmlStringBuffer.append("</table>\n");
@@ -201,7 +204,7 @@ public class EnzymeEntryHelper {
       htmlStringBuffer.append("</td>\n");
       htmlStringBuffer.append("<td valign=\"top\" align=\"left\">\n");
       htmlStringBuffer.append(encoding.xml2Display(enzymeEntry.getCommonName(EnzymeViewConstant.INTENZ).getName()));
-      if (enzymeEntry.getStatus() == EnzymeStatusConstant.PROPOSED) {
+      if (enzymeEntry.getStatus() == Status.PROPOSED) {
         htmlStringBuffer.append("&nbsp;<small><b>(proposal)</b></small>");
       }
       htmlStringBuffer.append("</td>\n");
@@ -265,7 +268,7 @@ public class EnzymeEntryHelper {
     htmlStringBuffer.append("<td width=\"25%\"></td>\n");
     htmlStringBuffer.append("<td align=\"center\" width=\"50%\">\n");
     htmlStringBuffer.append("<b style=\"font-size: 150%\">EC " + enzymeEntry.getEc().toString() + "</b>\n");
-    if (enzymeEntry.getStatus() == EnzymeStatusConstant.PROPOSED) {
+    if (enzymeEntry.getStatus() == Status.PROPOSED) {
       htmlStringBuffer.append("<br>(proposal)\n");
     }
 
@@ -404,7 +407,7 @@ public class EnzymeEntryHelper {
     // Head
     htmlStringBuffer.append(getSibContentTitle(enzymeEntry.getEc().toString()));
 
-    if (enzymeEntry.getStatus() == EnzymeStatusConstant.PROPOSED) {
+    if (enzymeEntry.getStatus() == Status.PROPOSED) {
       htmlStringBuffer.append("<div class=\"centered\">\n");
       htmlStringBuffer.append("(proposal)\n");
       htmlStringBuffer.append("</div>\n");
@@ -456,7 +459,7 @@ public class EnzymeEntryHelper {
 		.append("<tr><td class=\"centered\"><b>IntEnz Enzyme Nomenclature</b></td></tr>\n")
     	.append("<tr><td class=\"centered\"><b style=\"font-size: 150%\">EC ")
     		.append(enzymeEntry.getEc().toString()).append("</b></td></tr>\n");
-    if (enzymeEntry.getStatus() == EnzymeStatusConstant.PROPOSED) {
+    if (enzymeEntry.getStatus() == Status.PROPOSED) {
         htmlStringBuffer.append("<tr><td class=\"centered\">(proposal)</td></tr>\n");
     }
 	htmlStringBuffer.append("</table>\n");

@@ -8,6 +8,12 @@
 
 <fmt:setBundle basename="linksTitles" var="linksTitles"/>
 
+<c:choose>
+	<c:when test="${entry.status eq 'PRELIMINARY'}">
+	<br/>This is a preliminary entry, not supported by NC-IUBMB.
+	</c:when>
+	<c:otherwise>
+
 <div style="text-align: center; font-weight: bold; display: table; width: 100%">
 	IUBMB Enzyme Nomenclature<br/>
 	<span style="font-size: 150%">EC ${entry.ec}</span>
@@ -17,6 +23,7 @@
 <div class="iubmb">
 	<b>Accepted name:</b> <x:translate>${entry.commonName.name}</x:translate>
 </div>
+
 <div class="iubmb">
 	<i:getReactions var="reactions" entry="${entry}" view="IUBMB"/>
 	<b>Reaction${fn:length(reactions) > 1? 's' : ''}:</b>
@@ -94,3 +101,6 @@
 </div>
 
 <div class="iubmbHistory">[${entry.history.rootNode.historyLine}]</div>
+
+</c:otherwise>
+</c:choose>

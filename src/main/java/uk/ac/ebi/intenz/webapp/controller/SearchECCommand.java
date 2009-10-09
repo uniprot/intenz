@@ -11,12 +11,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.PropertyResourceBundle;
-import uk.ac.ebi.intenz.domain.constants.EnzymeStatusConstant;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeClass;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubSubclass;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubclass;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
 import uk.ac.ebi.intenz.mapper.EnzymeClassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
@@ -32,8 +33,6 @@ import uk.ac.ebi.intenz.mapper.EnzymeSubclassMapper;
 public class SearchECCommand extends DatabaseCommand {
 
   /**
-   * TODO:Description
-   *
    * @throws ServletException
    * @throws IOException
    */
@@ -50,12 +49,6 @@ public class SearchECCommand extends DatabaseCommand {
       forward("/error.jsp");
       return;
     }
-
-    if (paramStatus == null) { // If somebody links to IntEnz then only the approved entry will be displayed.
-      paramStatus = "OK";
-    }
-
-    EnzymeStatusConstant status = EnzymeStatusConstant.valueOf(paramStatus);
 
     // First check if the given EC is valid.
     try {
@@ -75,25 +68,40 @@ public class SearchECCommand extends DatabaseCommand {
       return;
     }
 
-
     switch (ec.getType()) {
-      case 1: // Class
+      case CLASS:
         forwardPageName = setClassData(ec);
         break;
-      case 2: // Subclass
+      case SUBCLASS:
         forwardPageName = setSubclassData(ec);
         break;
-      case 3: // Sub-subclass
+      case SUBSUBCLASS:
         forwardPageName = setSubSubclassData(ec);
         break;
-      case 4: // Entry
-        forwardPageName = setEnzymeData(ec, status);
+      case ENZYME:
+      case PRELIMINARY:
+        forwardPageName = setEnzymeData(ec, getStatus(paramStatus, ec));
         break;
     }
-
     forward(forwardPageName);
-    return;
   }
+  
+  /**
+   * Adjusts the requested status.
+   * @param paramStatus the requested status, if any.
+   * @param ec the requested EC number.
+   * @return
+   */
+	private Status getStatus(String paramStatus, EnzymeCommissionNumber ec){
+		switch (ec.getType()) {
+		case PRELIMINARY:
+			return Status.PRELIMINARY;
+		default:
+			return paramStatus == null?
+					Status.APPROVED :
+					Status.fromCode(paramStatus);
+		}
+	}
 
   private String setClassData(EnzymeCommissionNumber ec) {
     assert ec != null;
@@ -146,7 +154,7 @@ public class SearchECCommand extends DatabaseCommand {
     }
   }
 
-  private String setEnzymeData(EnzymeCommissionNumber ec, EnzymeStatusConstant status) {
+  private String setEnzymeData(EnzymeCommissionNumber ec, Status status) {
     assert ec != null && status != null;
     EnzymeEntry enzymeEntry = findEnzymeEntry(ec, status);
     if (enzymeEntry != null) {
@@ -364,10 +372,11 @@ public class SearchECCommand extends DatabaseCommand {
    * Calls the according <code>find()</code> method and handles empty results and SQL exceptions.
    *
    * @param ec EC number of enzyme to search for.
+   * @param status the enzyme status.
    * @return An <code>EnzymeEntry</code> instance or <code>null</code>.
    * @throws NullPointerException if any of the parameters is <code>null</code>.
    */
-  protected EnzymeEntry findEnzymeEntry(EnzymeCommissionNumber ec, EnzymeStatusConstant status) {
+  protected EnzymeEntry findEnzymeEntry(EnzymeCommissionNumber ec, Status status) {
     if (ec == null || status == null) throw new NullPointerException();
 
     EnzymeEntry enzymeEntry = null;
@@ -381,34 +390,42 @@ public class SearchECCommand extends DatabaseCommand {
       try {
         con.close(); // The connection is not needed.
       } catch (SQLException e) {
-        IntEnzMessenger.sendError(this.getClass().toString(), e.getMessage(), (String) request.getSession().getAttribute("user"));
-        request.setAttribute("message", "The following database error occured:\n" + e.getMessage() +
-                                        this.databaseErrorMessage);
+        IntEnzMessenger.sendError(this.getClass().toString(), e.getMessage(),
+        		(String) request.getSession().getAttribute("user"));
+        request.setAttribute("message", "The following database error occured:\n"
+        		+ e.getMessage() + this.databaseErrorMessage);
         return null;
       }
     } else {
       EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
       try {
-        Long enzyme_id = enzymeEntryMapper.findIDInMappingTable(ec.toString(), status, con);
+        Long enzyme_id = enzymeEntryMapper.findIDInMappingTable(ec.toString(),
+        		status, con);
         if (enzyme_id.longValue() == -1) return null;
         enzymeEntry = enzymeEntryMapper.findById(enzyme_id, con);
         if (enzymeEntry != null) entries.put(key, enzymeEntry);
       } catch (SQLException e) {
-        IntEnzMessenger.sendError(this.getClass().toString(), e.getMessage(), (String) request.getSession().getAttribute("user"));
+        IntEnzMessenger.sendError(this.getClass().toString(), e.getMessage(),
+        		(String) request.getSession().getAttribute("user"));
         request.setAttribute("message", e.getMessage());
         return null;
       } catch (DomainException e) {
-        PropertyResourceBundle applicationProperties = (PropertyResourceBundle) request.getSession().getServletContext().getAttribute("application_properties");
-        IntEnzMessenger.sendError(this.getClass().toString(), applicationProperties.getString(e.getMessageKey()), (String) request.getSession().getAttribute("user"));
+        PropertyResourceBundle applicationProperties =
+        	(PropertyResourceBundle) request.getSession().getServletContext()
+        		.getAttribute("application_properties");
+        IntEnzMessenger.sendError(this.getClass().toString(), 
+        		applicationProperties.getString(e.getMessageKey()),
+        		(String) request.getSession().getAttribute("user"));
         request.setAttribute("message", e.getMessage());
         return null;
       } finally {
         try {
           con.close();
         } catch (SQLException e) {
-          IntEnzMessenger.sendError(this.getClass().toString(), e.getMessage(), (String) request.getSession().getAttribute("user"));
-          request.setAttribute("message", "The following database error occured:\n" + e.getMessage() +
-                                          this.databaseErrorMessage);
+          IntEnzMessenger.sendError(this.getClass().toString(), e.getMessage(),
+        		  (String) request.getSession().getAttribute("user"));
+          request.setAttribute("message", "The following database error occured:\n"
+        		  + e.getMessage() + this.databaseErrorMessage);
           return null;
         }
       }
@@ -419,9 +436,9 @@ public class SearchECCommand extends DatabaseCommand {
 
   private static class EnzymeEntryCacheKey {
     private EnzymeCommissionNumber ec;
-    private EnzymeStatusConstant status;
+    private Status status;
 
-    public EnzymeEntryCacheKey(EnzymeCommissionNumber ec, EnzymeStatusConstant status) {
+    public EnzymeEntryCacheKey(EnzymeCommissionNumber ec, Status status) {
       this.ec = ec;
       this.status = status;
     }
@@ -430,10 +447,13 @@ public class SearchECCommand extends DatabaseCommand {
       if (this == o) return true;
       if (!(o instanceof SearchECCommand.EnzymeEntryCacheKey)) return false;
 
-      final SearchECCommand.EnzymeEntryCacheKey enzymeEntryCacheKey = (SearchECCommand.EnzymeEntryCacheKey) o;
+      final SearchECCommand.EnzymeEntryCacheKey enzymeEntryCacheKey =
+    	  (SearchECCommand.EnzymeEntryCacheKey) o;
 
-      if (ec != null ? !ec.equals(enzymeEntryCacheKey.ec) : enzymeEntryCacheKey.ec != null) return false;
-      if (status != null ? !status.equals(enzymeEntryCacheKey.status) : enzymeEntryCacheKey.status != null) return false;
+      if (ec != null ? !ec.equals(enzymeEntryCacheKey.ec) : enzymeEntryCacheKey.ec != null)
+    	  return false;
+      if (status != null ? !status.equals(enzymeEntryCacheKey.status) : enzymeEntryCacheKey.status != null)
+    	  return false;
 
       return true;
     }

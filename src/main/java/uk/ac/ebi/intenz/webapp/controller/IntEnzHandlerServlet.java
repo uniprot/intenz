@@ -3,6 +3,7 @@ package uk.ac.ebi.intenz.webapp.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -81,7 +82,7 @@ public class IntEnzHandlerServlet extends HttpServlet {
 		}
 		this.getServletContext().setAttribute("spotlightsMap", sortedSpotlights);
 
-		this.getServletContext().setAttribute("views", View.values());
+		this.getServletContext().setAttribute("views", EnumSet.of(View.INTENZ, View.SIB));
 	} catch (Exception e) {
        LOGGER.error(e);
        throw new ServletException("Error during initialisation.", e);

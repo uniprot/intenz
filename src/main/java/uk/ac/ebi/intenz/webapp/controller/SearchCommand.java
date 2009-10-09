@@ -261,7 +261,8 @@ public class SearchCommand extends DatabaseCommand {
         String ec = ((Result) results.get(0)).ec;
         try {
             switch (EnzymeCommissionNumber.valueOf(ec).getType()) {
-                case EnzymeCommissionNumber.TYPE_ENZYME:
+                case ENZYME:
+                case PRELIMINARY:
                     String id = ((Result) results.get(0)).id;
                     forward("/query?cmd=SearchID&id=" + id);
                     return;

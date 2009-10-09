@@ -88,6 +88,10 @@
 		<c:if test="${entry.status eq 'PROPOSED'}">
 			<div class="centered">(proposal)</div>
 		</c:if>
+        <c:if test="${entry.status eq 'PRELIMINARY'}">
+            <div>This is a preliminary EC number. The content has not yet been
+            validated and included in the official IUBMB Enzyme list.</div>
+        </c:if>
 		<hr/>
 		<div><pre><i:createFfLinks><i:sibView entry="${entry}"/></i:createFfLinks></pre></div>
 	</c:when>
@@ -97,14 +101,17 @@
 				<%@include file="deleted-transferred.jspf" %>
 			</c:when>
 			<c:otherwise>
-				<c:choose>
+				<%@include file="intenz_view.jspf" %>
+<%--
+ 				<c:choose>
 					<c:when test="${param.view eq 'IUBMB'}">
 						<%@include file="iubmb_view.jspf" %>
 					</c:when>
-					<c:otherwise><%-- IntEnz view --%>
+					<c:otherwise>
 						<%@include file="intenz_view.jspf" %>
 					</c:otherwise>
 				</c:choose>
+ --%>
 			</c:otherwise>
 		</c:choose>
 	</c:otherwise>
