@@ -7,8 +7,8 @@
 	</properties>
 	<body>
 		<section name="IntEnz database">
-			<p>This module contains scripts and documentation about the
-                IntEnz database, currently running on an Oracle server.
+			<p>This module contains scripts, documentation and statistics about
+				the IntEnz database, currently running on an Oracle server.
 			</p>
 		</section>
 	</body>
