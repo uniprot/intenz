@@ -1,0 +1,26 @@
+<search
+ version="7.1"
+ name="IntEnz"
+ description="Search IntEnz database" 
+ action="http://www.ebi.ac.uk/intenz/query"
+ searchForm="http://www.ebi.ac.uk/intenz/search.jsp"
+ method="GET"
+ >
+
+<input name="sourceid" value="Mozilla-search">
+<input name="cmd" value="Search">
+<input name="q" user>
+
+<interpret 
+ resultListStart="<!-- RESULT LIST START -->"
+ resultListEnd="<!-- RESULT LIST END -->"
+ resultItemStart="<!-- RESULT ITEM START -->"
+ resultItemEnd="<!-- RESULT ITEM END -->"
+>
+</search>
+
+<browser
+ update="http://www.ebi.ac.uk/intenz/firefoxSearchPlugin/intenz.src" 
+ updateIcon="http://www.ebi.ac.uk/intenz/firefoxSearchPlugin/intenz.png" 
+ updateCheckDays="7" 
+>
