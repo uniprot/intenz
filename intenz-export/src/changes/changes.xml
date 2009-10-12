@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+	targetNamespace="http://maven.apache.org/changes/1.0.0"
+	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+
+    <properties>
+        <title>IntEnz export module change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+
+		<release version="1.3.1" date="2009-10-12"
+			description="Preliminary EC numbers in IntEnzXML">
+    		<action dev="rafalcan" type="update">
+    			Updated dependencies on rhea-mapper - which fixes potential
+    			issue with the new ChEBI database server layout -,
+    			intenz-xml - which adds a new attribute to better distinguish
+    			preliminary EC numbers - and intenz-biopax - which fixes
+    			issue with missing EC numbers.
+    		</action>
+    		<action dev="rafalcan" type="fix">
+    			Fixed direction symbol in XCHARS export.
+    		</action>
+		</release>
+
+    	<release version="1.3" date="2009-09-30"
+    		description="Preliminary EC numbers">
+    		<action dev="rafalcan" type="add">
+    			Added support for preliminary EC numbers in exported files.
+    		</action>
+    		<action dev="rafalcan" type="update">
+    			Updated dependencies on rhea.domain, rhea.mapper, intenz.mapper
+    			and biobabel.db modules.
+    		</action>
+    		<action dev="rafalcan" type="remove">
+    			Moved XML schema and generated code to a new independent module
+    			(intenz-xml).
+    		</action>
+    	</release>
+
+    	<release version="1.2.1" date="2009-06-25" description="Updated dependencies">
+    		<action dev="rafalcan" type="update">
+    			Updated dependencies on rhea.domain, rhea.mapper, intenz.mapper
+    			and biobabel.db modules.
+    		</action>
+    	</release>
+
+    	<release version="1.2" date="2009-05-07" description="Added BioPAX export">
+    		<action dev="rafalcan" type="add">
+    			Added BioPAX export.
+    		</action>
+    	</release>
+    
+    	<release version="1.1" date="2009-01-19" description="Fixed xchars export">
+    		<action dev="rafalcan" type="fix">
+    			Fixed export of fields containing xchars markup: it is
+    			not enclosed in CDATA sections anymore, and xchars tags
+    			take their namespace prefix. 
+    		</action>
+    	</release>
+
+        <release version="1.0.4" date="2008-08-19" description="Updated dependencies">
+            <action dev="rafalcan" type="update">
+                Updated dependency to latest mapper, translator and
+                biobabel.db modules.
+            </action>
+        </release>
+
+        <release version="1.0.3" date="2008-04-22" description="Updated dependency">
+            <action dev="rafalcan" type="update">
+                Updated dependencies to latest mapper (and domain) module.
+            </action>
+        </release>
+
+        <release version="1.0.2" date="2008-03-28" description="Updated dependency">
+            <action dev="rafalcan" type="update">
+                Updated dependency to latest mapper module.
+            </action>
+        </release>
+        
+    </body>
+</document>
