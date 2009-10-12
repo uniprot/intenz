@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+
+    <properties>
+        <title>IntEnz BioPAX change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+    	<release version="1.0.1" date="2009-10-12" description="EC numbers added">
+        	<action dev="rafalcan" type="add">
+        		Added EC numbers to all reactions (beforehand, for some reason
+        		only abstract reactions got EC numbers).
+        	</action>
+    	</release>
+    	<release version="1.0" date="2009-05-07" description="First release">
+        	<action dev="rafalcan" type="add">
+        		Added BioPAX module to IntEnz in order to export it as XML
+                including Rhea reactions.
+        	</action>
+    	</release>
+        
+    </body>
+</document>
