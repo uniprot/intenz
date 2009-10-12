@@ -199,8 +199,7 @@ public class BiopaxCatalysis {
             // bp:CONTROLLED
             biochemicalReaction controlled =
                 new BiopaxBiochemicalReaction(r, model, null/*FIXME*/, Biopax.RHEA_PREFIX).getBiopaxBiochemicalReaction();
-            // Abstract reactions don't have xrefs (not even to IntEnz):
-            if (r.isAbstract()) controlled.addEC_NUMBER(ec);
+            controlled.addEC_NUMBER(ec);
             c.addCONTROLLED(controlled);
             // bp:DIRECTION; XXX: what about irreversible reactions?
             switch(r.getDirection()){
