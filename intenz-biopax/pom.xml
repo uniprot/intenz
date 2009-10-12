@@ -7,7 +7,7 @@
   <groupId>uk.ac.ebi.intenz</groupId>
   <artifactId>intenz-biopax</artifactId>
   <name>BioPAX for IntEnz</name>
-  <version>1.0</version>
+  <version>1.0.1</version>
   <description>BioPAX module for IntEnz</description>
 
   <parent>
