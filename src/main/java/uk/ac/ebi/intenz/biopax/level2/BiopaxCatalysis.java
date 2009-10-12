@@ -199,7 +199,7 @@ public class BiopaxCatalysis {
             // bp:CONTROLLED
             biochemicalReaction controlled =
                 new BiopaxBiochemicalReaction(r, model, null/*FIXME*/, Biopax.RHEA_PREFIX).getBiopaxBiochemicalReaction();
-            controlled.addEC_NUMBER(ec);
+            controlled.addEC_NUMBER(ec); // XXX: this is already done in the constructor, actually
             c.addCONTROLLED(controlled);
             // bp:DIRECTION; XXX: what about irreversible reactions?
             switch(r.getDirection()){
