@@ -11,6 +11,14 @@
     
     <body>
 
+		<release version="1.0.1" date="2009-10-09"
+			description="Preliminary EC numbers enabled">
+    		<action dev="rafalcan" type="add">
+    			Added support for preliminary EC numbers as an XML attribute
+    			of entryType - enzyme/@ec4 attribute (it was already covered
+    			in the regular expression for ecNumberType - enzyme/ec element).
+    		</action>
+		</release>
     	<release version="1.0" date="2009-09-30"
     		description="First release">
     		<action dev="rafalcan" type="add">
