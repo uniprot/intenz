@@ -1,13 +1,27 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <document xmlns="http://maven.apache.org/changes/1.0.0"
 	targetNamespace="http://maven.apache.org/changes/1.0.0"
 	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
 
     <properties>
         <title>IntEnz export module change log</title>
-        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael AlcÃ¡ntara</author>
     </properties>
     <body>
+
+		<release version="1.3.1" date="2009-10-12"
+			description="Preliminary EC numbers in IntEnzXML">
+    		<action dev="rafalcan" type="update">
+    			Updated dependencies on rhea-mapper - which fixes potential
+    			issue with the new ChEBI database server layout -,
+    			intenz-xml - which adds a new attribute to better distinguish
+    			preliminary EC numbers - and intenz-biopax - which fixes
+    			issue with missing EC numbers.
+    		</action>
+    		<action dev="rafalcan" type="fix">
+    			Fixed direction symbol in XCHARS export.
+    		</action>
+		</release>
 
     	<release version="1.3" date="2009-09-30"
     		description="Preliminary EC numbers">

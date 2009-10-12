@@ -1,6 +1,3 @@
-/**
- * 
- */
 package uk.ac.ebi.intenz.tools.export;
 
 import java.io.OutputStream;
@@ -318,7 +315,9 @@ public class XmlExporter {
 			break;
 		case XCHARS:
 			// Add namespace prefix:
-			flavoured = s.replaceAll("(</?)(?! |-|/)","$1x:");
+			flavoured = s.replaceAll("(</?)(?! |-|/)","$1x:")
+				.replaceAll(" <(=|\\?)", " &lt;$1")
+				.replaceAll("(=|\\?)> ", "$1&gt; ");
 			break;
 		}
 		return flavoured;
@@ -385,6 +384,8 @@ public class XmlExporter {
         // EC number:
         jaxbEntry.setEc("EC ".concat(entry.getEc().toString()));
         jaxbEntry.setEc4(BigInteger.valueOf(entry.getEc().getEc4()));
+        jaxbEntry.setPreliminary(EnzymeCommissionNumber.isPreliminary(
+        		entry.getEc().toString()));
         
         if (entry.getHistory().isDeletedRootNode()){
             jaxbEntry.setDeleted(of.createInactiveStatusType());
