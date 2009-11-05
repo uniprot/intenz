@@ -25,21 +25,6 @@
 	</tr>
 </table>
 
-<%--
-<p><a href="query?cmd=SearchProposed">Proposed changes</a> to the enzyme classification:</p>
-
-<table class="contenttable_lmenu stats_table" style="width: 15em">
-	<tr>
-		<th class="headingleft" nowrap="nowrap">New entries</th>
-		<td align="right" style="text-align: right !important;">none</td>
-	</tr>
-	<tr>
-		<th class="headingleft" nowrap="nowrap">Changing entries</th>
-		<td align="right" style="text-align: right !important;">none</td>
-	</tr>
-</table>
- --%>
-
 <p>Main cross-referenced databases:</p>
 <table class="contenttable_lmenu stats_table" style="width: 30em">
 	<tr>
@@ -50,10 +35,10 @@
 	<tr>
 		<td class="leftsubheading">SWISSPROT
 			(<a class="externalLink" target="_blank"
-            href="http://www.uniprot.org">UniProt</a> 15.8)
+            href="http://www.uniprot.org">UniProt</a> 15.10)
 		</td>
-		<td align="right" style="text-align: right !important;">178893</td>
-		<td align="right" style="text-align: right !important;">186837</td>
+		<td align="right" style="text-align: right !important;">178951</td>
+		<td align="right" style="text-align: right !important;">186900</td>
 	</tr>
 	<tr>
 		<td class="leftsubheading">
