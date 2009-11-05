@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+
+    <properties>
+        <title>IntEnz public webapp change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+    
+    	<release version="54" date="2009-11-05" description="Release 54">
+    	</release>
+
+        <release version="53" date="2009-10-08" description="Release 53">
+        	<action dev="rafalcan" type="add">
+        		Added support for preliminary EC numbers.
+        	</action>
+        	<action dev="rafalcan" type="add">
+        		Added Rhea identifiers to the text index (part of the
+        		intenz-dbIndexing module, actually).
+        	</action>
+        	<action dev="rafalcan" type="remove">
+        		Removed IUBMB view and proposed entries list.
+        	</action>
+        </release>
+
+        <release version="52" date="2009-08-27" description="Release 52">
+        	<action dev="rafalcan" type="fix">
+        		Reorganised files. First release as open source.
+        	</action>
+        </release>
+
+        <release version="51" date="2009-08-05"
+        	description="Fixed problem with cofactors">
+        	<action dev="rafalcan" type="fix">
+        		Fixed problem with the tag file rendering linked cofactors.
+        	</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest version of ffwriter - which adds a list of
+        		exceptions to DE line for transferred and deleted entries -
+        		and biobabel.citations modules.
+        	</action>
+    	</release>
+     	
+        <release version="50" date="2009-06-25" description="Release 50">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest ffwriter version - which adds a new exception
+        		to DE line for a transferred entry -, mapper - which fixes issue
+        		with database cursors - and xchars-taglib.
+        	</action>
+        </release>
+
+        <release version="49.1" date="2009-06-10"
+        	description="Fixed PDBe (MSD) images URLs">
+        	<action dev="rafalcan" type="fix">
+        		Fixed the URL for spotlight images taken from PDBe (formerly
+        		MSD) website.
+        	</action>
+     	</release>
+     	
+        <release version="49" date="2009-05-11" description="Release 49">
+            <action dev="rafalcan" type="add">
+                Added Rhea reactions whenever available and public.
+            </action>
+            <action dev="rafalcan" type="add">
+                Added BioPAX export format to the downloads area.
+            </action>
+        </release>
+
+        <release version="48" date="2009-03-12" description="Release 48">
+        </release>
+
+        <release version="47" date="2009-01-28" description="Release 47">
+        	<action dev="rafalcan" type="fix">
+        		Showing missing enzyme name qualifiers (misprint, incorrect).
+        	</action>
+        	<action dev="rafalcan" type="fix">
+        		Sending help and error messages to the right recipients.
+        	</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest ffwriter version, which adds a new exception
+        		to DE line for a transferred entry.
+        	</action>
+        </release>
+    
+        <release version="46" date="2008-12-10" description="Release 46">
+        </release>
+    
+        <release version="45" date="2008-11-06" description="Release 45">
+        </release>
+    
+        <release version="44" date="2008-09-25" description="Release 44">
+        </release>
+    
+        <release version="43" date="2008-08-20" description="Release 43">
+        </release>
+    
+        <release version="42" date="2008-07-07" description="Release 42">
+        	<action dev="rafalcan" type="update">
+        		Updated dependencies in order to use latest xchars configuration
+        		and correct UniProt URLs.
+        	</action>
+        </release>
+    
+        <release version="41" date="2008-06-05" description="Release 41">
+        </release>
+    
+        <release version="40" date="2008-05-01" description="Release 40">
+        </release>
+
+        <release version="39.0.1" date="2008-04-09" description="Bugfix">
+        	<action dev="rafalcan" type="fix">
+        		Fixed NullPointerException when there are no results.
+        	</action>
+        	<action dev="rafalcan" type="fix">
+        		Fixed search results list: if searching for an EC number
+        		and there are more than one result, the exact match is
+        		first in the list, and highlighted.
+        	</action>
+        </release>
+
+        <release version="39.0" date="2008-03-31" description="Release 39">
+        </release>
+        
+        <release version="38.0" date="2008-02-18" description="Release 38">
+            <action dev="rafalcan" type="update">
+            	First release with a mavenized webapp. Using Rhea packages.
+            	Cofactors linked to ChEBI.
+            </action>
+        </release>
+        
+    </body>
+</document>

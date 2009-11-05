@@ -1,0 +1,42 @@
+<%@tag language="java" pageEncoding="UTF-8"
+    body-content="empty"
+    description="Renderer for a Rhea reaction" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="x" uri="http://www.ebi.ac.uk/xchars" %>
+<%@ taglib prefix="r" tagdir="/WEB-INF/tags/rhea" %>
+
+<%@attribute name="reaction"
+    description="The reaction to render."
+    required="true"
+    type="uk.ac.ebi.rhea.domain.Reaction" %>
+
+<div>
+    <span style="margin-right: 1em">[<a target="rheaFromIntEnz"
+        "href="http://www.ebi.ac.uk/rhea/reaction.xhtml?id=${reaction.id}">RHEA:${reaction.id}</a>]
+    </span>
+</div>
+<div style="display: table-row">
+    <r:reactionSide
+        participants="${reaction.direction eq 'RL'? reaction.rightSide : reaction.leftSide}" />
+    <c:choose>
+        <c:when test="${reaction.direction eq 'UN'}">&lt;?&gt;</c:when>
+        <c:when test="${reaction.direction eq 'BI'}">&lt;=&gt;</c:when>
+        <c:otherwise>=&gt;</c:otherwise>
+    </c:choose>
+    <r:reactionSide
+        participants="${reaction.direction eq 'RL'? reaction.leftSide : reaction.rightSide}" />
+</div>
+<c:if test="${reaction.complex}">
+    <ol>
+    <c:forEach var="child" items="${reaction.children}">
+        <li style="list-style-type: ${reaction.stepwise? 'decimal' : 'disc'}}">
+            ${child.coef} × [<a target="rheaFromIntEnz"
+            href="http://www.ebi.ac.uk/rhea/reaction.xhtml?id=${child.reaction.id}">RHEA:${child.reaction.id}</a>]
+            <x:translate>${fn:replace(fn:replace(fn:replace(
+                fn:replace(child.reaction.textualRepresentation, '<?>', '&lt;?&gt;'),
+                '<=>', '&lt;=&gt;'), '<=', '&lt;='), '=>', '=&gt;')}</x:translate>
+        </li>
+    </c:forEach>
+    </ol>
+</c:if>
