@@ -8,7 +8,7 @@
 	<artifactId>intenz-public</artifactId>
     <name>IntEnz public webapp</name>
 	<packaging>war</packaging>
-	<version>53</version>
+	<version>54</version>
 	<description>IntEnz public web application</description>
 
 	<parent>

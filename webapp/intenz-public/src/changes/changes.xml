@@ -8,6 +8,9 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    
+    	<release version="54" date="2009-11-05" description="Release 54">
+    	</release>
 
         <release version="53" date="2009-10-08" description="Release 53">
         	<action dev="rafalcan" type="add">
