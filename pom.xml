@@ -83,11 +83,6 @@
             <id>biobabel-repo</id>
             <url>${biobabel.maven.repo.url}</url>
         </repository>
-        <repository>
-            <id>java.net</id>
-            <url>https://maven-repository.dev.java.net/nonav/repository</url>
-            <layout>legacy</layout>
-        </repository>
 		<repository>
 			<id>dev.java.net.1</id>
 			<name>java.net repository for Maven1</name>
