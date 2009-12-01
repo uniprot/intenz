@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>uk.ac.ebi.intenz</groupId>
+	<artifactId>intenz-xml</artifactId>
+	<version>1.0.2</version>
+	<name>IntEnzXML</name>
+	<description>XML format for IntEnz.</description>
+
+	<parent>
+		<groupId>uk.ac.ebi.intenz</groupId>
+		<artifactId>intenz</artifactId>
+		<version>4.1</version>
+	</parent>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+					<configuration>
+						<generatePackage>
+							uk.ac.ebi.intenz.xml.jaxb
+						</generatePackage>
+					</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <!-- This plugin requires plenty of memory:
+                        export MAVEN_OPTS="-Xms256M -Xmx512M"
+                    and also a ${docflexHome} property set somewhere
+                    (settings.xml) -->
+                <groupId>docflex</groupId>
+                <artifactId>docflex-xml-maven-plugin</artifactId>
+                <version>1.0</version>
+                <configuration>
+                    <generatorParams>
+                        <param>-template</param>
+                        <param>${docflexHome}/templates/XSDDoc/FramedDoc.tpl</param>
+                        <param>-format</param>
+                        <param>HTML</param>
+                        <param>-nodialog</param>
+                        <param>-quiet</param>
+                        <param>${basedir}/src/main/resources/intenz.xsd</param>
+                        <param>${basedir}/src/main/resources/enzyme.xsd</param>
+                    </generatorParams>
+                    <outputFolder>xsdocs</outputFolder>
+                    <name>XSDoc</name>
+                    <description>XML schema for IntEnz</description>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>
