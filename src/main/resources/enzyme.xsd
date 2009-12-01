@@ -131,6 +131,11 @@
                     <xs:documentation>CAS number</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
+            <xs:enumeration value="Diagram">
+                <xs:annotation>
+                    <xs:documentation>Diagram</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
             <xs:enumeration value="ERGO">
                 <xs:annotation>
                     <xs:documentation>ERGO</xs:documentation>
@@ -156,29 +161,14 @@
                     <xs:documentation>MEROPS</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="NIST 74">
-                <xs:annotation>
-                    <xs:documentation>NIST 74</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="UM-BBD">
-                <xs:annotation>
-                    <xs:documentation>UM-BBD</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="WIT">
-                <xs:annotation>
-                    <xs:documentation>WIT</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="Diagram">
-                <xs:annotation>
-                    <xs:documentation>Diagram</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
             <xs:enumeration value="MIM">
                 <xs:annotation>
                     <xs:documentation>MIM</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NIST 74">
+                <xs:annotation>
+                    <xs:documentation>NIST 74</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="PROSITE">
@@ -186,9 +176,24 @@
                     <xs:documentation>PROSITE</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
+            <xs:enumeration value="Rhea">
+                <xs:annotation>
+                    <xs:documentation>Rhea</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="UM-BBD">
+                <xs:annotation>
+                    <xs:documentation>UM-BBD</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
             <xs:enumeration value="UniProt">
                 <xs:annotation>
                     <xs:documentation>UniProtKB/Swiss-Prot</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="WIT">
+                <xs:annotation>
+                    <xs:documentation>WIT</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
         </xs:restriction>
