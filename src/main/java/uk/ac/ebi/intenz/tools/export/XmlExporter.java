@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -86,6 +88,9 @@ public class XmlExporter {
 
     static enum Flavour { ASCII, XCHARS }
     
+    /**
+     * Elements known to (possibly) contain XML markup.
+     */
     static final String[] XML_CONTENT_ELEMENTS = new String[]{
             "http://www.ebi.ac.uk/intenz^accepted_name",
             "http://www.ebi.ac.uk/intenz^authors",
@@ -93,6 +98,7 @@ public class XmlExporter {
             "http://www.ebi.ac.uk/intenz^comment",
             "http://www.ebi.ac.uk/intenz^description",
             "http://www.ebi.ac.uk/intenz^editor",
+            "http://www.ebi.ac.uk/intenz^link",
             "http://www.ebi.ac.uk/intenz^name",
             "http://www.ebi.ac.uk/intenz^note",
             "http://www.ebi.ac.uk/intenz^reaction",
@@ -314,10 +320,16 @@ public class XmlExporter {
 			flavoured = XCharsASCIITranslator.getInstance().toASCII(s, true, true);
 			break;
 		case XCHARS:
-			// Add namespace prefix:
-			flavoured = s.replaceAll("(</?)(?! |-|/)","$1x:")
-				.replaceAll(" <(=|\\?)", " &lt;$1")
-				.replaceAll("(=|\\?)> ", "$1&gt; ");
+            Pattern p = Pattern.compile(" <?[?=]>? ");
+            Matcher m = p.matcher(s);
+            flavoured = s;
+            while (m.find()){
+            	String dirSign = m.group(0);
+            	String escaped = dirSign.replaceAll("<","&lt;").replaceAll(">","&gt;");
+            	flavoured = flavoured.replace(dirSign, escaped);
+            }
+			// Add xchars namespace prefix:
+			flavoured = flavoured.replaceAll("(</?)(?! |-|/)","$1x:");
 			break;
 		}
 		return flavoured;
@@ -497,6 +509,18 @@ public class XmlExporter {
             jaxbLink.getContent().add(link.getName());
             jaxbLink.setView(VIEWS.get(link.getView()));
             jaxbEnzyme.getLinks().getLink().add(jaxbLink);
+        }
+        // Cross-references to Rhea:
+        EnzymaticReactions er = entry.getEnzymaticReactions();
+        for (int i = 0; i < er.size(); i++) {
+            Reaction reaction = er.getReaction(i);
+            if (reaction.getId().equals(Reaction.NO_ID_ASSIGNED)) continue;
+            LinkType rheaLink = of.createLinkType();
+            rheaLink.setDb(DatabaseType.RHEA);
+            rheaLink.setAccessionNumber(reaction.getId().toString());
+            rheaLink.setView(ViewType.INTENZ);
+            rheaLink.getContent().add(getFlavoured(reaction.getTextualRepresentation()));
+            jaxbEnzyme.getLinks().getLink().add(rheaLink);
         }
     }
 
