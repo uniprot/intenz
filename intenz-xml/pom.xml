@@ -6,7 +6,7 @@
 
 	<groupId>uk.ac.ebi.intenz</groupId>
 	<artifactId>intenz-xml</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<name>IntEnzXML</name>
 	<description>XML format for IntEnz.</description>
 

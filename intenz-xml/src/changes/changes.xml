@@ -11,6 +11,12 @@
     
     <body>
 
+		<release version="1.0.2" date="2009-12-01"
+			description="Added Rhea to databases enumeration.">
+    		<action dev="rafalcan" type="add">
+    			Added Rhea to the enumeration of databases used for cross references.
+    		</action>
+		</release>
 		<release version="1.0.1" date="2009-10-09"
 			description="Preliminary EC numbers enabled">
     		<action dev="rafalcan" type="add">
