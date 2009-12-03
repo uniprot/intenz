@@ -64,6 +64,7 @@ import uk.ac.ebi.intenz.xml.jaxb.ReferenceType;
 import uk.ac.ebi.intenz.xml.jaxb.ViewType;
 import uk.ac.ebi.intenz.xml.jaxb.ViewableType;
 import uk.ac.ebi.intenz.xml.jaxb.XmlContentType;
+import uk.ac.ebi.rhea.domain.Database;
 import uk.ac.ebi.rhea.domain.Reaction;
 
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
@@ -519,6 +520,7 @@ public class XmlExporter {
             rheaLink.setDb(DatabaseType.RHEA);
             rheaLink.setAccessionNumber(reaction.getId().toString());
             rheaLink.setView(ViewType.INTENZ);
+            rheaLink.setHref(Database.RHEA.getEntryUrl(reaction.getId().toString()));
             rheaLink.getContent().add(getFlavoured(reaction.getTextualRepresentation()));
             jaxbEnzyme.getLinks().getLink().add(rheaLink);
         }
