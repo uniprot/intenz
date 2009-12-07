@@ -61,8 +61,8 @@
 	<h2>Acknowledgements</h2>
 	<p>
 	<img src="images/eu_flag.jpg" style="margin: 0em 1em 1em 1em; float: left;" alt="EU"/>
-    The project was supported by the European Commission under FELICS,
-    contract number 021902 (RII3) within the Research Infrastructure Action
-	of the FP6 "Structuring the European Research Area" Programme.
+    IntEnz is funded by the European Commission under SLING, grant agreement
+    number 226073 (Integrating Activity) within Research Infrastructures of the
+    FP7 Capacities Specific Programme.
 	</p>
 </div>
