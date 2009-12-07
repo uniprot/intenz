@@ -1,0 +1,48 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="x" uri="http://www.ebi.ac.uk/xchars" %>
+<%@ taglib prefix="i" tagdir="/WEB-INF/tags/intenz" %>
+<%@ taglib prefix="b" tagdir="/WEB-INF/tags" %>
+
+<c:set var="entry" value="${requestScope['result']}"/>
+<c:set var="historyEvent" value="${requestScope['result'].history.latestHistoryEventOfRoot}" />
+
+<c:if test="${(empty param.view or param.view eq 'INTENZ') and entry.status ne 'PROPOSED'}">
+	<%@include file="xmlLink.jspf" %>
+</c:if>
+
+<div style="text-align: center; font-weight: bold; display: table; width: 100%">
+	${param.view eq 'IUBMB'? 'NC-IUBMB' : 'IntEnz'} Enzyme Nomenclature<br/>
+	<span style="font-size: 150%">EC ${entry.ec}</span>
+	<c:if test="${entry.status eq 'PROPOSED'}"><br/>(proposal)</c:if>
+    <c:if test="${entry.status eq 'PRELIMINARY'}">
+        <div>This is a preliminary EC number. The content was
+        validated and included in the official IUBMB Enzyme list.</div>
+    </c:if>
+</div>
+
+<table width="100%" border="0">
+	<tr>
+		<td><b><b:ucfl>${historyEvent.eventClass}</b:ucfl> entry</b>:
+			<c:if test="${not empty entry.commonName.name}">
+				<x:translate>${entry.commonName.name}</x:translate>.
+			</c:if>
+			<c:if test="${not empty historyEvent.note}">
+				<b:ucfl><i:cleanLinks>
+					${historyEvent.note}${fn:endsWith(historyEvent.note, ".")? '' : '.' }
+				</i:cleanLinks></b:ucfl>
+				<br/>
+			</c:if>
+			<c:if test="${historyEvent.eventClass == 'transferred'}">
+				<i>Transferred to EC <i:linkEc>${historyEvent.afterNode.enzymeEntry.ec}</i:linkEc></i>
+			</c:if>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">
+			<b class="centered">[${entry.history.rootNode.historyLine}]</b>
+		</td>
+	</tr>
+</table>
