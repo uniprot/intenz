@@ -9,6 +9,13 @@
     </properties>
     <body>
     
+    	<release version="55" date="2009-12-04" description="Release 55">
+        	<action dev="rafalcan" type="add">
+        		Added Rhea cross-references to the IntEnzXML export (part of
+                the intenz-export module, actually).
+        	</action>
+    	</release>
+    
     	<release version="54" date="2009-11-05" description="Release 54">
     	</release>
 

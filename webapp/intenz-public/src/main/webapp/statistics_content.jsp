@@ -35,18 +35,18 @@
 	<tr>
 		<td class="leftsubheading">SWISSPROT
 			(<a class="externalLink" target="_blank"
-            href="http://www.uniprot.org">UniProt</a> 15.10)
+            href="http://www.uniprot.org">UniProt</a> 15.11)
 		</td>
-		<td align="right" style="text-align: right !important;">178951</td>
-		<td align="right" style="text-align: right !important;">186900</td>
+		<td align="right" style="text-align: right !important;">179881</td>
+		<td align="right" style="text-align: right !important;">187863</td>
 	</tr>
 	<tr>
 		<td class="leftsubheading">
 			<a class="externalLink" target="_blank"
                href="http://www.ebi.ac.uk/GO/index.html">GO</a>
 		</td>
-		<td align="right" style="text-align: right !important;">3791</td>
-		<td align="right" style="text-align: right !important;">3796</td>
+		<td align="right" style="text-align: right !important;">3792</td>
+		<td align="right" style="text-align: right !important;">3797</td>
 	</tr>
 
 	<tr>
