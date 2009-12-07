@@ -513,16 +513,20 @@ public class XmlExporter {
         }
         // Cross-references to Rhea:
         EnzymaticReactions er = entry.getEnzymaticReactions();
-        for (int i = 0; i < er.size(); i++) {
-            Reaction reaction = er.getReaction(i);
-            if (reaction.getId().equals(Reaction.NO_ID_ASSIGNED)) continue;
-            LinkType rheaLink = of.createLinkType();
-            rheaLink.setDb(DatabaseType.RHEA);
-            rheaLink.setAccessionNumber(reaction.getId().toString());
-            rheaLink.setView(ViewType.INTENZ);
-            rheaLink.setHref(Database.RHEA.getEntryUrl(reaction.getId().toString()));
-            rheaLink.getContent().add(getFlavoured(reaction.getTextualRepresentation()));
-            jaxbEnzyme.getLinks().getLink().add(rheaLink);
+        if (er != null && er.size() > 0){
+            if (jaxbEnzyme.getLinks() == null)
+                jaxbEnzyme.setLinks(of.createLinks());
+            for (int i = 0; i < er.size(); i++) {
+                Reaction reaction = er.getReaction(i);
+                if (reaction.getId().equals(Reaction.NO_ID_ASSIGNED)) continue;
+                LinkType rheaLink = of.createLinkType();
+                rheaLink.setDb(DatabaseType.RHEA);
+                rheaLink.setAccessionNumber(reaction.getId().toString());
+                rheaLink.setView(ViewType.INTENZ);
+                rheaLink.setHref(Database.RHEA.getEntryUrl(reaction.getId().toString()));
+                rheaLink.getContent().add(getFlavoured(reaction.getTextualRepresentation()));
+                jaxbEnzyme.getLinks().getLink().add(rheaLink);
+            }
         }
     }
 
