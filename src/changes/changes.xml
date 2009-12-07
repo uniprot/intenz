@@ -7,6 +7,15 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.0.2" date="2009-12-07" description="Bug fix">
+    		<action dev="rafalcan" type="fix">
+    			Fixed size of columns in audit table (did not match the main
+    			table and the trigger caused an error).
+    		</action>
+    		<action dev="rafalcan" type="add">
+    			Added function to get the Rhea family ID.
+   			</action>
+    	</release>
     	<release version="1.0.1" date="2009-10-08"
     		description="Database grants">
         	<action dev="rafalcan" type="add">
