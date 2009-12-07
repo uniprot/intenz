@@ -8,6 +8,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.2.1" date="2009-12-03"
+        	description="Bug fix.">
+            <action dev="rafalcan" type="fix">
+                Fixed bug in preliminary EC number detection.
+            </action>
+        </release>
 
         <release version="1.2" date="2009-10-08"
         	description="Preliminary EC numbers.">
