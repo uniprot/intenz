@@ -103,7 +103,7 @@ public class ID2EC {
                 final String ec = new StringBuilder(rs.getString("ec1"))
                 	.append('.').append(rs.getString("ec2"))
                 	.append('.').append(rs.getString("ec3"))
-                	.append('.').append(Status.valueOf(status).equals(Status.PM)? "n" : "")
+                	.append('.').append(status.equals("PM")? "n" : "")
                 	.append(rs.getString("ec4"))
                 	.toString();
                 final String source = rs.getString("source");
