@@ -15,9 +15,9 @@
 	<!-- Test application will have a watermark: -->
 	<%@ include file="../pages/testWatermark.jsp" %>
 
-    <script type="text/javascript" src="resources/intenz.js"></script>
-    <script type="text/javascript" src="resources/tabs.js"></script>
-    <script type="text/javascript" src="resources/master.js"></script>
+    <script type="text/javascript" src="js/intenz.js"></script>
+    <script type="text/javascript" src="js/tabs.js"></script>
+    <script type="text/javascript" src="js/master.js"></script>
 
     <!-- ULTIMATE DROP DOWN MENU Version 4.2 by Brothercake -->
     <!-- http://www.udm4.com/ -->

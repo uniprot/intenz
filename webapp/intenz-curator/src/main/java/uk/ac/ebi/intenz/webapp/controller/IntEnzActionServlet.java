@@ -103,16 +103,11 @@ public class IntEnzActionServlet extends ActionServlet {
         Connection chebiProdCon = null, chebiPubCon = null;
         IChebiHelper chebiProdHelper = null, chebiPubHelper = null;
         if (httpServletRequest.getSession().getAttribute("chebiHelper") == null){
-            try {
-                chebiProdCon = establishChebiProductionConnection(httpServletRequest);
-                chebiProdHelper = new ChebiDbHelper(chebiProdCon);
-                chebiPubCon = establishChebiPublicConnection(httpServletRequest);
-                chebiPubHelper = new ChebiDbHelper(chebiPubCon);
-                httpServletRequest.getSession().setAttribute("chebiHelper", chebiProdHelper);
-            } catch (SQLException e) {
-                LOGGER.error("Unable to connect to ChEBI database", e);
-                throw new ServletException(e);
-            }
+            chebiProdCon = establishChebiProductionConnection(httpServletRequest);
+			chebiProdHelper = new ChebiDbHelper(chebiProdCon);
+			chebiPubCon = establishChebiPublicConnection(httpServletRequest);
+			chebiPubHelper = new ChebiDbHelper(chebiPubCon);
+			httpServletRequest.getSession().setAttribute("chebiHelper", chebiProdHelper);
         }
         if (httpServletRequest.getSession().getAttribute("chebiUpdater") == null) {
             RheaCompoundDbWriter compoundWriter =
@@ -142,7 +137,7 @@ public class IntEnzActionServlet extends ActionServlet {
             con = (Connection) request.getSession().getAttribute("connection");
         } else { // Create new connection and store in the session.
             DatabaseInstance odbi = OracleDatabaseInstance.getInstance(
-                this.getServletConfig().getServletContext().getInitParameter("dbConfig"));
+                this.getServletConfig().getServletContext().getInitParameter("intenz.db.config"));
             Properties props = new Properties();
             props.put("user", odbi.getUser());
             props.put("password", odbi.getPassword());

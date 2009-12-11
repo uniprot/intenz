@@ -85,9 +85,6 @@
             <ul id="menuList">
               <li class="selected"><a class="selected" name="here" href="#here"><img
               	border="0" width="14" height="12" src="images/blue_bullet.gif"/>&nbsp;IntEnz*</a></li>
-              <li><a href="${preview? 'populatePreviewIubmbEnzymeDTO.do' : tabUrl}${preview? '' : '&view=IUBMB'}"
-              	title="NC-IUBMB view of this enzyme"><img
-              		width="14" height="12" border="0" src="images/green_bullet.gif"/>&nbsp;NC-IUBMB</a></li>
               <li><a href="${preview? 'populatePreviewSibEnzymeDTO.do' : tabUrl}${preview? '' : '&view=SIB'}"
               	title="ENZYME view of this enzyme"><img
               		width="14" height="12" border="0" src="images/red_bullet.gif"/>&nbsp;ENZYME</a></li>

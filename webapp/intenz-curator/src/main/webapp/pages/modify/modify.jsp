@@ -10,13 +10,13 @@
 <%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script type="text/javascript" src="resources/form.js"></script>
+<script type="text/javascript" src="js/form.js"></script>
 <script type="text/javascript" src="resources/jt/jt_.js"></script>
 <script type="text/javascript" src="resources/jt/dom-drag.js"></script>
 <script type="text/javascript" src="resources/jt/jt_DialogBox.js"></script>
 <script type="text/javascript" src="resources/jt/jt_AppDialogs.js"></script>
 <script type="text/javascript" src="resources/jt/jt_AppDialogs.js"></script>
-<script type="text/javascript" src="resources/rheaSelector.js"></script>
+<script type="text/javascript" src="js/rheaSelector.js"></script>
 
 <style>
 <!--
@@ -38,7 +38,7 @@
               <logic:messagesPresent>
                 <td>
                   <html:messages id="error" header="errors.header" footer="errors.footer">
-                  	<li class="error"><bean:write name="error" filter="true"/></li>
+                  	<li class="error"><bean:write name="error" filter="false"/></li>
                   </html:messages>
                 </td>
               </logic:messagesPresent>
@@ -378,13 +378,11 @@
                             <%-- 'Plus' buttons --%>
                             <td colspan="4" width="100%">
                             <td valign="top">
-                            	<c:if test="${not enzymeDTO.preliminaryEc}">
                               <input title="Add free text reaction"
                               		 id="addFtReaction"
                                      type="button"
                                      value="+"
                                      onclick="formButtonAction('plus', 'reactions', '<%= enzymeDTO.getReactionDtos().size() %>', '<%=formButtonAction%>')"/>
-                            	</c:if>
                               <button title="Add Rhea reaction"
                                      type="button"
                                      onclick="openRheactionSelector(event, '<%=formButtonAction%>')"/>

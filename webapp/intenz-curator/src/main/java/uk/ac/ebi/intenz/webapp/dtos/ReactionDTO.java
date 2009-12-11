@@ -142,7 +142,9 @@ public String getTextualRepresentation() {
   }
 
   public void setTextualRepresentation(String textualRepresentation) {
-    this.textualRepresentation = textualRepresentation;
+    this.textualRepresentation = textualRepresentation
+    	.replaceAll("[\r\n]+(.)", " $1")
+		.replaceAll("[\r\n]+$", "");
   }
 
   public String getXmlTextualRepresentation() {
@@ -150,7 +152,9 @@ public String getTextualRepresentation() {
   }
 
   public void setXmlTextualRepresentation(String xmlTextualRepresentation) {
-    this.xmlTextualRepresentation = xmlTextualRepresentation;
+    this.xmlTextualRepresentation = xmlTextualRepresentation
+		.replaceAll("[\r\n]+(.)", " $1")
+		.replaceAll("[\r\n]+$", "");
   }
 
   public String getOrderIn() {

@@ -5,7 +5,7 @@
     
     <context-param>
         <description>Configuration for database connection.</description>
-        <param-name>dbConfig</param-name>
+        <param-name>intenz.db.config</param-name>
         <param-value>intenz-db-dev</param-value>
     </context-param>
     
