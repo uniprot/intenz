@@ -458,6 +458,10 @@ a.link:link, a.link:visited, a.link:active, a.link:hover {
   COLOR: #00aa06;
 }
 
+.preliminary {
+    color: #00aaaa;
+}
+
 .inactive {
   COLOR: #ff0000;
   FONT-WEIGHT: bold;

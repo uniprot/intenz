@@ -23,7 +23,7 @@ function endSearchCompound(ajaxResponse){
 	var compoundList = document.getElementById('compoundSearchResults');
 	var compoundListSize = compoundList.getElementsByTagName('div').length;
 	var data = document.getElementById('compoundData');
-	hideCompoundSearchIndicator();
+	hideIndicator(ajaxResponse);
 	if (compoundListSize == 0){
 		data.textContent = '(No matching compound)';
 		top.document.getElementById('cofactorId').value = '';
@@ -37,5 +37,5 @@ function endGetCompound(ajaxResponse){
 	var cofactorId = document.getElementById('compoundId').value;
 	if (cofactorId == 0) cofactorId = document.getElementById('compoundXrefAcc').value;
 	top.document.getElementById('cofactorId').value = cofactorId;
-	hideCompoundViewIndicator();
+	hideIndicator(ajaxResponse);
 }

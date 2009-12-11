@@ -30,9 +30,6 @@
               <li><a href="${preview? 'populatePreviewIntEnzEnzymeDTO.do' : tabUrl}${preview? '' : '&view=INTENZ'}"
               	title="IntEnz view of this enzyme containing all available data"><img
               		border="0" width="14" height="12" src="images/blue_bullet.gif"/>&nbsp;IntEnz*</a></li>
-              <li><a href="${preview? 'populatePreviewIubmbEnzymeDTO.do' : tabUrl}${preview? '' : '&view=IUBMB'}"
-              	title="NC-IUBMB view of this enzyme"><img
-              		border="0" width="14" height="12" src="images/green_bullet.gif"/>&nbsp;NC-IUBMB</a></li>
               <li class="selected"><a class="selected" name="here" href="#here"><img border="0" width="14" height="12" src="images/red_bullet.gif"/>&nbsp;ENZYME</a></li>
             </ul>
           </div>

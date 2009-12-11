@@ -43,7 +43,6 @@
           <div id="menuDiv">
             <ul id="menuList">
               <li class="selected"><a class="selected" name="here" href="#here"><img border="0" width="14" height="12" src="images/blue_bullet.gif"/>&nbsp;IntEnz</a></li>
-              <li><a href="searchId.do?id=<bean:write name="enzymeDTO" property="id"/>&view=IUBMB&<%=Constants.TOKEN_KEY%>=<%= request.getAttribute(Constants.TOKEN_KEY) %>" title="NC-IUBMB view of this enzyme"><img width="14" height="12" border="0" src="images/green_bullet.gif"/>&nbsp;NC-IUBMB</a></li>
               <li><a href="searchId.do?id=<bean:write name="enzymeDTO" property="id"/>&view=SIB&<%=Constants.TOKEN_KEY%>=<%= request.getAttribute(Constants.TOKEN_KEY) %>" title="ENZYME view of this enzyme"><img width="14" height="12" border="0" src="images/red_bullet.gif"/>&nbsp;ENZYME</a></li>
             </ul>
           </div>

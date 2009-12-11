@@ -15,8 +15,8 @@
 	<!-- Test application will have a watermark: -->
 	<%@ include file="../pages/testWatermark.jsp" %>
 	
-    <script type="text/javascript" src="resources/intenz.js"></script>
-    <script type="text/javascript" src="resources/master.js"></script>
+    <script type="text/javascript" src="js/intenz.js"></script>
+    <script type="text/javascript" src="js/master.js"></script>
 
 	<script type="text/javascript" src="xcharsPalette/xcharsPopup.js"></script>
 
