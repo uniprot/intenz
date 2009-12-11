@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    
+    <display-name>IntEnz - Curator tool</display-name>
+    
+    <context-param>
+        <description>Configuration for database connection.</description>
+        <param-name>intenz.db.config</param-name>
+        <param-value>intenz-db-dev</param-value>
+    </context-param>
+    
+    <context-param>
+        <description>Name of properties file with the parameters for ChEBI
+            database connection.</description>
+        <param-name>chebi.prod.db.config</param-name>
+        <param-value>chebi-db-prod</param-value>
+    </context-param>
+
+    <context-param>
+        <description>Name of the properties file with the configuration to connect
+        to the public ChEBI database.</description>
+        <param-name>chebi.pub.db.config</param-name>
+        <param-value>chebi-db-public</param-value>
+    </context-param>
+    
+    <context-param>
+        <description>URL for Rhea curator tool</description>
+        <param-name>rhea.curator.url</param-name>
+        <param-value>http://www.ebi.ac.uk/intenz/curation/rhea</param-value>
+    </context-param>
+    
+    <!-- Standard Action Servlet Configuration -->
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>uk.ac.ebi.intenz.webapp.controller.IntEnzActionServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>
+				/WEB-INF/config/find-struts1-config.xml,
+				/WEB-INF/config/search-struts1-config.xml,
+				/WEB-INF/config/chebiIdAssigner-config.xml,
+				/WEB-INF/config/intenz-curator-config.xml
+			</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>2</param-value>
+        </init-param>
+        <init-param>
+            <param-name>detail</param-name>
+            <param-value>2</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    
+    <!-- Standard Action Servlet Mapping -->
+    <servlet-mapping>
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    
+    <welcome-file-list>
+        <welcome-file>init.jsp</welcome-file>
+    </welcome-file-list>
+    
+    
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Init page</web-resource-name>
+            <url-pattern>/init.jsp</url-pattern>
+        </web-resource-collection>
+        
+        <web-resource-collection>
+            <web-resource-name>All Struts Actions</web-resource-name>
+            <url-pattern>*.do</url-pattern>
+        </web-resource-collection>
+        
+        <auth-constraint>
+            <role-name>intenz curator</role-name>
+            <role-name>intenz committee</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/logon.jsp</form-login-page>
+            <form-error-page>/loginError.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    
+    <security-role>
+        <description>The curator role enables a user to access all pages.</description>
+        <role-name>intenz curator</role-name>
+    </security-role>
+    
+    <security-role>
+        <description>The committee role only grants restricted access.</description>
+        <role-name>intenz committee</role-name>
+    </security-role>
+</web-app>
