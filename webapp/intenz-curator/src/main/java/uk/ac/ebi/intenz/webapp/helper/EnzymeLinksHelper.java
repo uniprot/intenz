@@ -325,6 +325,7 @@ public static String renderIubmbLinks(List links) {
     html.append(XrefDatabaseConstant.UNDEF.getDisplayName());
     html.append("</option>\n");
 
+    /*
     // BRENDA
     if (databaseName.equals(XrefDatabaseConstant.BRENDA.getDisplayName()))
       html.append("  <option selected=\"selected\" value=\"");
@@ -343,7 +344,7 @@ public static String renderIubmbLinks(List links) {
 		.append("\">")
 		.append(XrefDatabaseConstant.METACYC.getDisplayName())
 		.append("</option>\n");
-
+    */
     // GO
 //    if (databaseName.equals(XrefDatabaseConstant.GO.getDisplayName()))
 //      html.append("  <option selected=\"selected\" value=\"");
@@ -364,6 +365,7 @@ public static String renderIubmbLinks(List links) {
     html.append(XrefDatabaseConstant.NIST74.getDisplayName());
     html.append("</option>\n");
 
+    /*
     // KEGG
     if (databaseName.equals(XrefDatabaseConstant.KEGG.getDisplayName()))
       html.append("  <option selected=\"selected\" value=\"");
@@ -373,7 +375,9 @@ public static String renderIubmbLinks(List links) {
     html.append("\">");
     html.append(XrefDatabaseConstant.KEGG.getDisplayName());
     html.append("</option>\n");
+    */
 
+    /*
     // ERGO
     if (databaseName.equals(XrefDatabaseConstant.ERGO.getDisplayName()))
       html.append("  <option selected=\"selected\" value=\"");
@@ -383,6 +387,7 @@ public static String renderIubmbLinks(List links) {
     html.append("\">");
     html.append(XrefDatabaseConstant.ERGO.getDisplayName());
     html.append("</option>\n");
+    */
 
     // CAS
     if (databaseName.equals(XrefDatabaseConstant.CAS.getDisplayName()))
@@ -444,6 +449,7 @@ public static String renderIubmbLinks(List links) {
     html.append(XrefDatabaseConstant.MIM.getDisplayName());
     html.append("</option>\n");
 
+    /*
     // PDB
     if (databaseName.equals(XrefDatabaseConstant.PDB.getDisplayName()))
       html.append("  <option selected=\"selected\" value=\"");
@@ -453,6 +459,7 @@ public static String renderIubmbLinks(List links) {
     html.append("\">");
     html.append(XrefDatabaseConstant.PDB.getDisplayName());
     html.append("</option>\n");
+    */
 
     html.append("</select>\n</td>\n");
 

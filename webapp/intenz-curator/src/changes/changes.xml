@@ -8,6 +8,20 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.2.1" date="" description="">
+    		<action dev="rafalcan" type="update">
+    			Updated to latest version of intenz-core and displaytag.
+    		</action>
+    		<action dev="rafalcan" type="fix">
+    			Fixed overlay of war dependencies to avoid clashing versions
+    			of dependencies (esp. log4j).
+    		</action>
+    		<action dev="rafalcan" type="fix">
+                Removed static links (based on EC number) - which are
+                automatically generated - from the database and the
+                drop-down selector.
+            </action> 
+        </release>
     	<release version="4.2" date="2009-12-11"
             description="Preliminary EC numbers and maintainable authentication">
             <action dev="rafalcan" type="add">
