@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>IntEnz curator tool change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+    </properties>
+    <body>
+    	<release version="4.2.1" date="2009-12-17" description="Bug fixes.">
+    		<action dev="rafalcan" type="update">
+    			Updated to latest version of intenz-core and displaytag.
+    		</action>
+    		<action dev="rafalcan" type="fix">
+    			Fixed overlay of war dependencies to avoid clashing versions
+    			of dependencies (esp. log4j).
+    		</action>
+    		<action dev="rafalcan" type="fix">
+                Removed static links (based on EC number) - which are
+                automatically generated - from the database and the
+                drop-down selector.
+            </action> 
+        </release>
+    	<release version="4.2" date="2009-12-11"
+            description="Preliminary EC numbers and maintainable authentication">
+            <action dev="rafalcan" type="add">
+            	Added support for preliminary EC numbers: create, amend, transfer,
+            	search, list, link to other preliminary ECs.
+            </action>
+    		<action dev="rafalcan" type="update">
+    			Updated dependencies.
+    		</action>
+    		<action dev="rafalcan" type="fix">
+    			Refactored authentication:
+    			Users identify themselves at login using the method configured
+    			in the application container (web.xml or context file), so that
+    			their passwords are stored in just one place, not three.
+    			All of the users share the database user, but their work is
+    			distinguished in the audit tables by their v$session.osuser
+    			oracle property (now set when opening the connection).
+    		</action>
+    		<action dev="rafalcan" type="fix">
+    			Textual reactions are now stripped of any line feed characters
+    			to avoid problems in the exported enzyme.dat.
+    		</action>
+    	</release>
+
+    	<release version="4.1.3" date="2009-01-26"
+            description="Fixed dependency">
+    		<action dev="rafalcan" type="fix">
+    			Removed dependency on citations-1.0 which clashed with
+    			transitive dependency on citations-1.0.3.
+    		</action>
+    	</release>
+    	
+    	<release version="4.1.2" date="2009-01-19"
+            description="Updated dependency">
+    		<action dev="rafalcan" type="update">
+    			Updated dependency to biobabel.db to fix an issue
+                related to tnsnames.ora file not found.
+    		</action>
+    	</release>
+
+    	<release version="4.1.1" date="2009-01-14" description="Fixed bug">
+    		<action dev="rafalcan" type="fix">
+    			Fixed bug related to wrong name given to a session attribute.
+    		</action>
+    	</release>
+
+	   	<release version="4.1" date="2009-01-13" description="Cofactor handling">
+    		<action dev="rafalcan" type="add">
+    			Added list of cofactors in IntEnz to allow their re-mapping.
+    		</action>
+    	</release>
+
+    	<release version="4.0.10" date="2008-07-03"
+    		description="Xchars update">
+    		<action dev="rafalcan" type="update">
+    			Updated to latest version of xchars-config.
+    		</action>
+    		<action dev="rafalcan" type="fix">
+    			Excluded xchars jar files from war dependencies, as they
+    			accumulated different versions in the WEB-INF/lib directory.
+    		</action>
+		</release>
+
+    	<release version="4.0.9" date="2008-06-09"
+    		description="Bug fix">
+    		<action dev="rafalcan" type="fix">
+    			Fixed bug introduced in previous release, related to reaction status.
+    		</action>
+		</release>
+		
+    	<release version="4.0.8" date="2008-05-30"
+    		description="Rheactions colour code, ORed cofactors">
+    		<action dev="rafalcan" type="fix">
+    			Fixed problem with addition of complex cofactors (ANDed/ORed)
+    			when the compound name included '+' or parentheses.
+    		</action>
+    		<action dev="rafalcan" type="update">
+    			Updated to latest intenz.mapper to use rhea mapper
+    			interfaces.
+    		</action>
+    		<action dev="rafalcan" type="update">
+    			Updated to latest rhea.search module to use Rhea colour
+    			code for reaction status.
+    		</action>
+    	</release>
+
+    	<release version="4.0.7" date="2008-04-25" description="ORed cofactors">
+    		<action dev="rafalcan" type="add">
+    			Added functionality to add ORed cofactors.
+    		</action>
+    	</release>
+
+    	<release version="4.0.6" date="2008-04-23" description="">
+    		<action dev="rafalcan" type="update">
+    			Updated to latest rhea modules and intenz.mapper to fix a bug
+    			due to new xrefs and update management in rheactions.
+    		</action>
+    	</release>
+    	
+    	<release version="4.0.5" date="2008-04-03" description="Avoiding cofactor loss">
+    		<action dev="rafalcan" type="add">
+    			Added check to avoid losing cofactors when committing an entry.
+    		</action>
+    		<action dev="rafalcan" type="update">
+    			Updated to latest mapper version.
+    		</action>
+    		<action dev="rafalcan" type="add">
+    			Added menu item for curator manual.
+    		</action>
+    	</release>
+    	
+        <release version="4.0.4" date="2008-03-31" description="Fixed cofactor handling">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest biobabel util package which fixes a bug in the
+        		way OperatorSets are parsed from Strings. This made cofactors to
+        		disappear in some cases.
+        	</action>
+        	<action dev="rafalcan" type="fix">
+        		Fixed display and linking of ORed/ANDed cofactors.
+        	</action>
+        </release>
+        
+        <release version="4.0.3" date="2008-03-12" description="Fixed complex reactions display">
+            <action dev="rafalcan" type="fix">
+                Complex reactions are shown properly, that is with their child reactions.
+            </action>
+        </release>
+        
+        <release version="4.0.2" date="2008-02-21" description="Removed unused code">
+            <action dev="rafalcan" type="remove">
+                Moved unused helper classes to the db-indexing module.
+            </action>
+        </release>
+
+        <release version="4.0.1" date="2008-02-15" description="Fixed cofactors">
+            <action dev="rafalcan" type="fix">
+                Fixed cofactor handling and displaying.
+            </action>
+        </release>
+        
+    </body>
+</document>
