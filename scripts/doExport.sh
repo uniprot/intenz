@@ -21,7 +21,7 @@ mvn clean package
 
 PROXY_OPTS=$(grep 'ebi.proxy.java.options' $INTENZ_CONFIG_DIR/ebi-proxy.properties | cut -d '=' -f 2)
 
-MEM_OPTS="-Xmx512M"
+MEM_OPTS="-Xmx1024M"
 
 CP=$CONFIG_DIR:$INTENZ_CONFIG_DIR:$INTENZ_PUBLIC_DIR/src/main/resources
 for JAR in $EXPORT_HOME/target/*.jar
