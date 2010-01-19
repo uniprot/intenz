@@ -6,7 +6,7 @@
 	
 	<groupId>uk.ac.ebi.intenz.webapp</groupId>
 	<artifactId>intenz-curator</artifactId>
-	<version>4.2.1</version>
+	<version>4.2.2</version>
     <name>IntEnz curator webapp</name>
 	<description>IntEnz curator tool - Web application</description>
 	<packaging>war</packaging>
@@ -122,7 +122,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-ffwriter</artifactId>
-			<version>1.1</version>
+			<version>1.1.1</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>antlr</artifactId>
