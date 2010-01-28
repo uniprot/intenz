@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Intenz">
+
+	<skin>
+		<groupId>uk.ac.ebi.skins</groupId>
+		<artifactId>ebi-skin</artifactId>
+	</skin>
+	<body>
+
+		<menu ref="parent" />
+		<menu name="IntEnz flat file writer">
+			<item name="Home" href="index.html" />
+            <item name="Old docs" collapsed="true">
+                <item name="Examples" href="examples"/>
+                <item name="Rules" href="./enzyme_LW_rules.pdf"/>
+            </item>
+		</menu>
+		<menu ref="reports" />
+
+	</body>
+	<publishDate format="yyyy-MM-dd"/>
+</project>
