@@ -18,4 +18,5 @@
 		<menu ref="reports" />
 
 	</body>
+	<publishDate format="yyyy-MM-dd"/>
 </project>
