@@ -9,6 +9,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2" date="2010-01-28"
+			description="Moved dependency on mapper">
+            <action dev="rafalcan" type="fix">
+                The dependency on intenz-mapper has been moved to the apps
+                profile, as it is only used by the standalone application
+                which writes enzyme.dat.
+            </action>
+    	</release>
     	<release version="1.1.1" date="2010-01-19"
 			description="Added DE line exception">
             <action dev="rafalcan" type="update">
