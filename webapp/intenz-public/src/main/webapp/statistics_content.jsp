@@ -5,11 +5,11 @@
 	<tr>
 	  <th class="headingleft" nowrap="nowrap" rowspan="2">EC numbers</th>
 	  <td class="subheadingleft" nowrap="nowrap">total</td>
-	  <td align="right" style="text-align: right !important;">4900</td>
+	  <td align="right" style="text-align: right !important;">4959</td>
 	</tr>
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap" title="not deleted, not transferred">active</td>
-	  <td align="right" style="text-align: right !important;">4150</td>
+	  <td align="right" style="text-align: right !important;">4206</td>
 	</tr>
 	<tr>
 	  <th class="headingleft" colspan="2">Classes</th>
@@ -35,18 +35,18 @@
 	<tr>
 		<td class="leftsubheading">SWISSPROT
 			(<a class="externalLink" target="_blank"
-            href="http://www.uniprot.org">UniProt</a> 15.11)
+            href="http://www.uniprot.org">UniProt</a> 15.13)
 		</td>
-		<td align="right" style="text-align: right !important;">179881</td>
-		<td align="right" style="text-align: right !important;">187863</td>
+		<td align="right" style="text-align: right !important;">179636</td>
+		<td align="right" style="text-align: right !important;">187743</td>
 	</tr>
 	<tr>
 		<td class="leftsubheading">
 			<a class="externalLink" target="_blank"
                href="http://www.ebi.ac.uk/GO/index.html">GO</a>
 		</td>
-		<td align="right" style="text-align: right !important;">3792</td>
-		<td align="right" style="text-align: right !important;">3797</td>
+		<td align="right" style="text-align: right !important;">3789</td>
+		<td align="right" style="text-align: right !important;">3794</td>
 	</tr>
 
 	<tr>
@@ -54,7 +54,7 @@
 			<a class="externalLink" target="_blank"
                href="http://www.expasy.org/prosite">PROSITE</a>
 		</td>
-		<td align="right" style="text-align: right !important;">454</td>
-		<td align="right" style="text-align: right !important;">1326</td>
+		<td align="right" style="text-align: right !important;">455</td>
+		<td align="right" style="text-align: right !important;">1345</td>
 	</tr>
 </table>
