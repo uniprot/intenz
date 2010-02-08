@@ -9,13 +9,22 @@
     </properties>
     <body>
     
+    	<release version="57" date="2010-02-08" description="Release 57">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest version of ffwriter.
+        	</action>
+    	</release>
+    
+    	<release version="56" date="2010-01-11" description="Release 56">
+    	</release>
+    
     	<release version="55" date="2009-12-04" description="Release 55">
         	<action dev="rafalcan" type="add">
         		Added Rhea cross-references to the IntEnzXML export (part of
                 the intenz-export module, actually).
         	</action>
     	</release>
-    
+
     	<release version="54" date="2009-11-05" description="Release 54">
     	</release>
 
