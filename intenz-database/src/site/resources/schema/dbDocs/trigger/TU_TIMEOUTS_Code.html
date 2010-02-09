@@ -1,0 +1,35 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF8" />
+<script src="../dbdoc.js" type="text/javascript"></script>
+<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+</head>
+<body class="object">
+<div id="header"><h2>TU_TIMEOUTS</h2>
+<div class="tabs clearfix">
+
+<div class="tab"><div><a href="TU_TIMEOUTS.html">Details</a></div></div>
+<div class="tab"><div><a href="TU_TIMEOUTS_Grants.html">Grants</a></div></div>
+<div class="tab"><div><a href="TU_TIMEOUTS_References.html">References</a></div></div>
+<div class="tab"><div><a href="TU_TIMEOUTS_Dependencies.html">Dependencies</a></div></div>
+<div class="tab" id="current"><div><a href="TU_TIMEOUTS_Code.html">Code</a></div></div>
+</div></div><br/>
+<div class="tab-panes">
+<div id="Code"> <table cellpadding="0" cellspacing="0" cellspacing="0" summary=""><tr>
+	<th>TEXT</th>
+</tr>
+	<tr><td><pre>
+TRIGGER "ENZYME".tu_timeouts
+  AFTER UPDATE ON timeouts FOR EACH ROW
+
+
+BEGIN
+  INSERT INTO timeouts_audit (
+    enzyme_id,start_date,due_date,timeout_id,
+    timestamp,audit_id,dbuser,osuser,remark,action)
+  VALUES (
+    :new.enzyme_id,:new.start_date,:new.due_date,:new.timeout_id,
+    sysdate,s_audit_id.nextval,user,auditpackage.osuser,auditpackage.remark,'U');
+END;
+</pre>	</td></tr>
+</table></div>
