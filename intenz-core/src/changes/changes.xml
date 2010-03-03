@@ -8,6 +8,15 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.2.3" date="2010-03-03"
+    		description="Added ERGO to automatic links">
+    		<action dev="rafalcan" type="fix">
+    			Added ERGO to the list of automatic links.
+    		</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest biobabel-core and rhea-domain versions.
+        	</action>
+   		</release>
     	<release version="4.2.2" date="2009-10-07"
     		description="Fixed automatic links">
     		<action dev="rafalcan" type="fix">
