@@ -5,13 +5,13 @@
     <artifactId>webapp</artifactId>
     <name>IntEnz webapps</name>
     <packaging>pom</packaging>
-    <version>1.0</version>
+    <version>1.1</version>
     <description>IntEnz web applications</description>
 
  	<parent>
 		<groupId>uk.ac.ebi.intenz</groupId>
 		<artifactId>intenz</artifactId>
-		<version>4.0</version>
+		<version>4.1</version>
 	</parent>
    
     <modules>
