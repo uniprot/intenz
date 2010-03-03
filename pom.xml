@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>uk.ac.ebi.intenz.webapp</groupId>
 	<artifactId>intenz-curator</artifactId>
-	<version>4.2.3-SNAPSHOT</version>
+	<version>4.2.3</version>
     <name>IntEnz curator webapp</name>
 	<description>IntEnz curator tool - Web application</description>
 	<packaging>war</packaging>
@@ -53,7 +51,7 @@
 						pages/view/reaction_minimal.jsp
 					</dependentWarExcludes>
                     <overlays>
-                        <overlay></overlay>
+                        <overlay />
                         <overlay>
                             <groupId>uk.ac.ebi.rhea.webapp</groupId>
                             <artifactId>rhea-find-struts1</artifactId>
@@ -362,4 +360,10 @@
         </dependency>
 	</dependencies>
 
+
+  <scm>
+    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-curator-4.2.3</connection>
+    <developerConnection>scm:svn:https://ralcantara@intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-curator-4.2.3</developerConnection>
+    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-curator-4.2.3</url>
+  </scm>
 </project>
