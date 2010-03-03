@@ -894,6 +894,7 @@ public class EnzymeEntry {
               linksInView.add(EnzymeLink.BRENDA);
               linksInView.add(EnzymeLink.EXPASY);
               linksInView.add(EnzymeLink.KEGG);
+              linksInView.add(EnzymeLink.ERGO);
               break;
           }
       }

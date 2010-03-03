@@ -66,7 +66,7 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
    */
   public static final EnzymeLink ERGO =
 	  new EnzymeLink(XrefDatabaseConstant.ERGO, XrefDatabaseConstant.ERGO.getUrl(),
-			  "", "", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
+			  "", "ERGO", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
 
   /**
    * Static link to the ERGO (formerly WIT) database.
