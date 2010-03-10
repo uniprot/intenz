@@ -9,6 +9,16 @@
     </properties>
     <body>
     
+    	<release version="58" date="" description="Release 58">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest version of intenz-core and
+                biobabel-core.
+        	</action>
+        	<action dev="rafalcan" type="fix">
+        		Fixed bug in Rhea reaction representation.
+        	</action>
+    	</release>
+    
     	<release version="57" date="2010-02-08" description="Release 57">
         	<action dev="rafalcan" type="update">
         		Updated to latest version of ffwriter.

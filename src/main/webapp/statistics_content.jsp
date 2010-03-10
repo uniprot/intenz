@@ -35,10 +35,10 @@
 	<tr>
 		<td class="leftsubheading">SWISSPROT
 			(<a class="externalLink" target="_blank"
-            href="http://www.uniprot.org">UniProt</a> 15.13)
+            href="http://www.uniprot.org">UniProt</a> 15.15)
 		</td>
-		<td align="right" style="text-align: right !important;">179636</td>
-		<td align="right" style="text-align: right !important;">187743</td>
+		<td align="right" style="text-align: right !important;">181718</td>
+		<td align="right" style="text-align: right !important;">189881</td>
 	</tr>
 	<tr>
 		<td class="leftsubheading">

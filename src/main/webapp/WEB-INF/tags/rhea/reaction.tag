@@ -18,14 +18,15 @@
 </div>
 <div style="display: table-row">
     <r:reactionSide
-        participants="${reaction.direction eq 'RL'? reaction.rightSide : reaction.leftSide}" />
+        participants="${reaction.direction.reactantsSide.code eq 'R'?
+            reaction.rightSide : reaction.leftSide}" />
     <c:choose>
-        <c:when test="${reaction.direction eq 'UN'}">&lt;?&gt;</c:when>
-        <c:when test="${reaction.direction eq 'BI'}">&lt;=&gt;</c:when>
-        <c:otherwise>=&gt;</c:otherwise>
+        <c:when test="${reaction.direction.reactantsSide ne null}">=&gt;</c:when>
+        <c:otherwise>${reaction.direction.label}</c:otherwise>
     </c:choose>
     <r:reactionSide
-        participants="${reaction.direction eq 'RL'? reaction.leftSide : reaction.rightSide}" />
+        participants="${reaction.direction.productsSide.code eq 'L'?
+            reaction.leftSide : reaction.rightSide}" />
 </div>
 <c:if test="${reaction.complex}">
     <ol>
