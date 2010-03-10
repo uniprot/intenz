@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>uk.ac.ebi.intenz.webapp</groupId>
 	<artifactId>intenz-public</artifactId>
     <name>IntEnz public webapp</name>
 	<packaging>war</packaging>
-	<version>58-SNAPSHOT</version>
+	<version>58</version>
 	<description>IntEnz public web application</description>
 
 	<parent>
@@ -65,7 +63,7 @@
                     <systemProperties>
                         <systemProperty>
                             <name>com.sun.management.jmxremote</name>
-                            <value></value>
+                            <value />
                         </systemProperty>
                         <systemProperty>
                             <name>com.sun.management.jmxremote.ssl</name>
@@ -182,4 +180,10 @@
 		</dependency>
 	</dependencies>
 
+
+  <scm>
+    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-public-58</connection>
+    <developerConnection>scm:svn:https://ralcantara@intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-public-58</developerConnection>
+    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-public-58</url>
+  </scm>
 </project>
