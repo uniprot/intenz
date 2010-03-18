@@ -5,6 +5,21 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.3.1" date="2010-03-18"
+    		description="Bug fix.">
+       		<action dev="rafalcan" type="fix">
+       			Fixed SQL query to put preliminary EC numbers at the end of
+                the sub-subclass.
+       		</action>
+       		<action dev="rafalcan" type="fix">
+       			Removed useless compile dependency on Oracle classes.
+       		</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest intenz-core, rhea-mapper - which implements
+                shared attributes in the family and decompositions -,
+                rhea-domain and biobabel-db.
+        	</action>
+    	</release>
     	<release version="4.3" date="2009-09-29"
     		description="Preliminary EC numbers.">
        		<action dev="rafalcan" type="add">

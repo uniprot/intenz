@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-import oracle.jdbc.driver.OraclePreparedStatement;
-import oracle.jdbc.driver.OracleResultSet;
 import uk.ac.ebi.intenz.domain.constants.EventConstant;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
@@ -41,6 +39,7 @@ public class EnzymeFutureMapper extends EnzymeHistoryMapper {
             " WHERE (before_id = ? OR after_id = ?) AND f.timeout_id = t.timeout_id";
   }
 
+    @Override
   public HistoryGraph find(EnzymeEntry enzymeEntry, Connection con) throws SQLException, DomainException {
     if (enzymeEntry == null) throw new NullPointerException();
     HistoryNode currentNode = findNode(enzymeEntry, true, con);
@@ -62,7 +61,7 @@ public class EnzymeFutureMapper extends EnzymeHistoryMapper {
     PreparedStatement findStatement = null;
     ResultSet rs = null;
     try {
-      findStatement = (OraclePreparedStatement) con.prepareStatement(findStatement());
+      findStatement = con.prepareStatement(findStatement());
       findStatement.setLong(1, enzymeId.longValue());
       findStatement.setLong(2, enzymeId.longValue());
       rs = findStatement.executeQuery();
@@ -107,10 +106,10 @@ public class EnzymeFutureMapper extends EnzymeHistoryMapper {
     Vector result = new Vector();
 
     try {
-      findStatement = (OraclePreparedStatement) con.prepareStatement(findStatement());
+      findStatement = con.prepareStatement(findStatement());
       findStatement.setLong(1, currentNode.getEnzymeEntry().getId().longValue());
       findStatement.setLong(2, currentNode.getEnzymeEntry().getId().longValue());
-      rs = (OracleResultSet) findStatement.executeQuery();
+      rs = findStatement.executeQuery();
       while (rs.next()) {
         result.addElement(doLoad(rs, currentNode, con));
       }
