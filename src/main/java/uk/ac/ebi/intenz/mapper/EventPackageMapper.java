@@ -1,8 +1,5 @@
 package uk.ac.ebi.intenz.mapper;
 
-import oracle.jdbc.driver.OracleCallableStatement;
-import oracle.sql.DATE;
-
 import java.sql.*;
 import java.util.GregorianCalendar;
 
@@ -60,7 +57,7 @@ public class EventPackageMapper {
     CallableStatement cStmt = null;
 
     try {
-      cStmt = (OracleCallableStatement) con.prepareCall(callInsertFutureCreationStatement());
+      cStmt = con.prepareCall(callInsertFutureCreationStatement());
       cStmt.setLong(1, enzymeId.longValue());
       cStmt.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
       cStmt.execute();
@@ -86,7 +83,7 @@ public class EventPackageMapper {
     CallableStatement cStmt = null;
 
     try {
-      cStmt = (OracleCallableStatement) con.prepareCall(callUpdateFutureCreationStatement());
+      cStmt = con.prepareCall(callUpdateFutureCreationStatement());
       cStmt.setInt(1, groupId);
       cStmt.setInt(2, eventId);
       cStmt.setString(3, newStatus);
@@ -112,7 +109,7 @@ public class EventPackageMapper {
     CallableStatement cStmt = null;
 
     try {
-      cStmt = (OracleCallableStatement) con.prepareCall(callInsertFutureModificationStatement());
+      cStmt = con.prepareCall(callInsertFutureModificationStatement());
       cStmt.setLong(1, beforeId.longValue());
       cStmt.setLong(2, afterId.longValue());
       cStmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
@@ -139,7 +136,7 @@ public class EventPackageMapper {
     CallableStatement cStmt = null;
 
     try {
-      cStmt = (OracleCallableStatement) con.prepareCall(callUpdateFutureModificationStatement());
+      cStmt = con.prepareCall(callUpdateFutureModificationStatement());
       cStmt.setInt(1, groupId);
       cStmt.setInt(2, eventId);
       cStmt.setString(3, newStatus);
@@ -168,7 +165,7 @@ public class EventPackageMapper {
     Date date = new Date(gc.getTimeInMillis());
 
     try {
-      cStmt = (OracleCallableStatement) con.prepareCall(callInsertFutureTransferStatement());
+      cStmt = con.prepareCall(callInsertFutureTransferStatement());
       cStmt.setLong(1, beforeId.longValue());
       cStmt.setLong(2, afterId.longValue());
       cStmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
@@ -198,7 +195,7 @@ public class EventPackageMapper {
     CallableStatement cStmt = null;
 
     try {
-      cStmt = (OracleCallableStatement) con.prepareCall(callUpdateFutureTransferStatement());
+      cStmt = con.prepareCall(callUpdateFutureTransferStatement());
       cStmt.setInt(1, groupId);
       cStmt.setInt(2, eventId);
       cStmt.setString(3, newStatus);
@@ -227,7 +224,7 @@ public class EventPackageMapper {
     CallableStatement cStmt = null;
 
     try {
-      cStmt = (OracleCallableStatement) con.prepareCall(callInsertFutureDeletionStatement());
+      cStmt = con.prepareCall(callInsertFutureDeletionStatement());
       cStmt.setLong(1, beforeId.longValue());
       cStmt.setLong(2, afterId.longValue());
       cStmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
@@ -257,7 +254,7 @@ public class EventPackageMapper {
     CallableStatement cStmt = null;
 
     try {
-      cStmt = (OracleCallableStatement) con.prepareCall(callUpdateFutureDeletionStatement());
+      cStmt = con.prepareCall(callUpdateFutureDeletionStatement());
       cStmt.setInt(1, groupId);
       cStmt.setInt(2, eventId);
       cStmt.setString(3, newStatus);

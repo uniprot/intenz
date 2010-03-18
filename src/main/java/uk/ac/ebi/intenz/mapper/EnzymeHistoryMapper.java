@@ -14,9 +14,6 @@ import java.util.List;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
-import oracle.jdbc.driver.OraclePreparedStatement;
-import oracle.jdbc.driver.OracleResultSet;
-import oracle.sql.DATE;
 
 /**
  * Maps history event information to the corresponding database tables.
@@ -78,10 +75,10 @@ public class EnzymeHistoryMapper {
     Vector result = new Vector();
 
     try {
-      findStatement = (OraclePreparedStatement) con.prepareStatement(findStatement());
+      findStatement = con.prepareStatement(findStatement());
       findStatement.setLong(1, currentNode.getEnzymeEntry().getId().longValue());
       findStatement.setLong(2, currentNode.getEnzymeEntry().getId().longValue());
-      rs = (OracleResultSet) findStatement.executeQuery();
+      rs = findStatement.executeQuery();
       while (rs.next()) {
         result.addElement(doLoad(rs, currentNode, con));
       }
@@ -105,7 +102,6 @@ public class EnzymeHistoryMapper {
    */
   private HistoryEvent doLoad(ResultSet rs, HistoryNode currentNode, Connection con) throws SQLException,
           DomainException {
-     OracleResultSet ors = (OracleResultSet) rs;
     long groupId = 0;
     long eventId = 0;
     int beforeId = 0;
@@ -119,8 +115,7 @@ public class EnzymeHistoryMapper {
     if (rs.getInt("before_id") > 0) beforeId = rs.getInt("before_id");
     if (rs.getInt("after_id") > 0) afterId = rs.getInt("after_id");
     if (rs.getDate("event_year") != null){
-       Timestamp ts = ors.getDATE("event_year").timestampValue();
-       eventYear = new Date(ts.getTime());
+       eventYear =  rs.getDate("event_year");
     }
     if (rs.getString("event_note") != null) eventNote = rs.getString("event_note");
     if (rs.getString("event_class") != null) eventClass = rs.getString("event_class");

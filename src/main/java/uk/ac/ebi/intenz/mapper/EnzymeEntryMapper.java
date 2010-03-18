@@ -147,7 +147,7 @@ public class EnzymeEntryMapper {
     return new StringBuilder("SELECT ").append(LIST_COLUMNS)
        .append(" FROM enzymes WHERE status IN ('OK','PM') AND enzyme_id NOT IN")
 	   .append(" (SELECT before_id FROM history_events WHERE event_class = 'MOD')")
-	   .append(" ORDER BY ec1, ec2, ec3, ec4").toString();
+	   .append(" ORDER BY ec1, ec2, ec3, status, ec4").toString();
   }
 
   /**
