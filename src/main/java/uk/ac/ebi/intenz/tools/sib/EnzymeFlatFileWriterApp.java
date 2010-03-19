@@ -102,6 +102,8 @@ public class EnzymeFlatFileWriterApp {
     LOGGER.debug("Getting all enzymes.");
     Connection con = null;
     List allEnzymes = new ArrayList();
+    Long errorId = null;
+    String errorEc = null;
     try {
       String dbConfig = ApplicationResources.getInstance().getDbConfig();
       con = OracleDatabaseInstance.getInstance(dbConfig).getConnection();
@@ -125,6 +127,8 @@ public class EnzymeFlatFileWriterApp {
          // populating SPTR interfaces from domain EnzymeEntry
          for (int iii = 0; iii < sibEntries.size(); iii++) {
           EnzymeEntry enzymeEntry = (EnzymeEntry) sibEntries.get(iii);
+          errorId = enzymeEntry.getId();
+          errorEc = enzymeEntry.getEc().toString();
           EnzymeEntryImpl sibEnzymeEntry = SibEntryHelper.getSibEnzymeEntry(enzymeEntry, encoding, EncodingType.SWISSPROT_CODE);
           allEnzymes.add(sibEnzymeEntry);
         }
@@ -132,17 +136,20 @@ public class EnzymeFlatFileWriterApp {
         LOGGER.fatal("No ENZYME data could be retreived from the database.");
         return null;
       }
+    } catch (IOException e) {
+      LOGGER.error("Unable to read database configuration: ", e);
+      return null;
     } catch (DomainException e) {
       LOGGER.error("Domain exception: ", e);
       return null;
     } catch (SPTRException e) {
-      LOGGER.error("SPTRException: ", e);
-      return null;
-    } catch (IOException e) {
-      LOGGER.error("Unable to read database configuration: ", e);
+      LOGGER.error(errorEc + " [" + errorId + "] - SPTRException: ", e);
       return null;
     } catch (SQLException e) {
-      LOGGER.error("Error while loading ENZYME data from the database: ", e);
+      LOGGER.error(errorEc + " [" + errorId + "] - Error while loading ENZYME data from the database: ", e);
+      return null;
+    } catch (Exception e) {
+      LOGGER.error(errorEc + " [" + errorId + "]", e);
       return null;
     } finally {
       try {
