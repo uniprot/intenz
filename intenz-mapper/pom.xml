@@ -6,7 +6,7 @@
 	<artifactId>intenz-mapper</artifactId>
     <name>IntEnz mapper module</name>
 	<packaging>jar</packaging>
-	<version>4.3.2-SNAPSHOT</version>
+	<version>4.3.1</version>
 	<description>IntEnz - Mapper package</description>
 
 	<parent>
@@ -57,7 +57,7 @@
 			<groupId>com.oracle.driver</groupId>
 			<artifactId>ojdbc14</artifactId>
 			<version>10.2.0.3</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
