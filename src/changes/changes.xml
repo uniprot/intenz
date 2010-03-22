@@ -11,9 +11,6 @@
        			Fixed SQL query to put preliminary EC numbers at the end of
                 the sub-subclass.
        		</action>
-       		<action dev="rafalcan" type="fix">
-       			Removed useless compile dependency on Oracle classes.
-       		</action>
         	<action dev="rafalcan" type="update">
         		Updated to latest intenz-core, rhea-mapper - which implements
                 shared attributes in the family and decompositions -,
