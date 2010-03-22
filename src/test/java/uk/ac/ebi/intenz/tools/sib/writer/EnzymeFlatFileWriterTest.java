@@ -35,12 +35,13 @@ public class EnzymeFlatFileWriterTest extends TestCase {
 		String ffEntry = EnzymeFlatFileWriter.export(entry);
 		assertEquals("ID   1.1.1.249\nDE   Transferred entry: 2.5.1.46.\n//\n", ffEntry);
 	}
-
-    public void testPreliminaryEc() throws Exception{
+/*
+    public void testTroublesomeEc() throws Exception{
         EnzymeEntry entry =
-                entryMapper.findByEc(1, 1, 1, 1, Status.PRELIMINARY, con);
+                entryMapper.findByEc(3, 4, 13, 6, Status.APPROVED, con);
         EnzymeEntryImpl sibEntry = SibEntryHelper.getSibEnzymeEntry(entry,
                 SpecialCharacters.getInstance(null), EncodingType.SWISSPROT_CODE);
 		String ffEntry = EnzymeFlatFileWriter.export(sibEntry);
     }
+ */
 }
