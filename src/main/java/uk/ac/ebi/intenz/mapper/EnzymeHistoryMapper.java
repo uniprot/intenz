@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
-import oracle.jdbc.OracleResultSet;
 
 import org.apache.log4j.Logger;
 
@@ -116,9 +115,8 @@ public class EnzymeHistoryMapper {
     if (rs.getInt("before_id") > 0) beforeId = rs.getInt("before_id");
     if (rs.getInt("after_id") > 0) afterId = rs.getInt("after_id");
     if (rs.getDate("event_year") != null){
-        // WARNING: remove this cast and you will get into trouble!
-        Timestamp ts = ((OracleResultSet) rs).getDATE("event_year").timestampValue();
-        eventYear =  new Date(ts.getTime());
+       Timestamp ts = rs.getTimestamp("event_year");
+       eventYear = new Date(ts.getTime());
     }
     if (rs.getString("event_note") != null) eventNote = rs.getString("event_note");
     if (rs.getString("event_class") != null) eventClass = rs.getString("event_class");
