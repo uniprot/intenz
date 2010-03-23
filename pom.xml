@@ -42,6 +42,12 @@
 			<scope>test</scope>
 		</dependency>
         <dependency>
+            <groupId>com.oracle.driver</groupId>
+            <artifactId>ojdbc14</artifactId>
+            <version>10.2.0.3</version>
+			<scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-mapper</artifactId>
             <version>4.3.1</version>
@@ -143,6 +149,14 @@
     </profiles>
 
     <build>
+        <testResources>
+            <testResource>
+                <directory>${intenz.config.dir}</directory>
+                <includes>
+                    <include>intenz-db-dev.properties</include>
+                </includes>
+            </testResource>
+        </testResources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
