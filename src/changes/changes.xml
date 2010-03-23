@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
     <properties>
         <title>IntEnz mapper module change log</title>
-        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael AlcÃ¡ntara</author>
     </properties>
     <body>
     	<release version="4.3.1" date="2010-03-18"
@@ -11,9 +13,9 @@
        			Fixed SQL query to put preliminary EC numbers at the end of
                 the sub-subclass.
        		</action>
-       		<action dev="rafalcan" type="fix">
-       			Removed useless compile dependency on Oracle classes.
-       		</action>
+            <action dev="rafalcan" type="fix">
+                Removed useless compile-time dependency on oracle classes.
+            </action>
         	<action dev="rafalcan" type="update">
         		Updated to latest intenz-core, rhea-mapper - which implements
                 shared attributes in the family and decompositions -,

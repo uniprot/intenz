@@ -115,7 +115,8 @@ public class EnzymeHistoryMapper {
     if (rs.getInt("before_id") > 0) beforeId = rs.getInt("before_id");
     if (rs.getInt("after_id") > 0) afterId = rs.getInt("after_id");
     if (rs.getDate("event_year") != null){
-       eventYear =  rs.getDate("event_year");
+       Timestamp ts = rs.getTimestamp("event_year");
+       eventYear = new Date(ts.getTime());
     }
     if (rs.getString("event_note") != null) eventNote = rs.getString("event_note");
     if (rs.getString("event_class") != null) eventClass = rs.getString("event_class");
