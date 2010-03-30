@@ -8,6 +8,16 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.2.4" date="2010-03-30"
+    		description="Bug fix">
+    		<action dev="rafalcan" type="fix">
+    			Fixed NPE thrown while adding reactions to an EnzymaticReactions
+                object.
+    		</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest rhea-domain version (decompositions).
+        	</action>
+   		</release>
     	<release version="4.2.3" date="2010-03-03"
     		description="Added ERGO to automatic links">
     		<action dev="rafalcan" type="fix">

@@ -125,8 +125,13 @@ public class EnzymaticReactions {
      * @return <code>true</code> if the set of reactions is changed.
      */
     public boolean add(EnzymaticReactions er){
-        if (reactions == null) reactions = new LinkedHashSet<VisibleReaction>(4);
-    	return reactions.addAll(er.reactions);
+        boolean changed = false;
+        if (er != null && er.size() > 0){
+            if (reactions == null)
+                reactions = new LinkedHashSet<VisibleReaction>(4);
+            changed = reactions.addAll(er.reactions);
+        }
+        return changed;
     }
 
     /**
