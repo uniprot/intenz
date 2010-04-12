@@ -2,7 +2,7 @@
 # Parameters:
 #   $1: EC number to be exported (just one)
 
-if [ -z $1 ]
+if [ -z $1 -o $1 != 'all' ]
 then
     echo "Testing requires an EC number"
     exit 1
