@@ -117,10 +117,11 @@ public class EnzymeFlatFileWriterApp {
       } else {
     	  sibEntries = new ArrayList();
     	  EnzymeCommissionNumber ec = EnzymeCommissionNumber.valueOf(args[0]);
-    	  sibEntries.add(enzymeEntryMapper.findByEc(
+          EnzymeEntry entry = enzymeEntryMapper.findByEc(
     			  ec.getEc1(), ec.getEc2(), ec.getEc3(), ec.getEc4(),
     			  ec.getType().equals(Type.PRELIMINARY)? Status.PRELIMINARY : Status.APPROVED,
-    			  con));
+    			  con);
+    	  sibEntries.add(entry);
       }
       if (sibEntries != null) {
         SpecialCharacters encoding = SpecialCharacters.getInstance(null);
