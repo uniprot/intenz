@@ -1,6 +1,6 @@
 #!/bin/bash
 # Parameters:
-#   $1: EC number to be exported (just one)
+#   $1: EC number to be exported (just one) or 'all'
 
 if [ -z $1 -o $1 != 'all' ]
 then
