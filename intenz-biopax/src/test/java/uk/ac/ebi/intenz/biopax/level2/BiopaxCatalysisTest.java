@@ -51,15 +51,15 @@ public class BiopaxCatalysisTest {
     @Test
     public void testWrite() throws Exception {
         // Old plain text reaction (no public rheaction yet), lots of xrefs:
-        new BiopaxCatalysis(mapper.findByEc("1", "1", "1", "1", con), model);
+        new BiopaxCatalysis(mapper.findByEc(1, 1, 1, 1, null, con), model);
         // Abstract reaction:
-        new BiopaxCatalysis(mapper.findByEc("3", "2", "1", "97", con), model);
+        new BiopaxCatalysis(mapper.findByEc(3, 2, 1, 97, null, con), model);
         // One rheaction:
-        new BiopaxCatalysis(mapper.findByEc("1", "2", "3", "4", con), model);
+        new BiopaxCatalysis(mapper.findByEc(1, 2, 3, 4, null, con), model);
         // One complex rheaction:
-        new BiopaxCatalysis(mapper.findByEc("1", "14", "13", "39", con), model);
+        new BiopaxCatalysis(mapper.findByEc(1, 14, 13, 39, null, con), model);
         // Several rheactions:
-        new BiopaxCatalysis(mapper.findByEc("1", "3", "99", "17", con), model);
+        new BiopaxCatalysis(mapper.findByEc(1, 3, 99, 17, null, con), model);
         Biopax.write(model, System.out);
     }
 

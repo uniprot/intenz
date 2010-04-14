@@ -84,7 +84,7 @@ public class BiopaxCatalysis {
 
         // bp:CONTROLLER
         String ec = enzymeEntry.getEc().toString();
-        protein enzyme = model.addNew(protein.class,  ec);
+        protein enzyme = model.addNew(protein.class, ec);
         // bp:NAME - this will be the systematic name
         enzyme.setNAME(SpecialCharacters.getInstance(null)
             .xml2Display(enzymeEntry.getSystematicName().getName(), EncodingType.CHEBI_CODE));
@@ -148,6 +148,7 @@ public class BiopaxCatalysis {
             } else {
                 pubXrefId = "PUB_" + citation.getPubId();
             }
+            pubXrefId = Biopax.fixId(pubXrefId);
             publicationXref pubXref = null;
             if (model.getIdMap().containsKey(pubXrefId)){
                 pubXref = (publicationXref) model.getIdMap().get(pubXrefId);
@@ -201,7 +202,7 @@ public class BiopaxCatalysis {
                 new BiopaxBiochemicalReaction(r, model, null/*FIXME*/, Biopax.RHEA_PREFIX).getBiopaxBiochemicalReaction();
             controlled.addEC_NUMBER(ec); // XXX: this is already done in the constructor, actually
             c.addCONTROLLED(controlled);
-            // bp:DIRECTION; XXX: what about irreversible reactions?
+            // bp:DIRECTION
             switch(r.getDirection()){
             case LR:
                 c.setDIRECTION(org.biopax.paxtools.model.level2.Direction.PHYSIOL_LEFT_TO_RIGHT);

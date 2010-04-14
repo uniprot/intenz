@@ -7,13 +7,13 @@
   <groupId>uk.ac.ebi.intenz</groupId>
   <artifactId>intenz-biopax</artifactId>
   <name>BioPAX for IntEnz</name>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
   <description>BioPAX module for IntEnz</description>
 
   <parent>
   	<artifactId>intenz</artifactId>
   	<groupId>uk.ac.ebi.intenz</groupId>
-  	<version>4.0</version>
+  	<version>4.1</version>
   </parent>
 
     <build>
@@ -31,25 +31,37 @@
     <dependency>
         <groupId>uk.ac.ebi.intenz</groupId>
         <artifactId>intenz-core</artifactId>
-        <version>4.1</version>
+        <version>4.2.4</version>
+        <exclusions>
+            <exclusion>
+                <groupId>uk.ac.ebi.rhea</groupId>
+                <artifactId>rhea-domain</artifactId>
+            </exclusion>
+        </exclusions>
     </dependency>
+  	<dependency>
+  		<groupId>uk.ac.ebi.rhea</groupId>
+  		<artifactId>rhea-biopax</artifactId>
+  		<version>1.3.4</version>
+  	</dependency>
     <dependency>
         <groupId>uk.ac.ebi.intenz</groupId>
         <artifactId>intenz-mapper</artifactId>
-        <version>4.2</version>
+        <version>4.3.1</version>
   		<scope>test</scope>
     </dependency>
     <dependency>
         <groupId>uk.ac.ebi.rhea</groupId>
         <artifactId>rhea-mapper</artifactId>
-        <version>3.2</version>
+        <version>3.4.2</version>
   		<scope>test</scope>
     </dependency>
-  	<dependency>
-  		<groupId>uk.ac.ebi.rhea</groupId>
-  		<artifactId>rhea-biopax</artifactId>
-  		<version>1.3</version>
-  	</dependency>
+    <dependency>
+        <groupId>com.oracle.driver</groupId>
+        <artifactId>ojdbc14</artifactId>
+        <version>10.2.0.3</version>
+        <scope>test</scope>
+    </dependency>
   	<dependency>
   		<groupId>junit</groupId>
   		<artifactId>junit</artifactId>
