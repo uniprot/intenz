@@ -9,7 +9,7 @@ SCRIPT_DIR=`dirname $0`
 CONFIG_DIR=$1
 
 cd $SCRIPT_DIR/..
-cvs update
+svn up
 mvn clean package
 
 CP=$CONFIG_DIR
@@ -18,4 +18,5 @@ do
     CP=$CP:$JAR
 done
 
-java -cp $CP uk.ac.ebi.intenz.tools.importer.ImportController $2
+java -cp $CP uk.ac.ebi.intenz.tools.importer.ImportController $2 \
+    &> logs/intenz-import-$(date +%Y%m%d).log
