@@ -7,6 +7,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.3.2" date="2010-04-14" description="Getting preliminary ECs">
+            <action dev="rafalcan" type="add">
+                Added method to search preliminary EC numbers.
+            </action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest intenz-core and rhea-mapper modules.
+        	</action>
+    	</release>
     	<release version="4.3.1" date="2010-03-18"
     		description="Bug fix.">
        		<action dev="rafalcan" type="fix">

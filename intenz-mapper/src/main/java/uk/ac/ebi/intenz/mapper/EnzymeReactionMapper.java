@@ -13,7 +13,6 @@ import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions;
 import uk.ac.ebi.rhea.domain.Database;
 import uk.ac.ebi.rhea.domain.Reaction;
 import uk.ac.ebi.rhea.domain.Status;
-import uk.ac.ebi.rhea.mapper.IRheaReader;
 import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
 import uk.ac.ebi.rhea.mapper.db.RheaDbReader;
 
