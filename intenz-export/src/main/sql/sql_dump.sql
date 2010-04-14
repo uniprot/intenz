@@ -88,6 +88,14 @@ begin
 end;
 /
 
+/* Prepares text from a cell to be safely inserted in a SQL statement. */
+create or replace function f_sqlize_text
+(text IN varchar2) return varchar2 as
+begin
+  return is_null_str(trim(replace(text, '''', '''''')));
+end;
+/
+
 show errors;
 
 
@@ -127,7 +135,7 @@ select   'insert into citations_audit (ENZYME_ID,PUB_ID,ORDER_IN,STATUS,SOURCE,T
     ||is_null_int(AUDIT_ID)                              ||','||CHR(10)
     ||is_null_str(TRIM(DBUSER                             ))||','||CHR(10)
     ||is_null_str(TRIM(OSUSER                             ))||','||CHR(10)
-    ||is_null_str(TRIM(REMARK                             ))||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(TRIM(ACTION                             ))||');'
 from citations_audit
 order by ENZYME_ID asc
@@ -159,7 +167,7 @@ select   'insert into classes_audit (EC1,NAME,DESCRIPTION,ACTIVE,TIMESTAMP,AUDIT
     ||is_null_int(AUDIT_ID)                              ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from classes_audit
 order by EC1 asc
@@ -202,7 +210,7 @@ select   'insert into cofactors_audit (ENZYME_ID,SOURCE,STATUS,ORDER_IN,COFACTOR
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from cofactors_audit
 order by ENZYME_ID asc
@@ -238,7 +246,7 @@ select   'insert into comments_audit (ENZYME_ID,COMMENT_TEXT,ORDER_IN,STATUS,SOU
     ||is_null_int(AUDIT_ID)                              ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from comments_audit
 order by ENZYME_ID asc
@@ -282,7 +290,7 @@ select   'insert into enzymes_audit (ENZYME_ID,EC1,EC2,EC3,EC4,HISTORY,STATUS,NO
     ||is_null_int(AUDIT_ID)                           ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from enzymes_audit
 order by ENZYME_ID asc
@@ -320,7 +328,7 @@ select   'insert into links_audit (ENZYME_ID,URL,DISPLAY_NAME,STATUS,SOURCE,WEB_
     ||is_null_int(AUDIT_ID)                              ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from links_audit
 order by ENZYME_ID asc
@@ -337,7 +345,7 @@ select  'insert into names (ENZYME_ID,NAME,NAME_CLASS,WARNING,STATUS,SOURCE,NOTE
     ||is_null_str(WARNING                     )||','||CHR(10)
     ||''''||TRIM(STATUS                      )||''','||CHR(10)
     ||''''||TRIM(SOURCE                      )||''','||CHR(10)
-    ||is_null_str(NOTE                        )||','||CHR(10)
+    ||f_sqlize_text(NOTE)||','||CHR(10)
     ||ORDER_IN                                ||','||CHR(10)
     ||''''||TRIM(WEB_VIEW                    )||''');'
 from names
@@ -355,14 +363,14 @@ select  'insert into names_audit (ENZYME_ID,NAME,NAME_CLASS,WARNING,STATUS,SOURC
     ||is_null_str(WARNING                     )||','||CHR(10)
     ||is_null_str(STATUS                      )||','||CHR(10)
     ||is_null_str(SOURCE                      )||','||CHR(10)
-    ||is_null_str(NOTE                        )||','||CHR(10)
+    ||f_sqlize_text(NOTE)||','||CHR(10)
     ||is_null_int(ORDER_IN)                    ||','||CHR(10)
     ||is_null_str(WEB_VIEW                    )||','||CHR(10)
     ||is_null_str(to_char(TIMESTAMP,'YYYY-MM-DD HH:MI:SS'))||','||CHR(10)
     ||is_null_int(AUDIT_ID)                           ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from names_audit
 order by ENZYME_ID asc
@@ -422,7 +430,7 @@ select  'insert into publications_audit (PUB_ID,MEDLINE_ID,PUBMED_ID,PUB_TYPE,AU
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from publications_audit
 order by PUB_ID asc
@@ -458,7 +466,7 @@ select  'insert into reactions_audit (ENZYME_ID,EQUATION,ORDER_IN,STATUS,SOURCE,
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from reactions_audit
 order by ENZYME_ID asc
@@ -492,7 +500,7 @@ select  'insert into subclasses_audit (EC1,EC2,NAME,DESCRIPTION,ACTIVE,TIMESTAMP
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from subclasses_audit
 order by EC1 asc
@@ -528,7 +536,7 @@ select  'insert into subsubclasses_audit (EC1,EC2,EC3,NAME,DESCRIPTION,ACTIVE,TI
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from subsubclasses_audit
 order by EC1 asc
@@ -568,7 +576,7 @@ select  'insert into xrefs_audit (ENZYME_ID,DATABASE_CODE,DATABASE_AC,NAME,STATU
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from xrefs_audit
 order by ENZYME_ID asc
@@ -610,7 +618,7 @@ select 'insert into history_events_audit (GROUP_ID,EVENT_ID,BEFORE_ID,AFTER_ID,E
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from history_events_audit
 order by event_id
@@ -652,7 +660,7 @@ select 'insert into future_events_audit (GROUP_ID,EVENT_ID,BEFORE_ID,AFTER_ID,EV
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from future_events_audit
 order by event_id
@@ -684,7 +692,7 @@ select 'insert into timeouts_audit (TIMEOUT_ID,ENZYME_ID,START_DATE,DUE_DATE,TIM
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from timeouts_audit
 order by due_date
@@ -720,7 +728,7 @@ select 'insert into reactions_map_audit (REACTION_ID,ENZYME_ID,WEB_VIEW,ORDER_IN
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from reactions_map_audit
 order by enzyme_id asc
@@ -759,12 +767,12 @@ select 'insert into intenz_reactions_audit (REACTION_ID,EQUATION,FINGERPRINT,STA
 	||is_null_int(UN_REACTION)                            ||','||CHR(10)
 	||qual_list(REACTION_ID)                   ||','||CHR(10)
 	||is_null_str(replace(DATA_COMMENT,'''','''''')   )||','||CHR(10)
-	, is_null_str(replace(REACTION_COMMENT,'''',''''''))||','||CHR(10)
+	||is_null_str(replace(REACTION_COMMENT,'''',''''''))||','||CHR(10)
     ||is_null_str(to_char(TIMESTAMP,'YYYY-MM-DD HH:MI:SS') )||','||CHR(10)
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(replace(REMARK,'''','''''')        )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from intenz_reactions_audit
 order by reaction_id asc
@@ -798,7 +806,7 @@ select 'insert into reaction_participants_audit (REACTION_ID,COMPOUND_ID,SIDE,CO
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from reaction_participants_audit
 order by reaction_id asc
@@ -838,7 +846,7 @@ select 'insert into compound_data_audit (COMPOUND_ID,NAME,FORMULA,CHARGE,SOURCE,
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from compound_data_audit
 order by compound_id asc
@@ -870,7 +878,7 @@ select 'insert into complex_reactions_audit (PARENT_ID,CHILD_ID,ORDER_IN,COEFFIC
     ||is_null_int(AUDIT_ID)                          ||','||CHR(10)
     ||is_null_str(DBUSER                             )||','||CHR(10)
     ||is_null_str(OSUSER                             )||','||CHR(10)
-    ||is_null_str(REMARK                             )||','||CHR(10)
+    ||f_sqlize_text(REMARK)||','||CHR(10)
     ||is_null_str(ACTION                             )||');'
 from complex_reactions_audit
 order by parent_id, order_in asc
@@ -903,7 +911,7 @@ select 'insert into reaction_citations_audit (REACTION_ID,PUB_ID,SOURCE,ORDER_IN
     ||is_null_int(AUDIT_ID)                              ||','||CHR(10)
     ||''''||TRIM(DBUSER                             )||''','||CHR(10)
     ||''''||TRIM(OSUSER                             )||''','||CHR(10)
-    ||''''||TRIM(REMARK                             )||''','||CHR(10)
+    ||''''||f_sqlize_text(REMARK)||''','||CHR(10)
     ||''''||TRIM(ACTION                             )||''');'
 from reaction_citations_audit
 order by reaction_id asc
@@ -933,7 +941,7 @@ select 'insert into reaction_xrefs_audit (REACTION_ID,DB_CODE,DB_ACCESSION,TIMES
     ||is_null_int(AUDIT_ID)                              ||','||CHR(10)
     ||''''||TRIM(DBUSER                             )||''','||CHR(10)
     ||''''||TRIM(OSUSER                             )||''','||CHR(10)
-    ||''''||TRIM(REMARK                             )||''','||CHR(10)
+    ||''''||f_sqlize_text(REMARK)||''','||CHR(10)
     ||''''||TRIM(ACTION                             )||''');'
 from reaction_xrefs_audit
 order by reaction_id asc
@@ -988,7 +996,7 @@ select 'insert into cv_databases_audit (CODE,NAME,DISPLAY_NAME,SORT_ORDER,TIMEST
     ||is_null_int(AUDIT_ID)                              ||','||CHR(10)
     ||''''||TRIM(DBUSER                             )||''','||CHR(10)
     ||''''||TRIM(OSUSER                             )||''','||CHR(10)
-    ||''''||TRIM(REMARK                             )||''','||CHR(10)
+    ||''''||f_sqlize_text(REMARK)||''','||CHR(10)
     ||''''||TRIM(ACTION                             )||''');'
 from cv_databases_audit
 ;
@@ -1018,7 +1026,7 @@ select 'insert into cv_name_classes_audit (CODE,NAME,DISPLAY_NAME,SORT_ORDER,TIM
     ||is_null_int(AUDIT_ID)                              ||','||CHR(10)
     ||''''||TRIM(DBUSER                             )||''','||CHR(10)
     ||''''||TRIM(OSUSER                             )||''','||CHR(10)
-    ||''''||TRIM(REMARK                             )||''','||CHR(10)
+    ||''''||f_sqlize_text(REMARK)||''','||CHR(10)
     ||''''||TRIM(ACTION                             )||''');'
 from cv_name_classes_audit
 ;
@@ -1088,7 +1096,7 @@ select 'insert into cv_status_audit (CODE,NAME,DISPLAY_NAME,SORT_ORDER,TIMESTAMP
     ||is_null_int(AUDIT_ID)                              ||','||CHR(10)
     ||''''||TRIM(DBUSER                             )||''','||CHR(10)
     ||''''||TRIM(OSUSER                             )||''','||CHR(10)
-    ||''''||TRIM(REMARK                             )||''','||CHR(10)
+    ||''''||f_sqlize_text(REMARK)||''','||CHR(10)
     ||''''||TRIM(ACTION                             )||''');'
 from cv_status_audit
 ;
@@ -1114,7 +1122,7 @@ select 'insert into cv_view_audit (CODE,DESCRIPTION,TIMESTAMP,AUDIT_ID,DBUSER,OS
     ||is_null_int(AUDIT_ID)                              ||','||CHR(10)
     ||''''||TRIM(DBUSER                             )||''','||CHR(10)
     ||''''||TRIM(OSUSER                             )||''','||CHR(10)
-    ||''''||TRIM(REMARK                             )||''','||CHR(10)
+    ||''''||f_sqlize_text(REMARK)||''','||CHR(10)
     ||''''||TRIM(ACTION                             )||''');'
 from cv_view_audit
 ;
@@ -1144,7 +1152,7 @@ select 'insert into cv_warnings_audit (CODE,NAME,DISPLAY_NAME,SORT_ORDER,TIMESTA
     ||is_null_int(AUDIT_ID)                              ||','||CHR(10)
     ||''''||TRIM(DBUSER                             )||''','||CHR(10)
     ||''''||TRIM(OSUSER                             )||''','||CHR(10)
-    ||''''||TRIM(REMARK                             )||''','||CHR(10)
+    ||''''||f_sqlize_text(REMARK)||''','||CHR(10)
     ||''''||TRIM(ACTION                             )||''');'
 from cv_warnings_audit
 ;
@@ -1157,5 +1165,6 @@ drop function is_null_str;
 drop function qual_list;
 drop function f_table_comment;
 drop function f_column_comment;
+drop function f_sqlize_text;
 
 exit;

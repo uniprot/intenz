@@ -6,7 +6,7 @@ $1: output directory for the generated SQL files.
 $2: oracle database login.
 USAGE)
 
-if [ $# < 2 ]
+if [ $# -lt 2 ]
 then
     echo $USAGE
     exit 1
