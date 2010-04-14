@@ -717,8 +717,21 @@ public class EnzymeEntryMapper {
    * @throws SQLException
    * @throws uk.ac.ebi.intenz.domain.exceptions.DomainException 
    */
-  public List<EnzymeEntry> findSuggestedList(Connection con) throws SQLException, DomainException {
+  public List<EnzymeEntry> findSuggestedList(Connection con)
+  throws SQLException, DomainException {
     return findByStatus(con, Status.SUGGESTED);
+  }
+
+  /**
+   * Gets the list of preliminary EC numbers issued by UniProt.
+   * @param con
+   * @return A list of preliminary EC numbers issued by UniProt.
+   * @throws SQLException
+   * @throws DomainException
+   */
+  public List<EnzymeEntry> findPreliminaryEcsList(Connection con)
+  throws SQLException, DomainException{
+      return findByStatus(con, Status.PRELIMINARY);
   }
   
   /**
