@@ -10,7 +10,13 @@
     </properties>
     
     <body>
-
+		<release version="1.0.3" date="2010-04-15"
+			description="Fixed constraint for EC numbers.">
+    		<action dev="rafalcan" type="fix">
+    		    Fixed the constraint applied to EC numbers. Now the uniqueness
+                within sub-subclass applies to the tuple ec4-preliminary.
+    		</action>
+		</release>
 		<release version="1.0.2" date="2009-12-01"
 			description="Added Rhea to databases enumeration.">
     		<action dev="rafalcan" type="add">
