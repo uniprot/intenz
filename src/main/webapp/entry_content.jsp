@@ -89,7 +89,15 @@
 			<div class="centered">(proposal)</div>
 		</c:if>
         <c:if test="${entry.status eq 'PRELIMINARY'}">
-            <div>This is a preliminary EC number. The content has not yet been
+            <div>This is a preliminary EC number. The content
+            <c:choose>
+                <c:when test="${entry.history.deletedRootNode or entry.history.transferredRootNode}">
+                    was
+                </c:when>
+                <c:otherwise>
+                    has not yet been
+                </c:otherwise>
+            </c:choose>
             validated and included in the official IUBMB Enzyme list.</div>
         </c:if>
 		<hr/>

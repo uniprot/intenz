@@ -8,14 +8,29 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+
+    	<release version="59" date="2010-04-15" description="Release 59">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest version of intenz-core, intenz-mapper and
+                intenz-ffwriter.
+        	</action>
+        	<action dev="rafalcan" type="add">
+        	    Added a search command for listing preliminary EC numbers.
+        	</action>
+    	</release>
     
-    	<release version="58" date="" description="Release 58">
+    	<release version="58" date="2010-03-10" description="Release 58">
         	<action dev="rafalcan" type="update">
         		Updated to latest version of intenz-core and
                 biobabel-core.
         	</action>
         	<action dev="rafalcan" type="fix">
         		Fixed bug in Rhea reaction representation.
+        	</action>
+        	<action dev="rafalcan" type="fix">
+        		Remapped Rhea reactions (no xrefs to undefined directions
+                any more, replaced by bidirectional counterpart). [This is
+                a fix in the database, actually, not in the webapp]
         	</action>
     	</release>
     
