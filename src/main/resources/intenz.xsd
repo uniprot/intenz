@@ -74,11 +74,13 @@
     					</xs:documentation>
     				</xs:annotation>
     			</xs:attribute>
-    			<xs:attribute name="preliminary" type="xs:boolean" default="false">
+    			<xs:attribute name="preliminary" type="xs:boolean"
+                    default="false">
     				<xs:annotation>
     					<xs:documentation>
-    						Is this a preliminary - neither proposed nor accepted
-    						by NC-IUBMB yet - EC number?
+    						Is this a preliminary - neither proposed nor
+                            accepted by NC-IUBMB yet - EC number issued
+                            by UniProt?
     					</xs:documentation>
     				</xs:annotation>
     			</xs:attribute>
@@ -161,6 +163,7 @@
         <xs:unique name="uniqueEc4">
         	<xs:selector xpath="i:enzyme" />
         	<xs:field xpath="@ec4"></xs:field>
+        	<xs:field xpath="@preliminary"></xs:field>
         </xs:unique>
     </xs:element>
     
