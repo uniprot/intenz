@@ -254,8 +254,7 @@ public class ExporterApp {
                     exporter.export(validEntriesList, props.getProperty("intenz.release.number"),
                                 props.getProperty("intenz.release.date"), os);
                 } catch (Exception e) {
-                    LOGGER.error("Whole tree dump");
-                    LOGGER.debug("", e);
+                    LOGGER.error("Whole tree dump", e);
                 }
                 LOGGER.info("Whole tree XML end");
             }
