@@ -3,15 +3,6 @@
 
 <table class="contenttable_lmenu stats_table" style="width: 20em">
 	<tr>
-	  <th class="headingleft" nowrap="nowrap" rowspan="2">EC numbers</th>
-	  <td class="subheadingleft" nowrap="nowrap">total</td>
-	  <td align="right" style="text-align: right !important;">4959</td>
-	</tr>
-	<tr>
-	  <td class="subheadingleft" nowrap="nowrap" title="not deleted, not transferred">active</td>
-	  <td align="right" style="text-align: right !important;">4206</td>
-	</tr>
-	<tr>
 	  <th class="headingleft" colspan="2">Classes</th>
 	  <td align="right" style="text-align: right !important;">6</td>
 	</tr>
@@ -21,7 +12,23 @@
 	</tr>
 	<tr>
 	  <th class="headingleft" colspan="2">Sub-subclasses</th>
-	  <td align="right" style="text-align: right !important;">258</td>
+	  <td align="right" style="text-align: right !important;">259</td>
+	</tr>
+	<tr>
+	  <th class="headingleft" nowrap="nowrap" rowspan="3">EC numbers</th>
+	  <td class="subheadingleft" nowrap="nowrap" title="Approved by NC-IUBMB">approved</td>
+	  <td align="right" style="text-align: right !important;">4965</td>
+	</tr>
+	<tr>
+	  <td class="subheadingleft" nowrap="nowrap"
+           title="Preliminary EC numbers issued by UniProt"><a
+              href="query?cmd=SearchPreliminary">preliminary</a></td>
+	  <td align="right" style="text-align: right !important;">91</td>
+	</tr>
+	<tr>
+	  <td class="subheadingleft" nowrap="nowrap"
+          title="Not deleted, not transferred, either approved or preliminary">active</td>
+	  <td align="right" style="text-align: right !important;">4265</td>
 	</tr>
 </table>
 
@@ -35,18 +42,18 @@
 	<tr>
 		<td class="leftsubheading">SWISSPROT
 			(<a class="externalLink" target="_blank"
-            href="http://www.uniprot.org">UniProt</a> 15.15)
+            href="http://www.uniprot.org">UniProt</a> 2010_04)
 		</td>
-		<td align="right" style="text-align: right !important;">181718</td>
-		<td align="right" style="text-align: right !important;">189881</td>
+		<td align="right" style="text-align: right !important;">182038</td>
+		<td align="right" style="text-align: right !important;">190213</td>
 	</tr>
 	<tr>
 		<td class="leftsubheading">
 			<a class="externalLink" target="_blank"
                href="http://www.ebi.ac.uk/GO/index.html">GO</a>
 		</td>
-		<td align="right" style="text-align: right !important;">3789</td>
-		<td align="right" style="text-align: right !important;">3794</td>
+		<td align="right" style="text-align: right !important;">3790</td>
+		<td align="right" style="text-align: right !important;">3795</td>
 	</tr>
 
 	<tr>

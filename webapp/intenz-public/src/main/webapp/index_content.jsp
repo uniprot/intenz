@@ -46,7 +46,7 @@
 		</div>
 	</div>
 </div>
-
+<%--
 <div class="spotlight">
 	<h2>Enzyme spotlight</h2>
 	<div style="margin: 0px 15px 15px 15px">
@@ -56,7 +56,7 @@
 		title="Selected enzyme spotlights from previous releases">gallery</a>
 		of previous releases spotlights.</div>
 </div>
-
+--%>
 <div>
 	<h2>Acknowledgements</h2>
 	<p>

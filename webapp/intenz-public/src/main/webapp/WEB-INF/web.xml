@@ -6,7 +6,7 @@
 
   <context-param>
     <param-name>intenz.db.config</param-name>
-    <param-value>intenz-db-dev</param-value>
+    <param-value>intenz-db-test</param-value>
   </context-param>
 
   <servlet>
