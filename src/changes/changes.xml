@@ -5,6 +5,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.0.5" date="2010-04-16"
+            description="Bug fix - importing UniProt xrefs for preliminary ECs">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest UniProt remoting API - which now brings
+                cross references for preliminary EC numbers, missing before -,
+                intenz-mapper, biobabel-db and parent (intenz).
+        	</action>
+		</release>
         <release version="1.0.4" date="2009-08-12"
             description="Moved database configuration files.">
         	<action dev="rafalcan" type="fix">
