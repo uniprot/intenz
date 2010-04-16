@@ -1,39 +1,41 @@
 #!/bin/bash
 #
 # Parameters:
-# $1 - Oracle credentials (username/password)
-# $2 - Oracle instance
-# $3 - [optional] Oracle dump file
+# $1 - Oracle username@instance
+# $2 - [optional] Oracle dump file. May be gzipped. Defaults to Oracle's
+#      default 'expdat.dmp')
 
 echo
 echo "**************************** W A R N I N G ****************************"
-echo "THIS WILL OVERWRITE ALL DATA IN $2. ARE YOU SURE?"
+echo "THIS WILL OVERWRITE ALL DATA IN $1. ARE YOU SURE?"
 echo "(Ctrl-C to cancel, Enter to continue)"
 read ok
+
+read -p "Password for ${1}:" -s PASSWORD
 
 WD=$(pwd)
 cd $(dirname $0)/../src/main/sql
 
 echo
-echo "*** Dropping everything in $2..."
-echo sqlplus $1@$2 @drop_all
-echo exit | sqlplus $1@$2 @drop_all
+echo "*** Dropping everything in $1..."
+echo sqlplus $1 @drop_all
+echo exit | sqlplus ${1/@/\/$PASSWORD@} @drop_all
 
 echo
 echo "*** Loading data..."
-if [ $3 ]
+if [ $2 ]
 then
     # Use absolute path of dump file:
-    if [ "$(echo $3 | grep -c '^/')" == 0 ]
+    if [ "$(echo $2 | grep -c '^/')" == 0 ]
     then
-        DUMP_FILE=$WD/$3
+        DUMP_FILE=$WD/$2
     else
-        DUMP_FILE=$3
+        DUMP_FILE=$2
     fi
     # Check if dump file is gzipped, unpack if needed:
     if [ "$(file $DUMP_FILE | grep -c 'gzip compressed data')" == 1 ]
     then
-        echo "$3 - dump file is gzipped"
+        echo "$2 - dump file is gzipped"
         # Unpack dump file
         TMP_DMP=$$.dmp
         gunzip -c $DUMP_FILE > $TMP_DMP
@@ -41,21 +43,22 @@ then
     fi
     FILE_PARAM="FILE=$DUMP_FILE"
 fi
-echo "$ORACLE_HOME/bin/imp $1@$2 PARFILE=parfile.fullimport $FILE_PARAM"
-echo exit | $ORACLE_HOME/bin/imp $1@$2 PARFILE=parfile.fullimport $FILE_PARAM
+echo "$ORACLE_HOME/bin/imp ${1} PARFILE=parfile.fullimport $FILE_PARAM"
+echo exit | $ORACLE_HOME/bin/imp ${1/@/\/$PASSWORD@} \
+    PARFILE=parfile.fullimport $FILE_PARAM
 # Cleanup:
 [ -n $TMP_DMP ] && [ -f $TMP_DMP ] && rm $TMP_DMP
 
 echo
 echo "*** Restoring permissions..."
 GRANTS=grant_to_roles
-case $2 in
-iweb*)
+case $1 in
+*@iweb*)
     GRANTS=${GRANTS}_public
     ;;
 esac
-echo sqlplus $1@$2 @$GRANTS
-echo exit | sqlplus $1@$2 @$GRANTS
+echo sqlplus $1 @$GRANTS
+echo exit | sqlplus ${1/@/\/$PASSWORD@} @$GRANTS
 
 echo
-echo "$3 loaded into $2. Done."
+echo "$2 loaded into $1. Done."
