@@ -11,6 +11,7 @@ fi
 DB_PROPS_FILE=${1:-intenz-db-prod.properties}
 
 REL_NO=`grep 'intenz.release.number' $INTENZ_CONFIG_DIR/intenz-release.properties | cut -d '=' -f 2`
+REL_DATE=$(grep 'intenz.release.date=' $INTENZ_CONFIG_DIR/intenz-release.properties | cut -d '=' -f 2)
 
 DB_MODULE_HOME=$(dirname $0)/..
 
@@ -25,3 +26,6 @@ echo 'exit' | \
 	sqlplus ${DB_USER}/${DB_PASSWD}@${DB_INSTANCE} \
 	@$DB_MODULE_HOME/src/main/sql/util/intenzStats \
 	$STATS_DUMP_DIR/intenzStats-rel$REL_NO.html
+
+sed -i 's/\(<title>\)\(.*\)\(<\/title>\)/\1\2 - Rel. $REL_NO ($REL_DATE)\3/'\
+    $STATS_DUMP_DIR/intenzStats-rel$REL_NO.html
