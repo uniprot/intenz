@@ -17,9 +17,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.apache.log4j.Logger;
 
 import uk.ac.ebi.biobabel.validator.DbIdentifierValidator;
@@ -593,42 +590,44 @@ public class EnzymeFlatFileWriter {
     assert version != null : version;
 
     if (header.equals("")) {
-      StringBuffer enzymeHeader = new StringBuffer();
       Date today = new Date();
-//      SimpleDateFormat formatter = new SimpleDateFormat("MMMMM yyyy");
       SimpleDateFormat formatter = new SimpleDateFormat("d-MMM-yyyy");
 
-      enzymeHeader.append("CC   -----------------------------------------------------------------------\n");
-      enzymeHeader.append("CC\n");
-      enzymeHeader.append("CC   ENZYME nomenclature database\n");
-      enzymeHeader.append("CC\n");
-      enzymeHeader.append("CC   -----------------------------------------------------------------------\n");
-      enzymeHeader.append("CC   Release ");
-//      enzymeHeader.append(version);
-//      enzymeHeader.append(" of ");
-      enzymeHeader.append(formatter.format(today));
-      enzymeHeader.append("\n");
-      enzymeHeader.append("CC   -----------------------------------------------------------------------\n");
-      enzymeHeader.append("CC\n");
-      enzymeHeader.append("CC   Amos Bairoch and Kristian Axelsen\n");
-      enzymeHeader.append("CC   Swiss Institute of Bioinformatics (SIB)\n");
-      enzymeHeader.append("CC   Centre Medical Universitaire (CMU)\n");
-      enzymeHeader.append("CC   1, rue Michel Servet\n");
-      enzymeHeader.append("CC   1211 Geneva 4\n");
-      enzymeHeader.append("CC   Switzerland\n");
-      enzymeHeader.append("CC\n");
-      enzymeHeader.append("CC   Email: enzyme@isb-sib.ch\n");
-      enzymeHeader.append("CC   Telephone: +41-22-379 50 50\n");
-      enzymeHeader.append("CC   Fax: +41-22-379 58 58\n");
-      enzymeHeader.append("CC\n");
-      enzymeHeader.append("CC   WWW server: http://www.expasy.org/enzyme/\n");
-      enzymeHeader.append("CC\n");
-      enzymeHeader.append("CC   -----------------------------------------------------------------------\n");
-      enzymeHeader.append("CC   This database is copyright from the Swiss Institute of Bioinformatics.\n");
-      enzymeHeader.append("CC   There are  no restrictions  on  its use by any institutions as long as\n");
-      enzymeHeader.append("CC   its content is in no way modified.\n");
-      enzymeHeader.append("CC   -----------------------------------------------------------------------\n");
-      enzymeHeader.append("//\n");
+      StringBuffer enzymeHeader = new StringBuffer()
+      		.append("CC   -----------------------------------------------------------------------\n")
+			.append("CC\n")
+			.append("CC   ENZYME nomenclature database\n")
+			.append("CC\n")
+			.append("CC   -----------------------------------------------------------------------\n")
+			.append("CC   Release of ")
+			.append(formatter.format(today))
+			.append("\n")
+			.append("CC   -----------------------------------------------------------------------\n")
+			.append("CC\n")
+			.append("CC   Amos Bairoch and Kristian Axelsen\n")
+			.append("CC   Swiss Institute of Bioinformatics (SIB)\n")
+			.append("CC   Centre Medical Universitaire (CMU)\n")
+			.append("CC   1, rue Michel Servet\n")
+			.append("CC   1211 Geneva 4\n")
+			.append("CC   Switzerland\n")
+			.append("CC\n")
+			.append("CC   Email: enzyme@isb-sib.ch\n")
+			.append("CC   Telephone: +41-22-379 50 50\n")
+			.append("CC   Fax: +41-22-379 58 58\n")
+			.append("CC\n")
+			.append("CC   WWW server: http://www.expasy.org/enzyme/\n")
+			.append("CC\n")
+			.append("CC   NOTE: The  ENZYME database  now includes  entries  with preliminary EC\n")
+			.append("CC   numbers. Preliminary EC numbers  include an 'n' as part  of the fourth \n")
+			.append("CC   (serial) digit (e.g. EC 3.5.1.n3). Entries with preliminary EC numbers\n")
+			.append("CC   are placed at the end of the sub-sub-class to which they belong.\n")
+			.append("CC\n")
+			.append("CC   -----------------------------------------------------------------------\n")
+			.append("CC   This database is copyright from the Swiss Institute of Bioinformatics.\n")
+			.append("CC   There are  no restrictions  on  its use by any institutions as long as\n")
+			.append("CC   its content is in no way modified.\n")
+			.append("CC   -----------------------------------------------------------------------\n")
+			.append("//\n");
       header = enzymeHeader.toString();
     }
 
