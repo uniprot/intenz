@@ -9,6 +9,16 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.4" date="2010-05-07"
+			description="Announcing preliminary EC numbers">
+            <action dev="rafalcan" type="add">
+                Added a note in the header of enzyme.dat about the introduction
+                of preliminary EC numbers.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated dependencies on intenz-mapper and rhea-domain.
+            </action>
+    	</release>
     	<release version="1.2.3" date="2010-04-12"
 			description="Added DE line exceptions">
             <action dev="rafalcan" type="update">
