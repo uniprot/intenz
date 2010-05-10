@@ -1,10 +1,9 @@
 package uk.ac.ebi.intenz.tools.export;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -32,6 +31,22 @@ public class XmlExporterTest {
 		try {
 			con = OracleDatabaseInstance.getInstance("intenz-db-dev").getConnection();
 	        EnzymeEntry entry = mapper.findById(1000L, con);
+			new XmlExporter().export(entry, "9999", "9999-09-09", System.out);
+		} catch (IOException e) {
+			fail(e.getMessage());
+		} finally {
+			if (con != null) con.close();
+		}
+	}
+
+	@Test
+	public void testExportEnzymeEntryNoLinks()
+	throws Exception {
+        EnzymeEntryMapper mapper = new EnzymeEntryMapper();
+        Connection con = null;
+		try {
+			con = OracleDatabaseInstance.getInstance("intenz-db-dev").getConnection();
+	        EnzymeEntry entry = mapper.findById(17515L, con);
 			new XmlExporter().export(entry, "9999", "9999-09-09", System.out);
 		} catch (IOException e) {
 			fail(e.getMessage());

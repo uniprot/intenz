@@ -514,11 +514,11 @@ public class XmlExporter {
         // Cross-references to Rhea:
         EnzymaticReactions er = entry.getEnzymaticReactions();
         if (er != null && er.size() > 0){
-            if (jaxbEnzyme.getLinks() == null)
-                jaxbEnzyme.setLinks(of.createLinks());
             for (int i = 0; i < er.size(); i++) {
                 Reaction reaction = er.getReaction(i);
                 if (reaction.getId().equals(Reaction.NO_ID_ASSIGNED)) continue;
+                if (jaxbEnzyme.getLinks() == null)
+                    jaxbEnzyme.setLinks(of.createLinks());
                 LinkType rheaLink = of.createLinkType();
                 rheaLink.setDb(DatabaseType.RHEA);
                 rheaLink.setAccessionNumber(reaction.getId().toString());
