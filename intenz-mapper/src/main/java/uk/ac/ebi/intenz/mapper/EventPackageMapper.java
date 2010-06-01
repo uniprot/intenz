@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
  *
  * @author Michael Darsow
  * @version $Revision: 1.2 $ $Date: 2008/01/28 12:33:08 $
+ * @deprecated use {@link HistoryEventMapper} instead.
  */
 public class EventPackageMapper {
 

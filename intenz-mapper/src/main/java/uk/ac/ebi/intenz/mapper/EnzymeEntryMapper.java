@@ -235,8 +235,8 @@ public class EnzymeEntryMapper {
    * @return the SQL statement.
    */
   private String updateStatement() {
-    return "UPDATE enzymes SET ec1 = ?, ec2 = ?, ec3 = ?, ec4 = ?, status = ?, source = ?, note = ?," +
-    		" history = ? WHERE enzyme_id = ?";
+    return "UPDATE enzymes SET ec1 = ?, ec2 = ?, ec3 = ?, ec4 = ?, status = ?," +
+    		" source = ?, note = ?, history = ?, active = ? WHERE enzyme_id = ?";
   }
 
   /**
@@ -1150,11 +1150,13 @@ public class EnzymeEntryMapper {
    * @param source      The source of this enzyme.
    * @param note        A note the curator might have added.
    * @param historyLine The enzyme's history line.
+   * @param active The enzyme's active status.
    * @param con         A database connection.
    * @throws java.sql.SQLException 
    */
   public void update(Long enzymeId, EnzymeCommissionNumber ec, Status status,
-                     EnzymeSourceConstant source, String note, String historyLine, Connection con)
+		  EnzymeSourceConstant source, String note, String historyLine,
+		  boolean active, Connection con)
   throws SQLException {
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
     if (ec == null) throw new NullPointerException("Parameter 'ec' must not be null.");
@@ -1175,7 +1177,8 @@ public class EnzymeEntryMapper {
       updateStatement.setString(6, source.toString());
       updateStatement.setString(7, note);
       updateStatement.setString(8, historyLine);
-      updateStatement.setLong(9, enzymeId.longValue());
+      updateStatement.setString(9, active? "Y" : "N");
+      updateStatement.setLong(10, enzymeId.longValue());
       updateStatement.execute();
     } finally {
       updateStatement.close();

@@ -7,6 +7,11 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.4" date="" description="Refactored history events">
+            <action dev="rafalcan" type="add">
+                Added class HistoryEventMapper which deprecates EventPackageMapper.
+        	</action>
+    	</release>
     	<release version="4.3.2" date="2010-04-14" description="Getting preliminary ECs">
             <action dev="rafalcan" type="add">
                 Added method to search preliminary EC numbers.
