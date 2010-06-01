@@ -35,8 +35,8 @@ public class CommonProceduresMapper {
       cStmt = con.prepareCall(callCloneStatement());
       cStmt.setString(1, "" + enzymeId);
       cStmt.registerOutParameter(2, Types.VARCHAR);
-      cStmt.setString(3, "SU");
-      cStmt.setString(4, "N");
+      cStmt.setString(3, "OK");
+      cStmt.setString(4, "Y");
       cStmt.execute();
 
       newEnzymeId = Integer.parseInt(cStmt.getString(2));
