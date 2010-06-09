@@ -28,7 +28,7 @@
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap"
           title="Not deleted, not transferred, either approved or preliminary">active</td>
-	  <td align="right" style="text-align: right !important;">4325</td>
+	  <td align="right" style="text-align: right !important;">4330</td>
 	</tr>
 </table>
 
@@ -42,7 +42,7 @@
 	<tr>
 		<td class="leftsubheading">SWISSPROT
 			(<a class="externalLink" target="_blank"
-            href="http://www.uniprot.org">UniProt</a> 2010_05)
+            href="http://www.uniprot.org">UniProt</a> 2010_06)
 		</td>
 		<td align="right" style="text-align: right !important;">182363</td>
 		<td align="right" style="text-align: right !important;">190549</td>
