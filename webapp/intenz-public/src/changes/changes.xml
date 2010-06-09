@@ -8,7 +8,8 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-
+    	<release version="61" date="2010-06-09" description="Release 61">
+    	</release>
     	<release version="60" date="2010-05-11" description="Release 60">
         	<action dev="rafalcan" type="update">
         		Updated to latest version of intenz-ffwriter.
