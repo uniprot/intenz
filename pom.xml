@@ -6,7 +6,7 @@
 	<artifactId>intenz-public</artifactId>
     <name>IntEnz public webapp</name>
 	<packaging>war</packaging>
-	<version>61-SNAPSHOT</version>
+	<version>61</version>
 	<description>IntEnz public web application</description>
 
 	<parent>
@@ -185,4 +185,10 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+  <scm>
+    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-public-61</connection>
+    <developerConnection>scm:svn:https://hongcao@intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-public-61</developerConnection>
+    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-public-61</url>
+  </scm>
 </project>
