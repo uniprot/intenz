@@ -42,6 +42,32 @@ public class IntEnzConnectionPool {
       LOGGER.error(e);
     }
   }
+  
+  /* Code changed for Oracle 11g (I know, it should have been a branch)
+   * LOAD TEST BEFORE DEPLOYING!
+    private OracleDataSource ods;
+
+    private IntEnzConnectionPool(String[] dbInitValues) {
+       LOGGER.debug("Intialising connection pool.");
+      try {
+        ods = new OracleDataSource();
+        ods.setURL(dbInitValues[0]);
+        ods.setDriverType(dbInitValues[1]);
+        ods.setUser(dbInitValues[2]);
+        ods.setPassword(dbInitValues[3]);
+        ods.setConnectionCachingEnabled(true);
+        // Set the limit of phys. connections.
+        Properties cacheProperties = new Properties();
+        cacheProperties.setProperty("MaxLimit", "4"); // Set Max Limit for the Cache  
+        OracleConnectionCacheManager connMgr =
+      	  OracleConnectionCacheManager.getConnectionCacheManagerInstance();
+        connMgr.createCache(ods, cacheProperties);
+      } catch (SQLException e) {
+        LOGGER.error(e);
+      }
+    }
+
+  */
 
   /**
    * This method creates the singleton INSTANCE.
