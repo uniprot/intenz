@@ -7,13 +7,13 @@
   <groupId>uk.ac.ebi.intenz</groupId>
   <artifactId>intenz-database</artifactId>
   <name>IntEnz database</name>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <description>IntEnz database scripts and utilities.</description>
 
   <parent>
   	<artifactId>intenz</artifactId>
   	<groupId>uk.ac.ebi.intenz</groupId>
-  	<version>4.0</version>
+  	<version>4.2</version>
   </parent>
 
     <build>
