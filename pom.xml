@@ -76,6 +76,14 @@
             <version>10.2.0.3</version>
             <scope>test</scope>
         </dependency>
+        <!-- for ENZPRO (11g):
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc5</artifactId>
+            <version>11.1.0.7.0</version>
+            <scope>runtime</scope>
+        </dependency>
+         -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
