@@ -9,6 +9,16 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.5" date="2010-06-28"
+			description="Added DE line exception">
+            <action dev="rafalcan" type="update">
+                Updated DE_line_modifications with transfer for
+                EC 2.1.1.73.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated dependency on intenz (parent).
+            </action>
+    	</release>
     	<release version="1.2.4" date="2010-05-07"
 			description="Announcing preliminary EC numbers">
             <action dev="rafalcan" type="add">
