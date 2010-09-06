@@ -9,6 +9,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.6" date="2010-09-06"
+			description="Added DE line exception">
+            <action dev="rafalcan" type="update">
+                Updated DE_line_modifications with transfer for
+                EC 2.1.1.48.
+            </action>
+    	</release>
     	<release version="1.2.5" date="2010-06-28"
 			description="Added DE line exception">
             <action dev="rafalcan" type="update">
