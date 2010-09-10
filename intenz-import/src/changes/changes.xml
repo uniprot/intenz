@@ -5,6 +5,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.0.6" date="2010-09-10"
+            description="UniProt update">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest UniProt remoting API.
+        	</action>
+		</release>
         <release version="1.0.5" date="2010-04-16"
             description="Bug fix - importing UniProt xrefs for preliminary ECs">
         	<action dev="rafalcan" type="update">
