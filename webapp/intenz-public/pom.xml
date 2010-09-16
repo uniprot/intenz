@@ -6,7 +6,7 @@
 	<artifactId>intenz-public</artifactId>
     <name>IntEnz public webapp</name>
 	<packaging>war</packaging>
-	<version>61</version>
+	<version>62</version>
 	<description>IntEnz public web application</description>
 
 	<parent>
@@ -102,7 +102,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-ffwriter</artifactId>
-			<version>1.2.4</version>
+			<version>1.2.6</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.xchars</groupId>
