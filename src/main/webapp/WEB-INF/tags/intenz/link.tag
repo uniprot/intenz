@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
 	
 <%@ attribute name="enzymeLink" required="true"
 	description="The EnzymeLink object to link to."
@@ -18,24 +19,25 @@ jspContext.setAttribute("fullUrl",
 	((EnzymeLink) jspContext.getAttribute("enzymeLink"))
 		.getFullUrl((String) jspContext.getAttribute("ec")));
 %>
+<fmt:setBundle basename="linksTitles" var="linksTitles"/>
+<c:set var="linkTitle">
+    <c:choose>
+        <c:when test="${enzymeLink.xrefDatabaseConstant eq 'DIAGRAM'
+            or enzymeLink.xrefDatabaseConstant eq 'OMIM'}">${enzymeLink.name}</c:when>
+        <c:when test="${enzymeLink.xrefDatabaseConstant eq 'GO'}">
+            <fmt:message bundle="${linksTitles}" key="${enzymeLink.xrefDatabaseConstant.databaseCode}">
+                <fmt:param value="${enzymeLink.name}"/>
+            </fmt:message>
+        </c:when>
+        <c:otherwise>
+            <fmt:message bundle="${linksTitles}" key="${enzymeLink.xrefDatabaseConstant.databaseCode}"/>
+        </c:otherwise>
+    </c:choose>
+</c:set>
 <jsp:element name="a">
 	<jsp:attribute name="href">${fullUrl}</jsp:attribute>
 	<jsp:attribute name="target">_blank</jsp:attribute>
-	<jsp:attribute name="title">
-		<fmt:setBundle basename="linksTitles" var="linksTitles"/>
-		<c:choose>
-			<c:when test="${enzymeLink.xrefDatabaseConstant eq 'DIAGRAM'
-				or enzymeLink.xrefDatabaseConstant eq 'OMIM'}">${enzymeLink.name}</c:when>
-			<c:when test="${enzymeLink.xrefDatabaseConstant eq 'GO'}">
-				<fmt:message bundle="${linksTitles}" key="${enzymeLink.xrefDatabaseConstant.databaseCode}">
-					<fmt:param value="${enzymeLink.name}"/>
-				</fmt:message>
-			</c:when>
-			<c:otherwise>
-				<fmt:message bundle="${linksTitles}" key="${enzymeLink.xrefDatabaseConstant.databaseCode}"/>
-			</c:otherwise>
-		</c:choose>
-	</jsp:attribute>
+	<jsp:attribute name="title">${f:trim(linkTitle)}</jsp:attribute>
 	<jsp:body>
 		<c:choose>
 			<c:when test="${enzymeLink.xrefDatabaseConstant eq 'PROSITE'}">PROSITE:${enzymeLink.accession}</c:when>
