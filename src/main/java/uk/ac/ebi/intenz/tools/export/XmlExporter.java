@@ -516,7 +516,10 @@ public class XmlExporter {
         if (er != null && er.size() > 0){
             for (int i = 0; i < er.size(); i++) {
                 Reaction reaction = er.getReaction(i);
-                if (reaction.getId().equals(Reaction.NO_ID_ASSIGNED)) continue;
+                if (reaction.getId().equals(Reaction.NO_ID_ASSIGNED)
+                		|| !reaction.getStatus().isPublic()){
+                	continue;
+                }
                 if (jaxbEnzyme.getLinks() == null)
                     jaxbEnzyme.setLinks(of.createLinks());
                 LinkType rheaLink = of.createLinkType();
