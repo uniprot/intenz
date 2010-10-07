@@ -6,13 +6,13 @@
 	<artifactId>intenz-mapper</artifactId>
     <name>IntEnz mapper module</name>
 	<packaging>jar</packaging>
-	<version>4.4-SNAPSHOT</version>
+	<version>4.4</version>
 	<description>IntEnz - Mapper package</description>
 
 	<parent>
 		<groupId>uk.ac.ebi.intenz</groupId>
 		<artifactId>intenz</artifactId>
-		<version>4.1</version>
+		<version>4.2.1</version>
 	</parent>
 
 	<build>
@@ -35,12 +35,12 @@
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-mapper</artifactId>
-			<version>3.5.2</version>
+			<version>3.5.6</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-domain</artifactId>
-			<version>1.6</version>
+			<version>1.6.1</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
@@ -62,11 +62,17 @@
         <dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
 			<artifactId>biobabel-db</artifactId>
-			<version>1.3.2</version>
+			<version>1.3.3</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.8</version></dependency>
+			<version>1.2.16</version></dependency>
 	</dependencies>
+
+  <scm>
+    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-mapper-4.4</connection>
+    <developerConnection>scm:svn:https://ralcantara@intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-mapper-4.4</developerConnection>
+    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-mapper-4.4</url>
+  </scm>
 </project>
