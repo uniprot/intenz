@@ -8,6 +8,17 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="63" date=""
+            description="Release 63">
+        	<action dev="rafalcan" type="fix">
+        	    Fixed xrefs links titles, which showed too many white space
+                (line feeds) in Safari.
+        	</action>
+        	<action dev="rafalcan" type="fix">
+        	    Fixed mispelling of 'Committee'.
+        	</action>
+    	</release>
+
     	<release version="62" date="2010-09-15"
             description="Release 62 (first at pH 7.3)">
         	<action dev="rafalcan" type="update">
