@@ -6,7 +6,7 @@
 
     <groupId>uk.ac.ebi.intenz</groupId>
     <artifactId>intenz</artifactId>
-    <version>4.2</version>
+    <version>4.2.1</version>
     <packaging>pom</packaging>
     <name>IntEnz project</name>
     <description>IntEnz project</description>
@@ -197,7 +197,17 @@
                         </reports>
                     </reportSet>
                 </reportSets>
-            </plugin>
+                <configuration>
+                    <issueLinkTemplatePerSystem>
+                        <sf-bugs>
+                            %URL%/?func=detail&amp;group_id=94642&amp;atid=608557&amp;aid=%ISSUE%
+                        </sf-bugs>
+                        <sf-feature-requests>
+                            %URL%/?func=detail&amp;group_id=94642&amp;atid=608560&amp;aid=%ISSUE%
+                        </sf-feature-requests>
+                    </issueLinkTemplatePerSystem>
+                </configuration>
+             </plugin>
         </plugins>
     </reporting>
 
