@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>uk.ac.ebi.intenz</groupId>
     <artifactId>intenz-import</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8-SNAPSHOT</version>
     <name>IntEnz import module</name>
     <description>Module to import external cross references</description>
 
@@ -106,10 +106,4 @@
             
         </plugins>
     </build>
-
-  <scm>
-    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-import-1.0.7</connection>
-    <developerConnection>scm:svn:https://ralcantara@intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-import-1.0.7</developerConnection>
-    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-import-1.0.7</url>
-  </scm>
 </project>
