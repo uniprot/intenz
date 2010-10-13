@@ -12,23 +12,23 @@
 	</tr>
 	<tr>
 	  <th class="headingleft" colspan="2">Sub-subclasses</th>
-	  <td align="right" style="text-align: right !important;">261</td>
+	  <td align="right" style="text-align: right !important;">264</td>
 	</tr>
 	<tr>
 	  <th class="headingleft" nowrap="nowrap" rowspan="3">EC numbers</th>
 	  <td class="subheadingleft" nowrap="nowrap" title="Approved by NC-IUBMB">approved</td>
-	  <td align="right" style="text-align: right !important;">5011</td>
+	  <td align="right" style="text-align: right !important;">5075</td>
 	</tr>
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap"
            title="Preliminary EC numbers issued by UniProt"><a
               href="query?cmd=SearchPreliminary">preliminary</a></td>
-	  <td align="right" style="text-align: right !important;">106</td>
+	  <td align="right" style="text-align: right !important;">72</td>
 	</tr>
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap"
           title="Not deleted, not transferred, either approved or preliminary">active</td>
-	  <td align="right" style="text-align: right !important;">4330</td>
+	  <td align="right" style="text-align: right !important;">4387</td>
 	</tr>
 </table>
 
@@ -42,18 +42,18 @@
 	<tr>
 		<td class="leftsubheading">SWISSPROT
 			(<a class="externalLink" target="_blank"
-            href="http://www.uniprot.org">UniProt</a> 2010_06)
+            href="http://www.uniprot.org">UniProt</a> 2010_10)
 		</td>
-		<td align="right" style="text-align: right !important;">182363</td>
-		<td align="right" style="text-align: right !important;">190549</td>
+		<td align="right" style="text-align: right !important;">187426</td>
+		<td align="right" style="text-align: right !important;">196109</td>
 	</tr>
 	<tr>
 		<td class="leftsubheading">
 			<a class="externalLink" target="_blank"
                href="http://www.ebi.ac.uk/GO/index.html">GO</a>
 		</td>
-		<td align="right" style="text-align: right !important;">3790</td>
-		<td align="right" style="text-align: right !important;">3795</td>
+		<td align="right" style="text-align: right !important;">3852</td>
+		<td align="right" style="text-align: right !important;">3856</td>
 	</tr>
 
 	<tr>
@@ -61,7 +61,7 @@
 			<a class="externalLink" target="_blank"
                href="http://www.expasy.org/prosite">PROSITE</a>
 		</td>
-		<td align="right" style="text-align: right !important;">455</td>
-		<td align="right" style="text-align: right !important;">1345</td>
+		<td align="right" style="text-align: right !important;">457</td>
+		<td align="right" style="text-align: right !important;">1383</td>
 	</tr>
 </table>
