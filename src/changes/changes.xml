@@ -8,7 +8,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="63" date=""
+    	<release version="63" date="2010-10-13"
             description="Release 63">
         	<action dev="rafalcan" type="fix">
         	    Fixed xrefs links titles, which showed too many white space
@@ -16,6 +16,9 @@
         	</action>
         	<action dev="rafalcan" type="fix">
         	    Fixed mispelling of 'Committee'.
+        	</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest version of intenz-mapper.
         	</action>
     	</release>
 
