@@ -54,9 +54,9 @@
 			<scope>test</scope>
 		</dependency>
         <dependency>
-			<groupId>com.oracle.driver</groupId>
-			<artifactId>ojdbc14</artifactId>
-			<version>10.2.0.3</version>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc5</artifactId>
+            <version>11.1.0.7.0</version>
 			<scope>provided</scope>
 		</dependency>
         <dependency>
