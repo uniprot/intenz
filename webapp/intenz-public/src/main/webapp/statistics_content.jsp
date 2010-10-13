@@ -17,18 +17,18 @@
 	<tr>
 	  <th class="headingleft" nowrap="nowrap" rowspan="3">EC numbers</th>
 	  <td class="subheadingleft" nowrap="nowrap" title="Approved by NC-IUBMB">approved</td>
-	  <td align="right" style="text-align: right !important;">5059</td>
+	  <td align="right" style="text-align: right !important;">5075</td>
 	</tr>
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap"
            title="Preliminary EC numbers issued by UniProt"><a
               href="query?cmd=SearchPreliminary">preliminary</a></td>
-	  <td align="right" style="text-align: right !important;">67</td>
+	  <td align="right" style="text-align: right !important;">72</td>
 	</tr>
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap"
           title="Not deleted, not transferred, either approved or preliminary">active</td>
-	  <td align="right" style="text-align: right !important;">4368</td>
+	  <td align="right" style="text-align: right !important;">4387</td>
 	</tr>
 </table>
 
@@ -42,18 +42,18 @@
 	<tr>
 		<td class="leftsubheading">SWISSPROT
 			(<a class="externalLink" target="_blank"
-            href="http://www.uniprot.org">UniProt</a> 2010_09)
+            href="http://www.uniprot.org">UniProt</a> 2010_10)
 		</td>
-		<td align="right" style="text-align: right !important;">187190</td>
-		<td align="right" style="text-align: right !important;">195778</td>
+		<td align="right" style="text-align: right !important;">187426</td>
+		<td align="right" style="text-align: right !important;">196109</td>
 	</tr>
 	<tr>
 		<td class="leftsubheading">
 			<a class="externalLink" target="_blank"
                href="http://www.ebi.ac.uk/GO/index.html">GO</a>
 		</td>
-		<td align="right" style="text-align: right !important;">3847</td>
-		<td align="right" style="text-align: right !important;">3851</td>
+		<td align="right" style="text-align: right !important;">3852</td>
+		<td align="right" style="text-align: right !important;">3856</td>
 	</tr>
 
 	<tr>
