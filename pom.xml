@@ -4,7 +4,7 @@
 	
 	<groupId>uk.ac.ebi.intenz.webapp</groupId>
 	<artifactId>intenz-curator</artifactId>
-	<version>4.2.5-SNAPSHOT</version>
+	<version>4.2.4-SNAPSHOT</version>
     <name>IntEnz curator webapp</name>
 	<description>IntEnz curator tool - Web application</description>
 	<packaging>war</packaging>
