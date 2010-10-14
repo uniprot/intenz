@@ -4,7 +4,7 @@
 	
 	<groupId>uk.ac.ebi.intenz.webapp</groupId>
 	<artifactId>intenz-curator</artifactId>
-	<version>4.2.4-SNAPSHOT</version>
+	<version>4.2.4</version>
     <name>IntEnz curator webapp</name>
 	<description>IntEnz curator tool - Web application</description>
 	<packaging>war</packaging>
@@ -110,17 +110,17 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-core</artifactId>
-			<version>4.2.3</version>
+			<version>4.2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-mapper</artifactId>
-			<version>4.3</version>
+			<version>4.4</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-ffwriter</artifactId>
-			<version>1.2</version>
+			<version>1.2.6</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>antlr</artifactId>
@@ -131,24 +131,24 @@
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-domain</artifactId>
-			<version>1.4.5</version>
+			<version>1.6.1</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-mapper</artifactId>
-			<version>3.3.1</version>
+			<version>3.5.6</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-chebiIdAssigner</artifactId>
-			<version>1.1.3</version>
+			<version>1.2</version>
 			<type>war</type>
             <scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-chebiIdAssigner</artifactId>
-			<version>1.1.3</version>
+			<version>1.2</version>
 			<type>warpath</type>
 			<exclusions>
 				<exclusion>
@@ -174,14 +174,14 @@
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-find-struts1</artifactId>
-			<version>1.1.3</version>
+			<version>1.2.1</version>
 			<type>war</type>
             <scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-search-struts1</artifactId>
-			<version>1.1.2</version>
+			<version>1.2</version>
 			<type>war</type>
             <scope>runtime</scope>
 		</dependency>
@@ -194,7 +194,7 @@
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
             <artifactId>rhea-chebiUpdater</artifactId>
-            <version>1.1.22</version>
+            <version>1.1.24</version>
             <exclusions>
             	<exclusion>
             		<artifactId>commons-lang</artifactId>
@@ -247,7 +247,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
 			<artifactId>biobabel-db</artifactId>
-			<version>1.3.2</version>
+			<version>1.3.3</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
@@ -359,4 +359,10 @@
             <type>war</type>
         </dependency>
 	</dependencies>
+
+  <scm>
+    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-curator-4.2.4</connection>
+    <developerConnection>scm:svn:https://ralcantara@intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-curator-4.2.4</developerConnection>
+    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-curator-4.2.4</url>
+  </scm>
 </project>
