@@ -212,6 +212,7 @@ public class UnitOfWork {
 					EnzymeSourceConstant.valueOf(enzymeUnderDevelopment.getSource()),
 					enzymeUnderDevelopment.getNote(),
 					enzymeUnderDevelopment.getHistoryLine(),
+					enzymeUnderDevelopment.isActive(),
 					con);
 		}
 	}
