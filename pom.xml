@@ -4,14 +4,14 @@
     
     <groupId>uk.ac.ebi.intenz</groupId>
     <artifactId>intenz-ffwriter</artifactId>
-    <version>1.2.6</version>
+    <version>1.2.7-SNAPSHOT</version>
     <name>IntEnz flat file writer</name>
     <description>ENZYME.dat flat file writer</description>
     
     <parent>
         <groupId>uk.ac.ebi.intenz</groupId>
         <artifactId>intenz</artifactId>
-        <version>4.2</version>
+        <version>4.2.2</version>
     </parent>
     
     <dependencies>
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-mapper</artifactId>
-            <version>4.3.2</version>
+            <version>4.4</version>
 			<scope>test</scope>
         </dependency>
     </dependencies>
