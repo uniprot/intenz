@@ -4,7 +4,6 @@
 
 EXPORT_HOME=`dirname $0`/..
 CONFIG_DIR=$EXPORT_HOME/src/main/appResources
-INTENZ_PUBLIC_DIR=$EXPORT_HOME/../webapp/intenz-public
 
 SITEMAP_OUT_DIR=`grep 'intenz.export.sitemap.output.dir' $CONFIG_DIR/intenz-export.properties | cut -d '=' -f 2`
 [ -d $SITEMAP_OUT_DIR ] || mkdir -p $SITEMAP_OUT_DIR
@@ -24,7 +23,6 @@ cd $EXPORT_HOME
 if [ "${EXPORT_FORMAT#*SITEMAP*}" != "$EXPORT_FORMAT" ]
 then
 	gzip $SITEMAP_OUT_DIR/sitemap.xml
-	cp $SITEMAP_OUT_DIR/sitemap.xml.gz $INTENZ_PUBLIC_DIR/src/main/webapp
 fi
 
 if [ "${EXPORT_FORMAT#*BIOPAX*}" != "$EXPORT_FORMAT" ]
