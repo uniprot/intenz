@@ -782,12 +782,13 @@ host sed 's/ \+$//' &1/intenz_reactions_audit.sql.raw > &1/intenz_reactions_audi
 
 spool &1/reaction_participants.sql.raw
 select 'alter table reaction_participants comment = '||f_table_comment('reaction_participants')||';'||CHR(10) from dual;
-select 'insert into reaction_participants (REACTION_ID,COMPOUND_ID,SIDE,COEFFICIENT,COEFF_TYPE) values ('||CHR(10)
+select 'insert into reaction_participants (REACTION_ID,COMPOUND_ID,SIDE,COEFFICIENT,COEFF_TYPE,LOCATION) values ('||CHR(10)
 	||REACTION_ID                                     ||','||CHR(10)
 	||COMPOUND_ID                                     ||','||CHR(10)
     ||''''||TRIM(SIDE                                )||''','||CHR(10)
 	||COEFFICIENT                                     ||','||CHR(10)
-    ||''''||TRIM(COEFF_TYPE                          )||''');'
+    ||''''||TRIM(COEFF_TYPE                          )||''','||CHR(10)
+    ||''''||TRIM(LOCATION                            )||''');'
 from reaction_participants
 order by reaction_id asc
 ;
@@ -1158,6 +1159,16 @@ from cv_warnings_audit
 ;
 spool off;
 host sed 's/ \+$//' &1/cv_warnings_audit.sql.raw > &1/cv_warnings_audit.sql ; rm &1/cv_warnings_audit.sql.raw
+
+spool &1/cv_location.sql.raw
+select 'alter table cv_location comment = '||f_table_comment('cv_location')||';'||CHR(10) from dual;
+select 'insert into cv_location (CODE, TEXT) values ('||CHR(10)
+    ||''''||TRIM(CODE                             )||''','||CHR(10)
+    ||''''||TRIM(TEXT                             )||''');'
+from cv_location
+;
+spool off;
+host sed 's/ \+$//' &1/cv_location.sql.raw > &1/cv_location.sql ; rm &1/cv_location.sql.raw
 
 
 drop function is_null_int;
