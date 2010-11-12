@@ -23,9 +23,7 @@ GRANT SELECT                      ON v_ec_for_datalib      TO ENZYME_SELECT;
 GRANT SELECT                      ON v_interpro            TO ENZYME_SELECT;
 GRANT EXECUTE                     ON f_quad2string         TO ENZYME_SELECT;
 GRANT EXECUTE                     ON p_string2quad         TO ENZYME_SELECT;
-GRANT EXECUTE                     ON xml_display_sp_code    TO ENZYME_SELECT;
-GRANT EXECUTE                     ON xml_display_chebi_code TO ENZYME_SELECT;
-GRANT EXECUTE                     ON xml_display_unicode    TO ENZYME_SELECT;
+GRANT EXECUTE                     ON f_rhea_family_id      TO ENZYME_WEBSERVER;
 
 GRANT SELECT ON reactions_map TO ENZYME_SELECT;
 GRANT SELECT ON intenz_reactions TO ENZYME_SELECT;
@@ -38,9 +36,11 @@ GRANT SELECT ON reaction_xrefs TO ENZYME_SELECT;
 GRANT SELECT ON reaction_mergings TO ENZYME_SELECT;
 GRANT SELECT ON cv_coeff_types TO ENZYME_SELECT;
 GRANT SELECT ON cv_comp_pub_avail TO ENZYME_SELECT;
+GRANT SELECT ON cv_location TO ENZYME_SELECT;
 GRANT SELECT ON cv_operators TO ENZYME_SELECT;
 GRANT SELECT ON cv_reaction_directions TO ENZYME_SELECT;
 GRANT SELECT ON cv_reaction_qualifiers TO ENZYME_SELECT;
 GRANT SELECT ON cv_reaction_sides TO ENZYME_SELECT;
 GRANT SELECT ON cv_view TO ENZYME_SELECT;
 
+GRANT EXECUTE ON reaction_qualifiers TO ENZYME_SELECT;

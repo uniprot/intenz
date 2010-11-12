@@ -54,7 +54,7 @@ echo "*** Restoring permissions..."
 GRANTS=grant_to_roles
 case $1 in
 *@iweb*)
-    GRANTS=${GRANTS}_public
+    GRANTS=grant_to_enzymewebserver
     ;;
 esac
 echo sqlplus $1 @$GRANTS
