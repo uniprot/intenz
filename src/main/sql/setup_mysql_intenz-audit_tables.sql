@@ -473,6 +473,7 @@ CREATE TABLE `reaction_participants_audit` (
   `side` varchar(1),
   `coefficient` int(2),
   `coeff_type` varchar(1),
+  `location` varchar(1),
   `timestamp` datetime,
   `audit_id` int(15),
   `dbuser` varchar(30),

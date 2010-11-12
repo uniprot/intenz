@@ -370,7 +370,8 @@ CREATE TABLE `reaction_participants` (
   `compound_id` int(15) NOT NULL,
   `side` varchar(1) NOT NULL,
   `coefficient` int(2) NOT NULL DEFAULT '1',
-  `coeff_type` varchar(1) NOT NULL DEFAULT 'F'
+  `coeff_type` varchar(1) NOT NULL DEFAULT 'F',
+  `location` varchar(1)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 --
 -- Dumping data for table `reaction_participants`
@@ -627,4 +628,19 @@ CREATE TABLE `cv_warnings` (
 --
 LOCK TABLES `cv_warnings` WRITE;
 source cv_warnings.sql
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cv_location`
+--
+DROP TABLE IF EXISTS `cv_location`;
+CREATE TABLE `cv_location` (
+  `code` varchar(1) NOT NULL,
+  `text` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
+-- Dumping data for table `cv_location`
+--
+LOCK TABLES `cv_location` WRITE;
+source cv_location.sql
 UNLOCK TABLES;
