@@ -223,6 +223,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON reaction_mergings TO ENZYME_CURATOR;
 
 GRANT SELECT ON cv_coeff_types TO ENZYME_SELECT;
 GRANT SELECT ON cv_comp_pub_avail TO ENZYME_SELECT;
+GRANT SELECT ON cv_location TO ENZYME_SELECT;
 GRANT SELECT ON cv_operators TO ENZYME_SELECT;
 GRANT SELECT ON cv_reaction_directions TO ENZYME_SELECT;
 GRANT SELECT ON cv_reaction_qualifiers TO ENZYME_SELECT;
@@ -345,6 +346,10 @@ GRANT EXECUTE                     ON p_string2quad         TO ENZYME_CURATOR;
 GRANT EXECUTE                     ON p_string2quad         TO ENZYME_COMMITTEE;
 GRANT EXECUTE                     ON p_string2quad         TO ENZYME_PRODUCTION;
 
+GRANT EXECUTE                     ON f_rhea_family_id      TO ENZYME_SELECT;
+GRANT EXECUTE                     ON f_rhea_family_id      TO ENZYME_CURATOR;
+GRANT EXECUTE                     ON f_rhea_family_id      TO ENZYME_COMMITTEE;
+GRANT EXECUTE                     ON f_rhea_family_id      TO ENZYME_PRODUCTION;
 /*
 GRANT EXECUTE                     ON transit               TO ENZYME_PRODUCTION;
 
@@ -375,3 +380,6 @@ GRANT EXECUTE                     ON p_merge_publications  TO ENZYME_CURATOR,ENZ
 GRANT EXECUTE                     ON xml_display_sp_code    TO ENZYME_SELECT;
 GRANT EXECUTE                     ON xml_display_chebi_code TO ENZYME_SELECT;
 GRANT EXECUTE                     ON xml_display_unicode    TO ENZYME_SELECT;
+
+GRANT EXECUTE ON reaction_qualifiers TO ENZYME_SELECT;
+GRANT EXECUTE ON reaction_qualifiers TO ENZYME_CURATOR;
