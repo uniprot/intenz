@@ -8,6 +8,24 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="64" date="2010-11-11"
+            description="Release 64">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest version of intenz-ffwriter, rhea-domain,
+                commons-collections and javax.mail.
+        	</action>
+        	<action dev="rafalcan" type="remove">
+                Removed redundant - and sometimes wrong - line with info on
+                trasferred entries.
+        	</action>
+        	<action dev="rafalcan" type="remove">
+                Removed sitemap file (will be out of the war file).
+        	</action>
+        	<action dev="rafalcan" type="add">
+                Added google site verification as a meta tag.
+        	</action>
+    	</release>
+
     	<release version="63" date="2010-10-13"
             description="Release 63">
         	<action dev="rafalcan" type="fix">

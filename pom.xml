@@ -6,7 +6,7 @@
 	<artifactId>intenz-public</artifactId>
     <name>IntEnz public webapp</name>
 	<packaging>war</packaging>
-	<version>64-SNAPSHOT</version>
+	<version>64</version>
 	<description>IntEnz public web application</description>
 
 	<parent>
@@ -102,12 +102,12 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-ffwriter</artifactId>
-			<version>1.2.6</version>
+			<version>1.2.7</version>
 		</dependency>
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
             <artifactId>rhea-domain</artifactId>
-            <version>1.6.1</version>
+            <version>1.6.3</version>
         </dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.xchars</groupId>
@@ -154,12 +154,12 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>1.4</version>
+            <version>1.4.3</version>
         </dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>3.2</version>
+			<version>3.2.1</version>
 		</dependency>
 		<dependency>
 			<groupId>taglibs</groupId>
@@ -198,4 +198,10 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+  <scm>
+    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-public-64</connection>
+    <developerConnection>scm:svn:https://ralcantara@intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-public-64</developerConnection>
+    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-public-64</url>
+  </scm>
 </project>

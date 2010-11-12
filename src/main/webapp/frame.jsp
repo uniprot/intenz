@@ -11,7 +11,8 @@
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta http-equiv="Window-target" content="_top" />
 <meta name="no-email-collection" content="http://www.unspam.com/noemailcollection/" />
-<meta name="generator" content="Dreamweaver 8" />
+<meta name="google-site-verification" content="LAlg1MDJldQvyKGTgkzUjB_pB4mfrT9WofudsOex0Sg" />
+
 <!-- InstanceBeginEditable name="doctitle" -->
 <% String title = request.getParameter("title"); %>
 <title><%=title%> - Integrated Enzyme Database (IntEnz)</title>
