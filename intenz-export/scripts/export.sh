@@ -8,6 +8,7 @@
 
 [ $? == 0 ] || exit 1
 
+EXPORT_HOME=`dirname $0`/..
 cd $EXPORT_HOME
 
 # Parse parameters sent to ExporterApp in order to compress files:
