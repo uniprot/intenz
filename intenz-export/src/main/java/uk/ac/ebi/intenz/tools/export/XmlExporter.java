@@ -648,7 +648,7 @@ public class XmlExporter {
         note.append(entryName);
         if (entryName.length() > 0 && historyNote.length() > 0) note.append(". ");
         note.append(historyNote);
-        return getFlavoured(note.toString());
+        return note.toString();
     }
 
     /**
