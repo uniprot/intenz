@@ -9,10 +9,23 @@
     </properties>
     <body>
 
+		<release version="1.3.7" date=""
+			description="KEGG enzyme format">
+    		<action dev="rafalcan" type="add">
+    			Added exporter for KEGG enzyme flat file.
+    		</action>
+    		<action dev="rafalcan" type="add">
+    			Added command line options to ExporterApp.
+    		</action>
+    		<action dev="rafalcan" type="update">
+    			Updated to latest version of dependencies.
+   			</action>
+		</release>
+
 		<release version="1.3.6" date="2010-10-07"
 			description="Bug fix">
     		<action dev="rafalcan" type="fix">
-    			Removed links to Rhea when the reaction is not public.<fixes/>
+    			Removed links to Rhea when the reaction is not public.
     		</action>
     		<action dev="rafalcan" type="update">
     			Updated to latest version of intenz (parent), intenz-mapper,
