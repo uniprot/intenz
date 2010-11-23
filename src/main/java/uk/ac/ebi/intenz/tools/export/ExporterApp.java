@@ -15,23 +15,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import java.util.StringTokenizer;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.MarshalException;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import uk.ac.ebi.biobabel.util.StringUtil;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.biopax.level2.Biopax;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeClass;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubSubclass;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubclass;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.mapper.EnzymeClassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
@@ -40,121 +44,160 @@ import uk.ac.ebi.intenz.mapper.EnzymeSubclassMapper;
 
 public class ExporterApp {
 
-    private enum Format { INTENZ_XML, SITEMAP, BIOPAX }
+    private enum Format {
+    	INTENZ_XML("intenzXml"),
+    	SITEMAP("sitemap"),
+    	BIOPAX("biopax"),
+    	KEGG_ENZYME("keggEnzyme");
+    	private String cliOption;
+    	private Format(String cliOption){
+    		this.cliOption = cliOption;
+    	}
+	}
     
     public static Logger LOGGER = Logger.getLogger(ExporterApp.class);
-
-    private List<EnzymeEntry> enzymeList;
-
-    private Map<String, Object> DESCRIPTIONS;
     
     private Properties props;
 	private Properties spotlights;
+
+	private Connection intenzConnection;
 
     /**
      * Exports IntEnz data in the following formats:
      * <ul>
      * 	   <li>XML (both <i>flavours</i> ASCII and XCHARS), using the
      * 			{@link uk.ac.ebi.intenz.tools.export.XmlExporter XmlExporter}
-     *          class</li>
+     *          class.</li>
      * 	   <li>Site map XML file (<code>sitemap.xml</code>) to be used in
      * 		   	{@link http://www.google.com/webmasters/sitemaps Google sitemaps}
      * 			to make every IntEnz entry available to Google indexing.
      * 			Other search engines accept this standard too.</li>
      * 	   <li><a href="http://www.biopax.org">BioPAX</a>, using the biopax
-     *          module</li>
+     *          module.</li>
+     * 	   <li><a href="ftp://ftp.genome.jp/pub/kegg/ligand/ligand.txt">KEGG
+     * 			enzyme</a>.</li>
      * </ul>
      * Some properties files must be in the classpath:
      * <ul>
      *      <li><code>intenz-release.properties</code>: containing the release number
      *          and date</li>
-     *      <li><code>intenz-export.properties</code>: containing parameters
-     *          for the application (database instance, output directories)</li>
      * </ul>
      * @param args
-     * 		<ol>
-     * 			<li>EC number (optional). If <code>null</code>, all public
-     * 				enzymes will be exported</li>
-     * 		</ol>
+     * <ul>
+     * 	<li>-intenzDb &lt;config&gt;: database configuration file for IntEnz.</li>
+     *	<li>[-intenzXml &lt;output dir&gt;]: export as <a
+     * 		href="http://intenz.sourceforge.net/intenz-xml/index.html">IntEnzXML</a>
+     * 		.</li>
+     * 	<li>[-biopax &lt;file name&gt;]: export as one <a
+     * 		href="http://www.biopax.org">BioPAX</a> OWL file.</li>
+     * 	<li>[-sitemap &lt;file name&gt;]: export as a
+	 * 		<a href="http://www.sitemaps.org">Sitemap</a> XML file.</li>
+     * 	<li>[-keggEnzyme &lt;file name&gt;]: export as a KEGG enzyme file.</li>
+     * 	<li>[-ec &lt;EC number&gt;]: export only the passed EC number.
+     * 				if not set, all of the public entries are exported.</li>
+     * </ul>
      * @throws DomainException
      * @throws IOException
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "static-access" })
     public static void main(String[] args)
     throws ClassNotFoundException, SQLException, IOException, DomainException {
-        ExporterApp app = new ExporterApp(args.length == 0? null : args[0]);
-        String formats = app.props.getProperty("intenz.export.format");
-        if (!StringUtil.isNullOrEmpty(formats)){
-            StringTokenizer st = new StringTokenizer(formats, " ,;");
-            while (st.hasMoreTokens()){
-                String format = st.nextToken();
-                switch (Format.valueOf(format)){
-                case INTENZ_XML:
-                    try {
-                        app.exportXML();
-                    } catch (Exception e) {
-                        LOGGER.error(e.getMessage(), e);
-                    }
-                    break;
-                case SITEMAP:
-                    try {
-                        app.exportSitemap();
-                    } catch (Exception e) {
-                        LOGGER.error(e.getMessage(), e);
-                    }
-                    break;
-                case BIOPAX:
-                    try {
-                        app.exportBiopax();
-                    } catch (Exception e) {
-                        LOGGER.error(e.getMessage(), e);
-                    }
-                    break;
-                }
-            }
-        } else { // export all
+		Options options = new Options();
+		options.addOption(OptionBuilder.isRequired()
+				.hasArg().withArgName("config")
+				.withDescription("IntEnz database configuration")
+				.create("intenzDb"));
+		options.addOption(OptionBuilder
+				.hasArg().withArgName("file name")
+				.withDescription("[optional] Export IntEnz as BioPAX")
+				.create(Format.BIOPAX.cliOption));
+		options.addOption(OptionBuilder
+				.hasArg().withArgName("dir name")
+				.withDescription("[optional] Export IntEnz as IntEnzXML")
+				.create(Format.INTENZ_XML.cliOption));
+		options.addOption(OptionBuilder
+				.hasArg().withArgName("file name")
+				.withDescription("[optional] Export IntEnz as KEGG enzyme")
+				.create(Format.KEGG_ENZYME.cliOption));
+		options.addOption(OptionBuilder
+				.hasArg().withArgName("file name")
+				.withDescription("[optional] Export IntEnz as sitemap")
+				.create(Format.SITEMAP.cliOption));
+		options.addOption(OptionBuilder
+				.hasArg().withArgName("EC number")
+				.withDescription("[optional] Export only one entry")
+				.create("ec"));
+		CommandLine cl = null;
+		try {
+			cl = new GnuParser().parse(options, args);
+		} catch (ParseException e){
+			new HelpFormatter().printHelp(ExporterApp.class.getName(), options);
+			return;
+		}
+		
+        ExporterApp app = new ExporterApp(cl.getOptionValue("intenzDb"));
+        Collection<EnzymeEntry> enzymes = app.getEnzymeList(cl.getOptionValue("ec"));
+        Map<String, Object> descriptions = app.getDescriptions();
+        for (EnzymeEntry enzyme : enzymes) {
+        	String classEc = String.valueOf(enzyme.getEc().getEc1());
+        	String subclassEc = classEc + "." + String.valueOf(enzyme.getEc().getEc2());
+        	String subSubclassEc = subclassEc + "." + String.valueOf(enzyme.getEc().getEc3());
+			enzyme.setClassName(((EnzymeClass) descriptions.get(classEc)).getName());
+			enzyme.setSubclassName(((EnzymeSubclass) descriptions.get(subclassEc)).getName());
+			enzyme.setSubSubclassName(((EnzymeSubSubclass) descriptions.get(subSubclassEc)).getName());
+		}
+        LOGGER.info("Intenz exporter - Release " + app.props.getProperty("intenz.release.number"));
+        if (cl.hasOption(Format.INTENZ_XML.cliOption)){
             try {
-                app.exportXML();
-            } catch (Exception e) {
-                LOGGER.error(e.getMessage(), e);
-            }
-            try {
-                app.exportSitemap();
-            } catch (Exception e) {
-                LOGGER.error(e.getMessage(), e);
-            }
-            try {
-                app.exportBiopax();
+            	String xmlDir = cl.getOptionValue(Format.INTENZ_XML.cliOption);
+                app.exportXML(enzymes, descriptions, xmlDir);
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
             }
         }
+        if (cl.hasOption(Format.SITEMAP.cliOption)){
+            try {
+            	String sitemapFile = cl.getOptionValue(Format.SITEMAP.cliOption);
+                app.exportSitemap(enzymes, descriptions, sitemapFile);
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+        }
+        if (cl.hasOption(Format.BIOPAX.cliOption)){
+            try {
+            	String biopaxFile = cl.getOptionValue(Format.BIOPAX.cliOption);
+                app.exportBiopax(enzymes, biopaxFile);
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+        }
+        if (cl.hasOption(Format.KEGG_ENZYME.cliOption)){
+        	try {
+        		String keggFile = cl.getOptionValue(Format.KEGG_ENZYME.cliOption);
+        		app.exportKegg(enzymes, keggFile);
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(), e);
+        	}
+        }
     }
 
-    private ExporterApp(String ecString)
+    private ExporterApp(String dbConfig)
     throws ClassNotFoundException, SQLException, IOException, DomainException {
-        Connection con = null;
         props = new Properties();
-        try {
-			props.load(ExporterApp.class.getClassLoader().getResourceAsStream("intenz-export.properties"));
-            props.load(ExporterApp.class.getClassLoader().getResourceAsStream("intenz-release.properties"));
-
-            String dbName = props.getProperty("intenz.export.db.instance");
-            con = OracleDatabaseInstance.getInstance(dbName).getConnection();
-            LOGGER.info("Retrieving IntEnz entries from " + dbName);
-            getEnzymeList(con, ecString);
-            LOGGER.info("Retrieved IntEnz entries");
-            LOGGER.info("Retrieving IntEnz descriptions from " + dbName);
-            getDescriptions(con);
-            LOGGER.info("Retrieved IntEnz descriptions");
-        } finally {
-        	if (con != null) con.close();
-        }
+        props.load(ExporterApp.class.getClassLoader()
+        		.getResourceAsStream("intenz-release.properties"));
+        intenzConnection = OracleDatabaseInstance.getInstance(dbConfig)
+        		.getConnection();
     }
 
-    /**
+    @Override
+	protected void finalize() throws Throwable {
+    	if (intenzConnection != null) intenzConnection.close();
+	}
+
+	/**
      * Gets the list of enzymes to be exported.
      * @param con
      * @param ec An EC number. If <code>null</code>, every exportable enzyme is
@@ -163,19 +206,23 @@ public class ExporterApp {
      * @throws DomainException
      */
     @SuppressWarnings("unchecked")
-	private void getEnzymeList(Connection con, String ecString)
+	private Collection<EnzymeEntry> getEnzymeList(String ecString)
     throws SQLException, DomainException{
+        Collection<EnzymeEntry> enzymeList = null;
         EnzymeEntryMapper mapper = new EnzymeEntryMapper();
-        if (ecString != null){
+		if (ecString != null){
         	EnzymeCommissionNumber ec = EnzymeCommissionNumber.valueOf(ecString);
         	Status status = ec.getType().equals(Type.PRELIMINARY)?
         			Status.PRELIMINARY : Status.APPROVED;
-    		enzymeList = Collections.singletonList(
+    		enzymeList  = Collections.singletonList(
     				mapper.findByEc(ec.getEc1(), ec.getEc2(), ec.getEc3(),
-    						ec.getEc4(), status, con));
+    						ec.getEc4(), status, intenzConnection));
         } else {
-        	enzymeList = mapper.exportAllEntries(con);
+            LOGGER.info("Retrieving IntEnz entries");
+        	enzymeList = mapper.exportAllEntries(intenzConnection);
+            LOGGER.info("Retrieved IntEnz entries");
         }
+		return enzymeList;
     }
 
     /**
@@ -183,44 +230,49 @@ public class ExporterApp {
      * <code>EnzymeSubClass</code> or <code>EnzymeSubSubClass</code> objects
      * from which to retrieve names and descriptions.
      * @param con
-     * @return
+     * @return 
      * @throws SQLException
      * @throws DomainException
      */
-    private void getDescriptions(Connection con) throws SQLException, DomainException{
+    private Map<String, Object> getDescriptions()
+    throws SQLException, DomainException{
+        LOGGER.info("Retrieving IntEnz descriptions");
         Map<String, Object> descriptions = new HashMap<String, Object>();
         EnzymeClassMapper classMapper = new EnzymeClassMapper();
         EnzymeSubclassMapper subclassMapper = new EnzymeSubclassMapper();
         EnzymeSubSubclassMapper subsubclassMapper = new EnzymeSubSubclassMapper();
-        for (Object o : classMapper.findAll(con)) {
+        for (Object o : classMapper.findAll(intenzConnection)) {
             EnzymeClass enzymeClass = (EnzymeClass) o;
             descriptions.put(enzymeClass.getEc().toString(), enzymeClass);
         }
-        for (Object o : subclassMapper.findAll(con)) {
+        for (Object o : subclassMapper.findAll(intenzConnection)) {
             EnzymeSubclass enzymeSubclass = (EnzymeSubclass) o;
             descriptions.put(enzymeSubclass.getEc().toString(), enzymeSubclass);
         }
-        for (Object o : subsubclassMapper.findAll(con)) {
+        for (Object o : subsubclassMapper.findAll(intenzConnection)) {
             EnzymeSubSubclass enzymeSubsubclass = (EnzymeSubSubclass) o;
             descriptions.put(enzymeSubsubclass.getEc().toString(), enzymeSubsubclass);
         }
-        DESCRIPTIONS = Collections.unmodifiableMap(descriptions);
+        LOGGER.info("Retrieved IntEnz descriptions");
+        return Collections.unmodifiableMap(descriptions);
     }
 
     /**
      * Exports data in XML format.
+     * @param enzymeList 
+     * @param descriptions 
+     * @param toDir destination directory for XML files.
      * @throws Exception
      */
-    @SuppressWarnings("unchecked")
-    private void exportXML() throws Exception {
+    private void exportXML(Collection<EnzymeEntry> enzymeList,
+    		Map<String, Object> descriptions, String toDir) throws Exception {
         OutputStream os = null;
-        String toDir = props.getProperty("intenz.export.xml.output.dir");
         checkWritable(toDir);
         LOGGER.info("Intenz exporter - Release " + props.getProperty("intenz.release.number"));
         LOGGER.info("Outputting XML to " + toDir);
         try {
             XmlExporter exporter = new XmlExporter();
-            exporter.setDescriptions(DESCRIPTIONS);
+            exporter.setDescriptions(descriptions);
             for (XmlExporter.Flavour flavour : XmlExporter.Flavour.values()){
                 exporter.setFlavour(flavour);
                 File flavourDir = new File(toDir, flavour.toString());
@@ -263,13 +315,12 @@ public class ExporterApp {
         }
     }
 
-    private void exportSitemap()
+    private void exportSitemap(Collection<EnzymeEntry> enzymeList,
+    		Map<String, Object> descriptions, String sitemapFile)
     throws IOException, JAXBException, SAXException{
-        String toDir = props.getProperty("intenz.export.sitemap.output.dir");
-    	checkWritable(toDir);
     	final String queryUrl = "http://www.ebi.ac.uk/intenz/query?cmd=SearchEC&q=";
     	final String spotlightUrl = "http://www.ebi.ac.uk/intenz/spotlight.jsp?ec=";
-    	File sitemap = new File(toDir, "sitemap.xml");
+    	File sitemap = new File(sitemapFile);
     	if (!sitemap.exists()) sitemap.createNewFile();
     	OutputStream os = null;
     	// Build the list of URLs:
@@ -291,7 +342,7 @@ public class ExporterApp {
 			urls.add(spotSb.toString());
 		}
 		// Classes, subclasses and subsubclasses:
-		for (String ec : DESCRIPTIONS.keySet()){
+		for (String ec : descriptions.keySet()){
 			StringBuffer sb = new StringBuffer(queryUrl);
 			sb.append(ec);
     		urls.add(sb.toString());
@@ -306,15 +357,12 @@ public class ExporterApp {
     	}
     }
 
-    private void exportBiopax()
+    private void exportBiopax(Collection<EnzymeEntry> enzymeList, String biopaxFile)
     throws IOException, IllegalAccessException, InvocationTargetException{
         OutputStream os = null;
-        String toDir = props.getProperty("intenz.export.biopax.output.dir");
-        checkWritable(toDir);
-        LOGGER.info("Intenz exporter - Release " + props.getProperty("intenz.release.number"));
-        LOGGER.info("Outputting BioPAX to " + toDir);
+        LOGGER.info("Outputting BioPAX to " + biopaxFile);
         try {
-            File owlFile = new File(toDir, "intenz-biopax.owl");
+            File owlFile = new File(biopaxFile);
             if (!owlFile.exists()) owlFile.createNewFile();
             os = new FileOutputStream(owlFile);
             Biopax.write(enzymeList, os);
@@ -323,7 +371,22 @@ public class ExporterApp {
         }
     }
 
-    private void checkWritable(String toDir) throws IOException{
+    private void exportKegg(Collection<EnzymeEntry> enzymes, String keggFile)
+    throws Exception {
+		OutputStream os = null;
+    	try {
+			File keggEnzymeFile = new File(keggFile);
+			if (!keggEnzymeFile.exists()) keggEnzymeFile.createNewFile();
+			os = new FileOutputStream(keggEnzymeFile);
+			KeggExporter exporter = new KeggExporter();
+			exporter.export(enzymes, os);
+        } finally {
+            if (os != null) os.close();
+		}
+		
+	}
+
+	private void checkWritable(String toDir) throws IOException{
         File outputDir = new File(toDir);
         if (outputDir.exists()){
             if (!outputDir.canWrite()){
