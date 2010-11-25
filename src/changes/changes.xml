@@ -1,10 +1,17 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <document>
     <properties>
         <title>IntEnz import module change log</title>
-        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael AlcÃ¡ntara</author>
     </properties>
     <body>
+        <release version="1.0.8" date="2010-11-25"
+            description="Dependencies update">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest UniProt remoting API, as well as intenz
+                (parent).
+        	</action>
+		</release>
         <release version="1.0.7" date="2010-10-11"
             description="Dependencies update">
         	<action dev="rafalcan" type="update">
