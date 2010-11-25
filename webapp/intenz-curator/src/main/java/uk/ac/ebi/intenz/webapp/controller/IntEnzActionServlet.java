@@ -20,13 +20,6 @@ import uk.ac.ebi.biobabel.util.db.DatabaseInstance;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.biobabel.webapp.listeners.ConnectionBindingListener;
 import uk.ac.ebi.intenz.webapp.utilities.UnitOfWork;
-import uk.ac.ebi.rhea.mapper.IRheaReader;
-import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
-import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbWriter;
-import uk.ac.ebi.rhea.mapper.db.RheaDbReader;
-import uk.ac.ebi.rhea.mapper.util.IChebiHelper;
-import uk.ac.ebi.rhea.mapper.util.db.ChebiDbHelper;
-import uk.ac.ebi.rhea.updater.ChebiUpdater;
 import uk.ac.ebi.xchars.SpecialCharacters;
 
 /**
@@ -51,72 +44,39 @@ public class IntEnzActionServlet extends ActionServlet {
     @Override
     protected void process(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws IOException, ServletException {
-        // Create a Unit of Work for this each session.
-        if (httpServletRequest.getSession().getAttribute("uow") == null) {
+    	if (httpServletRequest.getSession().getAttribute("user") == null){
+    		// Create a Unit of Work for this each session.
             httpServletRequest.getSession().setAttribute("uow", new UnitOfWork());
-        }
 
-        // Create a unique SpecialCharacters instance for each session.
-        if (httpServletRequest.getSession().getAttribute("characters") == null) {
-            SpecialCharacters specialCharacters = (SpecialCharacters) this.getServletContext().getAttribute("specialCharactersInstance");
+            // Create a unique SpecialCharacters instance for each session.
+            SpecialCharacters specialCharacters =
+                    (SpecialCharacters) this.getServletContext().getAttribute("specialCharactersInstance");
             SpecialCharacters sc = SpecialCharacters.copy(specialCharacters);
             httpServletRequest.getSession().setAttribute("characters", sc);
             LOGGER.info("SpecialCharacters instance stored in session.");
-        }
-
-        if (httpServletRequest.getSession().getAttribute("user") == null) {
-            httpServletRequest.getSession().setAttribute("user", httpServletRequest.getUserPrincipal().getName());
-        }
-
-        if (httpServletRequest.getSession().getAttribute("connection") == null) {
-            LOGGER.info("Creating connection to the database ...");
+            LOGGER.info("Creating connections to the databases...");
             try {
                 establishConnection(httpServletRequest);
-                LOGGER.info("... connection established.");
+                establishChebiProductionConnection(httpServletRequest);
+                establishChebiPublicConnection(httpServletRequest);
+                LOGGER.info("... connections established.");
             } catch (SQLException e) {
                 LOGGER.fatal("Connection could not be established.", e);
                 ActionMessages errors = new ActionMessages();
                 errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("errors.detail", e.getMessage()));
                 saveErrors(httpServletRequest, errors);
-                httpServletRequest.getRequestDispatcher("/pages/error.jsp").forward(httpServletRequest, httpServletResponse);
+                httpServletRequest.getRequestDispatcher("/pages/error.jsp")
+                        .forward(httpServletRequest, httpServletResponse);
             } catch (ClassNotFoundException e) {
                 LOGGER.fatal("Connection could not be established.", e);
                 ActionMessages errors = new ActionMessages();
                 errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("errors.detail", e.getMessage()));
                 saveErrors(httpServletRequest, errors);
-                httpServletRequest.getRequestDispatcher("/pages/error.jsp").forward(httpServletRequest, httpServletResponse);
+                httpServletRequest.getRequestDispatcher("/pages/error.jsp")
+                        .forward(httpServletRequest, httpServletResponse);
             }
-        }
-        RheaCompoundDbReader compoundReader =
-        	(RheaCompoundDbReader) httpServletRequest.getSession().getAttribute("rheaCompoundReader");
-        if (compoundReader == null) {
-            compoundReader =
-                    new RheaCompoundDbReader((Connection) httpServletRequest.getSession().getAttribute("connection"));
-            httpServletRequest.getSession().setAttribute("rheaCompoundReader", compoundReader);
-        }
-        IRheaReader rheaReader = (IRheaReader) httpServletRequest.getSession().getAttribute("rheaReader");
-        if (rheaReader == null) {
-            rheaReader = new RheaDbReader(compoundReader);
-            httpServletRequest.getSession().setAttribute("rheaReader", rheaReader);
-        }
-        
-        Connection chebiProdCon = null, chebiPubCon = null;
-        IChebiHelper chebiProdHelper = null, chebiPubHelper = null;
-        if (httpServletRequest.getSession().getAttribute("chebiHelper") == null){
-            chebiProdCon = establishChebiProductionConnection(httpServletRequest);
-			chebiProdHelper = new ChebiDbHelper(chebiProdCon);
-			chebiPubCon = establishChebiPublicConnection(httpServletRequest);
-			chebiPubHelper = new ChebiDbHelper(chebiPubCon);
-			httpServletRequest.getSession().setAttribute("chebiHelper", chebiProdHelper);
-        }
-        if (httpServletRequest.getSession().getAttribute("chebiUpdater") == null) {
-            RheaCompoundDbWriter compoundWriter =
-                    new RheaCompoundDbWriter((Connection) httpServletRequest.getSession().getAttribute("connection"));
-            ChebiUpdater chebiUpdater = new ChebiUpdater(chebiProdHelper, chebiPubHelper,
-                    compoundReader, compoundWriter, rheaReader, null);
-            httpServletRequest.getSession().setAttribute("chebiUpdater", chebiUpdater);
-        }
-
+            httpServletRequest.getSession().setAttribute("user", httpServletRequest.getUserPrincipal().getName());
+    	}
         super.process(httpServletRequest, httpServletResponse);
     }
 
@@ -127,44 +87,46 @@ public class IntEnzActionServlet extends ActionServlet {
      *
      * @param request The request object.
      * @return The database connection.
-     * @throws SQLException           if a database error occured.
+     * @throws SQLException           if a database error occurred.
      * @throws ClassNotFoundException if the driver class could not be found.
      */
     private Connection establishConnection(HttpServletRequest request)
             throws SQLException, IOException, ClassNotFoundException {
-        Connection con = null;
-        if (request.getSession().getAttribute("connection") != null) {
-            con = (Connection) request.getSession().getAttribute("connection");
-        } else { // Create new connection and store in the session.
-            DatabaseInstance odbi = OracleDatabaseInstance.getInstance(
-                this.getServletConfig().getServletContext().getInitParameter("intenz.db.config"));
-            Properties props = new Properties();
-            props.put("user", odbi.getUser());
-            props.put("password", odbi.getPassword());
-            props.put("v$session.osuser",
-            		request.getUserPrincipal().getName() + "-webapp");
-            Class.forName(odbi.getDriver());
-            con = DriverManager.getConnection(odbi.getUrl(), props);
-            con.setAutoCommit(false);
-            request.getSession().setAttribute("connectionBindingListener", new ConnectionBindingListener(con));
-            request.getSession().setAttribute("connection", con);
-        }
+        DatabaseInstance odbi = OracleDatabaseInstance.getInstance(
+            this.getServletConfig().getServletContext().getInitParameter("intenz.db.config"));
+        Properties props = new Properties();
+        props.put("user", odbi.getUser());
+        props.put("password", odbi.getPassword());
+        props.put("v$session.osuser",
+                request.getUserPrincipal().getName() + "-webapp");
+        Class.forName(odbi.getDriver());
+        Connection con = DriverManager.getConnection(odbi.getUrl(), props);
+        con.setAutoCommit(false);
+        request.getSession().setAttribute("connectionBindingListener", new ConnectionBindingListener(con));
+        request.getSession().setAttribute("connection", con);
+        request.getSession().setAttribute("rhea.connection", con);
         return con;
     }
 
     private Connection establishChebiProductionConnection(HttpServletRequest req) throws IOException {
-        DatabaseInstance dbi = OracleDatabaseInstance.getInstance(getServletContext().getInitParameter("chebi.prod.db.config"));
+        DatabaseInstance dbi = OracleDatabaseInstance
+                .getInstance(getServletContext().getInitParameter("chebi.prod.db.config"));
         Connection con = dbi.getConnection();
-        if (con != null)
+        if (con != null){
+        	req.getSession().setAttribute("chebi.connection.production", con);
             req.getSession().setAttribute("chebiProdConBindingListener", new ConnectionBindingListener(con));
+        }
         return con;
     }
 
     private Connection establishChebiPublicConnection(HttpServletRequest req) throws IOException {
-        DatabaseInstance dbi = OracleDatabaseInstance.getInstance(getServletContext().getInitParameter("chebi.pub.db.config"));
+        DatabaseInstance dbi = OracleDatabaseInstance
+                .getInstance(getServletContext().getInitParameter("chebi.pub.db.config"));
         Connection con = dbi.getConnection();
-        if (con != null)
-           req.getSession().setAttribute("chebiPubConBindingListener", new ConnectionBindingListener(con));
+        if (con != null){
+        	req.getSession().setAttribute("chebi.connection.public", con);
+        	req.getSession().setAttribute("chebiPubConBindingListener", new ConnectionBindingListener(con));
+        }
         return con;
     }
 
