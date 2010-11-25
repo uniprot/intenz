@@ -22,7 +22,7 @@
         <param-name>chebi.pub.db.config</param-name>
         <param-value>chebi-db-public</param-value>
     </context-param>
-    
+
     <context-param>
         <description>URL for Rhea curator tool</description>
         <param-name>rhea.curator.url</param-name>
