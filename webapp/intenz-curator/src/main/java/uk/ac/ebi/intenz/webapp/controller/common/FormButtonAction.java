@@ -31,9 +31,10 @@ import uk.ac.ebi.intenz.webapp.utilities.ControlFlowToken;
 import uk.ac.ebi.intenz.webapp.utilities.PubMedAccessor;
 import uk.ac.ebi.rhea.domain.Compound;
 import uk.ac.ebi.rhea.domain.Reaction;
-import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
-import uk.ac.ebi.rhea.mapper.db.RheaDbReader;
+import uk.ac.ebi.rhea.mapper.IRheaCompoundReader;
+import uk.ac.ebi.rhea.mapper.IRheaReader;
 import uk.ac.ebi.rhea.updater.ChebiUpdater;
+import uk.ac.ebi.rhea.webapp.SessionManager;
 
 /**
  * This Action handles all button events apart from submit buttons.
@@ -124,7 +125,7 @@ public class FormButtonAction extends CurationAction {
 			if (listType.equals("reactions")) reactionsPlus(enzymeDTO.getReactionDtos());
 			if (listType.equals("rheaction")){
 				Long rheaId = Long.valueOf(request.getParameter("rheaId"));
-				RheaDbReader rheaReader = (RheaDbReader) request.getSession().getAttribute("rheaReader");
+				IRheaReader rheaReader = SessionManager.getRheaReader(request);
 				Reaction reaction;
 				try {
 					reaction = rheaReader.findByReactionId(rheaId);
@@ -177,8 +178,8 @@ public class FormButtonAction extends CurationAction {
 			StringUtil.isNullOrEmpty(request.getParameter("complexCofactorBrackets"))?
 				false : Boolean.parseBoolean(request.getParameter("complexCofactorBrackets"));
 		
-		RheaCompoundDbReader compoundReader =
-			(RheaCompoundDbReader) request.getSession().getAttribute("rheaCompoundReader");
+		IRheaCompoundReader compoundReader =
+                SessionManager.getRheaCompoundReader(request);
 		Compound compound = null;
 		try {
 			if (StringUtil.isInteger(pCofactorId)){
