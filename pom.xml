@@ -43,40 +43,48 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<dependentWarExcludes>
-						WEB-INF/web.xml,
-						WEB-INF/lib/antlr-2.7.*.jar,
-						WEB-INF/lib/commons-lang-*.jar,
-						WEB-INF/lib/xchars-*.jar,
-						pages/view/reaction_minimal.jsp
-					</dependentWarExcludes>
                     <overlays>
                         <overlay />
                         <overlay>
                             <groupId>uk.ac.ebi.rhea.webapp</groupId>
                             <artifactId>rhea-find-struts1</artifactId>
                             <excludes>
-                                <exclude>WEB-INF/lib/commons-beanutils-1.6.1.jar</exclude>
-                                <exclude>WEB-INF/lib/antlr-2.7.2.jar</exclude>
-                                <exclude>WEB-INF/lib/log4j-1.2.8.jar</exclude>
+                                <exclude>WEB-INF/lib/rhea-domain-*.jar</exclude>
+                                <exclude>WEB-INF/lib/rhea-mapper-*.jar</exclude>
+                                <exclude>WEB-INF/lib/rhea-ph-*.jar</exclude>
+                                <exclude>WEB-INF/lib/xchars-*.jar</exclude>
+                                <exclude>WEB-INF/lib/commons-beanutils-*.jar</exclude>
+                                <exclude>WEB-INF/lib/commons-lang-*.jar</exclude>
+                                <exclude>WEB-INF/lib/antlr-*.jar</exclude>
+                                <exclude>WEB-INF/lib/log4j-*.jar</exclude>
                             </excludes>
                         </overlay>
                         <overlay>
                             <groupId>uk.ac.ebi.rhea.webapp</groupId>
                             <artifactId>rhea-search-struts1</artifactId>
                             <excludes>
-                                <exclude>WEB-INF/lib/commons-beanutils-1.6.1.jar</exclude>
-                                <exclude>WEB-INF/lib/antlr-2.7.2.jar</exclude>
-                                <exclude>WEB-INF/lib/log4j-1.2.8.jar</exclude>
+                                <exclude>WEB-INF/lib/rhea-domain-*.jar</exclude>
+                                <exclude>WEB-INF/lib/rhea-mapper-*.jar</exclude>
+                                <exclude>WEB-INF/lib/rhea-ph-*.jar</exclude>
+                                <exclude>WEB-INF/lib/xchars-*.jar</exclude>
+                                <exclude>WEB-INF/lib/commons-beanutils-*.jar</exclude>
+                                <exclude>WEB-INF/lib/commons-lang-*.jar</exclude>
+                                <exclude>WEB-INF/lib/antlr-*.jar</exclude>
+                                <exclude>WEB-INF/lib/log4j-*.jar</exclude>
                             </excludes>
                         </overlay>
                         <overlay>
                             <groupId>uk.ac.ebi.rhea.webapp</groupId>
                             <artifactId>rhea-chebiIdAssigner</artifactId>
                             <excludes>
-                                <exclude>WEB-INF/lib/commons-beanutils-1.6.1.jar</exclude>
-                                <exclude>WEB-INF/lib/antlr-2.7.7.jar</exclude>
-                                <exclude>WEB-INF/lib/log4j-1.2.8.jar</exclude>
+                                <exclude>WEB-INF/lib/rhea-domain-*.jar</exclude>
+                                <exclude>WEB-INF/lib/rhea-mapper-*.jar</exclude>
+                                <exclude>WEB-INF/lib/rhea-ph-*.jar</exclude>
+                                <exclude>WEB-INF/lib/xchars-*.jar</exclude>
+                                <exclude>WEB-INF/lib/commons-beanutils-*.jar</exclude>
+                                <exclude>WEB-INF/lib/commons-lang-*.jar</exclude>
+                                <exclude>WEB-INF/lib/antlr-*.jar</exclude>
+                                <exclude>WEB-INF/lib/log4j-*.jar</exclude>
                             </excludes>
                         </overlay>
                         <overlay>
@@ -85,6 +93,13 @@
                             <excludes>
                                 <exclude>WEB-INF/lib/rhea-domain-*.jar</exclude>
                                 <exclude>WEB-INF/lib/log4j-1.2.8.jar</exclude>
+                            </excludes>
+                        </overlay>
+                        <overlay>
+                            <groupId>uk.ac.ebi.xchars</groupId>
+                            <artifactId>xchars-palette</artifactId>
+                            <excludes>
+                                <exclude>WEB-INF/lib/xchars-*.jar</exclude>
                             </excludes>
                         </overlay>
                     </overlays>
@@ -120,7 +135,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-ffwriter</artifactId>
-			<version>1.2.6</version>
+			<version>1.2.7</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>antlr</artifactId>
@@ -131,24 +146,39 @@
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-domain</artifactId>
-			<version>1.6.1</version>
+			<version>1.6.3</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-mapper</artifactId>
-			<version>3.5.6</version>
+			<version>3.6-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>uk.ac.ebi.rhea</groupId>
+			<artifactId>rhea-util</artifactId>
+			<version>4.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>uk.ac.ebi.rhea</groupId>
+			<artifactId>rhea-ph</artifactId>
+			<version>1.0.4-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>uk.ac.ebi.rhea</groupId>
+			<artifactId>rhea-biopax</artifactId>
+			<version>1.3.7</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-chebiIdAssigner</artifactId>
-			<version>1.2</version>
+			<version>1.2.2-SNAPSHOT</version>
 			<type>war</type>
             <scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-chebiIdAssigner</artifactId>
-			<version>1.2</version>
+			<version>1.2.2-SNAPSHOT</version>
 			<type>warpath</type>
 			<exclusions>
 				<exclusion>
@@ -174,21 +204,21 @@
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-find-struts1</artifactId>
-			<version>1.2.1</version>
+			<version>1.3-SNAPSHOT</version>
 			<type>war</type>
             <scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-search-struts1</artifactId>
-			<version>1.2</version>
+			<version>1.3-SNAPSHOT</version>
 			<type>war</type>
             <scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-taglib</artifactId>
-			<version>1.0.2</version>
+			<version>1.0.4-SNAPSHOT</version>
 			<type>war</type>
 		</dependency>
         <dependency>
@@ -209,7 +239,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.xchars</groupId>
 			<artifactId>xchars</artifactId>
-			<version>1.2.5</version>
+			<version>1.2.6</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.xchars</groupId>
