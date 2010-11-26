@@ -20,8 +20,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import org.apache.xml.serialize.OutputFormat;
-import org.apache.xml.serialize.XMLSerializer;
 import org.xml.sax.SAXException;
 
 import uk.ac.ebi.biobabel.util.collections.OperatorSet;
@@ -231,7 +229,7 @@ public class XmlExporter {
             EntryType jaxbEntry = getJaxbEntry(entry);
             subSubClazz.getEnzyme().add(jaxbEntry);
         }
-        marshaller.marshal(intenz, getXMLSerializer(os));
+        marshaller.marshal(intenz, os);
     }
     
     private EcClassType getClazz(Intenz intenz, int ec1) {
@@ -335,7 +333,7 @@ public class XmlExporter {
 		}
 		return flavoured;
 	}
-
+/*
     private XMLSerializer getXMLSerializer(OutputStream os) {
         OutputFormat outFormat = new OutputFormat();
 		switch (flavour){
@@ -359,9 +357,9 @@ public class XmlExporter {
         
         return serializer;
     }
-    
+*/
     private JAXBElement<EnzymeType> getJaxbEnzyme(EnzymeEntry entry, Map descriptions)
-    throws DatatypeConfigurationException{
+    throws DatatypeConfigurationException {
         JAXBElement<EnzymeType> jaxbEnzyme = of.createEnzyme(of.createEnzymeType());
         // EC number:
         jaxbEnzyme.getValue().setEc("EC ".concat(entry.getEc().toString()));
@@ -392,7 +390,7 @@ public class XmlExporter {
     }
     
     private EntryType getJaxbEntry(EnzymeEntry entry)
-    throws DatatypeConfigurationException{
+    throws DatatypeConfigurationException {
         EntryType jaxbEntry = of.createEntryType();
         // EC number:
         jaxbEntry.setEc("EC ".concat(entry.getEc().toString()));
