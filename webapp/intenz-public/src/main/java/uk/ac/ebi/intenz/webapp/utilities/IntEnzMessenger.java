@@ -28,7 +28,7 @@ public class IntEnzMessenger {
     static {
     	mailProperties = new Properties();
     	try {
-			mailProperties.load(IntEnzMessenger.class.getClassLoader().getResourceAsStream("mail.properties"));
+			mailProperties.load(IntEnzMessenger.class.getClassLoader().getResourceAsStream("intenz-public-mail.properties"));
 		} catch (IOException e) {
 			LOGGER.error("Error loading mail properties", e);
 		}

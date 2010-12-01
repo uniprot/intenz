@@ -30,7 +30,7 @@ public class IntEnzContactServlet extends HttpServlet {
 	public void init() throws ServletException {
 		mailProperties = new Properties();
 		try {
-			mailProperties.load(this.getClass().getClassLoader().getResourceAsStream("mail.properties"));
+			mailProperties.load(this.getClass().getClassLoader().getResourceAsStream("intenz-public-mail.properties"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
