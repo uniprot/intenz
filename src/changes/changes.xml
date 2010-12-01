@@ -8,6 +8,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="64.0.1" date="2010-12-01"
+            description="Bug fix">
+        	<action dev="rafalcan" type="fix">
+                The webapp was pointing to a non-existant properties file.
+        	</action>
+    	</release>
     	<release version="64" date="2010-11-11"
             description="Release 64">
         	<action dev="rafalcan" type="update">
