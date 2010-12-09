@@ -12,7 +12,7 @@
 	</tr>
 	<tr>
 	  <th class="headingleft" colspan="2">Sub-subclasses</th>
-	  <td align="right" style="text-align: right !important;">264</td>
+	  <td align="right" style="text-align: right !important;">265</td>
 	</tr>
 	<tr>
 	  <th class="headingleft" nowrap="nowrap" rowspan="3">EC numbers</th>
@@ -28,7 +28,8 @@
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap"
           title="Not deleted, not transferred, either approved or preliminary">active</td>
-	  <td align="right" style="text-align: right !important;">4407</td>
+	<!--this figure = 4336 (APPROVED, Y) + 72 (PRELIMINARY, Y)-->
+	  <td align="right" style="text-align: right !important;">4408</td>
 	</tr>
 </table>
 
@@ -40,9 +41,10 @@
 		<th scope="col">Total cross references</th>
 	</tr>
 	<tr>
+	<!--TODO: change the release number for new release-->
 		<td class="leftsubheading">SWISSPROT
 			(<a class="externalLink" target="_blank"
-            href="http://www.uniprot.org">UniProt</a> 2010_11)
+            href="http://www.uniprot.org">UniProt</a> 2010_12)
 		</td>
 		<td align="right" style="text-align: right !important;">187583</td>
 		<td align="right" style="text-align: right !important;">196366</td>
