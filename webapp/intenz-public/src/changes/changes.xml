@@ -8,6 +8,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="65" date="2010-12-09"
+            description="Release 65">
+        	<action dev="hongcao" type="update">
+                In addition to the last release: 1 subsubclasse. 25 enzyme entries (from ENZYMES). 27 enzyme entries (from ID2EC). 1 synonym was removed.  
+        	</action>
+    	</release>
     	<release version="64.0.1" date="2010-12-01"
             description="Bug fix">
         	<action dev="rafalcan" type="fix">
