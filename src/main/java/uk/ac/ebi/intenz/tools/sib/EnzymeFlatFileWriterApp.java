@@ -194,7 +194,7 @@ public class EnzymeFlatFileWriterApp {
    * Prints usage information of this class to the console.
    */
   private static void printHelp() {
-    StringBuffer help = new StringBuffer();
+    StringBuilder help = new StringBuilder();
     help.append("Usage: java EnzymeFlatFileWriterApp version <version number>\n");
     help.append("The <version number> must be a valid floating-point number and will be used in the version line of the flat file's header.\n");
     help.append("Examples: java EnzymeFlatFileWriterApp version 33.0\n");

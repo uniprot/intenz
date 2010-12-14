@@ -13,14 +13,12 @@ import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeComment;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeName;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
 import uk.ac.ebi.intenz.domain.history.HistoryEvent;
 import uk.ac.ebi.intenz.domain.history.HistoryNode;
 import uk.ac.ebi.rhea.domain.Reaction;
-import uk.ac.ebi.rhea.domain.Status;
 import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeCrossReference;
 import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeEntryImpl;
 import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeXrefFactory;
@@ -102,9 +100,22 @@ public class SibEntryHelper {
       // CFs
       Set<Object> cofactors = enzymeEntry.getCofactors();
       List cofactorNames = new ArrayList();
-      StringBuffer cofactorString = new StringBuffer();
+      StringBuilder cofactorString = new StringBuilder();
       for (Object cofactor : cofactors) {
     	  if (EnzymeViewConstant.isInView(EnzymeViewConstant.SIB, cofactor)){
+              /* Order alphabetically also within operatorsets:
+              if (cofactor instanceof OperatorSet){
+                  OperatorSet os = (OperatorSet) cofactor;
+                  List<String> list = new ArrayList<String>();
+                  for (Object o : os){
+                      String cfname = encoding.xml2Display(
+                              translator.toASCII(cfText, false, false),
+                              encodingType);
+                      list.add(o.toString());
+                  }
+                  Collections.sort(list)
+              }
+              */
               String cfText = cofactor.toString()
                       .replaceAll(" OR\\d? ", " or ")
                       .replaceAll(" AND ", " and ")
@@ -122,7 +133,7 @@ public class SibEntryHelper {
 
       // CCs
       List comments = enzymeEntry.getComments();
-      StringBuffer commentString = new StringBuffer();
+      StringBuilder commentString = new StringBuilder();
       for (int iii = 0; iii < comments.size(); iii++) {
         EnzymeComment comment = (EnzymeComment) comments.get(iii);
         if (EnzymeViewConstant.isInSIBView(comment.getView().toString())) {
@@ -165,7 +176,7 @@ public class SibEntryHelper {
     * @return
     */
    private static String getSynonymQualifier(EnzymeNameQualifierConstant constant){
-      StringBuffer buffer = new StringBuffer("");
+      StringBuilder buffer = new StringBuilder("");
       if(constant!=null){         
          String constantString = constant.toASCII(constant);
          if( !StringUtil.isNullOrEmpty(constantString) ){

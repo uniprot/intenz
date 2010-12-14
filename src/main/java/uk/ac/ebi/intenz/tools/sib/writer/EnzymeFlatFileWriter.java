@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -111,7 +111,7 @@ public class EnzymeFlatFileWriter {
 	  try {
 		  DE_MODIFIED_ENTRIES.load(stream);
 	  } catch (IOException e) {
-		  e.printStackTrace();
+		  LOGGER.error(e.getMessage(), e);
 	  } finally {
 		  try {
 			  if (stream != null) stream.close();
@@ -260,7 +260,7 @@ public class EnzymeFlatFileWriter {
 //      throw new IllegalArgumentException("Parameter version must match the following regular expression: \\d+\\.\\d+");
 
     // Check file parameters and create file instance.
-    StringBuffer pathname = new StringBuffer();
+    StringBuilder pathname = new StringBuilder();
     if (dir != null && !dir.equals("")) {
       File dirTest = new File(dir);
       if (!dirTest.isDirectory()) throw new IllegalArgumentException("Parameter dir is not a valid pathname");
@@ -308,7 +308,7 @@ public class EnzymeFlatFileWriter {
 
     LOGGER.debug("EC: " + ec);
 
-    StringBuffer IDContent = new StringBuffer();
+    StringBuilder IDContent = new StringBuilder();
     IDContent.append("ID   ");
     IDContent.append(ec);
     IDContent.append("\n");
@@ -333,7 +333,7 @@ public class EnzymeFlatFileWriter {
 
 //    if (commonName.equals("")) throw new EnzymeFlatFileWriteException("The DE line must not contain an empty string.");
 
-    StringBuffer DEContent = new StringBuffer();
+    StringBuilder DEContent = new StringBuilder();
     if (wrapLines) commonName = insertLineBreaks(commonName, LineType.DE);
     DEContent.append(commonName);
     DEContent.append("\n");
@@ -354,7 +354,7 @@ public class EnzymeFlatFileWriter {
   private static String createANLines(String[] synonyms, boolean wrapLines) throws SPTRException {
     assert synonyms != null : synonyms;
 
-    StringBuffer ANContent = new StringBuffer();
+    StringBuilder ANContent = new StringBuilder();
     for (int iii = 0; iii < synonyms.length; iii++) {
       String synonym = synonyms[iii];
       if (synonym.equals("") || synonym.equals("-")) continue;
@@ -377,7 +377,7 @@ public class EnzymeFlatFileWriter {
   private static String createCALines(String[] reactions, boolean wrapLines) throws SPTRException {
     assert reactions != null : reactions;
 
-    StringBuffer CAContent = new StringBuffer();
+    StringBuilder CAContent = new StringBuilder();
     for (int iii = 0; iii < reactions.length; iii++) {
       if (reactions[iii].equals("")) continue;
       // Removing period at the end of a descriptive reaction.
@@ -387,7 +387,7 @@ public class EnzymeFlatFileWriter {
       else
         reaction = new StringBuffer(reactions[iii]);
       if (reactions.length > 1) {
-        StringBuffer number = new StringBuffer("(");
+        StringBuilder number = new StringBuilder("(");
         number.append(iii + 1);
         number.append(") ");
         reaction.insert(0, number.toString());
@@ -415,7 +415,7 @@ public class EnzymeFlatFileWriter {
 
     if (cofactors.equals("")) return cofactors;
 
-    StringBuffer CFContent = new StringBuffer();
+    StringBuilder CFContent = new StringBuilder();
     if (wrapLines) cofactors = insertLineBreaks(cofactors, LineType.CF);
     CFContent.append(cofactors);
     CFContent.append("\n");
@@ -449,7 +449,7 @@ public class EnzymeFlatFileWriter {
   private static String createDILines(ArrayList DICrossReferences) {
     assert DICrossReferences != null : DICrossReferences;
 
-    StringBuffer DIContent = new StringBuffer();
+    StringBuilder DIContent = new StringBuilder();
     for (int iii = 0; iii < DICrossReferences.size(); iii++) {
       EnzymeCrossReference enzymeCrossReference = (EnzymeCrossReference) DICrossReferences.get(iii);
       DIContent.append("DI   ");
@@ -471,7 +471,7 @@ public class EnzymeFlatFileWriter {
   private static String createPRLines(ArrayList PRCrossReferences) {
     assert PRCrossReferences != null : PRCrossReferences;
 
-    StringBuffer PRContent = new StringBuffer();
+    StringBuilder PRContent = new StringBuilder();
     for (int iii = 0; iii < PRCrossReferences.size(); iii++) {
       EnzymeCrossReference enzymeCrossReference = (EnzymeCrossReference) PRCrossReferences.get(iii);
       PRContent.append("PR   ");
@@ -495,7 +495,7 @@ public class EnzymeFlatFileWriter {
   private static String createDRLines(ArrayList DRCrossReferences) {
     assert DRCrossReferences != null : DRCrossReferences;
 
-    StringBuffer DRContent = new StringBuffer();
+    StringBuilder DRContent = new StringBuilder();
     int count = 0;
     for (int iii = 0; iii < DRCrossReferences.size(); iii++) {
       EnzymeCrossReference enzymeCrossReference = (EnzymeCrossReference) DRCrossReferences.get(iii);
@@ -534,8 +534,8 @@ public class EnzymeFlatFileWriter {
    * @return a <code>Hashtable</code> containing the thre groups. The keys are the
    *         {@link EnzymeCrossReference EnzymeCrossReference} constants.
    */
-  private static Hashtable getGroupedEnzymeCrossReferences(SPTRCrossReference[] allCrossReferences) {
-    Hashtable groupedCrossReferences = new Hashtable();
+  private static Map getGroupedEnzymeCrossReferences(SPTRCrossReference[] allCrossReferences) {
+    Map groupedCrossReferences = new HashMap();
 
     ArrayList DICrossReferences = new ArrayList();
     ArrayList PRCrossReferences = new ArrayList();
@@ -571,7 +571,7 @@ public class EnzymeFlatFileWriter {
     assert name != null : name;
 
     if (name.length() == 11) return name;
-    StringBuffer name11 = new StringBuffer(name);
+    StringBuilder name11 = new StringBuilder(name);
     for (int iii = name.length(); iii < 11; iii++) {
       name11.append(" ");
     }
