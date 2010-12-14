@@ -5,8 +5,6 @@ import uk.ac.ebi.intenz.tools.sib.translator.XCharsASCIITranslator;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.FileInputStream;
-import java.io.File;
 import java.util.*;
 
 /**
@@ -31,7 +29,7 @@ public class ReactionRules implements RuleGroup {
   private Map rules;
 
   /**
-   * Initialises the class's sole instance.
+   * Initialises the class sole instance.
    */ 
   private ReactionRules() {
     InputStream stream = XCharsASCIITranslator.class.getClassLoader().getResourceAsStream("reactionRules.txt");

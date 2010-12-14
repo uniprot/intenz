@@ -5,7 +5,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="1.0.5" date="2009-05-22" description="Un-fixed reaction rule">
+        <release version="1.0.6" date=""
+            description="Dependencies updates">
+            <action dev="rafalcan" type="update">
+                Updated to latest intenz (parent), xchars and log4j versions.
+            </action>
+        </release>
+        <release version="1.0.5" date="2009-05-22"
+            description="Un-fixed reaction rule">
             <action dev="rafalcan" type="fix">
             	Removed rule (4.1.1.39) to show protons again.
                 The pre-v1.0.4 rule did not work because the equation
