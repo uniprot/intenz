@@ -27,6 +27,7 @@ GRANT EXECUTE                     ON p_string2quad         TO ENZYME_WEBSERVER;
 GRANT EXECUTE                     ON f_rhea_family_id      TO ENZYME_WEBSERVER;
 
 GRANT SELECT ON reactions_map TO ENZYME_WEBSERVER;
+GRANT SELECT ON intenz_reactions_audit TO ENZYME_WEBSERVER;
 GRANT SELECT ON intenz_reactions TO ENZYME_WEBSERVER;
 GRANT SELECT ON compound_data TO ENZYME_WEBSERVER;
 GRANT SELECT ON compound_data_updates TO ENZYME_WEBSERVER;
