@@ -12,24 +12,24 @@
 	</tr>
 	<tr>
 	  <th class="headingleft" colspan="2">Sub-subclasses</th>
-	  <td align="right" style="text-align: right !important;">265</td>
+	  <td align="right" style="text-align: right !important;">266</td>
 	</tr>
 	<tr>
 	  <th class="headingleft" nowrap="nowrap" rowspan="3">EC numbers</th>
 	  <td class="subheadingleft" nowrap="nowrap" title="Approved by NC-IUBMB">approved</td>
-	  <td align="right" style="text-align: right !important;">5102</td>
+	  <td align="right" style="text-align: right !important;">5123</td>
 	</tr>
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap"
            title="Preliminary EC numbers issued by UniProt"><a
               href="query?cmd=SearchPreliminary">preliminary</a></td>
-	  <td align="right" style="text-align: right !important;">72</td>
+	  <td align="right" style="text-align: right !important;">71</td>
 	</tr>
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap"
           title="Not deleted, not transferred, either approved or preliminary">active</td>
-	<!--this figure = 4336 (APPROVED, Y) + 72 (PRELIMINARY, Y)-->
-	  <td align="right" style="text-align: right !important;">4408</td>
+	<!--this figure = 4356 (APPROVED, Y) + 71 (PRELIMINARY, Y)-->
+	  <td align="right" style="text-align: right !important;">4427</td>
 	</tr>
 </table>
 
@@ -46,8 +46,8 @@
 			(<a class="externalLink" target="_blank"
             href="http://www.uniprot.org">UniProt</a> 2010_12)
 		</td>
-		<td align="right" style="text-align: right !important;">187583</td>
-		<td align="right" style="text-align: right !important;">196366</td>
+		<td align="right" style="text-align: right !important;">189586</td>
+		<td align="right" style="text-align: right !important;">198847</td>
 	</tr>
 	<tr>
 		<td class="leftsubheading">
