@@ -13,7 +13,7 @@
   <parent>
   	<artifactId>intenz</artifactId>
   	<groupId>uk.ac.ebi.intenz</groupId>
-  	<version>4.2</version>
+  	<version>4.2.2</version>
   </parent>
 
     <build>
