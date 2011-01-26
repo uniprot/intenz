@@ -1,13 +1,9 @@
 package uk.ac.ebi.intenz.tools.sib.translator.rules;
 
 import org.apache.log4j.Logger;
-import uk.ac.ebi.intenz.tools.sib.translator.XCharsASCIITranslator;
 import uk.ac.ebi.xchars.SpecialCharacters;
 import uk.ac.ebi.xchars.domain.EncodingType;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
 
 /**
  * This singleton class stores regular expression rules to be used to transform text.
@@ -48,7 +44,7 @@ public class TagRules implements RuleGroup {
    *
    * If no instance is available yet then it will be created.
    *
-   * @return the class's sole instance.
+   * @return the class sole instance.
    */
   public static TagRules getInstance(SpecialCharacters encoding) {
      if( INSTANCE == null){
