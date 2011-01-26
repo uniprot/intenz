@@ -9,6 +9,20 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.8" date="2011-01-26"
+			description="Added DE line exceptions">
+            <action dev="rafalcan" type="update">
+                Updated DE_line_modifications with transfers for
+                EC 1.1.1.5, 2.1.1.51 and 2.1.1.52.
+            </action>
+            <action dev="rafalcan" type="add">
+                Added new exception for 'sp.' as a non-ending word in a sentence
+                for CC lines.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated dependencies on intenz (parent), intenz-mapper and log4j.
+            </action>
+    	</release>
     	<release version="1.2.7" date="2010-11-10"
 			description="Added DE line exceptions">
             <action dev="rafalcan" type="update">
