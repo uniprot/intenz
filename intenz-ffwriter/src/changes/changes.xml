@@ -9,11 +9,11 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="1.2.8" date=""
+    	<release version="1.2.8" date="2011-01-26"
 			description="Added DE line exceptions">
             <action dev="rafalcan" type="update">
                 Updated DE_line_modifications with transfers for
-                EC 2.1.1.51 and 2.1.1.52.
+                EC 1.1.1.5, 2.1.1.51 and 2.1.1.52.
             </action>
             <action dev="rafalcan" type="add">
                 Added new exception for 'sp.' as a non-ending word in a sentence
