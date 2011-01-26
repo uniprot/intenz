@@ -5,7 +5,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="1.0.6" date=""
+        <release version="1.0.6" date="2011-01-26"
             description="Dependencies updates">
             <action dev="rafalcan" type="update">
                 Updated to latest intenz (parent), xchars and log4j versions.
