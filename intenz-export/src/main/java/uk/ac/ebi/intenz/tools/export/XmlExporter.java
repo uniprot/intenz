@@ -20,6 +20,8 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 import org.xml.sax.SAXException;
 
 import uk.ac.ebi.biobabel.util.collections.OperatorSet;
@@ -229,7 +231,8 @@ public class XmlExporter {
             EntryType jaxbEntry = getJaxbEntry(entry);
             subSubClazz.getEnzyme().add(jaxbEntry);
         }
-        marshaller.marshal(intenz, os);
+        //marshaller.marshal(intenz, os);
+        marshaller.marshal(intenz, getXMLSerializer(os));
     }
     
     private EcClassType getClazz(Intenz intenz, int ec1) {
@@ -333,7 +336,7 @@ public class XmlExporter {
 		}
 		return flavoured;
 	}
-/*
+
     private XMLSerializer getXMLSerializer(OutputStream os) {
         OutputFormat outFormat = new OutputFormat();
 		switch (flavour){
@@ -346,9 +349,9 @@ public class XmlExporter {
 			outFormat.setNonEscapingElements(XML_CONTENT_ELEMENTS);
 			break;
 		}
-// 		of.setPreserveSpace(true);
+// 		outFormat.setPreserveSpace(true);
         outFormat.setIndenting(true);
-//      of.setIndent(4);
+//      outFormat.setIndent(4);
 		outFormat.setOmitDocumentType(false);
         
         XMLSerializer serializer = new XMLSerializer(outFormat);
@@ -357,7 +360,7 @@ public class XmlExporter {
         
         return serializer;
     }
-*/
+
     private JAXBElement<EnzymeType> getJaxbEnzyme(EnzymeEntry entry, Map descriptions)
     throws DatatypeConfigurationException {
         JAXBElement<EnzymeType> jaxbEnzyme = of.createEnzyme(of.createEnzymeType());
