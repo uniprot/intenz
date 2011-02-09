@@ -6,7 +6,7 @@
 	<artifactId>intenz-mapper</artifactId>
     <name>IntEnz mapper module</name>
 	<packaging>jar</packaging>
-	<version>4.4.1-SNAPSHOT</version>
+	<version>4.4.1</version>
 	<description>IntEnz - Mapper package</description>
 
 	<parent>
@@ -69,4 +69,10 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.16</version></dependency>
 	</dependencies>
+
+  <scm>
+    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-mapper-4.4.1</connection>
+    <developerConnection>scm:svn:https://ralcantara@intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-mapper-4.4.1</developerConnection>
+    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-mapper-4.4.1</url>
+  </scm>
 </project>
