@@ -2,7 +2,6 @@ package uk.ac.ebi.intenz.mapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,6 @@ import uk.ac.ebi.intenz.domain.enzyme.EnzymeComment;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeName;
-import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.domain.reference.Journal;
 import uk.ac.ebi.intenz.domain.reference.Reference;
 import uk.ac.ebi.rhea.domain.Database;
@@ -126,7 +124,7 @@ public class CommonProceduresMapperTest extends TestCase {
 		con.close();
 	}
 
-	public void testCreateClone() throws SQLException, DomainException {
+	public void testCreateClone() throws Exception {
 		cloneId = cpm.createClone(fakeId, con);
 		con.commit();
 		// Names:
