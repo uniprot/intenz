@@ -28,6 +28,7 @@ import uk.ac.ebi.intenz.domain.exceptions.EnzymeReferenceException;
 import uk.ac.ebi.intenz.domain.history.HistoryGraph;
 import uk.ac.ebi.intenz.domain.reference.Reference;
 import uk.ac.ebi.intenz.domain.stats.EnzymeStatistics;
+import uk.ac.ebi.rhea.mapper.MapperException;
 
 /**
  * Maps enzyme entry information to the corresponding database tables.
@@ -77,15 +78,6 @@ public class EnzymeEntryMapper {
        .append(" AND s1.ec1 = ? AND s2.ec1 = ? AND s2.ec2 = ?")
        .append(" AND s3.ec1 = ? AND s3.ec2 = ? AND s3.ec3 = ? AND e.source = 'INTENZ'")
        .append(" ORDER BY e.ec1, e.ec2, e.ec3, e.ec4").toString();
-  }
-
-  /**
-   * Returns the SQL statement used for loading all enzymes by the given EC.
-   *
-   * @return the SQL statement.
-   */
-  private String findAllByEcStatement() {
-    return findAllByEcStatement(null);
   }
   
   /**
@@ -288,10 +280,11 @@ public class EnzymeEntryMapper {
    * nothing has been found.
    * @throws java.sql.SQLException 
    * @throws uk.ac.ebi.intenz.domain.exceptions.DomainException
+ * @throws MapperException in case of problem retrieving reaction/cofactor info.
    */
   public EnzymeEntry findByEc(int ec1, int ec2, int ec3, int ec4, Status status,
 		  Connection con)
-  throws SQLException, DomainException {
+  throws SQLException, DomainException, MapperException {
     PreparedStatement findStatement = null;
     ResultSet rs = null;
     EnzymeEntry result = null;
@@ -416,7 +409,8 @@ public class EnzymeEntryMapper {
     if (con == null) throw new NullPointerException("Parameter 'con' must not be null.");
     PreparedStatement findAllByEcStatement = null;
     ResultSet rs = null;
-    Map map = new TreeMap();
+    Map<EnzymeCommissionNumber, EnzymeEntry> map =
+    	new TreeMap<EnzymeCommissionNumber, EnzymeEntry>();
 
     try {
       // Core information.
@@ -467,9 +461,11 @@ public class EnzymeEntryMapper {
    * 		or <code>null</code> if nothing has been found.
    * @throws java.sql.SQLException
    * @throws uk.ac.ebi.intenz.domain.exceptions.DomainException 
+   * @throws MapperException in case of problem retrieving reaction/cofactor
+   * 		info for non-ghosts.
    */
   public EnzymeEntry findById(Long id, Connection con, boolean ghost)
-  throws SQLException, DomainException {
+  throws SQLException, DomainException, MapperException {
     PreparedStatement findStatement = null;
     EnzymeEntry result = null;
     ResultSet rsEc = null, rs = null;
@@ -533,9 +529,10 @@ public class EnzymeEntryMapper {
    * 	or <code>null</code> if nothing has been found.
    * @throws SQLException
    * @throws DomainException
+ * @throws MapperException in case of problem retrieving reaction/cofactor info.
    */
   public EnzymeEntry findById(long id, Connection con)
-  throws SQLException, DomainException{
+  throws SQLException, DomainException, MapperException{
 	  return findById(id, con, false);
   }
 
@@ -550,7 +547,13 @@ public class EnzymeEntryMapper {
    */
   public EnzymeEntry findGhostById(int id, Connection con)
   throws SQLException, DomainException {
-    return findById((long) id, con, true);
+	  EnzymeEntry entry = null;
+	  try {
+		entry = findById((long) id, con, true);
+	} catch (MapperException e) {
+		// Never thrown for ghosts
+	}
+	return entry;
   }
 
   public Long findIDInMappingTable(String ec, Status status, Connection con)
@@ -740,9 +743,11 @@ public class EnzymeEntryMapper {
    * @return A <code>List</code> of <code>EnzymeEntry</code>s
    * @throws SQLException 
    * @throws DomainException 
+ * @throws MapperException in case of problem retrieving reaction/cofactor info.
    */
-  public List exportAllEntries(Connection con) throws SQLException, DomainException{
-	  List entries = new ArrayList();
+  public List<?> exportAllEntries(Connection con)
+  throws SQLException, DomainException, MapperException{
+	  List<EnzymeEntry> entries = new ArrayList<EnzymeEntry>();
 	  Statement findListStatement = null;
 	    ResultSet rs = null;
 	  try {
@@ -770,8 +775,10 @@ public class EnzymeEntryMapper {
    * 	if nothing has been found.
    * @throws SQLException
    * @throws uk.ac.ebi.intenz.domain.exceptions.DomainException 
+ * @throws MapperException in case of problem retrieving reaction/cofactor info.
    */
-  public List<EnzymeEntry> exportApprovedSibEntries(Connection con) throws SQLException, DomainException {
+  public List<EnzymeEntry> exportApprovedSibEntries(Connection con) 
+  throws SQLException, DomainException, MapperException {
     Statement findListStatement = null;
     ResultSet rs = null;
     List<EnzymeEntry> result = new ArrayList<EnzymeEntry>();
@@ -800,9 +807,10 @@ public class EnzymeEntryMapper {
    * 	if nothing has been found.
    * @throws SQLException
    * @throws uk.ac.ebi.intenz.domain.exceptions.DomainException 
+ * @throws MapperException in case of problem retrieving reaction/cofactor info.
    */
   public List<EnzymeEntry> findFullProposedList(Connection con)
-  throws SQLException, DomainException {
+  throws SQLException, DomainException, MapperException {
     PreparedStatement findListStatement = null;
     ResultSet rs = null;
     List<EnzymeEntry> result = new ArrayList<EnzymeEntry>();
@@ -838,9 +846,10 @@ public class EnzymeEntryMapper {
    * 	if nothing has been found.
    * @throws SQLException
    * @throws uk.ac.ebi.intenz.domain.exceptions.DomainException 
+ * @throws MapperException in case of problem retrieving reaction/cofactor info.
    */
   public List<EnzymeEntry> findFullSuggestedList(Connection con)
-  throws SQLException, DomainException {
+  throws SQLException, DomainException, MapperException {
     PreparedStatement findListStatement = null;
     ResultSet rs = null;
     List<EnzymeEntry> result = new ArrayList<EnzymeEntry>();
@@ -1458,11 +1467,12 @@ public class EnzymeEntryMapper {
    *
    * @param enzymeEntry The <code>EnzymeEntry</code> instance to be populated.
    * @param con         The logical connection.
-   * @throws SQLException if a database error occurs.
+   * @throws SQLException if a generic database error occurs.
+   * @throws MapperException in case of problem retrieving reaction/cofactor data.
    */
   private void findEnzymeData(EnzymeEntry enzymeEntry, Connection con)
-  throws SQLException, DomainException,
-          EnzymeReactionException, EnzymeReferenceException {
+  throws SQLException, DomainException, EnzymeReactionException,
+  		EnzymeReferenceException, MapperException {
     loadHistoryGraph(enzymeEntry, con);
 
     // Names
@@ -1508,10 +1518,11 @@ public class EnzymeEntryMapper {
    * @throws SQLException            if a database error occurs.
    * @throws DomainException         if a domain related error occurs.
    * @throws EnzymeReactionException if no reaction has been found; one reaction is mandatory.
+ * @throws MapperException in case of a problem getting reaction/cofactor info.
    */
   private void exportSIBEnzymeData(EnzymeEntry enzymeEntry, Connection con)
   throws SQLException, DomainException,
-          EnzymeReactionException {
+          EnzymeReactionException, MapperException {
     assert enzymeEntry != null : "Parameter 'enzymeEntry' must not be null.";
     assert con != null : "Parameter 'con' must not be null.";
 

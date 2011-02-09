@@ -81,9 +81,11 @@ public class EnzymeCofactorMapper {
    * @return a <code>Set</code> containing <code>Cofactor</code> instances,
    * 	or <code>OperatorSet</code> instances filled with <code>Cofactor</code> objects,
    * 	or <code>null</code> if nothing has been found.
-   * @throws SQLException
+   * @throws SQLException in case of a generic database problem.
+ * @throws MapperException in case of problem retrieving the cofactors.
    */
-  public Set<Object> find(Long enzymeId, Connection con) throws SQLException {
+  public Set<Object> find(Long enzymeId, Connection con)
+  throws SQLException, MapperException {
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
     if (con == null) throw new NullPointerException("Parameter 'con' must not be null.");
 
@@ -116,10 +118,12 @@ public class EnzymeCofactorMapper {
    * @param enzymeId The enzyme ID used to retreive the related cofactors.
    * @param con The database connection.
    * @return an {@link java.util.ArrayList} of cofactors or <code>null</code> if no cofactor could be found.
-   * @throws SQLException if a database error occured.
+   * @throws SQLException in case of a generic database problem.
+   * @throws MapperException in case of problem retrieving the cofactors.
    * @throws NullPointerException if either of the parameters is <code>null</code>.
    */
-  public Set<Object> exportSibCofactors(Long enzymeId, Connection con) throws SQLException {
+  public Set<Object> exportSibCofactors(Long enzymeId, Connection con)
+  throws SQLException, MapperException {
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
     if (con == null) throw new NullPointerException("Parameter 'con' must not be null.");
 
@@ -146,7 +150,8 @@ public class EnzymeCofactorMapper {
    * the identifiers for the enzymes they appear in.
    * @param con a database connection
    * @return a map of compounds (cofactors) to pairs enzyme ID/EC number.
-   * @throws SQLException
+   * @throws SQLException in case of a generic database problem.
+   * @throws MapperException in case of problem retrieving compounds.
    * @throws MapperException
    */
   public Map<Compound, Map<Long, String>> findAll(Connection con)
@@ -289,7 +294,8 @@ public class EnzymeCofactorMapper {
    *
    * @param rs The result set object.
    * @return a <code>Cofactor</code> instance.
-   * @throws java.sql.SQLException if a database error occurs.
+   * @throws SQLException if a generic database error occurs.
+   * @throws MapperException in case of error loading compounds.
    * @throws MapperException
    */
   private Cofactor doLoad(ResultSet rs) throws SQLException, MapperException {
@@ -321,7 +327,7 @@ public class EnzymeCofactorMapper {
 
   @SuppressWarnings("unchecked")
   private Set<Object> getCofactors(ResultSet rs)
-  throws SQLException{
+  throws SQLException, MapperException {
 	  Set result = null;
 	  int currentOrderIn = 0;
 	  OperatorSet.Builder osBuilder = null;
