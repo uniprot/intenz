@@ -23,6 +23,7 @@ import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.Cofactor;
 import uk.ac.ebi.rhea.domain.Compound;
+import uk.ac.ebi.rhea.mapper.MapperException;
 import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
 
 /**
@@ -146,8 +147,10 @@ public class EnzymeCofactorMapper {
    * @param con a database connection
    * @return a map of compounds (cofactors) to pairs enzyme ID/EC number.
    * @throws SQLException
+   * @throws MapperException
    */
-  public Map<Compound, Map<Long, String>> findAll(Connection con) throws SQLException {
+  public Map<Compound, Map<Long, String>> findAll(Connection con)
+  throws SQLException, MapperException {
 	  Map<Compound, Map<Long, String>> result = new Hashtable<Compound, Map<Long, String>>();
 	  Statement stm = null;
 	  ResultSet rs = null;
@@ -287,8 +290,9 @@ public class EnzymeCofactorMapper {
    * @param rs The result set object.
    * @return a <code>Cofactor</code> instance.
    * @throws java.sql.SQLException if a database error occurs.
+   * @throws MapperException
    */
-  private Cofactor doLoad(ResultSet rs) throws SQLException {
+  private Cofactor doLoad(ResultSet rs) throws SQLException, MapperException {
     assert rs != null;
 
     String cofactorString = "";
