@@ -13,6 +13,7 @@ import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions;
 import uk.ac.ebi.rhea.domain.Database;
 import uk.ac.ebi.rhea.domain.Reaction;
 import uk.ac.ebi.rhea.domain.Status;
+import uk.ac.ebi.rhea.mapper.MapperException;
 import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
 import uk.ac.ebi.rhea.mapper.db.RheaDbReader;
 
@@ -88,9 +89,11 @@ public class EnzymeReactionMapper {
    * @param con      The logical connection.
    * @return a <code>EnzymaticReactions</code> object containing
    * 	<code>Reaction</code>instances or <code>null</code> if nothing has been found.
-   * @throws SQLException
+   * @throws SQLException in case of a generic database problem.
+   * @throws MapperException in case of problem retrieving Rhea reactions.
    */
-  public EnzymaticReactions find(Long enzymeId, Connection con) throws SQLException {
+  public EnzymaticReactions find(Long enzymeId, Connection con)
+  throws SQLException, MapperException {
         if (enzymeId == null) {
             throw new NullPointerException("Parameter 'enzymeId' must not be null.");
         }
@@ -118,10 +121,12 @@ public class EnzymeReactionMapper {
    * @param con The database connection.
    * @return an <code>EnzymaticReactions</code> containing reactions
    * 	or <code>null</code> if no reaction could be found.
-   * @throws SQLException if a database error occured.
+   * @throws SQLException if a generic database error occured.
+   * @throws MapperException in case of problem retrieving Rhea reactions.
    * @throws NullPointerException if either of the parameters is <code>null</code>.
    */
-  public EnzymaticReactions exportSibReactions(Long enzymeId, Connection con) throws SQLException {
+  public EnzymaticReactions exportSibReactions(Long enzymeId, Connection con)
+  throws SQLException, MapperException {
     if (enzymeId == null) throw new NullPointerException("Parameter 'enzymeId' must not be null.");
     if (con == null) throw new NullPointerException("Parameter 'con' must not be null.");
 
@@ -134,7 +139,7 @@ public class EnzymeReactionMapper {
   }
   
   private EnzymaticReactions find(Long enzymeId, Connection con, String findQuery)
-  throws SQLException{
+  throws SQLException, MapperException {
 	  EnzymaticReactions result = null;
 	  PreparedStatement findStatement = null;
 	  ResultSet rs = null;
@@ -293,9 +298,10 @@ public class EnzymeReactionMapper {
    *
    * @param rs The result set object.
    * @return a {@link Reaction}
-   * @throws SQLException
+   * @throws SQLException in case of a generic database problem.
+   * @throws MapperException in case of problem retrieving the Rhea reaction.
    */
-  private Reaction loadReaction(ResultSet rs) throws SQLException {
+  private Reaction loadReaction(ResultSet rs) throws SQLException, MapperException {
     assert rs != null : "Parameter 'rs' must not be null.";
 
     String equation = rs.getString("equation");
