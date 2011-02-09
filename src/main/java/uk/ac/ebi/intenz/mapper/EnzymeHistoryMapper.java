@@ -84,7 +84,7 @@ public class EnzymeHistoryMapper {
       }
     } finally {
     	if (rs != null) rs.close();
-      findStatement.close();
+      if (findStatement != null) findStatement.close();
     }
 
     return result;
