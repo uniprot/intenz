@@ -11,7 +11,7 @@
     <parent>
         <groupId>uk.ac.ebi.intenz</groupId>
         <artifactId>intenz</artifactId>
-        <version>4.2.2</version>
+        <version>4.2.3</version>
     </parent>
     
     <dependencies>
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-mapper</artifactId>
-            <version>4.4</version>
+            <version>4.4.1</version>
 			<scope>test</scope>
         </dependency>
     </dependencies>
@@ -78,18 +78,18 @@
             	<dependency>
 		            <groupId>uk.ac.ebi.intenz</groupId>
 		            <artifactId>intenz-mapper</artifactId>
-		            <version>4.3.2</version>
+		            <version>4.4.1</version>
             	</dependency>
                 <dependency>
                     <groupId>uk.ac.ebi.rhea</groupId>
                     <artifactId>rhea-domain</artifactId>
-                    <version>1.6</version>
+                    <version>1.6.4</version>
                 </dependency>
-                <dependency>
-                    <groupId>com.oracle.driver</groupId>
-                    <artifactId>ojdbc14</artifactId>
-                    <version>10.2.0.3</version>
-                </dependency>
+		        <dependency>
+		            <groupId>com.oracle</groupId>
+		            <artifactId>ojdbc5</artifactId>
+		            <version>11.1.0.7.0</version>
+		        </dependency>
             </dependencies>
             <build>
                 <resources>
