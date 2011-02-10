@@ -9,6 +9,23 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.10" date="2011-02-10"
+    		description="Removed header paragraph about preliminary ECs">
+    		<action dev="rafalcan" type="remove">
+    			Removed header paragraph about preliminary ECs.
+    		</action>
+            <action dev="rafalcan" type="update">
+                Updated to latest versions of dependencies (intenz,
+                intenz-mapper, rhea-domain and ojdbc5).
+            </action>
+   		</release>
+    	<release version="1.2.9" date="2011-02-01"
+			description="Added exception for non-sentence-ending 'sp.'">
+            <action dev="rafalcan" type="update">
+                Updated CC_LineFormatter with exception for 'sp. CBB1'
+                (EC 1.17.5.2).
+            </action>
+    	</release>
     	<release version="1.2.8" date="2011-01-26"
 			description="Added DE line exceptions">
             <action dev="rafalcan" type="update">
