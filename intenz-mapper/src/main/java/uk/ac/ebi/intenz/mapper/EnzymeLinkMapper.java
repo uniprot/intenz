@@ -128,8 +128,8 @@ public class EnzymeLinkMapper {
       List<EnzymeLink> xrefs = findXrefs(enzymeId, con);
       if (xrefs != null) result.addAll(xrefs);
     } finally {
-    	rs.close();
-      findStatement.close();
+    	if (rs != null) rs.close();
+      if (findStatement != null) findStatement.close();
     }
 
     if (result.size() == 0) return null;
@@ -171,8 +171,8 @@ public class EnzymeLinkMapper {
       List<EnzymeLink> xrefs = findSibXrefs(enzymeId, con);
       if (xrefs != null) result.addAll(xrefs);
     } finally {
-    	rs.close();
-      findStatement.close();
+    	if (rs != null) rs.close();
+      if (findStatement != null) findStatement.close();
     }
 
     if (result.size() == 0) return null;
@@ -208,8 +208,8 @@ public class EnzymeLinkMapper {
         result.add(link);
       }
     } finally {
-    	rs.close();
-      findStatement.close();
+    	if (rs != null) rs.close();
+        if (findStatement != null) findStatement.close();
     }
 
     if (noResult) return null;
@@ -250,8 +250,8 @@ public class EnzymeLinkMapper {
         result.add(link);
       }
     } finally {
-    	rs.close();
-      findStatement.close();
+    	if (rs != null) rs.close();
+        if (findStatement != null) findStatement.close();
     }
 
     if (noResult) return null;
@@ -290,8 +290,8 @@ public class EnzymeLinkMapper {
         }
       }
     } finally {
-      insertStatement.close();
-      insertXrefStatement.close();
+      if (insertStatement != null) insertStatement.close();
+      if (insertXrefStatement != null) insertXrefStatement.close();
     }
   }
 
@@ -307,7 +307,7 @@ public class EnzymeLinkMapper {
       doInsert(link, enzymeId, status, insertStatement);
       insertStatement.execute();
     } finally {
-      insertStatement.close();
+      if (insertStatement != null) insertStatement.close();
     }
   }
 
@@ -329,7 +329,7 @@ public class EnzymeLinkMapper {
         updateStatement.setString(4, link.getXrefDatabaseConstant().toString());
       updateStatement.execute();
     } finally {
-      updateStatement.close();
+      if (updateStatement != null) updateStatement.close();
     }
   }
 
@@ -363,7 +363,7 @@ public class EnzymeLinkMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      deleteStatement.close();
+      if (deleteStatement != null) deleteStatement.close();
     }
   }
 
@@ -381,7 +381,7 @@ public class EnzymeLinkMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      deleteStatement.close();
+      if (deleteStatement != null) deleteStatement.close();
     }
   }
 
@@ -408,7 +408,7 @@ public class EnzymeLinkMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      deleteXrefStatement.close();
+      if (deleteXrefStatement != null) deleteXrefStatement.close();
     }
   }
 
@@ -426,7 +426,7 @@ public class EnzymeLinkMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      deleteXrefStatement.close();
+      if (deleteXrefStatement != null) deleteXrefStatement.close();
     }
   }
 
@@ -446,7 +446,7 @@ public class EnzymeLinkMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      deleteByNameStatement.close();
+      if (deleteByNameStatement != null) deleteByNameStatement.close();
     }
   }
 
@@ -469,7 +469,7 @@ public class EnzymeLinkMapper {
 //         con.rollback();
 //         throw e;
        } finally {
-         deleteByNameStatement.close();
+         if (deleteByNameStatement != null) deleteByNameStatement.close();
        }
      }
 

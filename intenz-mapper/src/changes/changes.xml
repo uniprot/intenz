@@ -7,6 +7,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.4.2" date="2011-02-09"
+            description="Bug fix">
+            <action dev="rafalcan" type="fix">
+                Fixed NPEs in name and link mappers.
+            </action>
+        </release>
         <release version="4.4.1" date="2011-02-09"
             description="Bug fix">
             <action dev="rafalcan" type="fix">
