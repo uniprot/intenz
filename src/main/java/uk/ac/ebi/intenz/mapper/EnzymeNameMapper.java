@@ -98,7 +98,7 @@ public class EnzymeNameMapper {
       }
     } finally {
     	if (rs != null) rs.close();
-      findStatement.close();
+      if (findStatement != null) findStatement.close();
     }
 
     if (noResult) return null;
@@ -141,7 +141,7 @@ public class EnzymeNameMapper {
         }
       }
     } finally {
-      findStatement.close();
+      if (findStatement != null) findStatement.close();
     }
 
     if (noResult) return null;
@@ -183,7 +183,7 @@ public class EnzymeNameMapper {
       }
     } finally {
     	if (rs != null) rs.close();
-      findStatement.close();
+      if (findStatement != null) findStatement.close();
     }
 
     if (noResult) return null;
@@ -216,7 +216,7 @@ public class EnzymeNameMapper {
       }
     } finally {
     	if (rs != null) rs.close();
-      findStatement.close();
+      if (findStatement != null) findStatement.close();
     }
 
     return result;
@@ -240,7 +240,7 @@ public class EnzymeNameMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      updateNameStatement.close();
+      if (updateNameStatement != null) updateNameStatement.close();
     }
   }
 
@@ -272,7 +272,7 @@ public class EnzymeNameMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      insertStatement.close();
+      if (insertStatement != null) insertStatement.close();
     }
   }
 
@@ -298,7 +298,7 @@ public class EnzymeNameMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      deleteNamesStatement.close();
+      if (deleteNamesStatement != null) deleteNamesStatement.close();
     }
   }
 
