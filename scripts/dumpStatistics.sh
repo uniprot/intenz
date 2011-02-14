@@ -2,6 +2,8 @@
 # Parameter:
 # $DB_PROPS_FILE - properties file with configuration for DB connection
 
+echo 'DEPRECATED! USE dbStatistics.sh INSTEAD (dumps into CSV format)' && exit 0
+
 if [ -z $INTENZ_CONFIG_DIR ]
 then
     echo "Set variable INTENZ_CONFIG_DIR to a directory containing database configuration"

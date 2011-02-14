@@ -7,6 +7,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.1.0" date="" description="Database statistics">
+    		<action dev="rafalcan" type="add">
+    			Added Java code to retrieve statistics from the database.
+   			</action>
+    		<action dev="rafalcan" type="update">
+    			Updated to latest version of parent (intenz).
+    		</action>
+    	</release>
     	<release version="1.0.2" date="2009-12-07" description="Bug fix">
     		<action dev="rafalcan" type="fix">
     			Fixed size of columns in audit table (did not match the main
