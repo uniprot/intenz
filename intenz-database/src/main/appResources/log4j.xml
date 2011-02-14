@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//Apache Software Foundation//DTD log4j Configuration 1.0//EN" "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%p]-[%d{ISO8601}]-%c{1}- %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="log_file"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File"
+			value="logs/intenz-statistics.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%p]-[%d{ISO8601}]-%c{1}- %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="org.apache">
+		<level value="ERROR"/>
+		<appender-ref ref="log_file" />
+	</logger>
+	<logger name="uk.ac.ebi.biobabel">
+		<level value="WARN"/>
+		<appender-ref ref="log_file" />
+	</logger>
+	<root>
+		<level value="INFO"/>
+		<appender-ref ref="stdout" />
+	</root>
+
+</log4j:configuration>
