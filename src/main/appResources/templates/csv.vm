@@ -1,0 +1,28 @@
+Release number, ${statistics.releaseNumber}
+Release date,${statistics.releaseDate}
+Classes,${statistics.classes}
+Subclasses,${statistics.subclasses}
+SubSubclasses,${statistics.subSubclasses}
+Synonyms,${statistics.synonyms}
+Enzymes by status:
+#foreach(${byStatus} in ${statistics.enzymesByStatus.entrySet()})
+#foreach(${byActive} in ${byStatus.value.entrySet()})
+${byStatus.key} #if(${byActive.key})(active)#else(inactive)#end),${byActive.value}
+#end
+#end
+Xrefs - total:
+#foreach(${xrefd} in ${statistics.xrefs.entrySet()})
+${xrefd.key}, ${xrefd.value.total}
+#end
+Xrefs - unique:
+#foreach(${xrefd} in ${statistics.xrefs.entrySet()})
+${xrefd.key}, ${xrefd.value.distinct}
+#end
+Links - total:
+#foreach(${linked} in ${statistics.links.entrySet()})
+${linked.key}, ${linked.value.total}
+#end
+Links - unique:
+#foreach(${linked} in ${statistics.links.entrySet()})
+${linked.key}, ${linked.value.distinct}
+#end
