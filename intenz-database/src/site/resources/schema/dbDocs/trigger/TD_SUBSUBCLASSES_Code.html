@@ -1,0 +1,36 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF8" />
+<script src="../dbdoc.js" type="text/javascript"></script>
+<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+</head>
+<body class="object">
+<div id="header"><h2>TD_SUBSUBCLASSES</h2>
+<div class="tabs clearfix">
+
+<div class="tab"><div><a href="TD_SUBSUBCLASSES.html">Details</a></div></div>
+<div class="tab"><div><a href="TD_SUBSUBCLASSES_Grants.html">Grants</a></div></div>
+<div class="tab"><div><a href="TD_SUBSUBCLASSES_References.html">References</a></div></div>
+<div class="tab"><div><a href="TD_SUBSUBCLASSES_Dependencies.html">Dependencies</a></div></div>
+<div class="tab" id="current"><div><a href="TD_SUBSUBCLASSES_Code.html">Code</a></div></div>
+</div></div><br/>
+<div class="tab-panes">
+<div id="Code"> <table cellpadding="0" cellspacing="0" cellspacing="0" summary=""><tr>
+	<th>TEXT</th>
+</tr>
+	<tr><td><pre>
+TRIGGER "ENZYME".td_subsubclasses
+  AFTER DELETE ON subsubclasses FOR EACH ROW
+
+
+
+BEGIN
+  INSERT INTO subsubclasses_audit (
+    ec1,ec2,ec3,name,description,active,
+    timestamp,audit_id,dbuser,osuser,remark,action)
+  VALUES (
+    :old.ec1,:old.ec2,:old.ec3,:old.name,:old.description,:old.active,
+    sysdate,s_audit_id.nextval,user,auditpackage.osuser,auditpackage.remark,'D');
+END;
+</pre>	</td></tr>
+</table></div>
