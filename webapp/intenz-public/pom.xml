@@ -6,13 +6,13 @@
 	<artifactId>intenz-public</artifactId>
     <name>IntEnz public webapp</name>
 	<packaging>war</packaging>
-	<version>67.0.1-SNAPSHOT</version>
+	<version>67.0.0</version>
 	<description>IntEnz public web application</description>
 
 	<parent>
 		<groupId>uk.ac.ebi.intenz</groupId>
 		<artifactId>webapp</artifactId>
-		<version>1.2</version>
+		<version>1.2.1</version>
 	</parent>
 
     <distributionManagement>
