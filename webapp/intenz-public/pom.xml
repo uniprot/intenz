@@ -177,12 +177,20 @@
 			<version>1.1.2</version>
 			<type>tld</type>
 		</dependency>
+        <!-- for ENZPRO (11g):
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc5</artifactId>
             <version>11.1.0.7.0</version>
             <scope>provided</scope>
         </dependency>
+        -->
+        <dependency>
+			<groupId>com.oracle.driver</groupId>
+			<artifactId>ojdbc14</artifactId>
+			<version>10.2.0.3</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
