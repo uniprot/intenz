@@ -6,7 +6,7 @@
 	<artifactId>intenz-public</artifactId>
     <name>IntEnz public webapp</name>
 	<packaging>war</packaging>
-	<version>64.0.4-SNAPSHOT</version>
+	<version>67.0.0-SNAPSHOT</version>
 	<description>IntEnz public web application</description>
 
 	<parent>
@@ -97,17 +97,17 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-mapper</artifactId>
-			<version>4.4</version>
+			<version>4.4.2</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-ffwriter</artifactId>
-			<version>1.2.7</version>
+			<version>1.2.10</version>
 		</dependency>
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
             <artifactId>rhea-domain</artifactId>
-            <version>1.6.3</version>
+            <version>1.6.4</version>
         </dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.xchars</groupId>
@@ -177,20 +177,12 @@
 			<version>1.1.2</version>
 			<type>tld</type>
 		</dependency>
-        <!-- for ENZPRO (11g):
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc5</artifactId>
             <version>11.1.0.7.0</version>
             <scope>provided</scope>
         </dependency>
-        -->
-        <dependency>
-			<groupId>com.oracle.driver</groupId>
-			<artifactId>ojdbc14</artifactId>
-			<version>10.2.0.3</version>
-			<scope>provided</scope>
-		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

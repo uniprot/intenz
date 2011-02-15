@@ -8,6 +8,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="67.0.0" date="2011-02-15"
+            description="Release 67">
+        	<action dev="rafalcan" type="update">
+                Updated to latest version of dependencies: mapper, ffwriter,
+                rhea-domain and oracle.
+        	</action>
+    	</release>
     	<release version="65" date="2010-12-09"
             description="Release 65">
         	<action dev="hongcao" type="update">

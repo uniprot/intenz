@@ -17,19 +17,19 @@
 	<tr>
 	  <th class="headingleft" nowrap="nowrap" rowspan="3">EC numbers</th>
 	  <td class="subheadingleft" nowrap="nowrap" title="Approved by NC-IUBMB">approved</td>
-	  <td align="right" style="text-align: right !important;">5123</td>
+	  <td align="right" style="text-align: right !important;">5143</td>
 	</tr>
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap"
            title="Preliminary EC numbers issued by UniProt"><a
               href="query?cmd=SearchPreliminary">preliminary</a></td>
-	  <td align="right" style="text-align: right !important;">71</td>
+	  <td align="right" style="text-align: right !important;">75</td>
 	</tr>
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap"
           title="Not deleted, not transferred, either approved or preliminary">active</td>
 	<!--this figure = 4356 (APPROVED, Y) + 71 (PRELIMINARY, Y)-->
-	  <td align="right" style="text-align: right !important;">4427</td>
+	  <td align="right" style="text-align: right !important;">4447</td>
 	</tr>
 </table>
 
@@ -37,25 +37,25 @@
 <table class="contenttable_lmenu stats_table" style="width: 30em">
 	<tr>
 		<th scope="col">Db name</th>
-		<th scope="col">External entries</th>
+		<th scope="col">External unique entries</th>
 		<th scope="col">Total cross references</th>
 	</tr>
 	<tr>
 	<!--TODO: change the release number for new release-->
 		<td class="leftsubheading">SWISSPROT
 			(<a class="externalLink" target="_blank"
-            href="http://www.uniprot.org">UniProt</a> 2010_12)
+            href="http://www.uniprot.org">UniProt</a> 2011_02)
 		</td>
-		<td align="right" style="text-align: right !important;">189586</td>
-		<td align="right" style="text-align: right !important;">198847</td>
+		<td align="right" style="text-align: right !important;">191899</td>
+		<td align="right" style="text-align: right !important;">200879</td>
 	</tr>
 	<tr>
 		<td class="leftsubheading">
 			<a class="externalLink" target="_blank"
                href="http://www.ebi.ac.uk/GO/index.html">GO</a>
 		</td>
+		<td align="right" style="text-align: right !important;">3845</td>
 		<td align="right" style="text-align: right !important;">3849</td>
-		<td align="right" style="text-align: right !important;">3853</td>
 	</tr>
 
 	<tr>
@@ -64,6 +64,6 @@
                href="http://www.expasy.org/prosite">PROSITE</a>
 		</td>
 		<td align="right" style="text-align: right !important;">456</td>
-		<td align="right" style="text-align: right !important;">1382</td>
+		<td align="right" style="text-align: right !important;">1381</td>
 	</tr>
 </table>
