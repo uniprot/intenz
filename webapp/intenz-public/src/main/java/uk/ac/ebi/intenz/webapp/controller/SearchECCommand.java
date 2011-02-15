@@ -23,6 +23,7 @@ import uk.ac.ebi.intenz.mapper.EnzymeClassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeSubSubclassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeSubclassMapper;
+import uk.ac.ebi.rhea.mapper.MapperException;
 
 /**
  * This command processes all inquiries about EC numbers.
@@ -409,6 +410,11 @@ public class SearchECCommand extends DatabaseCommand {
         		(String) request.getSession().getAttribute("user"));
         request.setAttribute("message", e.getMessage());
         return null;
+      } catch (MapperException e) {
+          IntEnzMessenger.sendError(this.getClass().toString(), e.getMessage(),
+          		(String) request.getSession().getAttribute("user"));
+          request.setAttribute("message", e.getMessage());
+          return null;
       } catch (DomainException e) {
         PropertyResourceBundle applicationProperties =
         	(PropertyResourceBundle) request.getSession().getServletContext()
@@ -418,7 +424,7 @@ public class SearchECCommand extends DatabaseCommand {
         		(String) request.getSession().getAttribute("user"));
         request.setAttribute("message", e.getMessage());
         return null;
-      } finally {
+	} finally {
         try {
           con.close();
         } catch (SQLException e) {

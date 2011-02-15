@@ -12,6 +12,7 @@ import java.util.PropertyResourceBundle;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
+import uk.ac.ebi.rhea.mapper.MapperException;
 
 /**
  * This command handles enzyme ID requests.
@@ -104,12 +105,16 @@ public class SearchIDCommand extends DatabaseCommand {
         IntEnzMessenger.sendError(this.getClass().toString(), e.getMessage(), (String) request.getSession().getAttribute("user"));
         request.setAttribute("message", e.getMessage());
         return null;
+      } catch (MapperException e) {
+          IntEnzMessenger.sendError(this.getClass().toString(), e.getMessage(), (String) request.getSession().getAttribute("user"));
+          request.setAttribute("message", e.getMessage());
+          return null;
       } catch (DomainException e) {
         PropertyResourceBundle applicationProperties = (PropertyResourceBundle) request.getSession().getServletContext().getAttribute("application_properties");
         IntEnzMessenger.sendError(this.getClass().toString(), applicationProperties.getString(e.getMessageKey()), (String) request.getSession().getAttribute("user"));
         request.setAttribute("message", e.getMessage());
         return null;
-      } finally {
+	} finally {
         try {
           con.close();
         } catch (SQLException e) {
