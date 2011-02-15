@@ -235,7 +235,7 @@
             <id>intenz.sf.net</id>
             <name>IntEnz SourceForge web site</name>
             <url>
-                 scp://shell.sourceforge.net:/home/groups/i/in/intenz/htdocs
+                 scp://shell.sourceforge.net:/home/project-web/intenz/htdocs
             </url>
         </site>
 	</distributionManagement>
