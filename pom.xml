@@ -6,7 +6,7 @@
 	<artifactId>intenz-public</artifactId>
     <name>IntEnz public webapp</name>
 	<packaging>war</packaging>
-	<version>64.0.4-SNAPSHOT</version>
+	<version>67.0.0</version>
 	<description>IntEnz public web application</description>
 
 	<parent>
@@ -97,17 +97,17 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-mapper</artifactId>
-			<version>4.4</version>
+			<version>4.4.2</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-ffwriter</artifactId>
-			<version>1.2.7</version>
+			<version>1.2.10</version>
 		</dependency>
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
             <artifactId>rhea-domain</artifactId>
-            <version>1.6.3</version>
+            <version>1.6.4</version>
         </dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.xchars</groupId>
@@ -198,4 +198,10 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+  <scm>
+    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-public-67.0.0</connection>
+    <developerConnection>scm:svn:https://ralcantara@intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-public-67.0.0</developerConnection>
+    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-public-67.0.0</url>
+  </scm>
 </project>
