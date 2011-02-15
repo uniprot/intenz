@@ -9,3 +9,5 @@ VALUES (
   'RHEA',
   (SELECT MAX(rel_no)+1 FROM releases WHERE db = 'RHEA'),
   sysdate);
+
+commit;
