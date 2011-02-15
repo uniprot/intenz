@@ -1,0 +1,283 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF8" />
+<script src="../dbdoc.js" type="text/javascript"></script>
+<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+</head>
+<body class="object">
+<div id="header"><h2>XREFS</h2>
+<div class="tabs clearfix">
+
+<div class="tab"><div><a href="XREFS.html">Columns</a></div></div>
+<div class="tab" id="current"><div><a href="XREFS_Constraints.html">Constraints</a></div></div>
+<div class="tab"><div><a href="XREFS_Grants.html">Grants</a></div></div>
+<div class="tab"><div><a href="XREFS_Statistics.html">Statistics</a></div></div>
+<div class="tab"><div><a href="XREFS_Triggers.html">Triggers</a></div></div>
+<div class="tab"><div><a href="XREFS_Flashback.html">Flashback</a></div></div>
+<div class="tab"><div><a href="XREFS_Dependencies.html">Dependencies</a></div></div>
+<div class="tab"><div><a href="XREFS_Details.html">Details</a></div></div>
+<div class="tab"><div><a href="XREFS_Partitions.html">Partitions</a></div></div>
+<div class="tab"><div><a href="XREFS_Indexes.html">Indexes</a></div></div>
+</div></div><br/>
+<div class="tab-panes">
+<div id="Constraints"> <table cellpadding="0" cellspacing="0" cellspacing="0" summary=""><tr>
+	<th>CONSTRAINT_NAME</th>
+	<th>CONSTRAINT_TYPE</th>
+	<th>SEARCH_CONDITION</th>
+	<th>R_OWNER</th>
+	<th>R_TABLE_NAME</th>
+	<th>R_CONSTRAINT_NAME</th>
+	<th>DELETE_RULE</th>
+	<th>STATUS</th>
+	<th>DEFERRABLE</th>
+	<th>VALIDATED</th>
+	<th>GENERATED</th>
+	<th>BAD</th>
+	<th>RELY</th>
+	<th>LAST_CHANGE</th>
+	<th>INDEX_OWNER</th>
+	<th>INDEX_NAME</th>
+	<th>INVALID</th>
+	<th>VIEW_RELATED</th>
+</tr>
+	<tr>
+<td>FK_XREFS$DATABASE_CODE</td>
+<td>Foreign_Key</td>
+<td>null</td>
+<td>ENZYME</td>
+<td>CV_DATABASES</td>
+<td>PK_CV_DATABASES</td>
+<td>NO ACTION</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2011-02-15 09:51:12.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>FK_XREFS$ENZYME_ID</td>
+<td>Foreign_Key</td>
+<td>null</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>PK_ENZYMES</td>
+<td>CASCADE</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2011-02-15 09:51:12.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>FK_XREFS$STATUS</td>
+<td>Foreign_Key</td>
+<td>null</td>
+<td>ENZYME</td>
+<td>CV_STATUS</td>
+<td>PK_CV_STATUS</td>
+<td>NO ACTION</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2011-02-15 09:51:11.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>FK_XREFS$WEB_VIEW</td>
+<td>Foreign_Key</td>
+<td>null</td>
+<td>ENZYME</td>
+<td>CV_VIEW</td>
+<td>PK_CV_VIEW</td>
+<td>NO ACTION</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2011-02-15 09:51:11.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>PK_XREFS</td>
+<td>Primary_Key</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2011-02-15 09:50:54.0</td>
+<td>null</td>
+<td>PK_XREFS</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>SYS_C0029905</td>
+<td>Check</td>
+<td>"ENZYME_ID" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2011-02-15 09:50:50.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>SYS_C0029906</td>
+<td>Check</td>
+<td>"DATABASE_CODE" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2011-02-15 09:50:50.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>SYS_C0029907</td>
+<td>Check</td>
+<td>"DATABASE_AC" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2011-02-15 09:50:50.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>SYS_C0029908</td>
+<td>Check</td>
+<td>"NAME" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2011-02-15 09:50:50.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>SYS_C0029909</td>
+<td>Check</td>
+<td>"STATUS" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2011-02-15 09:50:50.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>SYS_C0029910</td>
+<td>Check</td>
+<td>"SOURCE" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2011-02-15 09:50:50.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>SYS_C0029911</td>
+<td>Check</td>
+<td>"WEB_VIEW" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>2011-02-15 09:50:50.0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+</table></div>
