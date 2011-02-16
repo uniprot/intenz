@@ -19,7 +19,7 @@
 	<th>TEXT</th>
 </tr>
 	<tr><td><pre>
-TRIGGER t_compound_data$autoinc
+TRIGGER "ENZYME".t_compound_data$autoinc
 BEFORE INSERT ON compound_data
 FOR EACH ROW
 WHEN (new.compound_id IS NULL)

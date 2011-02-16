@@ -19,7 +19,7 @@
 	<th>TEXT</th>
 </tr>
 	<tr><td><pre>
-TRIGGER tu_compound_data
+TRIGGER "ENZYME".tu_compound_data
   AFTER UPDATE ON compound_data FOR EACH ROW
 BEGIN
   INSERT INTO compound_data_audit (

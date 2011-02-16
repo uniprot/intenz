@@ -190,6 +190,8 @@ GRANT SELECT,INSERT               ON citations_audit       TO ENZYME_CURATOR;
 GRANT SELECT,INSERT               ON citations_audit       TO ENZYME_COMMITTEE;
 GRANT SELECT,INSERT               ON citations_audit       TO ENZYME_PRODUCTION;
 
+GRANT SELECT ON releases TO ENZYME_SELECT;
+
 /*
  * Rhea-related
  */

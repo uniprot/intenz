@@ -19,7 +19,7 @@
 	<th>TEXT</th>
 </tr>
 	<tr><td><pre>
-TRIGGER td_reaction_xrefs
+TRIGGER "ENZYME".td_reaction_xrefs
   AFTER DELETE ON reaction_xrefs FOR EACH ROW
 BEGIN
   INSERT INTO reaction_xrefs_audit (

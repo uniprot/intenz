@@ -31,7 +31,8 @@ PROCEDURE p_insert_reaction
     new_data_comment     IN intenz_reactions.data_comment%type,
     new_reaction_comment IN intenz_reactions.reaction_comment%type,
     new_direction        IN intenz_reactions.direction%type,
-    new_un_reaction      IN intenz_reactions.un_reaction%type )
+    new_un_reaction      in intenz_reactions.un_reaction%type,
+    new_iubmb            IN intenz_reactions.iubmb%type)
 AS
   existing_id intenz_reactions.reaction_id%type;
 BEGIN
@@ -61,7 +62,8 @@ WHEN NO_DATA_FOUND THEN
       data_comment    ,
       reaction_comment,
       direction       ,
-      un_reaction
+      un_reaction,
+      iubmb
     )
     VALUES
     (
@@ -75,7 +77,8 @@ WHEN NO_DATA_FOUND THEN
       new_data_comment    ,
       new_reaction_comment,
       new_direction       ,
-      new_un_reaction
+      new_un_reaction,
+      new_iubmb
     );
 END;</pre>	</td></tr>
 </table></div>

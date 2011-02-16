@@ -19,7 +19,7 @@
 	<th>TEXT</th>
 </tr>
 	<tr><td><pre>
-TRIGGER td_cofactors
+TRIGGER "ENZYME".td_cofactors
   AFTER DELETE ON cofactors FOR EACH ROW
 BEGIN
   INSERT INTO cofactors_audit (

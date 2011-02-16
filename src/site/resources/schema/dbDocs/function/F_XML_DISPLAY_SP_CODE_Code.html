@@ -20,10 +20,10 @@
 </tr>
 	<tr><td><pre>
 FUNCTION f_xml_display_sp_code (p_name IN names.name%type)
-RETURN varchar2
+RETURN VARCHAR2
+DETERMINISTIC
 AS
 BEGIN
-    RETURN xml_display_sp_code@DEV10.EBI.AC.UK('/ebi/sp/pro1/intenz/special_characters/', 'specialCharacters.xml', p_name);
-END;
-</pre>	</td></tr>
+    RETURN CHEBI_DEV10.xml_display_sp_code ('/transport/downloads/special_characters/', 'specialCharacters.xml', p_name);
+END;</pre>	</td></tr>
 </table></div>

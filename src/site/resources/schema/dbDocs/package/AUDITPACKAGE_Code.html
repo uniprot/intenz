@@ -21,7 +21,7 @@
 	<tr><td><pre>
 PACKAGE auditpackage AS
   osuser    VARCHAR2(30);
-  remark    VARCHAR2(100);
+  remark    VARCHAR2(4000);
 
   /* set session wide remark for all audit actions */
   PROCEDURE setremark (s IN VARCHAR2);
@@ -35,6 +35,5 @@ PACKAGE auditpackage AS
   /* shortcut for clrremark */
   PROCEDURE clr;
 
-END auditpackage;
-</pre>	</td></tr>
+END auditpackage;</pre>	</td></tr>
 </table></div>

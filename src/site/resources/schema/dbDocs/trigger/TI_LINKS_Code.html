@@ -19,7 +19,7 @@
 	<th>TEXT</th>
 </tr>
 	<tr><td><pre>
-TRIGGER ti_links
+TRIGGER "ENZYME".ti_links
   AFTER INSERT ON links FOR EACH ROW
 BEGIN
   INSERT INTO links_audit (

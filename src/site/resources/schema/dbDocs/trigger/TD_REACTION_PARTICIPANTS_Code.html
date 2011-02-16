@@ -19,14 +19,14 @@
 	<th>TEXT</th>
 </tr>
 	<tr><td><pre>
-TRIGGER td_reaction_participants
+TRIGGER "ENZYME".td_reaction_participants
   AFTER DELETE ON reaction_participants FOR EACH ROW
 BEGIN
-  INSERT INTO reaction_participants_audit (
-    reaction_id,compound_id,side,coefficient,coeff_type,
+  insert into reaction_participants_audit (
+    reaction_id,compound_id,side,coefficient,coeff_type,location,
     timestamp,audit_id,dbuser,osuser,remark,action)
-  VALUES (
-    :old.reaction_id,:old.compound_id,:old.side,:old.coefficient,:old.coeff_type,
+  values (
+    :old.reaction_id,:old.compound_id,:old.side,:old.coefficient,:old.coeff_type,:old.location,
     sysdate,s_audit_id.nextval,user,auditpackage.osuser,auditpackage.remark,'D');
-END;</pre>	</td></tr>
+end;</pre>	</td></tr>
 </table></div>

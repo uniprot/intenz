@@ -19,7 +19,7 @@
 	<th>TEXT</th>
 </tr>
 	<tr><td><pre>
-TRIGGER tu_reactions_map
+TRIGGER "ENZYME".tu_reactions_map
   AFTER UPDATE ON reactions_map FOR EACH ROW
 BEGIN
   INSERT INTO reactions_map_audit (

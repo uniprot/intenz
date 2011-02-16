@@ -19,15 +19,18 @@
 	<th>TEXT</th>
 </tr>
 	<tr><td><pre>
-TRIGGER tu_intenz_reactions
+TRIGGER "ENZYME".tu_intenz_reactions
   AFTER UPDATE ON intenz_reactions FOR EACH ROW
 BEGIN
-  INSERT INTO intenz_reactions_audit (
-    reaction_id,intenz_accession,equation,fingerprint,status,source,direction,un_reaction,qualifiers,data_comment,reaction_comment,
+  insert into intenz_reactions_audit (
+    reaction_id,intenz_accession,equation,fingerprint,
+    status,source,iubmb,direction,un_reaction,
+    qualifiers,data_comment,reaction_comment,
     timestamp,audit_id,dbuser,osuser,remark,action)
   VALUES (
-    :new.reaction_id,:new.intenz_accession,:new.equation,:new.fingerprint,:new.status,:new.source,:new.direction,:new.un_reaction,:new.qualifiers,:new.data_comment,:new.reaction_comment,
+    :new.reaction_id,:new.intenz_accession,:new.equation,:new.fingerprint,
+    :new.status,:new.source,:new.iubmb,:new.direction,:new.un_reaction,
+    :new.qualifiers,:new.data_comment,:new.reaction_comment,
     sysdate,s_audit_id.nextval,user,auditpackage.osuser,auditpackage.remark,'U');
-END;
-</pre>	</td></tr>
+end;</pre>	</td></tr>
 </table></div>

@@ -19,7 +19,7 @@
 	<th>TEXT</th>
 </tr>
 	<tr><td><pre>
-TRIGGER tu_complex_reactions
+TRIGGER "ENZYME".tu_complex_reactions
   AFTER UPDATE ON complex_reactions FOR EACH ROW
 BEGIN
   INSERT INTO complex_reactions_audit (

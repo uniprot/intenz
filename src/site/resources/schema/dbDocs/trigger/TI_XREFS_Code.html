@@ -19,7 +19,7 @@
 	<th>TEXT</th>
 </tr>
 	<tr><td><pre>
-TRIGGER ti_xrefs
+TRIGGER "ENZYME".ti_xrefs
   AFTER INSERT ON xrefs FOR EACH ROW
   when (new.database_code != 'S' and new.database_code != 'GO')
 BEGIN

@@ -19,7 +19,7 @@
 	<th>TEXT</th>
 </tr>
 	<tr><td><pre>
-TRIGGER td_xrefs
+TRIGGER "ENZYME".td_xrefs
   AFTER DELETE ON xrefs FOR EACH ROW
   when (old.database_code != 'S' and old.database_code != 'GO')
 BEGIN

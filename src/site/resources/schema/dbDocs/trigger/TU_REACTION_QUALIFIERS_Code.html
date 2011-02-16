@@ -19,7 +19,7 @@
 	<th>TEXT</th>
 </tr>
 	<tr><td><pre>
-TRIGGER tu_reaction_qualifiers
+TRIGGER "ENZYME".tu_reaction_qualifiers
 BEFORE UPDATE ON intenz_reactions FOR EACH ROW
 BEGIN
 	IF check_reaction_qualifiers(:NEW.qualifiers) > 0

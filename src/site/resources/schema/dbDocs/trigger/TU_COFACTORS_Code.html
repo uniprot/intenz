@@ -19,7 +19,7 @@
 	<th>TEXT</th>
 </tr>
 	<tr><td><pre>
-TRIGGER tu_cofactors
+TRIGGER "ENZYME".tu_cofactors
   AFTER UPDATE ON cofactors FOR EACH ROW
 BEGIN
   INSERT INTO cofactors_audit (
