@@ -16,7 +16,7 @@
 			scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/trunk
 		</connection>
 		<developerConnection>
-			scm:svn:https://${intenz.svn.username}@intenz.svn.sourceforge.net/svnroot/intenz/intenz/trunk
+			scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/trunk
 		</developerConnection>
 		<url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/trunk</url>
 	</scm>
