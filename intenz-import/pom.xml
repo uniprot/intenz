@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>uk.ac.ebi.intenz</groupId>
     <artifactId>intenz-import</artifactId>
-    <version>1.0.10-SNAPSHOT</version>
+    <version>1.0.9-SNAPSHOT</version>
     <name>IntEnz import module</name>
     <description>Module to import external cross references</description>
 
