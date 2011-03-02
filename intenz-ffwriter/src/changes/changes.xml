@@ -9,6 +9,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.11" date="2011-03-02"
+			description="Added exception for non-sentence-ending 'sp.'">
+            <action dev="rafalcan" type="update">
+                Updated CC_LineFormatter with exception for
+                'Pseudomonas sp. T62' (EC 4.3.1.16)
+                and 'Delftia sp. HT23' (EC 4.3.1.27).
+            </action>
+    	</release>
     	<release version="1.2.10" date="2011-02-10"
     		description="Removed header paragraph about preliminary ECs">
     		<action dev="rafalcan" type="remove">
