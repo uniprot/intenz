@@ -9,6 +9,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.12" date="2011-03-07"
+			description="Added DE line exception">
+            <action dev="rafalcan" type="update">
+                Updated DE_line_modifications with transfer for
+                EC 4.1.2.37 and 4.1.2.39.
+            </action>
+    	</release>
     	<release version="1.2.11" date="2011-03-02"
 			description="Added exception for non-sentence-ending 'sp.'">
             <action dev="rafalcan" type="update">
