@@ -7,6 +7,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.1.1" date="2011-03-17"
+            description="Dependencies update">
+    		<action dev="rafalcan" type="update">
+    			Updated to latest version of parent (intenz).
+    		</action>
+    	</release>
     	<release version="1.1.0" date="2011-02-16"
             description="Database statistics">
     		<action dev="rafalcan" type="add">
