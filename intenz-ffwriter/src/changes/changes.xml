@@ -9,6 +9,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.13" date="2011-03-17"
+			description="Dependencies update">
+            <action dev="rafalcan" type="update">
+                Updated intenz-core, intenz-mapper and rhea-domain versions.
+            </action>
+    	</release>
     	<release version="1.2.12" date="2011-03-07"
 			description="Added DE line exception">
             <action dev="rafalcan" type="update">
