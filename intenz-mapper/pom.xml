@@ -30,17 +30,17 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-core</artifactId>
-			<version>4.2.4</version>
+			<version>4.2.5</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-mapper</artifactId>
-			<version>3.6.0</version>
+			<version>3.6.1</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-domain</artifactId>
-			<version>1.6.4</version>
+			<version>1.6.5</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
@@ -62,7 +62,7 @@
         <dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
 			<artifactId>biobabel-db</artifactId>
-			<version>1.3.3</version>
+			<version>1.3.4</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
