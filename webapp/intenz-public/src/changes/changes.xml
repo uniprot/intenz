@@ -8,6 +8,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="68.0.0" date="2011-03-17"
+            description="Release 68">
+        	<action dev="rafalcan" type="update">
+                Updated to latest version of dependencies: core, mapper, ffwriter,
+                rhea-domain, biobabel-core, bioabel-webapp and biobabel-citations.
+        	</action>
+    	</release>
     	<release version="67.0.0" date="2011-02-15"
             description="Release 67">
         	<action dev="rafalcan" type="update">
@@ -18,7 +25,8 @@
     	<release version="65" date="2010-12-09"
             description="Release 65">
         	<action dev="hongcao" type="update">
-                In addition to the last release: 1 subsubclasse. 25 enzyme entries (from ENZYMES). 27 enzyme entries (from ID2EC). 1 synonym was removed.  
+                In addition to the last release: 1 subsubclasse. 25 enzyme entries
+                (from ENZYMES). 27 enzyme entries (from ID2EC). 1 synonym was removed.  
         	</action>
     	</release>
     	<release version="64.0.1" date="2010-12-01"
