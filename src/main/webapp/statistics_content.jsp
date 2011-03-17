@@ -17,7 +17,7 @@
 	<tr>
 	  <th class="headingleft" nowrap="nowrap" rowspan="3">EC numbers</th>
 	  <td class="subheadingleft" nowrap="nowrap" title="Approved by NC-IUBMB">approved</td>
-	  <td align="right" style="text-align: right !important;">5143</td>
+	  <td align="right" style="text-align: right !important;">5168</td>
 	</tr>
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap"
@@ -28,8 +28,8 @@
 	<tr>
 	  <td class="subheadingleft" nowrap="nowrap"
           title="Not deleted, not transferred, either approved or preliminary">active</td>
-	<!--this figure = 4356 (APPROVED, Y) + 71 (PRELIMINARY, Y)-->
-	  <td align="right" style="text-align: right !important;">4447</td>
+	<!--this figure = (APPROVED, ACTIVE) + (PRELIMINARY, ACTIVE)-->
+	  <td align="right" style="text-align: right !important;">4472</td>
 	</tr>
 </table>
 
@@ -44,10 +44,10 @@
 	<!--TODO: change the release number for new release-->
 		<td class="leftsubheading">SWISSPROT
 			(<a class="externalLink" target="_blank"
-            href="http://www.uniprot.org">UniProt</a> 2011_02)
+            href="http://www.uniprot.org">UniProt</a> 2011_03)
 		</td>
-		<td align="right" style="text-align: right !important;">191899</td>
-		<td align="right" style="text-align: right !important;">200879</td>
+		<td align="right" style="text-align: right !important;">195310</td>
+		<td align="right" style="text-align: right !important;">204502</td>
 	</tr>
 	<tr>
 		<td class="leftsubheading">
@@ -63,7 +63,7 @@
 			<a class="externalLink" target="_blank"
                href="http://www.expasy.org/prosite">PROSITE</a>
 		</td>
-		<td align="right" style="text-align: right !important;">456</td>
-		<td align="right" style="text-align: right !important;">1381</td>
+		<td align="right" style="text-align: right !important;">457</td>
+		<td align="right" style="text-align: right !important;">1382</td>
 	</tr>
 </table>
