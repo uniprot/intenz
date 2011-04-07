@@ -12,6 +12,7 @@ import uk.ac.ebi.intenz.mapper.EnzymeSubSubclassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeSubclassMapper;
 import uk.ac.ebi.intenz.webapp.dtos.EcSearchForm;
 import uk.ac.ebi.intenz.webapp.utilities.ControlFlowToken;
+import uk.ac.ebi.rhea.mapper.MapperException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -69,9 +70,11 @@ public class SearchEcAction extends Action {
    * @return The forward constant (see class constants).
    * @throws SQLException    if database errors occurred.
    * @throws DomainException if any error related to domain information occurs.
+   * @throws MapperException in case of problems retrieving reaction/cofactor info
    */
   private String findForward(EnzymeCommissionNumber ec, ActionMessages errors,
-                             HttpServletRequest request, Connection con) throws SQLException, DomainException {
+                             HttpServletRequest request, Connection con)
+  throws SQLException, DomainException, MapperException {
     assert ec != null : "Parameter 'ec' must not be null.";
     assert errors != null : "Parameter 'errors' must not be null.";
     assert request != null : "Parameter 'request' must not be null.";
@@ -202,8 +205,10 @@ public class SearchEcAction extends Action {
    * @return An enzyme entry or <code>null</code>.
    * @throws SQLException    if database errors occured.
    * @throws DomainException if any error related to domain information occurs.
+   * @throws MapperException in case of problems retrieving reaction/cofactor info
    */
-  private EnzymeEntry findEnzymeEntry(Long id, Connection con) throws SQLException, DomainException {
+  private EnzymeEntry findEnzymeEntry(Long id, Connection con)
+  throws SQLException, DomainException, MapperException {
     EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
     return enzymeEntryMapper.findById(id, con);
   }

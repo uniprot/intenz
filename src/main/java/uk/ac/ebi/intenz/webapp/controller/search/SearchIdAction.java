@@ -22,6 +22,7 @@ import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.webapp.utilities.ControlFlowToken;
+import uk.ac.ebi.rhea.mapper.MapperException;
 
 /**
  * This Action ...
@@ -129,8 +130,10 @@ public class SearchIdAction extends Action {
    * @throws java.sql.SQLException if database errors occured.
    * @throws uk.ac.ebi.intenz.domain.exceptions.DomainException
    *                               if any error related to domain information occurs.
+ * @throws MapperException in case of problems retrieving reaction/cofactor info
    */
-  private EnzymeEntry findEnzymeEntry(Long id, Connection con) throws SQLException, DomainException {
+  private EnzymeEntry findEnzymeEntry(Long id, Connection con)
+  throws SQLException, DomainException, MapperException {
     EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
     return enzymeEntryMapper.findById(id, con);
   }

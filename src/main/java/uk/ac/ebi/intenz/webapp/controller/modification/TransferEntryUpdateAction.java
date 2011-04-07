@@ -15,6 +15,7 @@ import uk.ac.ebi.intenz.webapp.exceptions.DeregisterException;
 import uk.ac.ebi.intenz.webapp.utilities.EntryLockSingleton;
 import uk.ac.ebi.intenz.webapp.utilities.IntEnzValidations;
 import uk.ac.ebi.intenz.webapp.utilities.UnitOfWork;
+import uk.ac.ebi.rhea.mapper.MapperException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,18 +78,14 @@ public class TransferEntryUpdateAction extends CurationAction {
       con.commit();
 
       LOGGER.info("Transfer event updated.");
-    } catch (SQLException e){
-        con.rollback();
-        throw e;
     } catch (EcException e) {
       errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("errors.application.ec.invalid", enzymeDTO.getTransferredEc()));
       saveErrors(request, errors);
       keepToken(request);
       return mapping.getInputForward();
-    } catch (DeregisterException e) {
-      LOGGER.error(e.getMessage());
-      // Create standard error message (see 'struts_config.xml').
-      throw e;
+    } catch (Exception e){
+        con.rollback();
+        throw e;
     } finally { // release lock
       els.releaseLock(enzymeDTO.getId());
       LOGGER.info("Lock of EC " + enzymeDTO.getEc() + " (ID: " + enzymeDTO.getEc() + " released.");
@@ -111,8 +108,10 @@ public class TransferEntryUpdateAction extends CurationAction {
    * @return the updated history line.
    * @throws SQLException if a database error occurs.
    * @throws DomainException if a domain related error occurs.
+   * @throws MapperException
    */
-  private String updateHistoryLineOfDeletedEntry(Long beforeId, Connection con) throws SQLException, DomainException {
+  private String updateHistoryLineOfDeletedEntry(Long beforeId, Connection con)
+  throws SQLException, DomainException, MapperException {
     assert beforeId != null : "Parameter 'beforeId' must not be null.";
     assert con != null : "Parameter 'con' must not be null.";
     EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
