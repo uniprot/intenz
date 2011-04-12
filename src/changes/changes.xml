@@ -9,6 +9,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.15" date="2011-04-12"
+			description="Added exception for non-sentence-ending 'sp.'">
+            <action dev="rafalcan" type="update">
+                Updated CC_LineFormatter with exception for
+                'Pseudomonas sp. CL190' (EC 2.3.1.194).
+            </action>
+    	</release>
     	<release version="1.2.14" date="2011-04-07"
 			description="Added DE line exception">
             <action dev="rafalcan" type="update">
