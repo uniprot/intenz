@@ -8,11 +8,11 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
 import uk.ac.ebi.biobabel.validator.SyntaxValidator;
-import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
+import uk.ac.ebi.intenz.webapp.utilities.IntEnzValidations;
+import uk.ac.ebi.rhea.domain.Database;
 import uk.ac.ebi.rhea.domain.Reaction;
 import uk.ac.ebi.rhea.domain.Status;
-import uk.ac.ebi.intenz.webapp.utilities.IntEnzValidations;
 import uk.ac.ebi.xchars.SpecialCharacters;
 
 /**
@@ -36,9 +36,9 @@ public class ReactionDTO extends ActionForm {
     textualRepresentation = "";
     xmlTextualRepresentation = "";
     orderIn = "0";
-    source = "INTENZ";
+    source = Database.INTENZ.getDbCode();
     view = "INTENZ";
-    sourceDisplay = "IntEnz";
+    sourceDisplay = Database.INTENZ.getName();
     viewDisplayString = "all views";
     viewDisplayImage = "\"<img src=\\\"images/blue_bullet.gif\\\"/><img src=\\\"images/green_bullet.gif\\\"/><img src=\\\"images/red_bullet.gif\\\"/>\"";
     status = Status.NO.toString();
@@ -113,7 +113,7 @@ public class ReactionDTO extends ActionForm {
    */
   private void updateSource() {
     if (source != null && !source.equals("")) {
-      sourceDisplay = EnzymeSourceConstant.toDisplayString(source);
+      sourceDisplay = Database.valueOf(source).getName();
     }
   }
 

@@ -86,7 +86,12 @@ public class PubMedAccessor {
           newPubMedId = citation.getExternalId();
       } catch (Exception e) {
           e.printStackTrace();
-          throw new DomainException("pubMedFetch[" + index + "]", "errors.form.reference.pubMedFetch.standard");
+          throw new DomainException("pubMedFetch[" + index + "]",
+        		  "errors.form.reference.pubMedFetch.standard");
+      } catch (Throwable t){
+    	  t.printStackTrace();
+    	  throw new DomainException("pubMedFetch[" + index + "]",
+    			  "errors.form.reference.pubMedFetch.ws");
       }
 
       referenceDTO.setType("J");
