@@ -7,6 +7,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.4.4" date=""
+            description="Bug fix">
+            <action dev="rafalcan" type="fix">
+                Fixed exception when building a Reaction due to the source being used
+                as the enumeration value instead of the database code.
+            </action>
+        </release>
         <release version="4.4.3" date="2011-03-17"
             description="Dependency update">
             <action dev="rafalcan" type="update">
