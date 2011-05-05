@@ -8,6 +8,20 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.2.6" date="" description="Bug fix">
+    		<action dev="rafalcan" type="fix">
+    			Caught errors from citations retrieval: now there is an error
+    			message in the form but no blank page.
+    		</action>
+    		<action dev="rafalcan" type="fix">
+    			Reaction source is now handled using a Rhea class, not an
+    			EnzymeSourceConstant.
+    		</action>
+    		<action dev="rafalcan" type="update">
+    			Updated to latest version of intenz-ffwriter and forced to
+    			latest biobabel-citations, which fixes issue with jaxws versions.
+    		</action>
+    	</release>
     	<release version="4.2.5" date="2011-04-07" description="Bug fix">
     		<action dev="rafalcan" type="fix">
     			Proper use of the rhea-webapp-util module (missing objects in
