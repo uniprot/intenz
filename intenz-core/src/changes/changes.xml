@@ -8,7 +8,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="4.2.5" date=""
+    	<release version="4.2.5" date="2011-03-17"
     		description="Dependency updates">
         	<action dev="rafalcan" type="update">
         		Updated to latest parent, rhea-domain, xchars and biobabel-core
