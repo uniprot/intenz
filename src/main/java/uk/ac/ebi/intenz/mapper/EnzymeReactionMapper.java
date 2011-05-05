@@ -280,7 +280,7 @@ public class EnzymeReactionMapper {
    * <code>null</code> in case of error while reading data from Rhea.
    * @param reactionId
    * @param equation
-   * @param source
+   * @param source A database code
    * @param status
    * @return
    * @throws java.sql.SQLException
@@ -288,7 +288,7 @@ public class EnzymeReactionMapper {
     private Reaction loadEmtpyReaction(Long reactionId, String equation,
             String source, String status)
     throws SQLException {
-        Reaction reaction = new Reaction(reactionId, equation, Database.valueOf(source));
+        Reaction reaction = new Reaction(reactionId, equation, Database.fromCode(source));
         reaction.setStatus(Status.valueOf(status));
         return reaction;
     }
