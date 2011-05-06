@@ -8,7 +8,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="4.2.6" date="" description="Bug fix">
+    	<release version="4.2.6" date="2011-05-06" description="Bug fix">
     		<action dev="rafalcan" type="fix">
     			Caught errors from citations retrieval: now there is an error
     			message in the form but no blank page.
