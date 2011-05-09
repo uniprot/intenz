@@ -13,7 +13,7 @@
 
 <div>
     <span style="margin-right: 1em">[<a target="rheaFromIntEnz"
-        "href="http://www.ebi.ac.uk/rhea/reaction.xhtml?id=${reaction.id}">RHEA:${reaction.id}</a>]
+        href="http://www.ebi.ac.uk/rhea/reaction.xhtml?id=${reaction.id}">RHEA:${reaction.id}</a>]
     </span>
 </div>
 <div style="display: table-row">
