@@ -189,8 +189,7 @@ public class FormButtonAction extends CurationAction {
 				compound = compoundReader.findByAccession(pCofactorId);
 				if (compound == null){
 					// compound new to Rhea/IntEnz:
-		            ChebiUpdater chebiUpdater =
-		                    (ChebiUpdater) request.getSession().getAttribute("chebiUpdater");
+		            ChebiUpdater chebiUpdater = SessionManager.getChebiUpdater(request);
 		            compound = chebiUpdater.importCompound(pCofactorId);
 				}
 			}
