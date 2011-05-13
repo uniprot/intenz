@@ -30,7 +30,9 @@ import uk.ac.ebi.xchars.SpecialCharacters;
  */
 public class IntEnzActionServlet extends ActionServlet {
 
-    private static final Logger LOGGER =
+	private static final long serialVersionUID = -7398277166501014952L;
+
+	private static final Logger LOGGER =
     	Logger.getLogger(IntEnzActionServlet.class.getName());
 
     /**
