@@ -11,7 +11,8 @@
 		<release version="1.3.9" date=""
 			description="">
     		<action dev="rafalcan" type="update">
-    			Updated to latest version of parent (intenz).
+    			Updated to latest version of parent (intenz), intenz-mapper,
+                intenz-translator, rhea-domain, rhea-mapper and biobabel-db.
    			</action>
     		<action dev="rafalcan" type="fix">
     			Reinstated method to get back xchars markup instead of escaped
