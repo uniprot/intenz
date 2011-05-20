@@ -41,6 +41,7 @@ import uk.ac.ebi.intenz.mapper.EnzymeClassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeSubSubclassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeSubclassMapper;
+import uk.ac.ebi.rhea.mapper.MapperException;
 
 public class ExporterApp {
 
@@ -99,11 +100,12 @@ public class ExporterApp {
      * @throws DomainException
      * @throws IOException
      * @throws SQLException
+     * @throws MapperException
      * @throws ClassNotFoundException
      */
     @SuppressWarnings({ "static-access" })
     public static void main(String[] args)
-    throws ClassNotFoundException, SQLException, IOException, DomainException {
+    throws ClassNotFoundException, SQLException, MapperException, IOException, DomainException {
 		Options options = new Options();
 		options.addOption(OptionBuilder.isRequired()
 				.hasArg().withArgName("config")
@@ -207,7 +209,7 @@ public class ExporterApp {
      */
     @SuppressWarnings("unchecked")
 	private Collection<EnzymeEntry> getEnzymeList(String ecString)
-    throws SQLException, DomainException{
+    throws SQLException, MapperException, DomainException{
         Collection<EnzymeEntry> enzymeList = null;
         EnzymeEntryMapper mapper = new EnzymeEntryMapper();
 		if (ecString != null){
