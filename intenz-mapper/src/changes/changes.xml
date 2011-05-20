@@ -7,7 +7,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="4.4.5" date="In SVN"
+        <release version="4.4.5" date="2011-05-20"
             description="Bug fix">
             <action dev="rafalcan" type="fix">
                 Generic return type is now especified in EnzymeEntryMapper.
