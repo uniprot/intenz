@@ -149,7 +149,7 @@ public class ExporterApp {
 			enzyme.setSubclassName(((EnzymeSubclass) descriptions.get(subclassEc)).getName());
 			enzyme.setSubSubclassName(((EnzymeSubSubclass) descriptions.get(subSubclassEc)).getName());
 		}
-        LOGGER.info("Intenz exporter - Release " + app.stats.getReleaseNumber);
+        LOGGER.info("Intenz exporter - Release " + app.stats.getReleaseNumber());
         if (cl.hasOption(Format.INTENZ_XML.cliOption)){
             try {
             	String xmlDir = cl.getOptionValue(Format.INTENZ_XML.cliOption);
@@ -268,7 +268,7 @@ public class ExporterApp {
         OutputStream os = null;
         checkWritable(toDir);
         String releaseDate = new SimpleDateFormat("yyyy-MM-dd")
-                .format(stats.getReleaseDate())
+                .format(stats.getReleaseDate());
         LOGGER.info("Intenz exporter - Release " + stats.getReleaseNumber());
         LOGGER.info("Outputting XML to " + toDir);
         try {
@@ -291,7 +291,8 @@ public class ExporterApp {
                     File outputFile = new File(subsubclassDir, "EC_" + entry.getEc().toString() + ".xml");
                     os = new FileOutputStream(outputFile);
                     try {
-                        exporter.export(entry, stats.getReleaseNumber(),
+                        exporter.export(entry,
+                                String.valueOf(stats.getReleaseNumber()),
                                 releaseDate, os);
                         validEntriesList.add(entry);
                     } catch (MarshalException e) {
@@ -304,8 +305,9 @@ public class ExporterApp {
                 os = new FileOutputStream(treeFile);
                 LOGGER.info("Whole tree XML start");
                 try {
-                    exporter.export(validEntriesList, stats.getReleaseNumber(),
-                                releaseDate, os);
+                    exporter.export(validEntriesList,
+                            String.valueOf(stats.getReleaseNumber()),
+                            releaseDate, os);
                 } catch (Exception e) {
                     LOGGER.error("Whole tree dump", e);
                 }
