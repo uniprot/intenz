@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -41,6 +42,8 @@ import uk.ac.ebi.intenz.mapper.EnzymeClassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeSubSubclassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeSubclassMapper;
+import uk.ac.ebi.intenz.stats.IIntEnzStatistics;
+import uk.ac.ebi.intenz.stats.db.IntEnzDbStatistics;
 import uk.ac.ebi.rhea.mapper.MapperException;
 
 public class ExporterApp {
@@ -58,10 +61,11 @@ public class ExporterApp {
     
     public static Logger LOGGER = Logger.getLogger(ExporterApp.class);
     
-    private Properties props;
 	private Properties spotlights;
 
 	private Connection intenzConnection;
+    // Object to retrieve release number and date from:
+    private IIntEnzStatistics stats;
 
     /**
      * Exports IntEnz data in the following formats:
@@ -77,11 +81,6 @@ public class ExporterApp {
      *          module.</li>
      * 	   <li><a href="ftp://ftp.genome.jp/pub/kegg/ligand/ligand.txt">KEGG
      * 			enzyme</a>.</li>
-     * </ul>
-     * Some properties files must be in the classpath:
-     * <ul>
-     *      <li><code>intenz-release.properties</code>: containing the release number
-     *          and date</li>
      * </ul>
      * @param args
      * <ul>
@@ -150,7 +149,7 @@ public class ExporterApp {
 			enzyme.setSubclassName(((EnzymeSubclass) descriptions.get(subclassEc)).getName());
 			enzyme.setSubSubclassName(((EnzymeSubSubclass) descriptions.get(subSubclassEc)).getName());
 		}
-        LOGGER.info("Intenz exporter - Release " + app.props.getProperty("intenz.release.number"));
+        LOGGER.info("Intenz exporter - Release " + app.stats.getReleaseNumber);
         if (cl.hasOption(Format.INTENZ_XML.cliOption)){
             try {
             	String xmlDir = cl.getOptionValue(Format.INTENZ_XML.cliOption);
@@ -187,11 +186,9 @@ public class ExporterApp {
 
     private ExporterApp(String dbConfig)
     throws ClassNotFoundException, SQLException, IOException, DomainException {
-        props = new Properties();
-        props.load(ExporterApp.class.getClassLoader()
-        		.getResourceAsStream("intenz-release.properties"));
         intenzConnection = OracleDatabaseInstance.getInstance(dbConfig)
         		.getConnection();
+        stats = new IntEnzDbStatistics(intenzConnection);
     }
 
     @Override
@@ -270,7 +267,9 @@ public class ExporterApp {
     		Map<String, Object> descriptions, String toDir) throws Exception {
         OutputStream os = null;
         checkWritable(toDir);
-        LOGGER.info("Intenz exporter - Release " + props.getProperty("intenz.release.number"));
+        String releaseDate = new SimpleDateFormat("yyyy-MM-dd")
+                .format(stats.getReleaseDate())
+        LOGGER.info("Intenz exporter - Release " + stats.getReleaseNumber());
         LOGGER.info("Outputting XML to " + toDir);
         try {
             XmlExporter exporter = new XmlExporter();
@@ -292,8 +291,8 @@ public class ExporterApp {
                     File outputFile = new File(subsubclassDir, "EC_" + entry.getEc().toString() + ".xml");
                     os = new FileOutputStream(outputFile);
                     try {
-                        exporter.export(entry, props.getProperty("intenz.release.number"),
-                                props.getProperty("intenz.release.date"), os);
+                        exporter.export(entry, stats.getReleaseNumber(),
+                                releaseDate, os);
                         validEntriesList.add(entry);
                     } catch (MarshalException e) {
                         LOGGER.warn(entry.getEc().toString(), e);
@@ -305,8 +304,8 @@ public class ExporterApp {
                 os = new FileOutputStream(treeFile);
                 LOGGER.info("Whole tree XML start");
                 try {
-                    exporter.export(validEntriesList, props.getProperty("intenz.release.number"),
-                                props.getProperty("intenz.release.date"), os);
+                    exporter.export(validEntriesList, stats.getReleaseNumber(),
+                                releaseDate, os);
                 } catch (Exception e) {
                     LOGGER.error("Whole tree dump", e);
                 }
@@ -323,6 +322,7 @@ public class ExporterApp {
     	final String queryUrl = "http://www.ebi.ac.uk/intenz/query?cmd=SearchEC&q=";
     	final String spotlightUrl = "http://www.ebi.ac.uk/intenz/spotlight.jsp?ec=";
     	File sitemap = new File(sitemapFile);
+        checkWritable(sitemap.getParent());
     	if (!sitemap.exists()) sitemap.createNewFile();
     	OutputStream os = null;
     	// Build the list of URLs:
@@ -365,6 +365,7 @@ public class ExporterApp {
         LOGGER.info("Outputting BioPAX to " + biopaxFile);
         try {
             File owlFile = new File(biopaxFile);
+            checkWritable(owlFile.getParent());
             if (!owlFile.exists()) owlFile.createNewFile();
             os = new FileOutputStream(owlFile);
             Biopax.write(enzymeList, os);
@@ -378,6 +379,7 @@ public class ExporterApp {
 		OutputStream os = null;
     	try {
 			File keggEnzymeFile = new File(keggFile);
+            checkWritable(keggEnzymeFile.getParent());
 			if (!keggEnzymeFile.exists()) keggEnzymeFile.createNewFile();
 			os = new FileOutputStream(keggEnzymeFile);
 			KeggExporter exporter = new KeggExporter();
