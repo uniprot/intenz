@@ -745,7 +745,7 @@ public class EnzymeEntryMapper {
    * @throws DomainException 
  * @throws MapperException in case of problem retrieving reaction/cofactor info.
    */
-  public List<?> exportAllEntries(Connection con)
+  public List<EnzymeEntry> exportAllEntries(Connection con)
   throws SQLException, DomainException, MapperException{
 	  List<EnzymeEntry> entries = new ArrayList<EnzymeEntry>();
 	  Statement findListStatement = null;
