@@ -8,6 +8,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="69.0.0" date="2011-05-24"
+            description="Release 69">
+        	<action dev="rafalcan" type="update">
+                Updated to latest version of mapper and ffwriter.
+        	</action>
+    	</release>
     	<release version="68.0.0" date="2011-03-17"
             description="Release 68">
         	<action dev="rafalcan" type="update">
