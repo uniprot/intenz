@@ -1,7 +1,6 @@
 package uk.ac.ebi.intenz.webapp.controller;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import javax.mail.Address;
 import javax.mail.Message;
@@ -20,20 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import uk.ac.ebi.biobabel.util.StringUtil;
+import uk.ac.ebi.intenz.webapp.IntEnzConfig;
 
 public class IntEnzContactServlet extends HttpServlet {
 
 	public static final Logger LOGGER = Logger.getLogger(IntEnzContactServlet.class);
 	
-	private Properties mailProperties;
-	
 	public void init() throws ServletException {
-		mailProperties = new Properties();
-		try {
-			mailProperties.load(this.getClass().getClassLoader().getResourceAsStream("intenz-public-mail.properties"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		super.init();
 	}
 
@@ -84,15 +76,17 @@ public class IntEnzContactServlet extends HttpServlet {
 	}
 
 	private void sendMail(String from, String messageText)
-	throws MessagingException{
+	throws MessagingException, IOException{
 		try{
-			Session mailSession = Session.getInstance(mailProperties, null);
+			Session mailSession = Session.getInstance(
+					IntEnzConfig.getInstance().getMailProperties());
 			MimeMessage message = new MimeMessage(mailSession);
 			Address fromAddress = new InternetAddress(from);
 			message.setFrom(fromAddress);
-			Address[] toAddress = InternetAddress.parse(mailProperties.getProperty("intenz.mail.to"));
+			Address[] toAddress =
+				InternetAddress.parse(IntEnzConfig.getInstance().getContactMailTo());
 			message.setRecipients(Message.RecipientType.TO, toAddress);
-			message.setSubject(mailProperties.getProperty("intenz.mail.subject"));
+			message.setSubject(IntEnzConfig.getInstance().getContactMailSubject());
 			message.setText(messageText);
 			Transport.send(message);
 		} catch (MessagingException e){

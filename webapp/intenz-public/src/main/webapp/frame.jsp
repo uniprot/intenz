@@ -6,8 +6,9 @@
 <!-- InstanceBegin template="/Templates/new_template_no_menus.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<meta name="description" content="The European Bioinformatics Institute" />
-<meta name="author" content="EBI Web Team" />
+<meta name="description" content="IntEnz (Integrated relational Enzyme database) is a freely available resource focused on enzyme nomenclature." />
+<meta name="author" content="IntEnz Web Team (EBI - Chemoinformatics and Metabolism team)" />
+<meta name="keywords" content="enzyme,nomenclature,classification,ec,catalysis,biochemical,biochemistry,reaction,enzymatic" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta http-equiv="Window-target" content="_top" />
 <meta name="no-email-collection" content="http://www.unspam.com/noemailcollection/" />
@@ -26,6 +27,9 @@
 <link rel="search" href="openSearchDescription.xml"
       type="application/opensearchdescription+xml"
       title="IntEnz"/>
+
+<link rel="alternate" type="application/rss+xml"
+    title="IntEnz RSS feed" href="${intenzConfig.rssUrl}"/>
 
 <style type="text/css">
 @media print {
@@ -215,7 +219,7 @@ docs.add("Statistics");
 <% if (title.equals("Home")) { %>
 	<div class="iconboxheading">News</div>
 	<div class="iconboxcontents" style="margin-bottom: 1em">
-		<%@include file="news_content.html" %>
+		<jsp:include page="news_content.jsp" />
 	</div>
 <%--
 	<div class="iconboxheading">Plugins</div>
@@ -246,6 +250,19 @@ docs.add("Statistics");
 				<a target="_blank" href="ftp://ftp.ebi.ac.uk/pub/databases/enzyme/">ftp site</a>.
 			</div>
 		</div>
+	</div>
+	
+	<div class="iconboxheading">Acknowledgements</div>
+	<div class="iconboxcontents" style="margin-bottom: 1em">
+    	<div align="center">
+			<a href="http://sourceforge.net/projects/intenz"><img
+				src="http://sflogo.sourceforge.net/sflogo.php?group_id=94642&amp;type=8"
+				width="80" height="15"
+				alt="Get IntEnz at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a>
+    	</div>
+    	<div class="psmall">
+	    	IntEnz is open source, hosted by SourceForge.
+    	</div>
 	</div>
 <% } %>
 

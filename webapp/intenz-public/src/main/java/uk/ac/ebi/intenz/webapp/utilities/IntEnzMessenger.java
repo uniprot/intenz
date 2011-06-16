@@ -1,17 +1,16 @@
 package uk.ac.ebi.intenz.webapp.utilities;
 
-import java.io.IOException;
 import java.util.Date;
-import java.util.Properties;
 
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
+
+import uk.ac.ebi.intenz.webapp.IntEnzConfig;
 
 /**
  * This class ...
@@ -22,28 +21,19 @@ import org.apache.log4j.Logger;
 public class IntEnzMessenger {
 
     public static final Logger LOGGER = Logger.getLogger(IntEnzMessenger.class);
-    
-    private static final Properties mailProperties;
-    
-    static {
-    	mailProperties = new Properties();
-    	try {
-			mailProperties.load(IntEnzMessenger.class.getClassLoader().getResourceAsStream("intenz-public-mail.properties"));
-		} catch (IOException e) {
-			LOGGER.error("Error loading mail properties", e);
-		}
-    }
 
     public static void sendError(String className, String errorMessage, String userName) {
       Date today = new Date();
-      Session session = Session.getDefaultInstance(mailProperties, null);
-      Message message = new MimeMessage(session);
       try {
-        InternetAddress fromAddress = new InternetAddress(mailProperties.getProperty("intenz.mail.from"));
+          IntEnzConfig intenzConfig = IntEnzConfig.getInstance();
+          Session session = Session.getDefaultInstance(
+                intenzConfig.getMailProperties(), null);
+          Message message = new MimeMessage(session);
+        InternetAddress fromAddress = new InternetAddress(intenzConfig.getMailFrom());
         message.setFrom(fromAddress);
-        InternetAddress[] toAddress = InternetAddress.parse(mailProperties.getProperty("intenz.error.mail.to"), false);
+        InternetAddress[] toAddress = InternetAddress.parse(intenzConfig.getErrorMailTo(), false);
         message.setRecipients(Message.RecipientType.TO, toAddress);
-        message.setSubject(mailProperties.getProperty("intenz.error.mail.subject"));
+        message.setSubject(intenzConfig.getErrorMailSubject());
         StringBuffer text = new StringBuffer();
         text.append("Class name: ");
         text.append(className);
@@ -54,8 +44,8 @@ public class IntEnzMessenger {
         message.setText(text.toString());
         message.setSentDate(today);
         Transport.send(message);
-      } catch (MessagingException e) {
-        e.printStackTrace();
+      } catch (Exception e) {
+        LOGGER.error("Unable to send error report", e);
       }
     }
   }
