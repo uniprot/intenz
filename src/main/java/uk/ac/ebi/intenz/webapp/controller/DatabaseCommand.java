@@ -78,12 +78,12 @@ public abstract class DatabaseCommand extends Command {
          con.close();
        }
     } catch (SQLException e) {
-       LOGGER.error(e);
+       LOGGER.error("Closing connection", e);
       IntEnzMessenger.sendError(this.getClass().toString(), e.getMessage(), (String) request.getSession().getAttribute("user"));
       request.setAttribute("message", "The following database error occured:\n" + e.getMessage() +
               this.databaseErrorMessage);
-      forward("/error.jsp");
-      return;
+      RequestDispatcher dispatcher = context.getRequestDispatcher("/error.jsp");
+      dispatcher.forward(request, response);
     }
   }
 

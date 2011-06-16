@@ -8,6 +8,30 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="70.0.0" date="in SVN londonMove branch"
+            description="London move">
+        	<action dev="rafalcan" type="fix">
+        		Fixed news block to get them from the SF RSS feed.
+        	</action>
+        	<action dev="rafalcan" type="add">
+                Added xalan dependency for the above item.
+        	</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest versions of mapper, ffwriter, rhea-domain and
+        		oracle driver (11g).
+        	</action>
+        	<action dev="rafalcan" type="add">
+        		Added class IntEnzConfig to hold configuration parameters for
+        		the application. It is exported as MBean for JMX management.
+        	</action>
+        	<action dev="rafalcan" type="fix">
+        		Reorganised properties in different files and directories.
+        	</action>
+        	<action dev="rafalcan" type="remove">
+        		Removed IntEnzConnectionPool. Now a data source from the
+        		container will be used.
+        	</action>
+    	</release>
     	<release version="69.0.0" date="2011-05-24"
             description="Release 69">
         	<action dev="rafalcan" type="update">

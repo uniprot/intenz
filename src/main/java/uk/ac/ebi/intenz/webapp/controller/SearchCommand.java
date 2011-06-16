@@ -16,8 +16,11 @@ import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 
+import org.apache.log4j.Logger;
+
 import uk.ac.ebi.biobabel.util.WebUtil;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
+import uk.ac.ebi.intenz.webapp.IntEnzConfig;
 import uk.ac.ebi.intenz.webapp.exceptions.QueryException;
 import uk.ac.ebi.intenz.webapp.utilities.IntEnzMessenger;
 import uk.ac.ebi.xchars.SpecialCharacters;
@@ -40,6 +43,8 @@ import uk.ac.ebi.xchars.exceptions.InvalidUTF8OctetSequenceException;
  * @version 2.0 - 13-July-2004
  */
 public class SearchCommand extends DatabaseCommand {
+
+    public static final Logger LOGGER = Logger.getLogger(SearchCommand.class);
 
   private static final String COLUMNS =
       "enzyme_id, ec, common_name, status, text, text_order";
@@ -67,7 +72,7 @@ public class SearchCommand extends DatabaseCommand {
    * @throws IOException      ...
    */
   public void process() throws ServletException, IOException {
-    int groupSize = 10; // This value might be set by the user. At the moment it is static.
+    int groupSize = Integer.parseInt(IntEnzConfig.getInstance().getPageSize());
     String query = null;
     StringBuffer userFriendlyQuery = null;
     String userFriendlyQueryTF = null;
@@ -78,13 +83,6 @@ public class SearchCommand extends DatabaseCommand {
       userFriendlyQuery = new StringBuffer(typifyQuery(query, QueryType.valueOf(request.getParameter("t"))).trim());
       userFriendlyQueryTF = new String(query);
     } catch (InvalidUTF8OctetSequenceException e) {
-      try {
-        LOGGER.debug("Connection close");
-        con.close();
-      } catch (SQLException e1) {
-        doErrorExceptionHandling(e);
-        return;
-      }
       request.setAttribute("query", "");
       request.setAttribute("message", e.getMessage());
       forward("/noResult.jsp"); // No result found.
@@ -93,13 +91,6 @@ public class SearchCommand extends DatabaseCommand {
 
     // Catch empty queries.
     if (query == null || query.equals("")) {
-      try {
-        LOGGER.debug("Connection close");
-        con.close();
-      } catch (SQLException e) {
-         doErrorExceptionHandling(e);
-         return;
-      }
       request.setAttribute("query", "");
       request.setAttribute("message", "The query string was empty!");
       forward("/noResult.jsp"); // No result found.
@@ -135,13 +126,6 @@ public class SearchCommand extends DatabaseCommand {
         request.setAttribute("field", field);
       }
     } catch (QueryException e) {
-      try {
-        LOGGER.debug("Connection close");
-        con.close();
-      } catch (SQLException e1) {
-         doErrorExceptionHandling(e1);
-         return;
-      }
       request.setAttribute("message", e.getMessage());
       // Store (HTML-friendly) original query for feedback.
       request.setAttribute("query", WebUtil.escapeHTMLTag(escapeUTF8(userFriendlyQuery.toString())));
@@ -149,13 +133,6 @@ public class SearchCommand extends DatabaseCommand {
       forward("/search.jsp");
       return;
     } catch (InvalidUTF8OctetSequenceException e) {
-      try {
-         LOGGER.debug("Connection close");
-        con.close();
-      } catch (SQLException e1) {
-         doErrorExceptionHandling(e1);
-         return;
-      }
       request.setAttribute("query", "");
       request.setAttribute("message", e.getMessage());
       forward("/noResult.jsp"); // No result found.
@@ -167,7 +144,7 @@ public class SearchCommand extends DatabaseCommand {
     request.setAttribute("queryTF", WebUtil.escapeHTMLTag(escapeUTF8(userFriendlyQueryTF)));
 
     PreparedStatement ps = null;
-    List results = new ArrayList();
+    List<Result> results = new ArrayList<Result>();
     Integer maxScore = new Integer(0);
 
     try {
@@ -213,6 +190,7 @@ public class SearchCommand extends DatabaseCommand {
       doErrorExceptionHandling(e);
       return;
     } catch (SQLException e) {
+       LOGGER.error("While searching", e);
       IntEnzMessenger.sendError(this.getClass().toString(),
               e.getMessage() + " query (checked query): " + query + "(" + checkedQuery + ")",
               (String) request.getSession().getAttribute("user"));
@@ -240,7 +218,6 @@ public class SearchCommand extends DatabaseCommand {
     } finally {
       try {
         ps.close();
-        con.close();
       } catch (SQLException e) {
          doErrorExceptionHandling(e);
          return;
@@ -278,7 +255,7 @@ public class SearchCommand extends DatabaseCommand {
         }
     }
 
-    List group = getGroup(results, 0, groupSize);
+    List<Result> group = getGroup(results, 0, groupSize);
     request.setAttribute("group", group);
 
     // Set maximum score.
@@ -306,6 +283,7 @@ public class SearchCommand extends DatabaseCommand {
   }
 
    private void doErrorExceptionHandling (Exception e) throws ServletException, IOException {
+       LOGGER.error("Other error while searching", e);
       IntEnzMessenger.sendError(this.getClass().toString(), e.getMessage(),
               (String) request.getSession().getAttribute("user"));
       request.setAttribute("message", "The following database error occured:\n" + e.getMessage() +
@@ -732,9 +710,9 @@ public class SearchCommand extends DatabaseCommand {
    * @param end    The end index og the group.
    * @return the selected group.
    */
-  private List getGroup(List result, int start, int end) {
+  private List<Result> getGroup(List<Result> result, int start, int end) {
     assert result != null;
-    List group = new ArrayList();
+    List<Result> group = new ArrayList<Result>();
 
     if (end > result.size()) {
       for (int iii = start; iii < result.size(); iii++) {
@@ -824,9 +802,9 @@ public class SearchCommand extends DatabaseCommand {
       private String commonName;
       private String status;
       private int score;
-      private SortedMap xmlFragments;
+      private SortedMap<Integer, String> xmlFragments;
       private void addText(String text, int order){
-          if (xmlFragments == null) xmlFragments = new TreeMap();
+          if (xmlFragments == null) xmlFragments = new TreeMap<Integer, String>();
           xmlFragments.put(new Integer(order), text);
       }
       private void addScore(int i) {
@@ -834,7 +812,7 @@ public class SearchCommand extends DatabaseCommand {
       }
       private String getText(){
           StringBuffer wholeXml = new StringBuffer();
-          for (Iterator it = xmlFragments.values().iterator(); it.hasNext();){
+          for (Iterator<String> it = xmlFragments.values().iterator(); it.hasNext();){
               wholeXml.append((String) it.next());
           }
           return wholeXml.toString();

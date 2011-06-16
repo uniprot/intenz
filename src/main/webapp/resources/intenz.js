@@ -133,3 +133,83 @@ function addEngine(name,ext,cat,type){
     errorMsg();
   }
 }
+
+/* RSS feeds */
+
+// Absolute time in ms when the RSS feed was last retrieved.
+var lastFeed = 0;
+
+/**
+ * Gets a news feed (RSS) and shows the first item in the page. Requires the
+ * following existing element IDs:
+ * <project>-rssNews
+ * <project>-rssTitle
+ * <project>-rssDescription
+ * <project>-rssMore
+ * Parameters:
+ * · url: the URL of the RSS feed.
+ * · project: a tag to identify the RSS-releated elements (see above).
+ */
+function getRss(url, project) {
+    // FIXME: cache feed!! How??
+    var httpRequest;
+    if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+        httpRequest = new XMLHttpRequest();
+    } else if (window.ActiveXObject) { // IE
+        try {
+            httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e) {
+            try {
+              httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e) {}
+        }
+    }
+    if (!httpRequest) {
+        noRss();
+    }
+    httpRequest.onreadystatechange = function () {
+        try {
+            if (httpRequest.readyState === 4) {
+                if (httpRequest.status === 200) {
+                    var item = httpRequest.responseXML
+                        .getElementsByTagName('rss')[0]
+                        .getElementsByTagName('channel')[0]
+                        .getElementsByTagName('item')[0];
+                    var title =
+                        item.getElementsByTagName('title')[0].textContent;
+                    document.getElementById(project+'-rssTitle').innerHTML
+                        = title;
+                    var description =
+                        item.getElementsByTagName('description')[0].textContent;
+                    document.getElementById(project+'-rssDescription').innerHTML
+                        = description;
+                    var link = item.getElementsByTagName('link')[0].textContent;
+                    document.getElementById(project+'-rssTitle')
+                        .setAttribute('href', link);;
+                    var pubDate =
+                        item.getElementsByTagName('pubDate')[0].textContent
+                            .split(/[\s,:]/);
+                    document.getElementById(project+'-rssDate').innerHTML =
+                        pubDate[2]+' '+pubDate[3]+' '+pubDate[4];
+                    document.getElementById(project+'-rssMore')
+                        .setAttribute('href', url);
+                    document.getElementById(project+'-rssMore').innerHTML
+                        = 'More news...';
+                    lastFeed = Date.now().getTime();
+                } else {
+                    noRss();
+                }
+            }
+        } catch (e){
+            noRss();
+        }
+    }
+    httpRequest.open('GET', url);
+    httpRequest.send();
+}
+
+function noRss(project){
+    document.getElementById(project+'-rssNews').innerHTML =
+        'Sorry, the RSS feed is not available now.';
+    return false;
+}
