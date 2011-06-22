@@ -1,16 +1,14 @@
 package uk.ac.ebi.intenz.tools.sib.writer;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
-import uk.ac.ebi.intenz.domain.exceptions.DomainException;
-import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeEntryImpl;
-import uk.ac.ebi.interfaces.sptr.SPTRException;
+
 import junit.framework.TestCase;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
-import uk.ac.ebi.intenz.domain.constants.Status;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.tools.sib.helper.SibEntryHelper;
+import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeEntryImpl;
+import uk.ac.ebi.interfaces.sptr.SPTRException;
 import uk.ac.ebi.xchars.SpecialCharacters;
 import uk.ac.ebi.xchars.domain.EncodingType;
 
