@@ -21,7 +21,7 @@ public class LineWrapperFactory {
     "\\=\\s",
     "[^\\(\\sEC]\\s",
     "\\-\\d+\\-[^\\>\\|\\)]",
-    "\\]\\-[^\\>\\|\\)]",
+    "[\\]\\)]\\-[^\\>\\|\\)]",
     "\\-\\w{1,1}\\-[^\\>\\|\\)]",
     "\\-\\d(\\,\\d)+\\-[^\\>\\|\\)]",
     "\\w{3,}\\-[^\\>\\|\\)]",
@@ -99,7 +99,6 @@ public class LineWrapperFactory {
       Matcher matcher;
 
       for (int iii = 0; iii < lineBreakPatterns.length; iii++) {
-        if (iii == 0) possibleLineBreakPositions = new TreeSet();
         String lineBreakPattern = lineBreakPatterns[iii];
 
         pattern = Pattern.compile(lineBreakPattern);
@@ -108,6 +107,9 @@ public class LineWrapperFactory {
           int position = matcher.end();
           // The space character is ignored for position determination, so is the '>' character.
           if (lineBreakPattern.endsWith("\\s") || lineBreakPattern.endsWith("[^\\>\\|\\)]")) position--;
+          if (possibleLineBreakPositions == null){
+        	  possibleLineBreakPositions = new TreeSet();
+          }
           possibleLineBreakPositions.add(new Integer(position));
         }
       }
