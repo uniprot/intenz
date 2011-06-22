@@ -8,8 +8,8 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="70.0.0" date="in SVN londonMove branch"
-            description="London move">
+    	<release version="70.0.0" date="2011-06-22"
+            description="Webapp independent of data">
         	<action dev="rafalcan" type="fix">
         		Fixed news block to get them from the SF RSS feed.
         	</action>
