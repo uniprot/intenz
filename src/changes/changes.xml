@@ -5,6 +5,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.0.7" date="2011-06-22"
+            description="Fixed aminoacid patterns">
+            <action dev="rafalcan" type="fix">
+            	Fixed patterns which turn aminoacid codes into lower case
+            	so that they don't apply in certain cases.
+            </action>
+        </release>
         <release version="1.0.6" date="2011-01-26"
             description="Dependencies updates">
             <action dev="rafalcan" type="update">
