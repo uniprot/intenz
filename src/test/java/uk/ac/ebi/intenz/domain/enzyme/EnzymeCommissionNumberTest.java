@@ -48,16 +48,26 @@ public class EnzymeCommissionNumberTest extends TestCase {
 		assertEquals(Type.PRELIMINARY, ec.getType());
 		try {
 			ec = EnzymeCommissionNumber.valueOf("1.2.3.4n");
-			assertTrue(false);
-		} catch (Exception e){
-			assertFalse(false);
-		}
+			fail();
+		} catch (Exception e){}
+		ec = EnzymeCommissionNumber.valueOf("1.2.3.-");
+		assertEquals(Type.SUBSUBCLASS, ec.getType());
+		ec = EnzymeCommissionNumber.valueOf("1.2.3.*");
+		assertEquals(Type.SUBSUBCLASS, ec.getType());
 		try {
-			ec = EnzymeCommissionNumber.valueOf("1.2.3.-");
-			assertTrue(false);
-		} catch (Exception e){
-			assertFalse(false);
-		}
+			ec = EnzymeCommissionNumber.valueOf("1.2.3.foobar");
+			fail();
+		} catch (Exception e){}
+		try {
+			ec = EnzymeCommissionNumber.valueOf("foo.bar.baz");
+			fail();
+		} catch (Exception e){}
+		try {
+			ec = EnzymeCommissionNumber.valueOf("fooBarBaz");
+			fail();
+		} catch (Exception e){}
+		ec = EnzymeCommissionNumber.valueOf(" 1.2.3.4");
+		ec = EnzymeCommissionNumber.valueOf("1.2.3.4 ");
 	}
 
 	public void testToString() throws EcException {
