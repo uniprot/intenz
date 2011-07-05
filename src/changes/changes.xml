@@ -8,6 +8,22 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="70.0.1" date=""
+            description="Fixed MBean behaviour">
+        	<action dev="rafalcan" type="fix">
+        		Fixed trigger of property change when the Rhea data source
+        		is changed (via JMX, for example), so that statistics are
+        		automatically updated.
+        	</action>
+        	<action dev="rafalcan" type="fix">
+        		The IntEnzConfig MBean is now deregistered with application
+        		undeployment.
+        	</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest versions of intenz-core and
+        		intenz-ffwriter.
+        	</action>
+    	</release>
     	<release version="70.0.0" date="2011-06-22"
             description="Webapp independent of data">
         	<action dev="rafalcan" type="fix">
