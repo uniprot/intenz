@@ -16,7 +16,12 @@ import java.util.PropertyResourceBundle;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
+import javax.management.MBeanRegistrationException;
 import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
+import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -80,6 +85,28 @@ public class IntEnzHandlerServlet extends HttpServlet
             throw new ServletException(e);
         }
     }
+
+	@Override
+	public void destroy() {
+		IntEnzConfig intenzConfig = null;
+		try {
+			intenzConfig = IntEnzConfig.getInstance();
+			try {
+				ObjectName name = new ObjectName(intenzConfig.getIntEnzConfigMbeanName());
+				MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+				mbs.unregisterMBean(name);
+			} catch (MalformedObjectNameException e) {
+				LOGGER.error(intenzConfig.getIntEnzConfigMbeanName());
+			} catch (MBeanRegistrationException e) {
+				LOGGER.error("Unable to unregister IntEnzConfig MBean", e);
+			} catch (InstanceNotFoundException e) {
+				LOGGER.error("IntEnzConfig MBean not found", e);
+			}
+		} catch (IOException e) {
+			LOGGER.error("Unable to get the IntEnz configuration", e);
+		}
+		super.destroy();
+	}
 
 	/**
 	 * Initialises the JNDI context to get database connections from.
@@ -193,7 +220,9 @@ public class IntEnzHandlerServlet extends HttpServlet
 		Connection statsConnection = null;
 		try {
 			statsConnection = getConnection();
+			LOGGER.info("Gathering statistics for IntEnz...");
 			IIntEnzStatistics statistics = new IntEnzDbStatistics(statsConnection);
+			LOGGER.info("Done: statistics gathered for IntEnz...");
 			getServletContext().setAttribute("statistics", statistics);
 		} catch (Exception e) {
 			LOGGER.error("Unable to get IntEnz statistics", e);
@@ -290,9 +319,8 @@ public class IntEnzHandlerServlet extends HttpServlet
     public void propertyChange(PropertyChangeEvent evt){
         try {
             if (DATA_SOURCE.toString().equals(evt.getPropertyName())){
-                LOGGER.info("IntEnz data source changed, calculating stats");
+                LOGGER.info("IntEnz data source changed");
                 gatherStatistics();
-                LOGGER.info("IntEnz statistics recomputed");
             }
         } catch (Exception e){
             LOGGER.error("Unable to set property " + evt.getPropertyName()

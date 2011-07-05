@@ -66,10 +66,10 @@ public class IntEnzConfig implements IntEnzConfigMBean {
 	
 	public void setIntEnzDataSource(String intEnzDataSource){
         LOGGER.info("Setting IntEnz data source to " + intEnzDataSource);
-		appProperties.setProperty(Property.DATA_SOURCE.key, intEnzDataSource); 
         pcs.firePropertyChange(Property.DATA_SOURCE.key,
                 appProperties.getProperty(Property.DATA_SOURCE.key),
                 intEnzDataSource);
+		appProperties.setProperty(Property.DATA_SOURCE.key, intEnzDataSource); 
         LOGGER.info("IntEnz data source set successfuly to "
                 + intEnzDataSource);
 	}
