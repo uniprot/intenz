@@ -8,6 +8,15 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.2.6" date="2011-07-05"
+    		description="Bug fix">
+        	<action dev="rafalcan" type="fix">
+        		Fixed parsing of EC numbers with asterisks or dash.
+        	</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest rhea-domain version.
+        	</action>
+   		</release>
     	<release version="4.2.5" date="2011-03-17"
     		description="Dependency updates">
         	<action dev="rafalcan" type="update">

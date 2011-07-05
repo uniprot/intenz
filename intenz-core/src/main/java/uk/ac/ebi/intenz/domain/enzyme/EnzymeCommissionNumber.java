@@ -244,8 +244,8 @@ implements Comparable<EnzymeCommissionNumber> {
     int ec1 = -1, ec2 = -1, ec3 = -1, ec4 = -1;
     boolean preliminary = false;
     int iii = 1;
-    for (StringTokenizer stringTokenizer = new StringTokenizer(ecString, "."); stringTokenizer.hasMoreTokens();) {
-      String ecPart = stringTokenizer.nextToken();
+    for (StringTokenizer st = new StringTokenizer(ecString.trim(), "."); st.hasMoreTokens();) {
+      String ecPart = st.nextToken();
       switch (iii) {
         case 1:
           ec1 = Integer.parseInt(ecPart);
@@ -257,11 +257,24 @@ implements Comparable<EnzymeCommissionNumber> {
           ec3 = Integer.parseInt(ecPart);
           break;
         case 4:
-        	while (!Character.isDigit(ecPart.charAt(0))){
-        		preliminary = true;
-        		ecPart = ecPart.substring(1);
+        	if (ecPart.matches("\\*|-")){
+        		/**
+        		 * '*' is from ENZYME searches, that is a sub-subclass.
+        		 * '-' is a partial EC number for SIB, that is something
+        		 * which we do not know exactly what it does. It was also
+        		 * applied to cases for which there was not yet a complete
+        		 * EC number available (for this we now use preliminary EC
+        		 * numbers, e.g. EC 1.2.3.n1).
+        		 */
+    			// go to the sub-subclass
+        	} else if (ecPart.matches("\\d+")){
+		    	ec4 = Integer.parseInt(ecPart);
+        	} else if (ecPart.matches("n\\d+")){
+	    		preliminary = true;
+		    	ec4 = Integer.parseInt(ecPart.substring(1));
+        	} else {
+        		throw new EcException("Invalid EC: " + ecString);
         	}
-          ec4 = Integer.parseInt(ecPart);
           break;
       }
       iii++;
