@@ -20,8 +20,9 @@
         		undeployment.
         	</action>
         	<action dev="rafalcan" type="update">
-        		Updated to latest versions of intenz-core and
-        		intenz-ffwriter.
+        		Updated to latest versions of intenz-core, intenz-database
+                - which introduces a hack to avoid long wait for statistics
+                retrieval - and intenz-ffwriter.
         	</action>
     	</release>
     	<release version="70.0.0" date="2011-06-22"
