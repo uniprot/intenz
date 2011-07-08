@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -34,6 +35,7 @@ public class IntEnzDbStatistics implements IIntEnzStatistics {
 	private Map<XrefDatabaseConstant, XrefsStats> links;
 	
 	private SQLLoader sqlLoader;
+    private Statement synonymsStm; // FIXME: HACK!
 
 	public int getReleaseNumber() {
 		return relNo;
@@ -80,6 +82,7 @@ public class IntEnzDbStatistics implements IIntEnzStatistics {
 	public void setConnection(Connection con) throws IOException, SQLException {
 		if (sqlLoader != null) sqlLoader.close();
 		sqlLoader = new SQLLoader(this.getClass(), con);
+        synonymsStm = con.createStatement();
 	}
 
 	public void updateStatistics() throws SQLException, DomainException {
@@ -119,9 +122,11 @@ public class IntEnzDbStatistics implements IIntEnzStatistics {
 			enzymesByStatus.get(status).put(active, enzymes);
 		}
 		
-		stm = sqlLoader.getPreparedStatement("--synonyms", "--constraint.non.transient");
-		rs = stm.executeQuery();
+		//stm = sqlLoader.getPreparedStatement("--synonyms", "--constraint.non.transient");
+		//rs = stm.executeQuery();
+        rs = synonymsStm.executeQuery("select count(distinct n.name) c from names n, enzymes e where n.status = 'OK' and n.name_class = 'OTH' and n.enzyme_id = e.enzyme_id and e.enzyme_id not in (select before_id from history_events where event_class = 'MOD')");
 		if (rs.next()) synonyms = rs.getInt("c");
+        synonymsStm.close();
 		
 		stm = sqlLoader.getPreparedStatement("--xrefs");
 		rs = stm.executeQuery();
