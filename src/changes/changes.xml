@@ -7,10 +7,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="1.1.2" date="In SVN"
+    	<release version="1.1.2" date="2011-07-08"
             description="">
     		<action dev="rafalcan" type="fix">
     			Fixed small typos in the csv template.
+    		</action>
+    		<action dev="rafalcan" type="fix">
+    			Hack to avoid lenghty query for synonyms statistics.
     		</action>
     	</release>
     	<release version="1.1.1" date="2011-03-17"
