@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>uk.ac.ebi.intenz</groupId>
 	<artifactId>intenz-dbIndexing</artifactId>
-	<version>1.2.2</version>
+	<version>1.2.3-SNAPSHOT</version>
     <name>IntEnz database indexing utilities</name>
     <description>Module to re-create indexes in the database
         for text searches.</description>
@@ -107,11 +107,4 @@
             
         </plugins>
     </build>
-	
-
-  <scm>
-    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-dbIndexing-1.2.2</connection>
-    <developerConnection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-dbIndexing-1.2.2</developerConnection>
-    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-dbIndexing-1.2.2</url>
-  </scm>
 </project>
