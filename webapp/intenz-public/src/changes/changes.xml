@@ -8,7 +8,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="70.0.1" date=""
+    	<release version="70.0.1" date="2011-08-11"
             description="Fixed MBean behaviour">
         	<action dev="rafalcan" type="fix">
         		Fixed trigger of property change when the Rhea data source
