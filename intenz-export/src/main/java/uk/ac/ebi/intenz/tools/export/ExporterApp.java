@@ -271,7 +271,6 @@ public class ExporterApp {
                 .format(stats.getReleaseDate());
         LOGGER.info("Intenz exporter - Release " + stats.getReleaseNumber());
         LOGGER.info("Outputting XML to " + toDir);
-        try {
             XmlExporter exporter = new XmlExporter();
             exporter.setDescriptions(descriptions);
             for (XmlExporter.Flavour flavour : XmlExporter.Flavour.values()){
@@ -289,33 +288,34 @@ public class ExporterApp {
                     File subsubclassDir =  new File(flavourDir, dirTree);
                     subsubclassDir.mkdirs();
                     File outputFile = new File(subsubclassDir, "EC_" + entry.getEc().toString() + ".xml");
-                    os = new FileOutputStream(outputFile);
                     try {
+                        os = new FileOutputStream(outputFile);
                         exporter.export(entry,
                                 String.valueOf(stats.getReleaseNumber()),
                                 releaseDate, os);
                         validEntriesList.add(entry);
                     } catch (MarshalException e) {
                         LOGGER.warn(entry.getEc().toString(), e);
+                    } finally {
+                        if (os != null) os.close();
                     }
                 }
                 LOGGER.info("Single-entry XML end");
                 // Export whole tree (only valid entries):
                 File treeFile = new File(flavourDir, "intenz.xml");
-                os = new FileOutputStream(treeFile);
-                LOGGER.info("Whole tree XML start");
                 try {
+                    os = new FileOutputStream(treeFile);
+                    LOGGER.info("Whole tree XML start");
                     exporter.export(validEntriesList,
                             String.valueOf(stats.getReleaseNumber()),
                             releaseDate, os);
+                    LOGGER.info("Whole tree XML end");
                 } catch (Exception e) {
                     LOGGER.error("Whole tree dump", e);
+                } finally {
+                    if (os != null) os.close();
                 }
-                LOGGER.info("Whole tree XML end");
             }
-        } finally {
-            if (os != null) os.close();
-        }
     }
 
     private void exportSitemap(Collection<EnzymeEntry> enzymeList,
