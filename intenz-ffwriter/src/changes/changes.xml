@@ -9,11 +9,21 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.20" date="2011-10-11"
+			description="Added DE line exceptions">
+            <action dev="rafalcan" type="update">
+                Updated DE_line_modifications with transfer for
+                EC 1.5.1.29 and EC 1.6.8.1.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated rhea-domain version.
+            </action>
+    	</release>
     	<release version="1.2.19" date="2011-08-25"
 			description="Added DE line exceptions">
             <action dev="rafalcan" type="update">
                 Updated DE_line_modifications with transfer for
-                EC 3.4.3.3, EC 3.4.13.3 and EC 3.4.13.13..
+                EC 3.4.3.3, EC 3.4.13.3 and EC 3.4.13.13.
             </action>
             <action dev="rafalcan" type="update">
                 Updated intenz-core version.
