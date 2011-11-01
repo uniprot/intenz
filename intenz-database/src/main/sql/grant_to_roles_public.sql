@@ -27,12 +27,16 @@ GRANT EXECUTE                     ON f_rhea_family_id      TO ENZYME_WEBSERVER;
 
 GRANT SELECT ON reactions_map TO ENZYME_SELECT;
 GRANT SELECT ON intenz_reactions TO ENZYME_SELECT;
+GRANT SELECT ON intenz_reactions_audit TO ENZYME_SELECT;
 GRANT SELECT ON compound_data TO ENZYME_SELECT;
 GRANT SELECT ON compound_data_updates TO ENZYME_SELECT;
 GRANT SELECT ON reaction_participants TO ENZYME_SELECT;
 GRANT SELECT ON complex_reactions TO ENZYME_SELECT;
+GRANT SELECT ON complex_reactions_audit TO ENZYME_SELECT;
 GRANT SELECT ON reaction_citations TO ENZYME_SELECT;
+GRANT SELECT ON reaction_citations_audit TO ENZYME_SELECT;
 GRANT SELECT ON reaction_xrefs TO ENZYME_SELECT;
+GRANT SELECT ON reaction_xrefs_audit TO ENZYME_SELECT;
 GRANT SELECT ON reaction_mergings TO ENZYME_SELECT;
 GRANT SELECT ON cv_coeff_types TO ENZYME_SELECT;
 GRANT SELECT ON cv_comp_pub_avail TO ENZYME_SELECT;
