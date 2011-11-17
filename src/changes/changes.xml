@@ -5,6 +5,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.0.8" date="2011-11-17"
+            description="Fixed new NC-IUBMB terms for localisation">
+            <action dev="rafalcan" type="fix">
+            	Added pattern to avoid double parentheses around "side 1"/
+            	"side 2" (the new term used by NC-IUBMB to replace cis/trans
+            	and in/out).
+            </action>
+        </release>
         <release version="1.0.7" date="2011-06-22"
             description="Fixed aminoacid patterns">
             <action dev="rafalcan" type="fix">
