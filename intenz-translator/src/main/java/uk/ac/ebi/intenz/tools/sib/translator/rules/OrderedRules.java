@@ -141,7 +141,7 @@ public class OrderedRules implements RuleGroup {
             {"\\<smallsub\\>(.+?)\\</smallsub\\>","($1)"},
             {"\\<smallsup\\>(.+?)\\</smallsup\\>","($1)"},
 // TODO: TAKE THE EXCEPTIONS OUT OF HERE TO A TEXT FILE!:
-            {"\\[(?!Fe\\([23]\\+\\)|Co\\(II\\)|NiFe|[234]Fe-[24]S|Glu\\]|heparan sulfate|lipopolysaccharide glucose|blood group substance|[Mm]yelin[ -]proteolipid|3\\.2\\.2|4-vinyl|1,4\\]|cd|ambiguous|misleading|misprint|obsolete|incorrect|\\d,\\d-[af]\\]|\\d,\\d-<ital>[af]</ital>\\]|<ital>a</ital>\\]|tRNA\\]|ligated tRNA|-\\d)([^\\[\\]]*?)\\]","($1)"},        // square brackets [ ]
+            {"\\[(?!Fe\\([23]\\+\\)|Co\\(II\\)|NiFe|[234]Fe-[24]S|Glu\\]|heparan sulfate|lipopolysaccharide glucose|blood group substance|[Mm]yelin[ -]proteolipid|3\\.2\\.2|4-vinyl|1,4\\]|cd|ambiguous|misleading|misprint|obsolete|incorrect|\\d,\\d-[af]\\]|\\d,\\d-<ital>[af]</ital>\\]|<ital>a</ital>\\]|tRNA\\]|ligated tRNA|-\\d|side [12])([^\\[\\]]*?)\\]","($1)"},        // square brackets [ ]
             {"\\{([^\\}]*?\\([^\\}]*?\\)[^\\}]*?)\\}","($1)"},        // curly brackets { }
             {"\\{","("},
             {"\\}", ")"}
