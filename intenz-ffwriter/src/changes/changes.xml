@@ -9,6 +9,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.23" date="2011-11-30"
+			description="Fixed DE line exceptions">
+            <action dev="rafalcan" type="fix">
+                Fixed DE_line_modifications for EC 3.4.3.3, EC 3.4.13.3 and
+                EC 3.4.13.13.
+            </action>
+    	</release>
     	<release version="1.2.22" date="2011-11-17"
 			description="Fixed side1/side2 representation">
             <action dev="rafalcan" type="update">
