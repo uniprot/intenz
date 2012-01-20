@@ -80,7 +80,8 @@ public class EnzymeEntryHelper {
       htmlStringBuffer.append("<tr>\n");
       htmlStringBuffer.append("<td align=\"left\">\n");
       htmlStringBuffer.append("<a href=\"query?cmd=SearchEC&ec=")
-      	.append(enzymeEntry.getEc().toString()).append("\">EC ")
+      	.append(enzymeEntry.getEc().toString())
+      	.append("\" style=\"white-space: nowrap;\">EC ")
       	.append(enzymeEntry.getEc().toString()).append("</a>\n");
       htmlStringBuffer.append("</td>\n");
       htmlStringBuffer.append("<td align=\"left\">\n");
@@ -198,7 +199,7 @@ public class EnzymeEntryHelper {
       htmlStringBuffer.append(enzymeEntry.getEc().toString());
       htmlStringBuffer.append("&status=");
       htmlStringBuffer.append(enzymeEntry.getStatus().getCode());
-      htmlStringBuffer.append("\">");
+      htmlStringBuffer.append("\" style=\"white-space: nowrap;\">");
       htmlStringBuffer.append("EC ").append(enzymeEntry.getEc().toString());
       htmlStringBuffer.append("</a>\n");
       htmlStringBuffer.append("</td>\n");
