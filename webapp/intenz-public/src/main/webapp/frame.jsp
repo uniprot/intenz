@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <meta name="description" content="IntEnz (Integrated relational Enzyme database) is a freely available resource focused on enzyme nomenclature." />
-<meta name="author" content="IntEnz Web Team (EBI - Chemoinformatics and Metabolism team)" />
+<meta name="author" content="IntEnz Web Team (EBI - Cheminformatics and Metabolism team)" />
 <meta name="keywords" content="enzyme,nomenclature,classification,ec,catalysis,biochemical,biochemistry,reaction,enzymatic" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta http-equiv="Window-target" content="_top" />
