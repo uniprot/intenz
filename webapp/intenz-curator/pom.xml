@@ -112,17 +112,17 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-core</artifactId>
-			<version>4.2.5</version>
+			<version>4.2.7-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-mapper</artifactId>
-			<version>4.4.4</version>
+			<version>4.4.6-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-ffwriter</artifactId>
-			<version>1.2.15</version>
+			<version>1.2.27</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>antlr</artifactId>
@@ -133,27 +133,27 @@
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-domain</artifactId>
-			<version>1.6.5</version>
+			<version>1.6.8</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-mapper</artifactId>
-			<version>3.6.1</version>
+			<version>3.6.5</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-util</artifactId>
-			<version>4.0.0</version>
+			<version>4.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-ph</artifactId>
-			<version>1.1.0</version>
+			<version>1.1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-biopax</artifactId>
-			<version>1.3.8</version>
+			<version>1.4.2</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
@@ -170,31 +170,31 @@
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-find-struts1</artifactId>
-			<version>1.3.0</version>
+			<version>1.3.1</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-find-struts1</artifactId>
-			<version>1.3.0</version>
+			<version>1.3.1</version>
 			<classifier>classes</classifier>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-search-struts1</artifactId>
-			<version>1.3.0</version>
+			<version>1.3.1</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-search-struts1</artifactId>
-			<version>1.3.0</version>
+			<version>1.3.1</version>
 			<classifier>classes</classifier>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-taglib</artifactId>
-			<version>1.0.4</version>
+			<version>1.0.6</version>
 			<type>war</type>
 		</dependency>
         <dependency>
@@ -247,12 +247,12 @@
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
 			<artifactId>biobabel-db</artifactId>
-			<version>1.3.4</version>
+			<version>1.3.6</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
 			<artifactId>biobabel-citations</artifactId>
-			<version>1.0.7</version>
+			<version>1.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
