@@ -235,21 +235,30 @@
     </xs:complexType>
 
     <xs:complexType name="reactionType">
-        <xs:annotation>
-            <xs:documentation>For now, only a free text and a 'view' attribute.</xs:documentation>
-        </xs:annotation>
-        <xs:complexContent>
-            <xs:extension base="i:viewableType"></xs:extension>
-        </xs:complexContent>
+    	<xs:annotation>
+    		<xs:documentation>
+    			For now, only a free text and a 'view' attribute.
+    		</xs:documentation>
+    	</xs:annotation>
+    	<xs:complexContent>
+    		<xs:extension base="i:viewableType">
+    			<xs:attribute name="iubmb" type="xs:boolean"></xs:attribute>
+    		</xs:extension>
+    	</xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="cofactorType">
-        <xs:annotation>
-            <xs:documentation>For now, only a free text and a 'view' attribute.</xs:documentation>
-        </xs:annotation>
-        <xs:complexContent>
-            <xs:extension base="i:viewableType"></xs:extension>
-        </xs:complexContent>
+    	<xs:annotation>
+    		<xs:documentation>
+    			For now, only a free text and a 'view' attribute.
+    		</xs:documentation>
+    	</xs:annotation>
+    	<xs:complexContent>
+    		<xs:extension base="i:viewableType">
+    			<xs:attribute name="db" type="xs:string"></xs:attribute>
+    			<xs:attribute name="accession" type="xs:string"></xs:attribute>
+    		</xs:extension>
+    	</xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="linkType">
@@ -531,10 +540,12 @@
         <xs:annotation>
             <xs:documentation>List of cofactors.</xs:documentation>
         </xs:annotation>
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="i:cofactor" maxOccurs="unbounded" minOccurs="1"></xs:element>
-            </xs:sequence>
+        <xs:complexType mixed="true">
+        	<xs:sequence>
+        		<xs:element ref="i:cofactor" maxOccurs="unbounded"
+        			minOccurs="1">
+        		</xs:element>
+        	</xs:sequence>
         </xs:complexType>
     </xs:element>
     
