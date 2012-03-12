@@ -220,6 +220,7 @@ private List getNamesList(List names, SpecialCharacters encoding, EncodingType e
       reactionDTO.setViewDisplayString(reactions.getReactionView(iii).toDisplayString());
       reactionDTO.setStatus(reaction.getStatus().toString());
       reactionDTO.setId(reaction.getId());
+      reactionDTO.setIubmb(String.valueOf(reactions.getReactionIubmbFlag(iii)));
       reactionsList.add(reactionDTO);
     }
 

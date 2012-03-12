@@ -351,9 +351,10 @@
                     <td>
                       <table width="100%" border="0" cellspacing="10" cellpadding="0" id="reactionsTable">
                         <tr>
-                          <td colspan="2" width="100%" class="data_region_header_row">Reaction(s)</td>
+                          <td width="100%" class="data_region_header_row">Reaction(s)</td>
                           <td width="100px" align="center" class="data_region_header_row_small_blue">Source</td>
                           <td width="100px" align="center" class="data_region_header_row_small_blue">View</td>
+                          <td width="100px" align="center" class="data_region_header_row_small_blue">IUBMB</td>
                           <td width="100px" align="center">&nbsp;</td>
                         </tr>
 

@@ -1,5 +1,6 @@
 package uk.ac.ebi.intenz.webapp.dtos;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionErrors;
@@ -27,6 +28,7 @@ public class ReactionDTO extends ActionForm {
   private String orderIn;
   private String source;
   private String view;
+  private String iubmb;
   private String sourceDisplay;
   private String viewDisplayString;
   private String viewDisplayImage;
@@ -38,6 +40,7 @@ public class ReactionDTO extends ActionForm {
     orderIn = "0";
     source = Database.INTENZ.getDbCode();
     view = "INTENZ";
+    setIubmb("true");
     sourceDisplay = Database.INTENZ.getName();
     viewDisplayString = "all views";
     viewDisplayImage = "\"<img src=\\\"images/blue_bullet.gif\\\"/><img src=\\\"images/green_bullet.gif\\\"/><img src=\\\"images/red_bullet.gif\\\"/>\"";
@@ -49,6 +52,7 @@ public class ReactionDTO extends ActionForm {
     setXmlTextualRepresentation(reactionDTO.getXmlTextualRepresentation());
     setSource(reactionDTO.getSource());
     setView(reactionDTO.getView());
+    setIubmb(reactionDTO.getIubmb());
     setSourceDisplay(reactionDTO.getSourceDisplay());
     setViewDisplayString(reactionDTO.getViewDisplayString());
     setViewDisplayImage(reactionDTO.getViewDisplayImage());
@@ -181,6 +185,14 @@ public String getTextualRepresentation() {
     this.view = view;
   }
 
+  public String getIubmb() {
+	return iubmb;
+  }
+
+	public void setIubmb(String iubmb) {
+		this.iubmb = iubmb;
+	}
+
   public String getSourceDisplay() {
     return sourceDisplay;
   }
@@ -211,6 +223,11 @@ public String getStatus() {
 
 public void setStatus(String status) {
 	this.status = status;
+}
+
+@Override
+public void reset(ActionMapping mapping, HttpServletRequest request) {
+//	iubmb = "false"; // Don't reset, f* Struts will never set the sent value
 }
 
 }

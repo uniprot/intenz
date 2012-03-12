@@ -225,7 +225,8 @@ public class UnitOfWork {
 		assert con != null : "Parameter 'con' must not be null.";
 		EnzymaticReactions er = new EnzymaticReactions();
 		for (ReactionDTO reactionDTO : reactions) {
-			er.add(getReactionObject(reactionDTO), reactionDTO.getView());
+			er.add(getReactionObject(reactionDTO), reactionDTO.getView(),
+					Boolean.parseBoolean(reactionDTO.getIubmb()));
 		}
 		EnzymeReactionMapper enzymeReactionMapper = new EnzymeReactionMapper();
 		enzymeReactionMapper.update(enzymeId, er, con);
@@ -427,7 +428,8 @@ public class UnitOfWork {
 		assert con != null : "Parameter 'con' must not be null.";
 		EnzymaticReactions er = new EnzymaticReactions();
 		for (ReactionDTO reactionDTO : enzymeUnderDevelopment.getReactionDtos()) {
-			er.add(getReactionObject(reactionDTO), reactionDTO.getView());
+			er.add(getReactionObject(reactionDTO), reactionDTO.getView(),
+					Boolean.parseBoolean(reactionDTO.getIubmb()));
 		}
 
 		if (er.size() > 0) {

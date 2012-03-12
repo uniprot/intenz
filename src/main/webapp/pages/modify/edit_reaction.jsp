@@ -3,7 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://www.ebi.ac.uk/xchars" prefix="xchars" %>
 <tr>
-    <td colspan="2" valign="top" width="100%">
+    <td valign="top" width="100%">
     	<logic:greaterThan value="0" name="reactionDto" property="id">
     		<html:hidden name="reactionDto" property="xmlTextualRepresentation" indexed="true"/>
     		<span class="${reactionDto.status}">
@@ -26,7 +26,8 @@
         <bean:write name="reactionDto" property="sourceDisplay" filter="false"/>
     </td>
     <td width="100px" valign="top" align="center">
-        <html:select name="reactionDto" property="view" indexed="true" size="1">
+        <html:select name="reactionDto" property="view" indexed="true" size="1"
+        	styleId="reactionView-${index}" onchange="">
             <html:option value="IUBMB">NC-IUBMB</html:option>
             <html:option value="SIB">ENZYME</html:option>
             <html:option value="IUBMB_SIB">NC-IUBMB & ENZYME</html:option>
@@ -34,6 +35,20 @@
             <html:option value="SIB_INTENZ">ENZYME & IntEnz</html:option>
             <html:option value="INTENZ">All views</html:option>
         </html:select>
+    </td>
+    <td width="100px" valign="top" align="center">
+    <%--
+    	<html:select name="reactionDto" property="iubmb" indexed="true"
+    		onchange="">
+    		<html:option value="true">Yes</html:option>
+    		<html:option value="false">No</html:option>
+   		</html:select>
+     --%>
+     	<bean:define id="flag" name="reactionDto" value="iubmb"/>
+   		<html:hidden name="reactionDto" property="iubmb" indexed="true"
+   			styleId="iubmbFlag-${index}"/>
+   		<input type="checkbox" onchange="setIubmbFlag(this,${index})"
+   			${flag eq 'true'? 'checked' : ''}/>
     </td>
     <%-- 'Minus' button --%>
     <td valign="top">
