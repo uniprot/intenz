@@ -1,10 +1,14 @@
 package uk.ac.ebi.intenz.tools.export;
 
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -208,9 +212,6 @@ public class XmlExporter {
 
     public void export(EnzymeEntry entry, String release,
             String relDate, OutputStream os) throws Exception {
-        // JAXBElement<EnzymeType> enzymeElement = getJaxbEnzyme(entry,
-        // descriptions);
-        // marshaller.marshal(enzymeElement, getXMLSerializer(os));
         export(Collections.singletonList(entry), release, relDate, os);
     }
     
@@ -361,7 +362,7 @@ public class XmlExporter {
         return serializer;
     }
 
-    private JAXBElement<EnzymeType> getJaxbEnzyme(EnzymeEntry entry, Map descriptions)
+    private JAXBElement<EnzymeType> getJaxbEnzyme(EnzymeEntry entry, Map<?, ?> descriptions)
     throws DatatypeConfigurationException {
         JAXBElement<EnzymeType> jaxbEnzyme = of.createEnzyme(of.createEnzymeType());
         // EC number:
@@ -559,35 +560,66 @@ public class XmlExporter {
      */
     private void setCofactors(EnzymeEntry entry, EnzymeType jaxbEnzyme, ObjectFactory of) {
         // Cofactors:
-        for (Object cofactor : entry.getCofactors()) {
+    	
+        for (Iterator<?> it = entry.getCofactors().iterator(); it.hasNext();){
+        	Object cofactor = it.next();
             if (jaxbEnzyme.getCofactors() == null)
                 jaxbEnzyme.setCofactors(of.createCofactors());
-            CofactorType jaxbCofactor = of.createCofactorType();
-			String cofactorText = null;
-			EnzymeViewConstant cofactorView = null;
 			if (cofactor instanceof Cofactor){
-				cofactorText = ((Cofactor) cofactor).getCompound().getName();
-				cofactorView = ((Cofactor) cofactor).getView();
+				JAXBElement<CofactorType> jaxbCofactor =
+						cofactor2jaxb(of, (Cofactor) cofactor);
+	            jaxbEnzyme.getCofactors().getContent().add(jaxbCofactor);
 			} else {
-				OperatorSet loopOs = (OperatorSet) cofactor;
-				Cofactor first = null;
-				while (first == null){
-					Object obj = loopOs.iterator().next();
-					if (obj instanceof Cofactor) first = (Cofactor) obj;
-					else loopOs = (OperatorSet) obj;
-				}
-				cofactorText = cofactor.toString()
-					.replaceAll(" OR\\d ", " or ")
-					.replaceAll(" AND ", " and ");
-				cofactorView = first.getView();
+				OperatorSet os = (OperatorSet) cofactor;
+				jaxbEnzyme.getCofactors().getContent()
+						.addAll(cofactors2jaxb(of, os));
 			}
-            jaxbCofactor.getContent().add(getFlavoured(cofactorText));
-            jaxbCofactor.setView(VIEWS.get(cofactorView));
-            jaxbEnzyme.getCofactors().getCofactor().add(jaxbCofactor);
+			if (it.hasNext()){
+				jaxbEnzyme.getCofactors().getContent().add(" and ");
+			}
         }
     }
 
-    /**
+	/**
+	 * Creates a JAXB cofactor from an IntEnz cofactor.
+	 * @param of an object factory to create JAXB objects.
+	 * @param cofactor an IntEnz cofactor.
+	 * @return a JAXB cofactor.
+	 */
+	private JAXBElement<CofactorType> cofactor2jaxb(ObjectFactory of, Cofactor cofactor) {
+		CofactorType cofactorType = of.createCofactorType();
+		cofactorType.getContent().add(getFlavoured(
+				((Cofactor) cofactor).getCompound().getName()));
+		cofactorType.setView(VIEWS.get(
+				((Cofactor) cofactor).getView()));
+		cofactorType.setDb(((Cofactor) cofactor).getCompound()
+				.getXref().getDatabaseName());
+		cofactorType.setAccession(((Cofactor) cofactor).getCompound()
+				.getAccession());
+		return of.createCofactor(cofactorType);
+	}
+
+    private Collection<Serializable> cofactors2jaxb(ObjectFactory of, OperatorSet os) {
+    	Collection<Serializable> jaxbCofactors =
+    			new ArrayList<Serializable>();
+    	jaxbCofactors.add("(");
+		for (Iterator<?> it = os.iterator(); it.hasNext();){
+			Object o = it.next();
+			if (o instanceof Cofactor){
+				Cofactor cofactor = (Cofactor) o;
+				jaxbCofactors.add(cofactor2jaxb(of, cofactor));
+			} else {
+				jaxbCofactors.addAll(cofactors2jaxb(of, (OperatorSet) o));
+			}
+			if (it.hasNext()) jaxbCofactors.add(" "
+					+ os.getOperator().toLowerCase().replaceAll("\\d", "")
+					+ " ");
+		}
+    	jaxbCofactors.add(")");
+		return jaxbCofactors;
+	}
+
+	/**
      * @param entry
      * @param jaxbEnzyme
      * @param of
@@ -608,6 +640,7 @@ public class XmlExporter {
             ReactionType jaxbReaction = of.createReactionType();
             jaxbReaction.getContent().add(getFlavoured(reaction.getTextualRepresentation()));
             jaxbReaction.setView(VIEWS.get(er.getReactionView(i)));
+            jaxbReaction.setIubmb(reaction.isIubmb());
             jaxbEnzyme.getReactions().getReaction().add(jaxbReaction);
         }
     }

@@ -4,4 +4,4 @@
 # Parameters:
 #   Those for ExporterApp (see javadocs)
 
-`dirname $0`/doExport.sh  $@
+$(dirname $0)/doExport.sh $@
