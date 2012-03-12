@@ -191,11 +191,13 @@ public class EnzymeEntry {
      * Adds a reaction to the list of alternative reactions.
      * @param reaction
      * @param view
+     * @param iubmb the IUBMB flag.
      */
-    public void addEnzymaticReaction(Reaction reaction, String view){
+    public void addEnzymaticReaction(Reaction reaction, String view,
+    		boolean iubmb){
         if (enzymaticReactions == null)
             enzymaticReactions = new EnzymaticReactions();
-        enzymaticReactions.add(reaction, view);
+        enzymaticReactions.add(reaction, view, iubmb);
     }
 
   /**

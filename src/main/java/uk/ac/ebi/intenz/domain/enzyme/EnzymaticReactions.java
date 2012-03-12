@@ -11,19 +11,20 @@ import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.View;
 
 /**
- * A collection of <i>alternative</i> reactions catalyzed by one enzyme entry.
- * Each reaction can have a view set independently.
+ * A collection of <i>alternative</i> reactions catalysed by one enzyme entry.
+ * Each reaction can have a view set independently, and a IUBMB flag (main
+ * reaction assigned by the organization to an EC number).
  * <br>
  * Note that sequential reactions (steps in an overall reaction) and coupled
  * reactions (elementary reactions in undefined order) should be handled in
- * the {@link #uk.ac.ebi.intenz.webapp.domain.Reaction Reaction} class.
+ * Rhea.
  * @author rafalcan
  *
  */
 public class EnzymaticReactions {
 
     /**
-     * Set of reactions catalyzed (controlled) by the enzyme.
+     * Set of reactions catalysed (controlled) by the enzyme.
      */
     private Set<VisibleReaction> reactions;
 
@@ -34,9 +35,12 @@ public class EnzymaticReactions {
     private class VisibleReaction {
         private Reaction reaction;
         private EnzymeViewConstant view;
-        private VisibleReaction(Reaction reaction, EnzymeViewConstant view){
+        private boolean iubmb;
+        private VisibleReaction(Reaction reaction, EnzymeViewConstant view,
+        		boolean iubmb){
             this.reaction = reaction;
             this.view = view;
+            this.iubmb = iubmb;
         }
         @Override
         public boolean equals(Object obj) {
@@ -106,17 +110,29 @@ public class EnzymaticReactions {
     public EnzymeViewConstant getReactionView(int i){
         return ((VisibleReaction) reactions.toArray()[i]).view;
     }
+    
+    /**
+     * Has a reaction the IUBMB flag set?
+     * @since 4.2.7
+     * @param i the index of the reaction.
+     * @return the IUBMB flag.
+     */
+    public boolean getReactionIubmbFlag(int i){
+    	return ((VisibleReaction) reactions.toArray()[i]).iubmb;
+    }
 
     /**
      * Adds a reaction to the list. If it is already listed, even with a
      * different web view, nothing is done.
      * @param reaction
      * @param view
+     * @param iubmb
      * @return <code>true</code> if the set of reactions is changed.
      */
-    public boolean add(Reaction reaction, String view){
+    public boolean add(Reaction reaction, String view, boolean iubmb){
         if (reactions == null) reactions = new LinkedHashSet<VisibleReaction>(4);
-        return reactions.add(new VisibleReaction(reaction, EnzymeViewConstant.valueOf(view)));
+        return reactions.add(new VisibleReaction(
+        		reaction, EnzymeViewConstant.valueOf(view), iubmb));
     }
 
     /**
