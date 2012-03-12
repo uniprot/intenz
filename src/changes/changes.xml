@@ -10,6 +10,16 @@
     </properties>
     
     <body>
+		<release version="1.0.4" date="In SVN"
+			description="Added IUBMB flag">
+    		<action dev="rafalcan" type="add">
+    		    Added IUBMB flag to reactions.
+    		</action>
+    		<action dev="rafalcan" type="add">
+    		    Added ChEBI IDs for cofactors, as well as the and/or operators
+    		    as text.
+    		</action>
+		</release>
 		<release version="1.0.3" date="2010-04-15"
 			description="Fixed constraint for EC numbers.">
     		<action dev="rafalcan" type="fix">
