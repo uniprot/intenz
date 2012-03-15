@@ -8,7 +8,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="4.2.7" date="" description="Bug fix">
+    	<release version="4.2.8" date="In SVN" description="IUBMB flags">
+    		<action dev="rafalcan" type="add">
+    			Added IUBMB flag to enzyme-rheaction association.
+    		</action>
+   		</release>
+    	<release version="4.2.7" date="2011-05-13" description="Bug fix">
     		<action dev="rafalcan" type="fix">
     			Fixed NPE when trying to import a new cofactor from ChEBI.
     		</action>

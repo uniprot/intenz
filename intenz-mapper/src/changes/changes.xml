@@ -7,6 +7,15 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.5.0" date="In SVN"
+            description="IUBMB flags">
+            <action dev="rafalcan" type="update">
+                Updated to latest intenz-core.
+            </action>
+            <action dev="rafalcan" type="add">
+                Added IUBMB flags.
+            </action>
+        </release>
         <release version="4.4.5" date="2011-05-20"
             description="Bug fix">
             <action dev="rafalcan" type="fix">

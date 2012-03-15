@@ -9,8 +9,8 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="1.0.3" date=""
-    		description="Dependency update">
+    	<release version="1.0.3" date="In SVN"
+    		description="IUBMB flags, readable RDF IDs">
         	<action dev="rafalcan" type="update">
         		Updated to latest version of parent (intenz), intenz-core,
         		intenz-mapper, rhea-mapper and rhea-biopax.
