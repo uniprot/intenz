@@ -37,18 +37,13 @@
         </html:select>
     </td>
     <td width="100px" valign="top" align="center">
-    <%--
-    	<html:select name="reactionDto" property="iubmb" indexed="true"
-    		onchange="">
-    		<html:option value="true">Yes</html:option>
-    		<html:option value="false">No</html:option>
-   		</html:select>
-     --%>
-     	<bean:define id="flag" name="reactionDto" value="iubmb"/>
-   		<html:hidden name="reactionDto" property="iubmb" indexed="true"
-   			styleId="iubmbFlag-${index}"/>
-   		<input type="checkbox" onchange="setIubmbFlag(this,${index})"
-   			${flag eq 'true'? 'checked' : ''}/>
+    	<logic:greaterThan value="0" name="reactionDto" property="id">
+	     	<bean:define id="flag" name="reactionDto" property="iubmb"/>
+	   		<html:hidden name="reactionDto" property="iubmb" indexed="true"
+	   			styleId="iubmbFlag-${index}"/>
+	   		<input type="checkbox" onchange="setIubmbFlag(this,${index})"
+	   			${flag eq 'true'? 'checked' : ''}/>
+		</logic:greaterThan>
     </td>
     <%-- 'Minus' button --%>
     <td valign="top">
