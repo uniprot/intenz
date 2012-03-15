@@ -3,19 +3,18 @@ alter table REACTIONS_MAP add (IUBMB varchar2(1) default 'N' not null);
 comment on column reactions_map.iubmb is
 	'Flag for reactions assigned to enzymes by IUBMB';
 
-alter table REACTIONS add (IUBMB varchar2(1) default 'N' not null);
-comment on column reactions.iubmb is
-	'Flag for reactions assigned to enzymes by IUBMB';
-
--- Copy existing values from the rhea table:
-update (select ir.iubmb rheaFlag, rm.iubmb intenzFlag
-	from INTENZ_REACTIONS ir, REACTIONS_MAP rm
-	where ir.reaction_id = rm.reaction_id)
-set intenzFlag = rheaFlag;
-
-update reactions set iubmb = 'Y'
-	where web_view = 'INTENZ' or web_view like 'IUBMB%';
+-- Set the flag for one-to-one relationships:
+update reactions_map
+set iubmb = 'Y' where enzyme_id in (
+  select enzyme_id from (
+    select count(reaction_id) c, enzyme_id
+    from reactions_map
+    group by enzyme_id
+  ) where c = 1
+);
+-- Where there is more than one reaction assigned to the same enzyme,
+-- the flag will be set manually in the curator tool (or via SQL script).
 
 -- Deprecate iubmb column in Rhea:
 comment on column intenz_reactions.iubmb is
-	'DEPRECATED COLUMN. Please use reactions.iubmb and reactions_map.iubmb.';
+	'DEPRECATED COLUMN. Please use reactions_map.iubmb instead.';
