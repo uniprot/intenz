@@ -17,8 +17,11 @@
 	type="java.lang.Boolean" %>
 
 <div>
-    <span style="margin-right: 1em"><a target="rheaFromIntEnz"
-        href="http://www.ebi.ac.uk/rhea/reaction.xhtml?id=${reaction.id}">RHEA:${reaction.id}</a>
+    <span style="margin-right: 1em">
+    	<a target="rheaFromIntEnz"
+        	href="http://www.ebi.ac.uk/rhea/reaction.xhtml?id=${reaction.id}">
+        	RHEA:${reaction.id}
+       	</a>
     </span>
     <c:if test="${iubmb}"><b>[IUBMB]</b></c:if>
 </div>
