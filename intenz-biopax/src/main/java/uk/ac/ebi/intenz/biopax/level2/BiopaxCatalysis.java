@@ -19,6 +19,7 @@ import org.biopax.paxtools.model.level2.xref;
 import uk.ac.ebi.biobabel.util.StringUtil;
 import uk.ac.ebi.biobabel.util.collections.OperatorSet;
 import uk.ac.ebi.intenz.domain.enzyme.Cofactor;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions.VisibleReaction;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeComment;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
@@ -148,10 +149,10 @@ public class BiopaxCatalysis {
             } else {
                 pubXrefId = "PUB_" + citation.getPubId();
             }
-            pubXrefId = Biopax.fixId(pubXrefId);
+            pubXrefId = Biopax.fixId(null, pubXrefId, false);
             publicationXref pubXref = null;
-            if (model.getIdMap().containsKey(pubXrefId)){
-                pubXref = (publicationXref) model.getIdMap().get(pubXrefId);
+            if (model.containsID(pubXrefId)){
+                pubXref = (publicationXref) model.getByID(pubXrefId);
             } else {
                 pubXref = model.addNew(publicationXref.class, pubXrefId);
                 if (!StringUtil.isNullOrEmpty(xrefDb)){
@@ -177,12 +178,13 @@ public class BiopaxCatalysis {
             Biopax.getBpDataSource(Database.valueOf(enzymeEntry.getSource().toString()), model);
 
         // FIXME: some NPE (transferred/deleted entries) can be avoided here:
-        for (Reaction r : enzymeEntry.getEnzymaticReactions().getReactions(View.INTENZ)){
-            String catalysisId = Biopax.fixId(getBiopaxId(enzymeEntry, r));
+        for (VisibleReaction r : enzymeEntry.getEnzymaticReactions(View.INTENZ)){
+            String catalysisId = getBiopaxId(enzymeEntry, r.getReaction());
             catalysis c = model.addNew(catalysis.class, catalysisId);
             // bp:CONTROLLER
-            physicalEntityParticipant controller =
-                    model.addNew(physicalEntityParticipant.class, "CTRLR_" + catalysisId);
+            physicalEntityParticipant controller = model.addNew(
+            		physicalEntityParticipant.class, Biopax.fixId(
+            				null, catalysisId +"/controller", false));
             controller.setPHYSICAL_ENTITY(enzyme);
             c.addCONTROLLER(controller);
             // bp:COFACTOR
@@ -198,12 +200,13 @@ public class BiopaxCatalysis {
             // bp:DATA-SOURCE
             c.addDATA_SOURCE(bpDataSource);
             // bp:CONTROLLED
-            biochemicalReaction controlled =
-                new BiopaxBiochemicalReaction(r, model, null/*FIXME*/, Biopax.RHEA_PREFIX).getBiopaxBiochemicalReaction();
-            controlled.addEC_NUMBER(ec); // XXX: this is already done in the constructor, actually
+            biochemicalReaction controlled = (biochemicalReaction)
+                new BiopaxBiochemicalReaction(r.getReaction(), model, null/*FIXME*/,
+                		Biopax.RHEA_PREFIX).getBiopaxConversion();
+            controlled.addEC_NUMBER(ec); // this is already done in the constructor, actually
             c.addCONTROLLED(controlled);
             // bp:DIRECTION
-            switch(r.getDirection()){
+            switch(r.getReaction().getDirection()){
             case LR:
                 c.setDIRECTION(org.biopax.paxtools.model.level2.Direction.PHYSIOL_LEFT_TO_RIGHT);
                 break;
@@ -216,6 +219,7 @@ public class BiopaxCatalysis {
             }
             // bp:COMMENT
             c.setCOMMENT(bpComments);
+            c.addCOMMENT("IntEnz:IUBMB=" + r.isIubmb());
             // bp:XREF
             for (xref catXref: catXrefs){
                 c.addXREF(catXref);
@@ -253,19 +257,20 @@ public class BiopaxCatalysis {
 
     private static String getBiopaxId(EnzymeEntry enzymeEntry, Reaction reaction){
  		return  enzymeEntry.getEc()
-            + "_" + BiopaxBiochemicalReaction.getBiopaxId(reaction);
+            + "/" + BiopaxBiochemicalReaction.getBiopaxId(reaction);
     }
 
-    private physicalEntityParticipant getBiopaxCofactor(Cofactor cofactor, String catId, Model model){
-        String cofactorId =  Biopax.fixId(SpecialCharacters.getInstance(null)
-            .xml2Display(cofactor.getCompound().toString(), EncodingType.CHEBI_CODE))
-            + "_" + catId;
+    private physicalEntityParticipant getBiopaxCofactor(Cofactor cofactor,
+    		String catId, Model model){
+        String cofactorId =
+        		Biopax.fixId(null, catId + "/cofactor/" + SpecialCharacters.getInstance(null)
+        				.xml2Display(cofactor.getCompound().toString(), EncodingType.CHEBI_CODE), true);
         physicalEntityParticipant bpCofactor = null;
         bpCofactor = model.addNew(physicalEntityParticipant.class, cofactorId);
         physicalEntity bpCofactorCompound = null;
         String cofactorCompoundId = BiopaxPhysicalEntity.getBiopaxId(cofactor.getCompound());
-        if (model.getIdMap().containsKey(cofactorCompoundId)){
-            bpCofactorCompound = (physicalEntity) model.getIdMap().get(cofactorCompoundId);
+        if (model.containsID(cofactorCompoundId)){
+            bpCofactorCompound = (physicalEntity) model.getByID(cofactorCompoundId);
         } else {
             bpCofactorCompound = new BiopaxPhysicalEntity(cofactor.getCompound(), model)
                 .getBiopaxPhysicalEntity();
@@ -276,9 +281,9 @@ public class BiopaxCatalysis {
 
     private xref getBpXref(String db, String id, Model model, String relationship){
         xref x = null;
-        String rdfId = Biopax.fixId(db + "_" + id);
-        if (model.getIdMap().containsKey(rdfId)){
-            x = (xref) model.getIdMap().get(rdfId);
+        String rdfId = Biopax.fixId(null, db + "_" + id, false);
+        if (model.containsID(rdfId)){
+            x = (xref) model.getByID(rdfId);
         } else {
             x = relationship == null?
                 model.addNew(unificationXref.class, rdfId):
