@@ -67,7 +67,7 @@ public class EnzymeReactionMapper {
   
 	private static final String SEL_ABSTRACT_COLS_FROM_TBLS =
 		"SELECT equation, web_view, order_in, source, NULL reaction_id," +
-		" iubmb, NULL qualifiers, status FROM reactions";
+		" 'N' iubmb, NULL qualifiers, status FROM reactions";
 
 	private static final String FIND_ABSTRACT_STM =
 		SEL_ABSTRACT_COLS_FROM_TBLS +
@@ -79,7 +79,7 @@ public class EnzymeReactionMapper {
 
 	private static final String INSERT_ABSTRACT_STM =
 		"INSERT INTO reactions (enzyme_id, equation, order_in, status, source," +
-		" web_view, iubmb) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		" web_view) VALUES (?, ?, ?, ?, ?, ?)";
 
   private static final String DELETE_ALL_ABSTRACT_STM =
 	  "DELETE reactions WHERE enzyme_id = ?";
@@ -210,7 +210,6 @@ public class EnzymeReactionMapper {
 		  stm.setString(4, reaction.getStatus().toString()); // NO status
 		  stm.setString(5, reaction.getSource().toString());
 		  stm.setString(6, view.toString());
-		  stm.setString(7, iubmb? "Y" : "N");
 		  stm.execute();
 	  } finally {
 		  if (stm != null) stm.close();
