@@ -7,21 +7,27 @@
 <%@ taglib prefix="r" tagdir="/WEB-INF/tags/rhea" %>
 
 <%@attribute name="reaction"
+	rtexprvalue="true"
     description="The reaction to render."
     required="true"
     type="uk.ac.ebi.rhea.domain.Reaction" %>
+<%@attribute name="iubmb"
+	rtexprvalue="true"
+	description="Flag as IUBMB reaction?"
+	type="java.lang.Boolean" %>
 
 <div>
-    <span style="margin-right: 1em">[<a target="rheaFromIntEnz"
-        href="http://www.ebi.ac.uk/rhea/reaction.xhtml?id=${reaction.id}">RHEA:${reaction.id}</a>]
+    <span style="margin-right: 1em"><a target="rheaFromIntEnz"
+        href="http://www.ebi.ac.uk/rhea/reaction.xhtml?id=${reaction.id}">RHEA:${reaction.id}</a>
     </span>
+    <c:if test="${iubmb}"><b>[IUBMB]</b></c:if>
 </div>
 <div style="display: table-row">
     <r:reactionSide
         participants="${reaction.direction.reactantsSide.code eq 'R'?
             reaction.rightSide : reaction.leftSide}" />
     <c:choose>
-        <c:when test="${reaction.direction.reactantsSide ne null}">=&gt;</c:when>
+        <c:when test="${not empty reaction.direction.reactantsSide}">=&gt;</c:when>
         <c:otherwise>${reaction.direction.label}</c:otherwise>
     </c:choose>
     <r:reactionSide
