@@ -645,6 +645,17 @@ public class EnzymeEntry {
   public List<Reaction> getReactions(View view){
 	return enzymaticReactions.getReactions(view);
   }
+  
+  /**
+   * Gets a collection of enzymatic reactions for the given view.
+   * @param view a web view.
+   * @return an {@link EnzymaticReactions} object containing only reactions in
+   * 		the given view.
+   * @since 4.2.7
+   */
+  public EnzymaticReactions getEnzymaticReactions(View view){
+	  return enzymaticReactions.forView(view);
+  }
 
   /**
    * Sets the list of reactions.
