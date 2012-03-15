@@ -9,6 +9,19 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.0.3" date=""
+    		description="Dependency update">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest version of parent (intenz), intenz-core,
+        		intenz-mapper, rhea-mapper and rhea-biopax.
+        	</action>
+            <action dev="rafalcan" type="add">
+                Added IUBMB flag to catalysis as a comment.
+            </action>
+            <action dev="rafalcan" type="fix">
+                Fixed RDF IDs, now more readable.
+            </action>
+    	</release>
     	<release version="1.0.2" date="2010-04-14" description="Dependency update">
         	<action dev="rafalcan" type="update">
         		Updated to latest version of parent (intenz) intenz-core,
