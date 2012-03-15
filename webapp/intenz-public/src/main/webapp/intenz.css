@@ -53,7 +53,7 @@ h2, h3, .pubauthors, .pubtitle, .pubjournal {
 a[target="_blank"]:after,
 a[target="chebiFromIntEnz"]:after,
 a[target="rheaFromIntEnz"]:after {
-	content: url(images/linkext.gif);
+	content: url(images/external-link.png);
 }
 
 .text {
