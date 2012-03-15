@@ -19,7 +19,8 @@
         style="text-decoration: none !important"
         href="http://www.ebi.ac.uk/chebi/searchId.do?chebiId=${rp.compound.accession}"
         title="${rp.compound.accession}">
-        <x:translate>${rp.compound.name}</x:translate></a>
+        <x:translate>${rp.compound.name}</x:translate>
+    </a>
 
     <c:if test="${rp.coefficient.type eq 'P'}">${rp.coefficient}</c:if>
 
