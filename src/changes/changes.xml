@@ -9,6 +9,15 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.28" date="2012-03-27"
+			description="Added DE line exception">
+            <action dev="rafalcan" type="update">
+                Updated DE_line_modifications with transfers for EC 2.7.1.37.
+            </action>
+            <action dev="rafalcan" type="add">
+                Added configuration for maven-site-plugin (maven 3 style).
+            </action>
+    	</release>
     	<release version="1.2.27" date="2012-02-20"
 			description="Added exception for non-sentence-ending 'sp.'">
             <action dev="rafalcan" type="update">
