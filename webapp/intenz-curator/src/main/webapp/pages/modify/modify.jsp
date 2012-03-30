@@ -30,10 +30,12 @@
 </style>
 
     <!-------------------------- Content ----------------------------------->
-    <table height="100%" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <table style="height: 100%; width: 100%; border: none;
+    	margin: 0%; padding: 0%">
       <tr>
         <td valign="top" align="center">
-          <table class="content_table" border="0" cellspacing="20" cellpadding="0">
+          <table class="content_table"
+          		style="border: none; margin: 20px; padding: 0%">
             <tr>
               <logic:messagesPresent>
                 <td>
@@ -45,7 +47,7 @@
             </tr>
             <tr>
               <td>
-                <html:form action="<%= modifAction %>" method="post">
+                <html:form action="${modifAction}" method="post">
                 <input type="hidden" name="<%= Constants.TOKEN_KEY %>" value="<%=request.getAttribute(Constants.TOKEN_KEY)%>"/>                                                                                                        
                 <input type="hidden" name="buttonCmd">
                 <input type="hidden" name="listType">
