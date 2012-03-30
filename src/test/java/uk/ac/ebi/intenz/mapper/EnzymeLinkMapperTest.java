@@ -68,7 +68,7 @@ public class EnzymeLinkMapperTest extends TestCase {
         sl1.setDataComment("a google kegg comment 4321");
         // One xref:
         EnzymeLink sl2 = EnzymeLink.valueOf(XrefDatabaseConstant.SWISSPROT, "http://www.yahoo.com", "Y666",
-            "TestLinkY", EnzymeSourceConstant.IUBMB, EnzymeViewConstant.IUBMB_INTENZ);
+            "TestLinkY", EnzymeSourceConstant.IUBMB, EnzymeViewConstant.INTENZ);
         sl2.setDataComment("a yahoo swissprot comment 9876");
         sampleLinks.add(sl1);
         sampleLinks.add(sl2);
