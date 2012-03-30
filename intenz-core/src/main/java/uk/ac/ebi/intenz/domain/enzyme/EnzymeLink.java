@@ -59,7 +59,7 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
    */
   public static final EnzymeLink NC_IUBMB =
 	  new EnzymeLink(XrefDatabaseConstant.NC_IUBMB, XrefDatabaseConstant.NC_IUBMB.getUrl(),
-			  "", "", EnzymeSourceConstant.IUBMB, EnzymeViewConstant.IUBMB_INTENZ);
+			  "", "", EnzymeSourceConstant.IUBMB, EnzymeViewConstant.INTENZ);
 
   /**
    * Static link to the ERGO database.
@@ -80,28 +80,28 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
    */
   public static final EnzymeLink GO =
 	  new EnzymeLink(XrefDatabaseConstant.GO, XrefDatabaseConstant.GO.getUrl(),
-			  "", "", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.IUBMB_INTENZ);
+			  "", "", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
 
   /**
    * Static link to the NIST 74 database.
    */
   public static final EnzymeLink NIST74 =
 	  new EnzymeLink(XrefDatabaseConstant.NIST74, XrefDatabaseConstant.NIST74.getUrl(),
-			  "", "", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.IUBMB_INTENZ);
+			  "", "", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
 
   /**
    * Static link to the UM-BBD database.
    */
   public static final EnzymeLink UMBBD =
 	  new EnzymeLink(XrefDatabaseConstant.UMBBD, XrefDatabaseConstant.UMBBD.getUrl(),
-			  "", "", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.IUBMB_INTENZ);
+			  "", "", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
 
   /**
    * Static link to the PDB database.
    */
   public static final EnzymeLink PDB =
 	  new EnzymeLink(XrefDatabaseConstant.PDB, XrefDatabaseConstant.PDB.getUrl(),
-			  "", "", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.IUBMB_INTENZ);
+			  "", "", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
 
   /**
    * Static link to the CSA database.
