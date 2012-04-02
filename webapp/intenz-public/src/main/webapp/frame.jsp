@@ -12,7 +12,7 @@
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta http-equiv="Window-target" content="_top" />
 <meta name="no-email-collection" content="http://www.unspam.com/noemailcollection/" />
-<meta name="google-site-verification" content="LAlg1MDJldQvyKGTgkzUjB_pB4mfrT9WofudsOex0Sg" />
+<meta name="google-site-verification" content="tXBo-O4mKKZgv__6QG6iyjqDJibhSb3ZAQtXQGjo86I" />
 
 <!-- InstanceBeginEditable name="doctitle" -->
 <% String title = request.getParameter("title"); %>
