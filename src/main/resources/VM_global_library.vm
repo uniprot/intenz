@@ -1,3 +1,0 @@
-#macro(translate $xchars)$specialCharacters.xml2Display($xchars, $spEncoding)
-#end
-
