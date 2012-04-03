@@ -5,7 +5,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="1.0.10" date=""
+        <release version="1.0.10" date="2012-04-03"
             description="Dependencies update">
         	<action dev="rafalcan" type="update">
         		Updated to latest intenz-mapper, biobabel-db and UniProt
