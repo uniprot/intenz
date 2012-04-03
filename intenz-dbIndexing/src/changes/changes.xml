@@ -8,11 +8,20 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.2.3" date="2012-04-03"
+        	description="Updated dependencies">
+            <action dev="rafalcan" type="update">
+            	Updated dependency on biobabel-db module.
+            </action>
+            <action dev="rafalcan" type="add">
+                Added configuration for site reports generation (maven 3 style).
+            </action>
+        </release>
         <release version="1.2.2" date="2011-08-10"
         	description="Updated dependencies">
             <action dev="rafalcan" type="update">
             	Updated dependencies on parent, intenz.mapper
-            	and biobabel.db modules.
+            	and biobabel-db modules.
             </action>
         </release>
 
