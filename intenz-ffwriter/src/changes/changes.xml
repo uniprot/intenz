@@ -9,10 +9,11 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="1.2.28" date="2012-03-27"
-			description="Added DE line exception">
+    	<release version="1.2.28" date="2012-04-10"
+			description="Added DE line exceptions">
             <action dev="rafalcan" type="update">
-                Updated DE_line_modifications with transfers for EC 2.7.1.37.
+                Updated DE_line_modifications with transfers for EC 2.7.1.37 and
+                3.6.1.30.
             </action>
             <action dev="rafalcan" type="add">
                 Added configuration for maven-site-plugin (maven 3 style).
