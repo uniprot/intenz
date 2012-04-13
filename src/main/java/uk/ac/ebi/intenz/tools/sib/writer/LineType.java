@@ -8,7 +8,7 @@ import java.util.List;
  * Represents an enumeration of all ENZYME line types.
  * <p/>
  * A comprehensive description of all line types can be found
- * <a href="http://ca.expasy.org/cgi-bin/lists?enzuser.txt">here</a>.
+ * <a href="http://enzyme.expasy.org/enzuser.txt">here</a>.
  *
  * @author Michael Darsow
  * @version $Revision: 1.2 $ $Date: 2008/01/28 11:43:23 $

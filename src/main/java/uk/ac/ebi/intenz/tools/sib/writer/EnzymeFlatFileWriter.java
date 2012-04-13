@@ -53,7 +53,7 @@ import uk.ac.ebi.interfaces.sptr.SPTRException;
  * CC   Telephone: +41-22-379 50 50<br/>
  * CC   Fax: +41-22-379 58 58<br/>
  * CC<br/>
- * CC   WWW server: http://www.expasy.org/enzyme/<br/>
+ * CC   WWW server: http://enzyme.expasy.org/<br/>
  * CC<br/>
  * CC   -----------------------------------------------------------------------<br/>
  * CC   This database is copyright from the Swiss Institute of Bioinformatics.<br/>
@@ -89,7 +89,7 @@ import uk.ac.ebi.interfaces.sptr.SPTRException;
  * </b>
  * </code>
  * <br/><br/>
- * The creation of this file follows the rules defined <a href="http://ca.expasy.org/cgi-bin/lists?enzuser.txt">here</a>.
+ * The creation of this file follows the rules defined <a href="http://enzyme.expasy.org/enzuser.txt">here</a>.
  *
  * @author Michael Darsow
  * @version $Revision: 1.3 $ $Date: 2008/04/01 14:26:09 $
@@ -615,7 +615,7 @@ public class EnzymeFlatFileWriter {
 			.append("CC   Telephone: +41-22-379 50 50\n")
 			.append("CC   Fax: +41-22-379 58 58\n")
 			.append("CC\n")
-			.append("CC   WWW server: http://www.expasy.org/enzyme/\n")
+			.append("CC   WWW server: http://enzyme.expasy.org/\n")
 			.append("CC\n")
 			.append("CC   -----------------------------------------------------------------------\n")
 			.append("CC   This database is copyright from the Swiss Institute of Bioinformatics.\n")
