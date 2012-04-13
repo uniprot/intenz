@@ -11,6 +11,18 @@
   <body>
     <section name="Statistics">
         <ul>
+            <li><b>2012</b>
+                <ul>
+                    <li><a href="./intenzStats-2012.ods">OpenDocument (OpenOffice 2+)</a></li>
+                    <li><a href="./intenzStats-2012.xlsx">Excel</a></li>
+                </ul>
+            </li>
+            <li><b>2011</b>
+                <ul>
+                    <li><a href="./intenzStats-2011.ods">OpenDocument (OpenOffice 2+)</a></li>
+                    <li><a href="./intenzStats-2011.xls">Excel</a></li>
+                </ul>
+            </li>
             <li><b>2010</b>
                 <ul>
                     <li><a href="./intenzStats-2010.ods">OpenDocument (OpenOffice 2+)</a></li>
