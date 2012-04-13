@@ -3,7 +3,7 @@ package uk.ac.ebi.intenz.tools.sib.writer;
 /**
  * This interface provides a method to format lines according to the rules of the <code>enzyme.dat</code> file.
  * <p/>
- * Some of the rules can be found <a target="_blank" href="http://ca.expasy.org/cgi-bin/lists?enzuser.txt">here</a>.
+ * Some of the rules can be found <a target="_blank" href="http://enzyme.expasy.org/enzuser.txt">here</a>.
  * <p/>
  * The formatting of lines is dependent on the {@link LineType line type} and the content of each line type. A
  * <code>LineFormatter</code> implementation will provide a means to format and wrap the lines of a
