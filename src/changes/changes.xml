@@ -9,6 +9,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.31" date="2012-05-17"
+			description="Added DE line exceptions">
+            <action dev="rafalcan" type="update">
+                Updated DE_line_modifications with transfers for EC 4.1.99.8
+                and 4.2.3.14.
+            </action>
+    	</release>
     	<release version="1.2.30" date="2012-04-13"
 			description="Fixed ExPASy URL">
             <action dev="rafalcan" type="fix">
