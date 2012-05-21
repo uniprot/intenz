@@ -1,7 +1,6 @@
 package uk.ac.ebi.intenz.domain.enzyme;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -9,23 +8,19 @@ import java.util.Set;
 
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.View;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions.VisibleReaction;
 import uk.ac.ebi.rhea.domain.Reaction;
 
 /**
  * A collection of <i>alternative</i> reactions catalysed by one enzyme entry.
- * Each reaction can have a view set independently, and a IUBMB flag (main
- * reaction assigned by the organization to an EC number). Note that only
- * Rhea reactions can have this flag set (i.e. textual descriptions will never
- * have it).
+ * Each reaction can have a view set independently.
  * <br>
  * Note that sequential reactions (steps in an overall reaction) and coupled
  * reactions (elementary reactions in undefined order) should be handled in
- * Rhea.
+ * the {@link #uk.ac.ebi.intenz.webapp.domain.Reaction Reaction} class.
  * @author rafalcan
  *
  */
-public class EnzymaticReactions implements Collection<VisibleReaction> {
+public class EnzymaticReactions {
 
     /**
      * Set of reactions catalysed (controlled) by the enzyme.
@@ -33,28 +28,21 @@ public class EnzymaticReactions implements Collection<VisibleReaction> {
     private Set<VisibleReaction> reactions;
 
     /**
-     * Utility class to wrap a Reaction with the views where it is available
-     * and the IUBMB flag.
+     * Utility class to wrap a Reaction with the views where it is available.
      * @author rafalcan
      */
     public class VisibleReaction {
         private Reaction reaction;
         private EnzymeViewConstant view;
-        private boolean iubmb;
-        private VisibleReaction(Reaction reaction, EnzymeViewConstant view,
-        		boolean iubmb){
+        private VisibleReaction(Reaction reaction, EnzymeViewConstant view){
             this.reaction = reaction;
             this.view = view;
-            this.iubmb = iubmb;
         }
         public Reaction getReaction() {
 			return reaction;
 		}
 		public EnzymeViewConstant getView() {
 			return view;
-		}
-		public boolean isIubmb() {
-			return iubmb;
 		}
 		@Override
         public boolean equals(Object obj) {
@@ -68,9 +56,7 @@ public class EnzymaticReactions implements Collection<VisibleReaction> {
 		}
     }
 
-    public EnzymaticReactions(){
-        reactions = new LinkedHashSet<VisibleReaction>(4);
-    }
+    public EnzymaticReactions(){}
 
     /**
      * @return the number of reactions held by this object.
@@ -122,60 +108,9 @@ public class EnzymaticReactions implements Collection<VisibleReaction> {
         }
         return rheaReactions.isEmpty()? reactionsInView : rheaReactions;
     }
-    
-    /**
-     * Filters this collection of reactions for a given view.
-     * @param view the view used as filter.
-     * @return a subset of this collection, containing only reactions in the
-     * 		given view.
-     * @since 4.2.7
-     */
-    public EnzymaticReactions forView(View theView){
-    	boolean isInView, isRhea, isPublicRhea;
-        EnzymaticReactions reactionsInView = new EnzymaticReactions();
-        EnzymaticReactions rheaReactions = new EnzymaticReactions();
-        for (Iterator<VisibleReaction> it = reactions.iterator(); it.hasNext();) {
-            VisibleReaction wr = it.next();
-            isRhea = wr.reaction.getId() > Reaction.NO_ID_ASSIGNED;
-            isPublicRhea = isRhea
-                    && wr.reaction.getStatus().isPublic()
-                    && wr.reaction.isMapped();
-            switch (theView) {
-			case INTENZ:
-				isInView = wr.view.isInIntEnzView();
-                if (isInView){
-                    if (!isRhea) {
-                        reactionsInView.add(wr);
-                    } else if (isPublicRhea){
-                        rheaReactions.add(wr);
-                    }
-                }
-				break;
-			case IUBMB:
-				isInView = wr.view.isInIUBMBView();
-                if (isInView && !isRhea) reactionsInView.add(wr);
-				break;
-			case SIB:
-				isInView = wr.view.isInSIBView();
-                if (isInView && !isRhea) reactionsInView.add(wr);
-				break;
-			}
-        }
-        return rheaReactions.isEmpty()? reactionsInView : rheaReactions;
-    }
 
     public EnzymeViewConstant getReactionView(int i){
         return ((VisibleReaction) reactions.toArray()[i]).view;
-    }
-    
-    /**
-     * Has a reaction the IUBMB flag set?
-     * @since 4.2.7
-     * @param i the index of the reaction.
-     * @return the IUBMB flag.
-     */
-    public boolean getReactionIubmbFlag(int i){
-    	return ((VisibleReaction) reactions.toArray()[i]).iubmb;
     }
 
     /**
@@ -183,12 +118,11 @@ public class EnzymaticReactions implements Collection<VisibleReaction> {
      * different web view, nothing is done.
      * @param reaction
      * @param view
-     * @param iubmb
      * @return <code>true</code> if the set of reactions is changed.
      */
-    public boolean add(Reaction reaction, String view, boolean iubmb){
-        return reactions.add(new VisibleReaction(
-        		reaction, EnzymeViewConstant.valueOf(view), iubmb));
+    public boolean add(Reaction reaction, String view){
+        if (reactions == null) reactions = new LinkedHashSet<VisibleReaction>(4);
+        return reactions.add(new VisibleReaction(reaction, EnzymeViewConstant.valueOf(view)));
     }
 
     /**
@@ -245,53 +179,5 @@ public class EnzymaticReactions implements Collection<VisibleReaction> {
         hash = 61 * hash + (this.reactions != null ? this.reactions.hashCode() : 0);
         return hash;
     }
-
-	public Iterator<VisibleReaction> iterator() {
-		return reactions.iterator();
-	}
-
-	public boolean add(VisibleReaction arg0) {
-		return reactions.add(arg0);
-	}
-
-	public boolean addAll(Collection<? extends VisibleReaction> arg0) {
-		return reactions.addAll(arg0);
-	}
-
-	public void clear() {
-		reactions.clear();
-	}
-
-	public boolean contains(Object arg0) {
-		return reactions.contains(arg0);
-	}
-
-	public boolean containsAll(Collection<?> arg0) {
-		return reactions.containsAll(arg0);
-	}
-
-	public boolean isEmpty() {
-		return reactions.isEmpty();
-	}
-
-	public boolean remove(Object arg0) {
-		return reactions.remove(arg0);
-	}
-
-	public boolean removeAll(Collection<?> arg0) {
-		return reactions.removeAll(arg0);
-	}
-
-	public boolean retainAll(Collection<?> arg0) {
-		return reactions.retainAll(arg0);
-	}
-
-	public Object[] toArray() {
-		return reactions.toArray();
-	}
-
-	public <VisibleReaction> VisibleReaction[] toArray(VisibleReaction[] arg0) {
-		return null;
-	}
 
 }
