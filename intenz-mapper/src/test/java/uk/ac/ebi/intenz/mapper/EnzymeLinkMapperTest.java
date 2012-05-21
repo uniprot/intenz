@@ -29,7 +29,7 @@ public class EnzymeLinkMapperTest extends TestCase {
 
     public void testFind() throws Exception {
         Long id1002 = new Long(1002l);
-        List entries = elm.find(id1002, con);
+        List<?> entries = elm.find(id1002, con);
         assertFalse(entries == null || entries.isEmpty());
         entries = elm.findSibXrefs(id1002, con);
         assertFalse(entries == null || entries.isEmpty());
@@ -41,7 +41,7 @@ public class EnzymeLinkMapperTest extends TestCase {
 
     public void testInsert() throws Exception {
         elm.insert(getSampleLinks(), id, Status.SUGGESTED, con);
-        List entries = elm.find(id, con);
+        List<?> entries = elm.find(id, con);
         assertTrue(entries != null);
         assertTrue(entries.size() == 2);
         entries = elm.findXrefs(id, con);
@@ -52,7 +52,7 @@ public class EnzymeLinkMapperTest extends TestCase {
     /* This test relies on the previous one being successful! */
     public void testDelete() throws Exception {
         elm.deleteAllXref(id, con);
-        List entries = elm.find(id, con);
+        List<?> entries = elm.find(id, con);
         assertTrue(entries != null);
         assertFalse(entries.isEmpty()); // still some links
         elm.deleteAll(id, con);
@@ -60,8 +60,8 @@ public class EnzymeLinkMapperTest extends TestCase {
         assertTrue(entries == null || entries.isEmpty());
     }
 
-    private List getSampleLinks() {
-        List sampleLinks = new ArrayList();
+    private List<EnzymeLink> getSampleLinks() {
+        List<EnzymeLink> sampleLinks = new ArrayList<EnzymeLink>();
         // One non-xref:
         EnzymeLink sl1 = EnzymeLink.valueOf(XrefDatabaseConstant.KEGG, "http://www.google.com", "G666",
             "TestLinkG", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
