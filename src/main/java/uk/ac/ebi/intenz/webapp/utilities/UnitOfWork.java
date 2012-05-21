@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
+
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionMessages;
 
@@ -49,6 +52,7 @@ import uk.ac.ebi.intenz.webapp.exceptions.DeregisterException;
 import uk.ac.ebi.rhea.domain.Compound;
 import uk.ac.ebi.rhea.domain.Database;
 import uk.ac.ebi.rhea.domain.Reaction;
+import uk.ac.ebi.rhea.mapper.MapperException;
 import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
 
 /**
@@ -71,7 +75,7 @@ import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
  * @author Michael Darsow
  * @version $Revision: 1.6 $ $Date: 2008/04/23 14:20:13 $
  */
-public class UnitOfWork {
+public class UnitOfWork implements HttpSessionBindingListener {
 
 	/**
 	 * This class member is used to give registered objects a unique Unit of Work ID.
@@ -91,12 +95,34 @@ public class UnitOfWork {
 	 * The EnzymeDTO instance the curator is working on.
 	 */
 	private Map enzymesUnderDevelopment;
+	
+	EnzymeReactionMapper enzymeReactionMapper;
+
+	EnzymeEntryMapper enzymeEntryMapper;
 
 	/**
 	 * Initialises <code>enzymesUnderDevelopment</code>.
+	 * @deprecated 
 	 */
 	public UnitOfWork() {
+		this(new EnzymeEntryMapper(), new EnzymeReactionMapper());
+	}
+	
+	public UnitOfWork(EnzymeReactionMapper enzymeReactionMapper){
+		this(new EnzymeEntryMapper(enzymeReactionMapper), enzymeReactionMapper);
+	}
+	
+	public UnitOfWork(EnzymeEntryMapper enzymeEntryMapper,
+			EnzymeReactionMapper enzymeReactionMapper){
+		this.enzymeEntryMapper = enzymeEntryMapper;
+		this.enzymeReactionMapper = enzymeReactionMapper;
 		enzymesUnderDevelopment = new HashMap();
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		enzymeEntryMapper.close();
+		enzymeReactionMapper.close();
 	}
 
 	/**
@@ -205,7 +231,6 @@ public class UnitOfWork {
 
 		// Update as soon as an element og the core date changed.
 		if (update) {
-			EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
 			enzymeEntryMapper.update(new Long(enzymeUnderDevelopment.getId()),
 					EnzymeCommissionNumber.valueOf(enzymeUnderDevelopment.getEc()),
 					Status.fromCode(enzymeUnderDevelopment.getStatusCode()),
@@ -225,10 +250,8 @@ public class UnitOfWork {
 		assert con != null : "Parameter 'con' must not be null.";
 		EnzymaticReactions er = new EnzymaticReactions();
 		for (ReactionDTO reactionDTO : reactions) {
-			er.add(getReactionObject(reactionDTO), reactionDTO.getView(),
-					Boolean.parseBoolean(reactionDTO.getIubmb()));
+			er.add(getReactionObject(reactionDTO), reactionDTO.getView());
 		}
-		EnzymeReactionMapper enzymeReactionMapper = new EnzymeReactionMapper();
 		enzymeReactionMapper.update(enzymeId, er, con);
 	}
 
@@ -381,7 +404,6 @@ public class UnitOfWork {
 	private void insertCoreData(EnzymeDTO enzymeUnderDevelopment, Connection con) throws SQLException, EcException {
 		assert enzymeUnderDevelopment != null : "Parameter 'enzymeUnderDevelopment' must not be null.";
 		assert con != null : "Parameter 'con' must not be null.";
-		EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
 		Long newEnzymeId = enzymeEntryMapper.findNextEnzymeId(con);
 		enzymeUnderDevelopment.setId(newEnzymeId.toString());
 		enzymeEntryMapper.insert(newEnzymeId, EnzymeCommissionNumber.valueOf(enzymeUnderDevelopment.getEc()),
@@ -428,12 +450,10 @@ public class UnitOfWork {
 		assert con != null : "Parameter 'con' must not be null.";
 		EnzymaticReactions er = new EnzymaticReactions();
 		for (ReactionDTO reactionDTO : enzymeUnderDevelopment.getReactionDtos()) {
-			er.add(getReactionObject(reactionDTO), reactionDTO.getView(),
-					Boolean.parseBoolean(reactionDTO.getIubmb()));
+			er.add(getReactionObject(reactionDTO), reactionDTO.getView());
 		}
 
 		if (er.size() > 0) {
-			EnzymeReactionMapper enzymeReactionMapper = new EnzymeReactionMapper();
 			enzymeReactionMapper.insert(er, new Long(enzymeUnderDevelopment.getId()), con);
 		}
 	}
@@ -690,6 +710,19 @@ public class UnitOfWork {
 				referenceDTO.getYear(), referenceDTO.getPubMedId(),
 				EnzymeViewConstant.valueOf(referenceDTO.getView()),
 				EnzymeSourceConstant.valueOf(referenceDTO.getSource()));
+	}
+
+	public void valueBound(HttpSessionBindingEvent arg0) {
+		// no-op
+	}
+
+	public void valueUnbound(HttpSessionBindingEvent arg0) {
+		enzymeEntryMapper.close();
+		try {
+			enzymeReactionMapper.close();
+		} catch (MapperException e) {
+			LOGGER.error("While closing session", e);
+		}
 	}
 
 }

@@ -224,7 +224,8 @@ public class SearchEcAction extends Action {
    * @throws SQLException    if database errors occured.
    * @throws DomainException if any error related to domain information occurs.
    */
-  private List findEnzymeEntries(EnzymeCommissionNumber ec, Connection con) throws SQLException, DomainException {
+  private List findEnzymeEntries(EnzymeCommissionNumber ec, Connection con)
+  throws SQLException, DomainException {
     EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
     return enzymeEntryMapper.findAllByEc(ec.getEc1(), ec.getEc2(), ec.getEc3(),
     		ec.getEc4(), ec.getType().equals(Type.PRELIMINARY), con);

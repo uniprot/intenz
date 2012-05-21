@@ -632,9 +632,6 @@ public class EnzymeDTO extends ValidatorForm {
     @Override
   public void reset(ActionMapping mapping, HttpServletRequest request) {
 //    id = "";
-    	for (ReactionDTO reactionDto : reactionDtos) {
-			reactionDto.reset(mapping, request);
-		}
   }
 
     @Override
