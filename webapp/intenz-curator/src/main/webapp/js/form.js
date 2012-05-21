@@ -297,21 +297,21 @@ function trim(str){
 /**
  * Checks that the EC number and the status is consistent for preliminary
  * entries, fixing any of them if needed.
- * @param event the event triggering the check
+ * @param ev the event triggering the check
  */
-function checkPreliminary(event){
+function checkPreliminary(ev){
 	var ec = document.getElementById('ec');
 	if (ec == null) return;
 	var statusCode = document.getElementById('statusCode');
 	var isPreliminary = false;
-	if (event.target == ec){
+	if (ev.target == ec){
 		isPreliminary = ec.value.indexOf('n') != -1;
 		if (isPreliminary){
 			statusCode.value = 'PM';
 		} else {
 			statusCode.value = 'SU'; // FIXME
 		}
-	} else if (target == statusCode){
+	} else if (ev.target == statusCode){
 		isPreliminary = statusCode.value == 'PM';
 		if (isPreliminary && ec.value.indexOf('n') == -1){
 			
@@ -319,40 +319,4 @@ function checkPreliminary(event){
 			ec.value = ec.value.replace('n', '', 'gi');
 		}
 	}
-}
-
-/**
- * Checks that the value of the view selector and the IUBMB checkbox are
- * compatible.
- * @param event the event triggering the check
- */
-function checkIubmbView(target){
-	if (target.id.indexOf('view') > -1){
-		// Modified view, we have to check the IUBMB flag:
-		var iubmbElemId = target.id.replace('view', 'iubmb');
-		if (target.value == 'INTENZ' || target.value.indexOf('IUBMB') > -1){
-			// This is IUBMB's:
-			document.getElementById(iubmbElemId).checked = true;
-        } else {
-        	document.getElementById(iubmbElemId).checked = false;
-		}
-	} else if (target.id.indexOf('iubmb') > -1){
-		// Modified IUBMB flag, we have to check the view:
-		var viewElemId = target.id.replace('iubmb', 'view');
-		var viewElem = document.getElementById(viewElemId);
-		if (target.checked){
-			// All views:
-			viewElem.value = 'INTENZ';
-		} else {
-			if (viewElem.value == 'INTENZ' || viewElem.value.indexOf('IUBMB') > -1){
-				// Conflict:
-				alert('According to the view, this is an IUBMB reaction');
-				target.checked = true;
-			}
-		}
-	}
-}
-
-function setIubmbFlag(target, index){
-	document.getElementById('iubmbFlag-'+index).value = target.checked;
 }

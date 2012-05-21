@@ -11,7 +11,6 @@
         <td colspan="2" class="data_region_header_row">Reaction${listSize == 1?'':'s'}</td>
         <td width="100px" align="center" class="data_region_header_row_small_blue" align="center">Source</td>
         <td width="100px" align="center" class="data_region_header_row_small_blue" align="center">View</td>
-        <td width="100px" align="center" class="data_region_header_row_small_blue" align="center">IUBMB</td>
     </tr>
 <%--
     <tr>
@@ -62,12 +61,6 @@
             </td>
             <td width="100px" align="center" valign="top">
                 <bean:write name="reactionDto" property="viewDisplayImage" filter="false" />
-            </td>
-            <td width="100px" align="center" valign="top">
-                <c:if test="${reactionDto.iubmb}">
-                <img src="img/IUBMB.GIF"
-                    alt="Yes" width="24" title="IUBMB reaction"/>
-                </c:if>
             </td>
         </tr>
     </logic:iterate>
