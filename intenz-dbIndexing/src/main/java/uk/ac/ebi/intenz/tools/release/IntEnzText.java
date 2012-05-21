@@ -265,7 +265,7 @@ public class IntEnzText {
             insertStatement.clearParameters();
           }
 //          con.commit();
-        } catch (DomainException e) {
+        } catch (Exception e) {
           e.printStackTrace();
         }
       }
