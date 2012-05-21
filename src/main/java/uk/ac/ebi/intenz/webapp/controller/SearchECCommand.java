@@ -39,11 +39,11 @@ public class SearchECCommand extends DatabaseCommand {
 	private final EnzymeClassMapper classMapper = new EnzymeClassMapper();
 	private final EnzymeSubclassMapper subclassMapper = new EnzymeSubclassMapper();
 	private final EnzymeSubSubclassMapper subSubclassMapper = new EnzymeSubSubclassMapper();
-	private final EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
 
 	/**
 	 * @throws ServletException
 	 * @throws IOException
+	 * @throws MapperException
 	 */
 	public void process() throws ServletException, IOException {
 		String paramEc = request.getParameter("ec");
@@ -300,7 +300,7 @@ public class SearchECCommand extends DatabaseCommand {
 	 *             if any of the parameters is <code>null</code>.
 	 */
 	protected EnzymeSubSubclass findEnzymeSubSubclass(EnzymeCommissionNumber ec) {
-		if (ec == null)
+ 		if (ec == null)
 			throw new NullPointerException();
 
 		EnzymeSubSubclass enzymeSubSubclass = null;
@@ -321,13 +321,6 @@ public class SearchECCommand extends DatabaseCommand {
 					subsubclasses.put(ec, enzymeSubSubclass);
 					application.setAttribute("subsubclasses", subsubclasses);
 				}
-			} catch (SQLException e) {
-				LOGGER.error("Finding enzyme subSubclass", e);
-				IntEnzMessenger.sendError(this.getClass().toString(), e
-						.getMessage(), (String) request.getSession()
-						.getAttribute("user"));
-				request.setAttribute("message", e.getMessage());
-				return null;
 			} catch (DomainException e) {
 				LOGGER.error("Finding enzyme subSubclass", e);
 				PropertyResourceBundle intenzMessages = (PropertyResourceBundle) request
@@ -335,6 +328,13 @@ public class SearchECCommand extends DatabaseCommand {
 						.getAttribute("intenz.messages");
 				IntEnzMessenger.sendError(this.getClass().toString(),
 						intenzMessages.getString(e.getMessageKey()),
+						(String) request.getSession().getAttribute("user"));
+				request.setAttribute("message", e.getMessage());
+				return null;
+			} catch (Exception e) {
+				LOGGER.error("Finding enzyme subSubclass", e);
+				IntEnzMessenger.sendError(this.getClass().toString(),
+						e.getMessage(),
 						(String) request.getSession().getAttribute("user"));
 				request.setAttribute("message", e.getMessage());
 				return null;

@@ -1,6 +1,8 @@
 package uk.ac.ebi.intenz.webapp.controller;
 
+import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.webapp.utilities.IntEnzMessenger;
+import uk.ac.ebi.rhea.mapper.MapperException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -35,6 +37,9 @@ public abstract class DatabaseCommand extends Command {
   protected HttpServletResponse response;
 
   protected Connection con;
+
+	protected final EnzymeEntryMapper enzymeEntryMapper =
+			new EnzymeEntryMapper();
 
   /**
    * Initialises the attributes which will be used to extract information for the command execution.
@@ -86,5 +91,14 @@ public abstract class DatabaseCommand extends Command {
       dispatcher.forward(request, response);
     }
   }
+  
+	protected void close() {
+		enzymeEntryMapper.close();
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		close();
+	}
 
 }

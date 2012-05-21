@@ -1,11 +1,10 @@
 <%@ tag language="java" pageEncoding="UTF-8"
 	body-content="empty"
-	description="Retrieves the enzymatic reactions from an enzyme entry
+	description="Retrieves a list of reactions from an enzyme entry
 		(parameter 'entry'), corresponding to a given view (parameter 'view'),
 		as a variable whose name is the parameter 'var'."
 	import="java.util.List,
-		uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry,
-		uk.ac.ebi.intenz.domain.constants.View" %>
+		uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry" %>
 		
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -16,12 +15,11 @@
 	description="Variable name for individual reactions in the loop." %>
 
 <%@ variable name-from-attribute="var" alias="r"
-	variable-class="uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions"
-	scope="AT_END" %>
+	variable-class="java.util.List" scope="AT_END" %>
 
 <%
-EnzymeEntry enzymeEntry = (EnzymeEntry) jspContext.getAttribute("entry");
-String view = (String) jspContext.getAttribute("view");
-jspContext.setAttribute("r", enzymeEntry.getEnzymaticReactions(View.valueOf(view)));
+EnzymeEntry entryParam = (EnzymeEntry) jspContext.getAttribute("entry");
+String viewParam = (String) jspContext.getAttribute("view");
+jspContext.setAttribute("r", entryParam.getReactions(viewParam));
 %>
 <c:set var="r" value="${r}"/>
