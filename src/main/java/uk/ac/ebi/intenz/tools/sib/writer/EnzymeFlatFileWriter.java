@@ -89,7 +89,8 @@ import uk.ac.ebi.interfaces.sptr.SPTRException;
  * </b>
  * </code>
  * <br/><br/>
- * The creation of this file follows the rules defined <a href="http://enzyme.expasy.org/enzuser.txt">here</a>.
+ * The creation of this file follows the rules defined
+ * <a href="http://enzyme.expasy.org/enzuser.txt">here</a>.
  *
  * @author Michael Darsow
  * @version $Revision: 1.3 $ $Date: 2008/04/01 14:26:09 $
