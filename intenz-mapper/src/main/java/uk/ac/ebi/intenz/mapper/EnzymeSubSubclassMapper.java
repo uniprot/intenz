@@ -12,6 +12,7 @@ import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubSubclass;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
+import uk.ac.ebi.rhea.mapper.MapperException;
 
 /**
  * Maps enzyme Sub-subclass information to the corresponding database tables.
@@ -61,8 +62,8 @@ public class EnzymeSubSubclassMapper {
    * @throws SQLException         if a database error occurs.
    * @throws DomainException      if any error related to domain information occurs.
    */
-  public EnzymeSubSubclass find(int ec1, int ec2, int ec3, Connection con) throws SQLException,
-          DomainException {
+  public EnzymeSubSubclass find(int ec1, int ec2, int ec3, Connection con)
+  throws SQLException, DomainException {
     if (con == null) throw new NullPointerException("Parameter 'con' must not be null.");
 
     PreparedStatement findStatement = null;
@@ -88,8 +89,9 @@ public class EnzymeSubSubclassMapper {
         result = doLoad(rs, entries);
       }
     } finally {
+    	enzymeEntryMapper.close();
     	if (rs != null) rs.close();
-      findStatement.close();
+      if (findStatement != null) findStatement.close();
     }
 
     return result;
@@ -126,7 +128,7 @@ public class EnzymeSubSubclassMapper {
       }
     } finally {
     	if (rs != null) rs.close();
-      findListStatement.close();
+      if (findListStatement != null) findListStatement.close();
     }
 
     if (noResult) return null;
@@ -176,7 +178,7 @@ public class EnzymeSubSubclassMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      insertStatement.close();
+      if (insertStatement != null) insertStatement.close();
     }
   }
 
@@ -205,7 +207,7 @@ public class EnzymeSubSubclassMapper {
       }
     } finally {
     	if (rs != null) rs.close();
-      findStatement.close();
+      if (findStatement != null) findStatement.close();
     }
 
     return false;

@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.apache.log4j.Logger;
+
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameTypeConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
 import uk.ac.ebi.intenz.domain.constants.Status;
@@ -37,7 +39,8 @@ import uk.ac.ebi.rhea.mapper.MapperException;
  * @version $Revision: 1.5 $ $Date: 2009/05/26 14:59:09 $
  */
 public class EnzymeEntryMapper {
-//  private static final Logger LOGGER = Logger.getLogger(EnzymeEntryMapper.class);
+	
+  private static final Logger LOGGER = Logger.getLogger(EnzymeEntryMapper.class);
 
   /**
    * The names are used for the heading of each enzyme, that is to which class,
@@ -50,7 +53,30 @@ public class EnzymeEntryMapper {
   private static final String LIST_COLUMNS =
 	  "enzyme_id, ec1, ec2, ec3, ec4, history, note, status, source, active";
 
-  public EnzymeEntryMapper() {}
+  private EnzymeReactionMapper enzymeReactionMapper;
+
+  public EnzymeEntryMapper() {
+	  enzymeReactionMapper = new EnzymeReactionMapper();
+  }
+
+  public EnzymeEntryMapper(EnzymeReactionMapper enzymeReactionMapper){
+	  this.enzymeReactionMapper = enzymeReactionMapper;	
+  }
+  
+  @Override
+	protected void finalize() throws Throwable {
+		close();
+	}
+
+	public void close() {
+		if (enzymeReactionMapper != null){
+			try {
+				enzymeReactionMapper.close();
+			} catch (MapperException e) {
+				LOGGER.error("Closing enzymeReactionMapper", e);
+			}
+		}
+	}
 
   /**
    * Returns the SQL statement used for loading an enzyme by the given EC.
@@ -404,8 +430,7 @@ public class EnzymeEntryMapper {
 	}
 
   public List<EnzymeEntry> findAllSubSubclassEntriesByEc(int ec1, int ec2, int ec3, Connection con)
-  throws SQLException,
-          DomainException {
+  throws SQLException, DomainException {
     if (con == null) throw new NullPointerException("Parameter 'con' must not be null.");
     PreparedStatement findAllByEcStatement = null;
     ResultSet rs = null;
@@ -627,7 +652,8 @@ public class EnzymeEntryMapper {
    * @throws java.sql.SQLException
    * @throws uk.ac.ebi.intenz.domain.exceptions.DomainException 
    */
-  public List<EnzymeEntry> findList(String ec1, String ec2, String ec3, Connection con)
+  public List<EnzymeEntry> findList(String ec1, String ec2, String ec3,
+		  Connection con)
   throws SQLException, DomainException {
     PreparedStatement findListStatement = null;
     ResultSet rs = null;
@@ -707,7 +733,8 @@ public class EnzymeEntryMapper {
    * @throws SQLException    if a database error occurs.
    * @throws DomainException if a domain related error occurs.
    */
-  public List<EnzymeEntry> findProposedList(Connection con) throws SQLException, DomainException {
+  public List<EnzymeEntry> findProposedList(Connection con)
+  throws SQLException, DomainException {
     return findByStatus(con, Status.PROPOSED);
   }
 
@@ -1481,13 +1508,14 @@ public class EnzymeEntryMapper {
     if (names != null) doLoadNames(enzymeEntry, names);
 
     // Reaction
-    EnzymeReactionMapper reactionMapper = new EnzymeReactionMapper();
-    EnzymaticReactions reactions = reactionMapper.find(enzymeEntry.getId(), con);
+    EnzymaticReactions reactions =
+    		enzymeReactionMapper.find(enzymeEntry.getId(), con);
     if (reactions != null) enzymeEntry.setEnzymaticReactions(reactions);
 
     // Cofactors
     EnzymeCofactorMapper cofactorMapper = new EnzymeCofactorMapper();
     Set<Object> cofactors = cofactorMapper.find(enzymeEntry.getId(), con);
+    cofactorMapper.close();
     if (cofactors != null) enzymeEntry.setCofactors(cofactors);
 
     // Links
@@ -1534,13 +1562,14 @@ public class EnzymeEntryMapper {
     if (names != null) doLoadNames(enzymeEntry, names);
 
     // Reaction
-    EnzymeReactionMapper reactionMapper = new EnzymeReactionMapper();
-    EnzymaticReactions reactions = reactionMapper.exportSibReactions(enzymeEntry.getId(), con);
+    EnzymaticReactions reactions =
+    		enzymeReactionMapper.exportSibReactions(enzymeEntry.getId(), con);
     if (reactions != null) enzymeEntry.setEnzymaticReactions(reactions);
 
     // Cofactors
     EnzymeCofactorMapper cofactorMapper = new EnzymeCofactorMapper();
     Set<Object> cofactors = cofactorMapper.exportSibCofactors(enzymeEntry.getId(), con);
+    cofactorMapper.close();
     if (cofactors != null) enzymeEntry.setCofactors(cofactors);
 
     // Links

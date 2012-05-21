@@ -76,7 +76,7 @@ public class EnzymeSubclassMapper {
       }
     } finally {
     	if (rs != null) rs.close();
-      findStatement.close();
+      if (findStatement != null) findStatement.close();
     }
 
     return result;
@@ -107,7 +107,7 @@ public class EnzymeSubclassMapper {
       }
     } finally {
     	if (rs != null) rs.close();
-      findListStatement.close();
+      if (findListStatement != null) findListStatement.close();
     }
 
     if (noResult) return null;
@@ -161,7 +161,7 @@ public class EnzymeSubclassMapper {
       }
     } finally {
     	if (rs != null) rs.close();
-      findStatement.close();
+      if (findStatement != null) findStatement.close();
     }
 
     return false;

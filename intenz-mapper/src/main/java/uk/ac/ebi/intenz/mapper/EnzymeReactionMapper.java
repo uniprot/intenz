@@ -41,7 +41,7 @@ public class EnzymeReactionMapper {
   }
 
   private static final String SEL_COLS_FROM_TBLS =
-	  "SELECT rm.reaction_id, rm.web_view, rm.order_in, rm.iubmb," +
+	  "SELECT rm.reaction_id, rm.web_view, rm.order_in," +
 	  " ir.equation, ir.source, ir.qualifiers, ir.status" +
 	  " FROM reactions_map rm, intenz_reactions ir";
 
@@ -57,8 +57,8 @@ public class EnzymeReactionMapper {
 	" FOR UPDATE ORDER BY rm.order_in";
 
   private static final String INSERT_STM =
-	  "INSERT INTO reactions_map (reaction_id, enzyme_id, web_view, iubmb," +
-	  " order_in) VALUES (?, ?, ?, ?, ?)";
+	  "INSERT INTO reactions_map (reaction_id, enzyme_id, web_view, order_in)" +
+	  " VALUES (?, ?, ?, ?)";
 
   private static final String DELETE_ALL_STM =
 	  "DELETE reactions_map WHERE enzyme_id = ?";
@@ -67,7 +67,7 @@ public class EnzymeReactionMapper {
   
 	private static final String SEL_ABSTRACT_COLS_FROM_TBLS =
 		"SELECT equation, web_view, order_in, source, NULL reaction_id," +
-		" 'N' iubmb, NULL qualifiers, status FROM reactions";
+		" NULL qualifiers, status FROM reactions";
 
 	private static final String FIND_ABSTRACT_STM =
 		SEL_ABSTRACT_COLS_FROM_TBLS +
@@ -152,8 +152,7 @@ public class EnzymeReactionMapper {
 		  rs = findStatement.executeQuery();
 		  while (rs.next()) {
 			  if (result == null) result = new EnzymaticReactions();
-              result.add(loadReaction(rs), rs.getString("web_view"),
-            		  rs.getString("iubmb").equalsIgnoreCase("Y"));
+              result.add(loadReaction(rs), rs.getString("web_view"));
 		  }
 	  } finally {
 		  if (rs != null) rs.close();
@@ -179,11 +178,10 @@ public class EnzymeReactionMapper {
     for (int i = 0; i < reactions.size(); i++) {
 		Reaction reaction = reactions.getReaction(i);
 		EnzymeViewConstant view = reactions.getReactionView(i);
-		boolean iubmb = reactions.getReactionIubmbFlag(i);
     	if (reaction.getId().equals(Reaction.NO_ID_ASSIGNED)){
-    		insertReaction(enzymeId, reaction, view, iubmb, i+1, con);
+    		insertReaction(enzymeId, reaction, view, i+1, con);
     	} else {
-    		insertMapping(enzymeId, reaction.getId(), view, iubmb, i+1, con);
+    		insertMapping(enzymeId, reaction.getId(), view, i+1, con);
     	}
     }
   }
@@ -193,13 +191,12 @@ public class EnzymeReactionMapper {
    * @param enzymeId
    * @param reaction
    * @param view
-   * @param iubmb
    * @param orderIn
    * @param con
    * @throws SQLException
    */
   private void insertReaction(Long enzymeId, Reaction reaction,
-		  EnzymeViewConstant view, boolean iubmb, int orderIn, Connection con)
+		  EnzymeViewConstant view, int orderIn, Connection con)
   throws SQLException {
 	  PreparedStatement stm = null;
 	  try {
@@ -221,22 +218,20 @@ public class EnzymeReactionMapper {
    * @param enzymeId
    * @param reactionId
    * @param view
-   * @param iubmb
    * @param orderIn
    * @param con
  * @throws SQLException
    */
   public void insertMapping(Long enzymeId, Long reactionId,
-		  EnzymeViewConstant view, boolean iubmb,
-		  int orderIn, Connection con) throws SQLException{
+		  EnzymeViewConstant view, int orderIn, Connection con)
+  throws SQLException{
 	  PreparedStatement stm = null;
 	  try {
 		  stm = con.prepareStatement(INSERT_STM);
 		  stm.setLong(1, reactionId);
 		  stm.setLong(2, enzymeId);
 		  stm.setString(3, view.toString());
-		  stm.setString(4, iubmb? "Y" : "N");
-		  stm.setInt(5, orderIn);
+		  stm.setInt(4, orderIn);
 		  stm.execute();
 		  LOGGER.info("[MAPPED] enzyme_id=" + enzymeId + " to reaction_id=" + reactionId);
 	  } finally {
@@ -336,5 +331,14 @@ public class EnzymeReactionMapper {
     }
     return reaction;
   }
+
+	public void close() throws MapperException {
+		rheaReader.close();
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		close();
+	}
 
 }

@@ -1,19 +1,23 @@
 package uk.ac.ebi.intenz.mapper;
 
-import uk.ac.ebi.intenz.domain.constants.EventConstant;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
-import uk.ac.ebi.intenz.domain.exceptions.DomainException;
-import uk.ac.ebi.intenz.domain.history.HistoryEvent;
-import uk.ac.ebi.intenz.domain.history.HistoryGraph;
-import uk.ac.ebi.intenz.domain.history.HistoryNode;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
+
+import uk.ac.ebi.intenz.domain.constants.EventConstant;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
+import uk.ac.ebi.intenz.domain.exceptions.DomainException;
+import uk.ac.ebi.intenz.domain.history.HistoryEvent;
+import uk.ac.ebi.intenz.domain.history.HistoryGraph;
+import uk.ac.ebi.intenz.domain.history.HistoryNode;
 
 /**
  * Maps history event information to the corresponding database tables.
@@ -38,7 +42,8 @@ public class EnzymeHistoryMapper {
            " FROM history_events WHERE before_id = ? OR after_id = ?";
   }
 
-  public HistoryGraph find(EnzymeEntry enzymeEntry, Connection con) throws SQLException, DomainException {
+  public HistoryGraph find(EnzymeEntry enzymeEntry, Connection con)
+  throws SQLException, DomainException {
     if (enzymeEntry == null) throw new NullPointerException();
     HistoryNode currentNode = findNode(enzymeEntry, true, con);
     if (currentNode == null) return null;
@@ -48,8 +53,9 @@ public class EnzymeHistoryMapper {
 
   // ------------------- PRIVATE METHODS ------------------------
 
-  private HistoryNode findNode(EnzymeEntry currentEntry, boolean isRoot, Connection con) throws SQLException,
-          DomainException {
+  private HistoryNode findNode(EnzymeEntry currentEntry, boolean isRoot,
+		  Connection con)
+  throws SQLException, DomainException {
     HistoryNode historyNode = new HistoryNode();
     historyNode.setEnzymeEntry(currentEntry);
     historyNode.setRoot(isRoot);
@@ -69,7 +75,8 @@ public class EnzymeHistoryMapper {
     return historyNode;
   }
 
-  private List findHistoryEvents(HistoryNode currentNode, Connection con) throws SQLException, DomainException {
+  private List findHistoryEvents(HistoryNode currentNode, Connection con)
+  throws SQLException, DomainException {
     PreparedStatement findStatement = null;
     ResultSet rs = null;
     Vector result = new Vector();
@@ -100,8 +107,9 @@ public class EnzymeHistoryMapper {
    * @return an <code>EnzymeLink</code> instance.
    * @throws SQLException
    */
-  private HistoryEvent doLoad(ResultSet rs, HistoryNode currentNode, Connection con) throws SQLException,
-          DomainException {
+  private HistoryEvent doLoad(ResultSet rs, HistoryNode currentNode,
+		  Connection con)
+  throws SQLException, DomainException {
     long groupId = 0;
     long eventId = 0;
     int beforeId = 0;
@@ -151,7 +159,9 @@ public class EnzymeHistoryMapper {
     historyEvent.setDate(eventYear);
     historyEvent.setNote(eventNote);
     historyEvent.setEventClass(EventConstant.valueOf(eventClass));
-
+    
+    enzymeEntryMapper.close();
+    
     return historyEvent;
   }
 

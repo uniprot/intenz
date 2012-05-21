@@ -121,6 +121,7 @@ public class EnzymeNameMapper {
     if (con == null) throw new NullPointerException("Parameter 'con' must not be null.");
 
     PreparedStatement findStatement = null;
+    ResultSet rs = null;
     List<EnzymeName> result = new ArrayList<EnzymeName>();
     boolean noResult = true;
 
@@ -132,7 +133,7 @@ public class EnzymeNameMapper {
       findStatement.setString(3, EnzymeViewConstant.IUBMB_SIB.toString());
       findStatement.setString(4, EnzymeViewConstant.SIB.toString());
       findStatement.setString(5, EnzymeViewConstant.SIB_INTENZ.toString());
-      ResultSet rs = findStatement.executeQuery();
+      rs = findStatement.executeQuery();
       while (rs.next()) {
         EnzymeName name = doLoad(rs);
         if (name != null) {
@@ -141,6 +142,7 @@ public class EnzymeNameMapper {
         }
       }
     } finally {
+    	if (rs != null) rs.close();
       if (findStatement != null) findStatement.close();
     }
 

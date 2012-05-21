@@ -1,6 +1,10 @@
 package uk.ac.ebi.intenz.mapper;
 
-import java.sql.*;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.GregorianCalendar;
 
 /**
@@ -67,7 +71,7 @@ public class EventPackageMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      cStmt.close();
+      if (cStmt != null) cStmt.close();
     }
   }
 
@@ -94,7 +98,7 @@ public class EventPackageMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      cStmt.close();
+    	if (cStmt != null) cStmt.close();
     }
   }
 
@@ -120,7 +124,7 @@ public class EventPackageMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      cStmt.close();
+    	if (cStmt != null) cStmt.close();
     }
   }
 
@@ -147,7 +151,7 @@ public class EventPackageMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      cStmt.close();
+    	if (cStmt != null) cStmt.close();
     }
   }
 
@@ -178,7 +182,7 @@ public class EventPackageMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      cStmt.close();
+    	if (cStmt != null) cStmt.close();
     }
   }
 
@@ -208,7 +212,7 @@ public class EventPackageMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      cStmt.close();
+    	if (cStmt != null) cStmt.close();
     }
   }
 
@@ -237,7 +241,7 @@ public class EventPackageMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      cStmt.close();
+    	if (cStmt != null) cStmt.close();
     }
   }
 
@@ -266,7 +270,7 @@ public class EventPackageMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      cStmt.close();
+    	if (cStmt != null) cStmt.close();
     }
   }
 }
