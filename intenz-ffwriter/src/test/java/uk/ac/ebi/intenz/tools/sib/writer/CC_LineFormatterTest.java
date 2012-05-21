@@ -44,5 +44,20 @@ public class CC_LineFormatterTest extends TestCase {
         String translated = XCharsASCIITranslator.getInstance().toASCII(ccLine, false, false);
         formattedLine = formatter.formatLines(translated, LineType.CC);
         assertEquals(enzymeLine, formattedLine);
+        
+        // EC 2.5.1.98
+        ccLine = "The enzyme is responsible for pyruvylation of subterminal" +
+        		" glucose in the acidic octasaccharide repeating unit of the" +
+        		" exopolysaccharide of Rhizobium leguminosarum (bv. viciae" +
+        		" strain VF39) which is necessary to establish nitrogen-fixing" +
+        		" symbiosis with Pisum sativum, Vicia faba, and Vicia sativa.";
+        enzymeLine =
+        		"CC   -!- The enzyme is responsible for pyruvylation of subterminal glucose in\n" +
+        		"CC       the acidic octasaccharide repeating unit of the exopolysaccharide of\n" +
+				"CC       Rhizobium leguminosarum (bv. viciae strain VF39) which is necessary\n" +
+				"CC       to establish nitrogen-fixing symbiosis with Pisum sativum, Vicia\n" +
+				"CC       faba, and Vicia sativa.\n";
+        formattedLine = formatter.formatLines(ccLine, LineType.CC);
+        assertEquals(enzymeLine, formattedLine);
     }
 }
