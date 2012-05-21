@@ -19,7 +19,6 @@ import org.biopax.paxtools.model.level2.xref;
 import uk.ac.ebi.biobabel.util.StringUtil;
 import uk.ac.ebi.biobabel.util.collections.OperatorSet;
 import uk.ac.ebi.intenz.domain.enzyme.Cofactor;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions.VisibleReaction;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeComment;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
@@ -178,8 +177,8 @@ public class BiopaxCatalysis {
             Biopax.getBpDataSource(Database.valueOf(enzymeEntry.getSource().toString()), model);
 
         // FIXME: some NPE (transferred/deleted entries) can be avoided here:
-        for (VisibleReaction r : enzymeEntry.getEnzymaticReactions(View.INTENZ)){
-            String catalysisId = getBiopaxId(enzymeEntry, r.getReaction());
+        for (Reaction r : enzymeEntry.getEnzymaticReactions().getReactions(View.INTENZ)){
+            String catalysisId = getBiopaxId(enzymeEntry, r);
             catalysis c = model.addNew(catalysis.class, catalysisId);
             // bp:CONTROLLER
             physicalEntityParticipant controller = model.addNew(
@@ -201,12 +200,12 @@ public class BiopaxCatalysis {
             c.addDATA_SOURCE(bpDataSource);
             // bp:CONTROLLED
             biochemicalReaction controlled = (biochemicalReaction)
-                new BiopaxBiochemicalReaction(r.getReaction(), model, null/*FIXME*/,
-                		Biopax.RHEA_PREFIX).getBiopaxConversion();
-            controlled.addEC_NUMBER(ec); // this is already done in the constructor, actually
+                new BiopaxBiochemicalReaction(r, model, null/*FIXME*/,
+					Biopax.RHEA_PREFIX).getBiopaxConversion();
+            controlled.addEC_NUMBER(ec); // XXX: this is already done in the constructor, actually
             c.addCONTROLLED(controlled);
             // bp:DIRECTION
-            switch(r.getReaction().getDirection()){
+            switch(r.getDirection()){
             case LR:
                 c.setDIRECTION(org.biopax.paxtools.model.level2.Direction.PHYSIOL_LEFT_TO_RIGHT);
                 break;
@@ -219,7 +218,6 @@ public class BiopaxCatalysis {
             }
             // bp:COMMENT
             c.setCOMMENT(bpComments);
-            c.addCOMMENT("IntEnz:IUBMB=" + r.isIubmb());
             // bp:XREF
             for (xref catXref: catXrefs){
                 c.addXREF(catXref);
