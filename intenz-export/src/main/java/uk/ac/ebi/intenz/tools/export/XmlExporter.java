@@ -362,7 +362,8 @@ public class XmlExporter {
         return serializer;
     }
 
-    private JAXBElement<EnzymeType> getJaxbEnzyme(EnzymeEntry entry, Map<?, ?> descriptions)
+    private JAXBElement<EnzymeType> getJaxbEnzyme(EnzymeEntry entry,
+    		Map<?, ?> descriptions)
     throws DatatypeConfigurationException {
         JAXBElement<EnzymeType> jaxbEnzyme = of.createEnzyme(of.createEnzymeType());
         // EC number:
@@ -640,7 +641,6 @@ public class XmlExporter {
             ReactionType jaxbReaction = of.createReactionType();
             jaxbReaction.getContent().add(getFlavoured(reaction.getTextualRepresentation()));
             jaxbReaction.setView(VIEWS.get(er.getReactionView(i)));
-            jaxbReaction.setIubmb(reaction.isIubmb());
             jaxbEnzyme.getReactions().getReaction().add(jaxbReaction);
         }
     }
