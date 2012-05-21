@@ -191,13 +191,11 @@ public class EnzymeEntry {
      * Adds a reaction to the list of alternative reactions.
      * @param reaction
      * @param view
-     * @param iubmb the IUBMB flag.
      */
-    public void addEnzymaticReaction(Reaction reaction, String view,
-    		boolean iubmb){
+    public void addEnzymaticReaction(Reaction reaction, String view){
         if (enzymaticReactions == null)
             enzymaticReactions = new EnzymaticReactions();
-        enzymaticReactions.add(reaction, view, iubmb);
+        enzymaticReactions.add(reaction, view);
     }
 
   /**
@@ -644,17 +642,6 @@ public class EnzymeEntry {
 
   public List<Reaction> getReactions(View view){
 	return enzymaticReactions.getReactions(view);
-  }
-  
-  /**
-   * Gets a collection of enzymatic reactions for the given view.
-   * @param view a web view.
-   * @return an {@link EnzymaticReactions} object containing only reactions in
-   * 		the given view.
-   * @since 4.2.7
-   */
-  public EnzymaticReactions getEnzymaticReactions(View view){
-	  return enzymaticReactions.forView(view);
   }
 
   /**

@@ -6,7 +6,7 @@
 	<artifactId>intenz-core</artifactId>
     <name>IntEnz core module</name>
 	<packaging>jar</packaging>
-	<version>4.3.0-SNAPSHOT</version>
+	<version>4.2.7-SNAPSHOT</version>
 	<description>IntEnz - Core package</description>
 
 	<parent>
@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-domain</artifactId>
-			<version>1.6.8</version>
+			<version>1.6.7</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.xchars</groupId>
