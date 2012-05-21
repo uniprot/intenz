@@ -5,25 +5,13 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.sql.Connection;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
-import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
-import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
-import uk.ac.ebi.intenz.domain.constants.Status;
-import uk.ac.ebi.intenz.domain.enzyme.Cofactor;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
-import uk.ac.ebi.intenz.xml.jaxb.CofactorType;
-import uk.ac.ebi.intenz.xml.jaxb.ObjectFactory;
-import uk.ac.ebi.rhea.domain.Compound;
-import uk.ac.ebi.rhea.domain.Database;
-import uk.ac.ebi.rhea.domain.XRef.Availability;
 
 public class XmlExporterTest {
 
