@@ -137,7 +137,7 @@ public class EnzymeReferenceMapper {
       }
     } finally {
     	if (rs != null) rs.close();
-      findStatement.close();
+      if (findStatement != null) findStatement.close();
     }
 
     if (noResult) return null;
@@ -161,7 +161,7 @@ public class EnzymeReferenceMapper {
       }
     } finally {
     	if (rs != null) rs.close();
-      findPubIdsStatement.close();
+      if (findPubIdsStatement != null) findPubIdsStatement.close();
     }
 
     return result;
@@ -173,8 +173,9 @@ public class EnzymeReferenceMapper {
     if (status == null) throw new NullPointerException("Parameter 'status' must not be null.");
     if (con == null) throw new NullPointerException("Parameter 'con' must not be null.");
 
-    PreparedStatement insertJournalStatement = null, insertBookStatement = null, insertPatentStatement = null,
-            insertCitationStatement = null, deleteCitationStatement = null;
+    PreparedStatement insertJournalStatement = null, insertBookStatement = null,
+    		insertPatentStatement = null, insertCitationStatement = null,
+    		deleteCitationStatement = null;
 
     try {
       insertCitationStatement = con.prepareStatement(insertCitationStatement());
@@ -257,7 +258,8 @@ public class EnzymeReferenceMapper {
     if (status == null) throw new NullPointerException("Parameter 'status' must not be null.");
     if (con == null) throw new NullPointerException("Parameter 'con' must not be null.");
 
-    PreparedStatement updateJournalStatement = null, updateBookStatement = null, updatePatentStatement = null;
+    PreparedStatement updateJournalStatement = null, updateBookStatement = null,
+    		updatePatentStatement = null;
     try {
       updateJournalStatement = con.prepareStatement(updateJournalStatement());
       updateBookStatement = con.prepareStatement(updateBookStatement());
@@ -331,7 +333,7 @@ public class EnzymeReferenceMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      deleteCitationsStatement.close();
+      if (deleteCitationsStatement != null) deleteCitationsStatement.close();
     }
   }
 
@@ -364,7 +366,7 @@ public class EnzymeReferenceMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      deleteCitationStatement.close();
+      if (deleteCitationStatement != null) deleteCitationStatement.close();
     }
   }
 
@@ -382,7 +384,7 @@ public class EnzymeReferenceMapper {
 //      con.rollback();
 //      throw e;
     } finally {
-      deletePublicationStatement.close();
+      if (deletePublicationStatement != null) deletePublicationStatement.close();
     }
   }
 
@@ -472,7 +474,7 @@ public class EnzymeReferenceMapper {
       }
     } finally {
     	if (rs != null) rs.close();
-      findNextPubId.close();
+      if (findNextPubId != null) findNextPubId.close();
     }
 
     return pubId;
@@ -494,7 +496,7 @@ public class EnzymeReferenceMapper {
       }
     } finally {
     	if (rs != null) rs.close();
-      findNextOrderIn.close();
+      if (findNextOrderIn != null) findNextOrderIn.close();
     }
 
     return ++orderIn;

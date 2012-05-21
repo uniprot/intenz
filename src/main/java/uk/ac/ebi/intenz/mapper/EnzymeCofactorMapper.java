@@ -46,6 +46,22 @@ public class EnzymeCofactorMapper {
 		throw new RuntimeException(e);
 	}
   }
+  
+  /**
+   * Closes the underlying {@link RheaCompoundDbReader}.
+   */
+  public void close(){
+	  try {
+		rheaCompoundReader.close();
+	} catch (MapperException e) {
+		LOGGER.error("Closing rheaCompoundReader", e);
+	}
+  }
+
+  	@Override
+	protected void finalize() throws Throwable {
+		close();
+	}
 
   private static final String COLUMNS =
 	  "enzyme_id, cofactor_text, order_in, source, status, web_view, compound_id, operator, op_grp";

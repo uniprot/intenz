@@ -40,7 +40,8 @@ public class EnzymeFutureMapper extends EnzymeHistoryMapper {
   }
 
     @Override
-  public HistoryGraph find(EnzymeEntry enzymeEntry, Connection con) throws SQLException, DomainException {
+  public HistoryGraph find(EnzymeEntry enzymeEntry, Connection con)
+  throws SQLException, DomainException {
     if (enzymeEntry == null) throw new NullPointerException();
     HistoryNode currentNode = findNode(enzymeEntry, true, con);
     if (currentNode == null)
@@ -79,7 +80,9 @@ public class EnzymeFutureMapper extends EnzymeHistoryMapper {
 
   // ---------------- PRIVATE METHODS ----------------------
 
-  private HistoryNode findNode(EnzymeEntry currentEntry, boolean isRoot, Connection con) throws SQLException, DomainException {
+  private HistoryNode findNode(EnzymeEntry currentEntry, boolean isRoot,
+		  Connection con)
+  throws SQLException, DomainException {
     HistoryNode historyNode = new HistoryNode();
     historyNode.setEnzymeEntry(currentEntry);
     historyNode.setRoot(isRoot);
@@ -100,7 +103,8 @@ public class EnzymeFutureMapper extends EnzymeHistoryMapper {
     return historyNode;
   }
 
-  private List findFutureEvents(HistoryNode currentNode, Connection con) throws SQLException, DomainException {
+  private List findFutureEvents(HistoryNode currentNode, Connection con)
+  throws SQLException, DomainException {
     PreparedStatement findStatement = null;
     ResultSet rs = null;
     Vector result = new Vector();
@@ -128,7 +132,9 @@ public class EnzymeFutureMapper extends EnzymeHistoryMapper {
    * @return an <code>EnzymeLink</code> instance.
    * @throws SQLException
    */
-  private FutureEvent doLoad(ResultSet rs, HistoryNode currentNode, Connection con) throws SQLException, DomainException {
+  private FutureEvent doLoad(ResultSet rs, HistoryNode currentNode,
+		  Connection con)
+  throws SQLException, DomainException {
     long groupId = 0;
     long eventId = 0;
     int beforeId = 0;
@@ -194,6 +200,8 @@ public class EnzymeFutureMapper extends EnzymeHistoryMapper {
     futureEvent.setStatus(Status.fromCode(status));
     futureEvent.setTimeout(timeout);
 
+    enzymeEntryMapper.close();
+    
     return futureEvent;
   }
 

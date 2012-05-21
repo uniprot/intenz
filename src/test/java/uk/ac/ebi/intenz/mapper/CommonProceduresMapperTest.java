@@ -81,8 +81,7 @@ public class CommonProceduresMapperTest extends TestCase {
 				fakeId, fakeStatus, 1, con);
 		EnzymaticReactions reactions = new EnzymaticReactions();
 		// Abstract reaction, without ID:
-		reactions.add(new Reaction(REACTION, Database.valueOf(fakeSource.toString())),
-				fakeView.toString(), true);
+		reactions.add(new Reaction(REACTION, Database.valueOf(fakeSource.toString())), fakeView.toString());
 		erm.insert(reactions, fakeId, con);
 		List<EnzymeComment> comments = new ArrayList<EnzymeComment>();
 		comments.add(new EnzymeComment(COMMENT, fakeSource, fakeView));
