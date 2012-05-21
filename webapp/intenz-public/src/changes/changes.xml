@@ -9,10 +9,7 @@
     </properties>
     <body>
     	<release version="70.0.3" date="In SVN"
-            description="IUBMB flag for reactions">
-        	<action dev="rafalcan" type="add">
-        		Added IUBMB flag for reactions (now stored in IntEnz, not Rhea).
-        	</action>
+            description="">
         	<action dev="rafalcan" type="update">
         		Updated to latest versions of intenz-core, intenz-mapper,
         		intenz-ffwriter, biobabel-core and biobabel-citations.

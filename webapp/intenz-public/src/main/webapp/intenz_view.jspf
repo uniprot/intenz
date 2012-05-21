@@ -54,35 +54,35 @@
 </table>
 </c:if>
 
-<i:getReactions view="INTENZ" var="ers" entry="${entry}"/>
-<h2>Reaction${fn:length(ers) gt 1? 's' : ''}</h2>
+<i:getReactions view="INTENZ" var="reactions" entry="${entry}"/>
+<h2>Reaction${fn:length(reactions) gt 1? 's' : ''}</h2>
 <c:set var="steps" value="0"/>
 <ul>
-<c:forEach var="er" items="${ers}" varStatus="i">
+<c:forEach var="reaction" items="${reactions}" varStatus="i">
 <c:choose>
-	<c:when test="${er.reaction.id gt 0}"> <%-- RHEA-ction --%>
-        <li style="list-style-type: ${fn:length(ers) gt 1? 'disc' : 'none'}">
-            <r:reaction reaction="${er.reaction}" iubmb="${er.iubmb}"/>
+	<c:when test="${reaction.id gt 0}"> <%-- RHEA-ction --%>
+        <li style="list-style-type: ${fn:length(reactions) gt 1? 'disc' : 'none'}">
+            <r:reaction reaction="${reaction}" />
         </li>
 	</c:when>
 	<c:otherwise><%-- not in Rhea (old plain text) --%>
 		<li style="list-style-type: none">
 		<c:choose>
-			<c:when test="${fn:length(ers) > 1
-				and !fn:startsWith(er.reaction.textualRepresentation, '(1a)')
-				and !fn:startsWith(er.reaction.textualRepresentation, '(1b)')
-				and !fn:startsWith(er.reaction.textualRepresentation, '(1c)')
-				and !fn:startsWith(er.reaction.textualRepresentation, '(1d)')
-				and !fn:startsWith(er.reaction.textualRepresentation, '(2a)')
-				and !fn:startsWith(er.reaction.textualRepresentation, '(2b)')}">
+			<c:when test="${fn:length(reactions) > 1
+				and !fn:startsWith(reaction.textualRepresentation, '(1a)')
+				and !fn:startsWith(reaction.textualRepresentation, '(1b)')
+				and !fn:startsWith(reaction.textualRepresentation, '(1c)')
+				and !fn:startsWith(reaction.textualRepresentation, '(1d)')
+				and !fn:startsWith(reaction.textualRepresentation, '(2a)')
+				and !fn:startsWith(reaction.textualRepresentation, '(2b)')}">
 				(${1 + i.index - steps})
 			</c:when>
 			<c:otherwise>
 				<c:set var="steps" value="${steps + 1}"/>
-                <c:if test="${fn:length(ers) > 1}"><span style="margin-left: 1em">&nbsp;</span></c:if>
+                <c:if test="${fn:length(reactions) > 1}"><span style="margin-left: 1em">&nbsp;</span></c:if>
 			</c:otherwise>
 		</c:choose>
-		<x:translate><i:cleanLinks>${er.reaction}</i:cleanLinks></x:translate>
+		<x:translate><i:cleanLinks>${reaction}</i:cleanLinks></x:translate>
         </li>
     </c:otherwise>
 </c:choose>

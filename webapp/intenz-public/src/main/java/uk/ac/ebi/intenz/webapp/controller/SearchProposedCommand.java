@@ -30,8 +30,6 @@ public class SearchProposedCommand extends DatabaseCommand {
 	public static final Logger LOGGER = Logger
 			.getLogger(SearchProposedCommand.class);
 
-	private final EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
-
 	/**
 	 * TBD
 	 * 
@@ -89,13 +87,6 @@ public class SearchProposedCommand extends DatabaseCommand {
 				if (proposedList != null) {
 					application.setAttribute("proposedList", proposedList);
 				}
-			} catch (SQLException e) {
-				LOGGER.error("Finding proposed list", e);
-				IntEnzMessenger.sendError(this.getClass().toString(), e
-						.getMessage(), (String) request.getSession()
-						.getAttribute("user"));
-				request.setAttribute("message", e.getMessage());
-				return null;
 			} catch (DomainException e) {
 				LOGGER.error("Finding proposed list", e);
 				PropertyResourceBundle intenzMessages = (PropertyResourceBundle) request
@@ -104,6 +95,13 @@ public class SearchProposedCommand extends DatabaseCommand {
 				IntEnzMessenger.sendError(this.getClass().toString(),
 						intenzMessages.getString(e.getMessageKey()),
 						(String) request.getSession().getAttribute("user"));
+				request.setAttribute("message", e.getMessage());
+				return null;
+			} catch (Exception e) {
+				LOGGER.error("Finding proposed list", e);
+				IntEnzMessenger.sendError(this.getClass().toString(), e
+						.getMessage(), (String) request.getSession()
+						.getAttribute("user"));
 				request.setAttribute("message", e.getMessage());
 				return null;
 			}

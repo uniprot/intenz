@@ -26,8 +26,6 @@ public class SearchIDCommand extends DatabaseCommand {
 
 	public static final Logger LOGGER = Logger.getLogger(SearchIDCommand.class);
 
-	private final EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
-
 	/**
 	 * TBD
 	 * 
