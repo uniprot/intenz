@@ -11,10 +11,7 @@
     
     <body>
 		<release version="1.0.4" date="In SVN"
-			description="Added IUBMB flag">
-    		<action dev="rafalcan" type="add">
-    		    Added IUBMB flag to reactions.
-    		</action>
+			description="Added ChEBI IDs for cofactors.">
     		<action dev="rafalcan" type="add">
     		    Added ChEBI IDs for cofactors, as well as the and/or operators
     		    as text.
