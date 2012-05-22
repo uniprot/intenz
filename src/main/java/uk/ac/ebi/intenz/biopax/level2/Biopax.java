@@ -26,6 +26,7 @@ public class Biopax extends uk.ac.ebi.rhea.biopax.level2.Biopax {
 	 */
     public static Model createModel(){
 		Model biopaxModel = uk.ac.ebi.rhea.biopax.level2.Biopax.createModel();
+		biopaxModel.setXmlBase(INTENZ_NS);
 		biopaxModel.getNameSpacePrefixMap().put("", INTENZ_NS);
 		biopaxModel.getNameSpacePrefixMap().put(INTENZ_PREFIX, INTENZ_NS);
 		return biopaxModel;
