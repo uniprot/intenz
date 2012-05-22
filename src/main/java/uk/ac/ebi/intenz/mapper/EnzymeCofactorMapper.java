@@ -28,7 +28,10 @@ import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
 
 /**
  * Maps reaction information to the corresponding database tables.
- *
+ * <br>
+ * <b>IMPORTANT</b>: after using instances of this class, call the
+ * {@link #close()} method, otherwise the underlying Rhea mapper objects will
+ * keep their statements open.
  * @author Michael Darsow
  * @version $Revision: 1.10 $ $Date: 2009/05/26 14:59:09 $
  */

@@ -34,7 +34,10 @@ import uk.ac.ebi.rhea.mapper.MapperException;
 
 /**
  * Maps enzyme entry information to the corresponding database tables.
- *
+ * <br>
+ * <b>IMPORTANT</b>: after using instances of this class, call the
+ * {@link #close()} method, otherwise the underlying Rhea mapper objects will
+ * keep their statements open.
  * @author Michael Darsow
  * @version $Revision: 1.5 $ $Date: 2009/05/26 14:59:09 $
  */
