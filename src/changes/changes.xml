@@ -8,10 +8,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="4.2.7" date="" description="">
+    	<release version="4.2.7" date="2012-05-22"
+    		description="Removing IUBMB view.">
     		<action dev="rafalcan" type="fix">
     			Removed IUBMB view from EnzymeLink's.
     		</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest rhea-domain version.
+        	</action>
     	</release>
     	<release version="4.2.6" date="2011-07-05"
     		description="Bug fix">
