@@ -10,11 +10,12 @@ then
     exit 1
 fi
 
-EXPORT_HOME=`dirname $0`/..
+EXPORT_HOME=$(dirname $0)/..
 INTENZ_DIR=$EXPORT_HOME/..
 INTENZ_PUBLIC_DIR=$INTENZ_DIR/webapp/intenz-public
 
 cd $EXPORT_HOME
+[ ! -d 'logs' ] && mkdir logs
 mvn clean package
 
 PROXY_OPTS=$(grep 'ebi.proxy.java.options' $INTENZ_CONFIG_DIR/ebi-proxy.properties | cut -d '=' -f 2)

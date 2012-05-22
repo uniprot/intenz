@@ -11,41 +11,24 @@
 	</appender>
 
 	<appender name="log_file"
-		class="org.apache.log4j.DailyRollingFileAppender">
+		class="org.apache.log4j.FileAppender">
 		<param name="File"
-			value="logs/rhea-util.log" />
+			value="logs/intenz-export.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern"
-				value="[%p]-%c{1} - %m%n" />
+				value="[%p]-[%d{ISO8601}]-%c{1} - %m%n" />
 		</layout>
 	</appender>
-
-    <appender name="mail"
-    	class="org.apache.log4j.net.SMTPAppender">
-        <param name="BufferSize" value="512" />
-        <param name="From" value="foo@bar.baz" /><!-- Will be configured later -->
-        <param name="To" value="foo@bar.baz" /><!-- Will be configured later -->
-        <param name="Subject" value="Rhea data import: " />
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="[%d{ISO8601}]%n%n%m" />
-        </layout>
-   	</appender>
 
 	<logger name="org.apache">
 		<level value="ERROR"/>
 	</logger>
-	<logger name="org.apache.velocity">
-		<level value="INFO"/>
-	</logger>
 	<logger name="uk.ac.ebi.biobabel">
 		<level value="WARN"/>
 	</logger>
-    <logger name="MAIL">
-    	<appender-ref ref="mail"/>
-    </logger>
 	<root>
 		<level value="INFO"/>
-		<appender-ref ref="stdout" />
+		<appender-ref ref="log_file" />
 	</root>
 
 </log4j:configuration>
