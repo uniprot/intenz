@@ -10,7 +10,7 @@
     </properties>
     
     <body>
-		<release version="1.0.4" date="In SVN"
+		<release version="1.0.4" date="2012-05-22"
 			description="Added ChEBI IDs for cofactors.">
     		<action dev="rafalcan" type="add">
     		    Added ChEBI IDs for cofactors, as well as the and/or operators
