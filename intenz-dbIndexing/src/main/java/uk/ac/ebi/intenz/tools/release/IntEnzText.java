@@ -11,6 +11,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import uk.ac.ebi.biobabel.util.db.DatabaseInstance;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
@@ -37,6 +39,8 @@ import uk.ac.ebi.xchars.SpecialCharacters;
  */
 public class IntEnzText {
 
+	private static final Logger LOGGER = Logger.getLogger(IntEnzText.class);
+	
   /**
    * SQL statement used for loading the list of all approved enzymes.
    * <p/>
@@ -72,7 +76,7 @@ public class IntEnzText {
     final SpecialCharacters encoding = SpecialCharacters.getInstance(null);
 
       if (args.length == 0){
-          System.err.println("IntEnzText needs one parameter");
+          LOGGER.error("IntEnzText needs one parameter");
           System.exit(1);
       }
 
@@ -81,13 +85,12 @@ public class IntEnzText {
       try {
           instance = OracleDatabaseInstance.getInstance(instanceName);
       } catch (IOException e) {
-          System.err.println("Missing database configuration for " + instanceName);
-          e.printStackTrace();
+          LOGGER.error("Missing database configuration for " + instanceName, e);
           System.exit(2);
       }
 
       if (instance == null){
-          System.err.println("Missing database parameter(s)");
+          LOGGER.error("Missing database parameter(s)");
           System.exit(3);
       }
 
@@ -99,20 +102,18 @@ public class IntEnzText {
       con = DriverManager.getConnection(url, instance.getUser(), instance.getPassword());
       con.setAutoCommit(false);
     } catch (Exception e) {
-      System.err.println("Could not open connection to " + instanceName);
-      e.printStackTrace();
+      LOGGER.error("Could not open connection to " + instanceName, e);
       System.exit(4);
     }
 
       Statement deleteAllStatement = null;
       try {
           deleteAllStatement = con.createStatement();
-          System.out.print("Deleting from intenz_text table... ");
+          LOGGER.info("Deleting from intenz_text table... ");
           deleteAllStatement.execute(DELETE_ALL);
-          System.out.println("Deleted!");
+          LOGGER.info("Deleted!");
       } catch (SQLException e) {
-          System.err.println("Could not clear table intenz_text on " + instanceName);
-          e.printStackTrace();
+          LOGGER.error("Could not clear table intenz_text on " + instanceName, e);
           try {
               if (deleteAllStatement != null) deleteAllStatement.close();
               if (con != null) con.close();
@@ -134,7 +135,7 @@ public class IntEnzText {
 //    final EnzymeViewConstant view = EnzymeViewConstant.IUBMB;
     final EnzymeViewConstant view = EnzymeViewConstant.INTENZ;
 
-    System.out.println("Starting INTENZ_TEXT indexing...");
+    LOGGER.info("Starting INTENZ_TEXT indexing...");
     long timeElapsed = System.currentTimeMillis();
     try {
       int countEnzymes = 0;
@@ -142,14 +143,13 @@ public class IntEnzText {
       selectEcStatement = con.prepareStatement("SELECT ec1 FROM classes");
 
       // Enzymes
-      System.out.println("   Loading enzymes ... ");
+      LOGGER.info("   Loading enzymes ... ");
       findAllStatement = con.prepareStatement(FIND_ALL);
       rs = findAllStatement.executeQuery();
 
       while (rs.next()) {
         countEnzymes++;
         Long id = new Long(rs.getLong(1));
-//        System.out.println("id = " + id);
         try {
           EnzymeEntry enzymeEntry = enzymeEntryMapper.findById(id, con);
           List textParts = getXmlParts(new StringBuffer(EnzymeEntryHelper.toXML(enzymeEntry, encoding, view, true)));
@@ -176,10 +176,10 @@ public class IntEnzText {
             e.printStackTrace();
         }
       }
-      System.out.println("   ... loaded and written (XML) " + countEnzymes + " enzymes.");
+      LOGGER.info("   ... loaded and written (XML) " + countEnzymes + " enzymes.");
 
       // Classes
-      System.out.println("   Loading classes ...");
+      LOGGER.info("   Loading classes ...");
       int idFake = 0; // classes do not have an ID but it is needed for the population.
       rs = selectEcStatement.executeQuery();
       while (rs.next()) {
@@ -206,10 +206,10 @@ public class IntEnzText {
           e.printStackTrace();
         }
       }
-      System.out.println("   ... classes loaded.");
+      LOGGER.info("   ... classes loaded.");
 
       // Subclasses
-      System.out.println("   Loading subclasses ...");
+      LOGGER.info("   Loading subclasses ...");
       selectEcStatement = con.prepareStatement("SELECT ec1, ec2 FROM subclasses");
       rs = selectEcStatement.executeQuery();
       while (rs.next()) {
@@ -237,10 +237,10 @@ public class IntEnzText {
           e.printStackTrace();
         }
       }
-      System.out.println("   ... subclasses loaded.");
+      LOGGER.info("   ... subclasses loaded.");
 
       // SubSubclasses
-      System.out.println("   Loading sub-subclasses ...");
+      LOGGER.info("   Loading sub-subclasses ...");
       selectEcStatement = con.prepareStatement("SELECT ec1, ec2, ec3 FROM subsubclasses");
       rs = selectEcStatement.executeQuery();
       while (rs.next()) {
@@ -269,7 +269,7 @@ public class IntEnzText {
           e.printStackTrace();
         }
       }
-      System.out.println("   ... sub-subclasses loaded.");
+      LOGGER.info("   ... sub-subclasses loaded.");
 
       con.commit();
 
@@ -296,10 +296,10 @@ public class IntEnzText {
       e.printStackTrace();
     }
 
-    System.out.println("... population successfully ended.");
+    LOGGER.info("... population successfully ended.");
     if (System.currentTimeMillis() > timeElapsed) {
       timeElapsed = System.currentTimeMillis() - timeElapsed;
-      System.out.println(getElapsedTime(timeElapsed / 1000));
+      LOGGER.info("Time elapsed: " + getElapsedTime(timeElapsed / 1000));
     }
   }
 
@@ -317,7 +317,7 @@ public class IntEnzText {
 
   private static String getElapsedTime(long seconds) {
     StringBuffer elapsedTime = new StringBuffer();
-    System.out.println("seconds = " + seconds);
+    LOGGER.info("seconds = " + seconds);
     if (seconds > 3599) {
       elapsedTime.append(seconds / 3600);
       elapsedTime.append("h ");

@@ -8,6 +8,8 @@ import uk.ac.ebi.rhea.domain.Status;
 import java.io.IOException;
 import java.sql.*;
 
+import org.apache.log4j.Logger;
+
 /**
  * This class is used to populate the table <code>id2ec</code>.
  *
@@ -18,6 +20,8 @@ import java.sql.*;
  */
 public class ID2EC {
 
+	private static final Logger LOGGER = Logger.getLogger(ID2EC.class);
+	
     private static String findAllStatement() {
         return new StringBuilder("SELECT enzyme_id, ec1, ec2, ec3, ec4, status, source")
         	.append(" FROM enzyme.enzymes WHERE status IN ('OK','PR','PM')")
@@ -43,7 +47,7 @@ public class ID2EC {
     public static void main(String[] args) {
 
         if (args.length == 0){
-            System.err.println("ID2EC needs one parameter (DB instance name)");
+            LOGGER.error("ID2EC needs one parameter (DB instance name)");
             System.exit(1);
         }
 
@@ -52,31 +56,29 @@ public class ID2EC {
         try {
             instance = OracleDatabaseInstance.getInstance(instanceName);
         } catch (IOException e) {
-            System.err.println("Missing database configuration for " + instanceName);
-            e.printStackTrace();
+            LOGGER.error("Missing database configuration for " + instanceName, e);
             System.exit(2);
         }
 
         if (instance == null){
-            System.err.println("Missing database parameter(s)");
+            LOGGER.error("Missing database parameter(s)");
             System.exit(3);
         }
 
         Connection con = instance.getConnection();
         if (con == null){
-            System.err.println("Could not open connection to " + instance.getName());
+            LOGGER.error("Could not open connection to " + instance.getName());
             System.exit(4);
         }
 
         Statement deleteAllStatement = null;
         try {
-        	System.out.print("Deleting ID2EC table...");
+        	LOGGER.info("Deleting ID2EC table...");
             deleteAllStatement = con.createStatement();
             deleteAllStatement.execute(DELETE_ALL);
-            System.out.println("... Deleted!");
+            LOGGER.info("... Deleted!");
         } catch (SQLException e) {
-            System.err.println("Could not clear table ID2EC on " + instanceName);
-            e.printStackTrace();
+            LOGGER.error("Could not clear table ID2EC on " + instanceName, e);
             try {
                 if (deleteAllStatement != null) deleteAllStatement.close();
                 if (con != null) con.close();
@@ -89,7 +91,7 @@ public class ID2EC {
         PreparedStatement getAllPublicEnzymes = null, insertIntoID2EC = null;
         ResultSet rs = null;
 
-        System.out.println("Starting ID2EC index...");
+        LOGGER.info("Starting ID2EC index...");
         try {
             insertIntoID2EC = con.prepareStatement(insertIDAndECStatement());
 
@@ -133,7 +135,7 @@ public class ID2EC {
             }
         }
 
-        System.out.println("Indexing finished!");
+        LOGGER.info("Indexing finished!");
     }
 
 }
