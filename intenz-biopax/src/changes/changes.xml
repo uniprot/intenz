@@ -9,9 +9,16 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="1.0.3" date="" description="">
+    	<release version="1.0.3" date="2012-05-22"
+    		description="Fixed base and RDF IDs">
         	<action dev="rafalcan" type="fix">
         		RDF IDs set to URIs.
+        	</action>
+        	<action dev="rafalcan" type="fix">
+        		Fixed XML base (it was appearing as Rhea's).
+        	</action>
+        	<action dev="rafalcan" type="update">
+        		Updated to latest version of intenz-mapper.
         	</action>
     	</release>
     	<release version="1.0.2" date="2010-04-14" description="Dependency update">
