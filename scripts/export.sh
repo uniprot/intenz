@@ -15,7 +15,7 @@ cd $EXPORT_HOME
 for PARAM in $@
 do
     case "$LAST_OPT" in
-        '-sitemap'|'biopax'|'keggEnzyme')
+        '-sitemap'|'-biopax'|'-keggEnzyme')
 			gzip $PARAM
 			;;
         '-intenzXml')
@@ -26,7 +26,7 @@ do
 			;;
     esac
     case $PARAM in
-        '-intenzXml'|'-sitemap'|'biopax'|'keggEnzyme') LAST_OPT=$PARAM ;;
+        '-intenzXml'|'-sitemap'|'-biopax'|'-keggEnzyme') LAST_OPT=$PARAM ;;
         *) unset LAST_OPT ;;
     esac
 done
