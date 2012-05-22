@@ -9,7 +9,7 @@ SCRIPT_DIR=$(dirname $0)
 CONFIG_DIR=$1
 
 cd $SCRIPT_DIR/..
-svn up
+#svn up
 mvn clean package
 
 CP=$CONFIG_DIR
