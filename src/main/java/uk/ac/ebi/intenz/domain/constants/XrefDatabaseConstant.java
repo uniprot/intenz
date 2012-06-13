@@ -108,14 +108,14 @@ public class XrefDatabaseConstant implements Comparable<XrefDatabaseConstant> {
                                                                                 "http://www.uniprot.org/uniprot/", true);
 
   /**
-   * <a href="http://umbbd.ahc.umn.edu:8015/umbbd/index.html">UM-BBD</a> is a comprehensive resource about enzymes also
+   * <a href="http://umbbd.ethz.ch">UM-BBD</a> is a comprehensive resource about enzymes also
    * containing enzymes which haven't got an EC number yet.
    * <p/>
    * UM-BBD links can be static (using EC number) or non-static (using UM-BBD identifier). Therefore a UM-BBD link
    * will not be part of the list of static links.
    */
   public static final XrefDatabaseConstant UMBBD = new XrefDatabaseConstant("UMBBD", "UM-BBD",
-                                                                            "http://umbbd.msi.umn.edu/servlets/pageservlet?ptype=e&ECcode=", false);
+                                                                            "http://umbbd.ethz.ch/servlets/pageservlet?ptype=e&ECcode=", false);
 
   public static final XrefDatabaseConstant DIAGRAM = new XrefDatabaseConstant("DIAGR", "DIAGRAM",
                                                                               "", true);

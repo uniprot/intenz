@@ -8,6 +8,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.2.8" date="2012-06-13"
+    		description="Updated UMBBD URL.">
+    		<action dev="rafalcan" type="fix">
+    			Changed URL of UMBBD links to the new ones (umbbd.ethz.ch).
+    		</action>
+    	</release>
     	<release version="4.2.7" date="2012-05-22"
     		description="Removing IUBMB view.">
     		<action dev="rafalcan" type="fix">
