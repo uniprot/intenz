@@ -1,0 +1,135 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF8" />
+<script src="../dbdoc.js" type="text/javascript"></script>
+<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+</head>
+<body class="object">
+<div id="header"><h2>INTENZ_REACTIONS</h2>
+<div class="tabs clearfix">
+
+<div class="tab" id="current"><div><a href="INTENZ_REACTIONS.html">Columns</a></div></div>
+<div class="tab"><div><a href="INTENZ_REACTIONS_Constraints.html">Constraints</a></div></div>
+<div class="tab"><div><a href="INTENZ_REACTIONS_Grants.html">Grants</a></div></div>
+<div class="tab"><div><a href="INTENZ_REACTIONS_Statistics.html">Statistics</a></div></div>
+<div class="tab"><div><a href="INTENZ_REACTIONS_Triggers.html">Triggers</a></div></div>
+<div class="tab"><div><a href="INTENZ_REACTIONS_Flashback.html">Flashback</a></div></div>
+<div class="tab"><div><a href="INTENZ_REACTIONS_Dependencies.html">Dependencies</a></div></div>
+<div class="tab"><div><a href="INTENZ_REACTIONS_Details.html">Details</a></div></div>
+<div class="tab"><div><a href="INTENZ_REACTIONS_Partitions.html">Partitions</a></div></div>
+<div class="tab"><div><a href="INTENZ_REACTIONS_Indexes.html">Indexes</a></div></div>
+</div></div><br/>
+<div class="tab-panes">
+<div id="Columns"> <table cellpadding="0" cellspacing="0" cellspacing="0" summary=""><tr>
+	<th>COLUMN_NAME</th>
+	<th>DATA_TYPE</th>
+	<th>NULLABLE</th>
+	<th>DATA_DEFAULT</th>
+	<th>COLUMN_ID</th>
+	<th>COMMENTS</th>
+</tr>
+	<tr>
+<td>REACTION_ID</td>
+<td>NUMBER(7,0)</td>
+<td>No</td>
+<td>null</td>
+<td>1</td>
+<td>Rhea reaction ID (stable).</td>
+	</tr>
+	<tr>
+<td>INTENZ_ACCESSION</td>
+<td>VARCHAR2(10 BYTE)</td>
+<td>Yes</td>
+<td>null</td>
+<td>2</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>EQUATION</td>
+<td>VARCHAR2(3000 BYTE)</td>
+<td>No</td>
+<td>null</td>
+<td>3</td>
+<td>Textual representation of the reaction.</td>
+	</tr>
+	<tr>
+<td>FINGERPRINT</td>
+<td>VARCHAR2(3000 BYTE)</td>
+<td>Yes</td>
+<td>null</td>
+<td>4</td>
+<td>Fingerprint used to identify unique reactions in the database.</td>
+	</tr>
+	<tr>
+<td>STATUS</td>
+<td>VARCHAR2(2 BYTE)</td>
+<td>No</td>
+<td>null</td>
+<td>5</td>
+<td>Reaction status.</td>
+	</tr>
+	<tr>
+<td>SOURCE</td>
+<td>VARCHAR2(6 BYTE)</td>
+<td>No</td>
+<td>null</td>
+<td>6</td>
+<td>Source of the reaction data.</td>
+	</tr>
+	<tr>
+<td>DIRECTION</td>
+<td>VARCHAR2(2 BYTE)</td>
+<td>No</td>
+<td>'UN' </td>
+<td>7</td>
+<td>Reaction directionality.</td>
+	</tr>
+	<tr>
+<td>UN_REACTION</td>
+<td>NUMBER(7,0)</td>
+<td>Yes</td>
+<td>null</td>
+<td>8</td>
+<td>This is the unspecified-direction reaction ID related to left-to-right, right-to-left and bidirectional reactions. UN_REACTION is NULL for unspecified-direction reactions.</td>
+	</tr>
+	<tr>
+<td>QUALIFIERS</td>
+<td>REACTION_QUALIFIERS</td>
+<td>Yes</td>
+<td>null</td>
+<td>9</td>
+<td>Any qualifiers applied to the reaction.</td>
+	</tr>
+	<tr>
+<td>DATA_COMMENT</td>
+<td>VARCHAR2(3000 BYTE)</td>
+<td>Yes</td>
+<td>null</td>
+<td>10</td>
+<td>Comment on the data, for internal use only.</td>
+	</tr>
+	<tr>
+<td>REACTION_COMMENT</td>
+<td>VARCHAR2(3000 BYTE)</td>
+<td>Yes</td>
+<td>null</td>
+<td>11</td>
+<td>Public comment.</td>
+	</tr>
+	<tr>
+<td>IUBMB</td>
+<td>VARCHAR2(1 BYTE)</td>
+<td>No</td>
+<td>'N' </td>
+<td>12</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td>PUBLIC_IN_CHEBI</td>
+<td>VARCHAR2(1 BYTE)</td>
+<td>Yes</td>
+<td>null</td>
+<td>13</td>
+<td>Visibility of the reaction according to the public status of its participants in ChEBI: P (public) | N (not public).</td>
+	</tr>
+</table></div></body></html>

@@ -1,0 +1,51 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF8" />
+<script src="../dbdoc.js" type="text/javascript"></script>
+<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+</head>
+<body class="object">
+<div id="header"><h2>F_PUBDATA</h2>
+<div class="tabs clearfix">
+
+<div class="tab"><div><a href="F_PUBDATA.html">Doc</a></div></div>
+<div class="tab"><div><a href="F_PUBDATA_Details.html">Details</a></div></div>
+<div class="tab"><div><a href="F_PUBDATA_Grants.html">Grants</a></div></div>
+<div class="tab"><div><a href="F_PUBDATA_References.html">References</a></div></div>
+<div class="tab"><div><a href="F_PUBDATA_Dependencies.html">Dependencies</a></div></div>
+<div class="tab" id="current"><div><a href="F_PUBDATA_Code.html">Code</a></div></div>
+</div></div><br/>
+<div class="tab-panes">
+<div id="Code"> <table cellpadding="0" cellspacing="0" cellspacing="0" summary=""><tr>
+	<th>TEXT</th>
+</tr>
+	<tr><td><pre>
+function f_pubdata(p_enzyme_id enzymes.enzyme_id%type)
+return varchar2
+as
+  separator char(1) := ';';
+  output    varchar2(4000) :='';
+begin
+  for r_pub in (select pub.* from publications pub, citations cit where cit.enzyme_id = p_enzyme_id and cit.pub_id = pub.pub_id) loop
+     if r_pub.PUB_ID       is not null then output := substr(output || ' PUB_ID= '      || r_pub.PUB_ID       ||separator,1,4000); end if;
+     if r_pub.MEDLINE_ID   is not null then output := substr(output || ' MEDLINE_ID= '  || r_pub.MEDLINE_ID   ||separator,1,4000); end if;
+     if r_pub.PUBMED_ID    is not null then output := substr(output || ' PUBMED_ID= '   || r_pub.PUBMED_ID    ||separator,1,4000); end if;
+     if r_pub.PUB_TYPE     is not null then output := substr(output || ' PUB_TYPE= '    || r_pub.PUB_TYPE     ||separator,1,4000); end if;
+     if r_pub.AUTHOR       is not null then output := substr(output || ' AUTHOR= '      || r_pub.AUTHOR       ||separator,1,4000); end if;
+     if r_pub.PUB_YEAR     is not null then output := substr(output || ' PUB_YEAR= '    || r_pub.PUB_YEAR     ||separator,1,4000); end if;
+     if r_pub.TITLE        is not null then output := substr(output || ' TITLE= '       || r_pub.TITLE        ||separator,1,4000); end if;
+     if r_pub.JOURNAL_BOOK is not null then output := substr(output || ' JOURNAL_BOOK= '|| r_pub.JOURNAL_BOOK ||separator,1,4000); end if;
+     if r_pub.VOLUME       is not null then output := substr(output || ' VOLUME= '      || r_pub.VOLUME       ||separator,1,4000); end if;
+     if r_pub.FIRST_PAGE   is not null then output := substr(output || ' FIRST_PAGE= '  || r_pub.FIRST_PAGE   ||separator,1,4000); end if;
+     if r_pub.LAST_PAGE    is not null then output := substr(output || ' LAST_PAGE= '   || r_pub.LAST_PAGE    ||separator,1,4000); end if;
+     if r_pub.EDITION      is not null then output := substr(output || ' EDITION= '     || r_pub.EDITION      ||separator,1,4000); end if;
+     if r_pub.EDITOR       is not null then output := substr(output || ' EDITOR= '      || r_pub.EDITOR       ||separator,1,4000); end if;
+     if r_pub.PUB_COMPANY  is not null then output := substr(output || ' PUB_COMPANY= ' || r_pub.PUB_COMPANY  ||separator,1,4000); end if;
+     if r_pub.PUB_PLACE    is not null then output := substr(output || ' PUB_PLACE= '   || r_pub.PUB_PLACE    ||separator,1,4000); end if;
+     if r_pub.URL          is not null then output := substr(output || ' URL = '        || r_pub.URL                     ,1,4000);  end if;
+     if length(output) = 4000 then exit; end if;
+  end loop;
+  return output;
+end;
+</pre>	</td></tr>
+</table></div></body></html>
