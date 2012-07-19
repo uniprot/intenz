@@ -8,7 +8,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="4.2.8" date="In SVN" description="">
+    	<release version="4.2.8" date="In SVN"
+    		description="Dependencies update">
+    		<action dev="rafalcan" type="update">
+				Updated to latest versions of rhea-domain, rhea-mapper,
+				rhea-util, rhea-ph, rhea-biopax, rhea-find-struts1,
+				rhea-taglib, rhea-chebiUpdater, biobabel-core, biobabel-db and
+				biobabel-citations (which now uses CiteXplore WS v3).
+			</action>
    		</release>
     	<release version="4.2.7" date="2011-05-13" description="Bug fix">
     		<action dev="rafalcan" type="fix">

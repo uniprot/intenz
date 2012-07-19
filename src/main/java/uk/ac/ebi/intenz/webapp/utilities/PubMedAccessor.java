@@ -5,9 +5,10 @@ import java.util.List;
 import uk.ac.ebi.biobabel.citations.CitexploreWSClient;
 import uk.ac.ebi.biobabel.citations.DataSource;
 import uk.ac.ebi.biobabel.util.StringUtil;
-import uk.ac.ebi.cdb.webservice.Author;
-import uk.ac.ebi.cdb.webservice.Citation;
-import uk.ac.ebi.cdb.webservice.JournalIssue;
+import uk.ac.ebi.cdb.webservice.Authors;
+import uk.ac.ebi.cdb.webservice.AuthorsList;
+import uk.ac.ebi.cdb.webservice.Result;
+import uk.ac.ebi.cdb.webservice.JournalInfo;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
@@ -28,8 +29,10 @@ public class PubMedAccessor {
    * The method accesses the PubMed database to obtain an XML version of this journal entry in PubMed.
    *
    */
-  public static synchronized void fetchPubMedJournal(List references, int index) throws DomainException {
-    ReferenceDTO referenceDTO = (ReferenceDTO) references.get(index);
+  public static synchronized void fetchPubMedJournal(
+		  List<ReferenceDTO> references, int index)
+  throws DomainException {
+    ReferenceDTO referenceDTO = references.get(index);
     final String pubMedId = referenceDTO.getPubMedId();
     try {
       Integer.parseInt(pubMedId);
@@ -38,8 +41,8 @@ public class PubMedAccessor {
     }
     if (referenceDTO.getPubMedId().equals("")) return;
 
-      Citation citation = null;
-      JournalIssue issue = null;
+      Result citation = null;
+      JournalInfo issue = null;
 
       StringBuffer authorsString = new StringBuffer();
       String title = "";
@@ -53,14 +56,14 @@ public class PubMedAccessor {
           citation = CitexploreWSClient.getCitation(DataSource.MED, pubMedId);
           if (citation == null) return;
 
-          issue = citation.getJournalIssue();
-          List authors = citation.getAuthorCollection();
-          for (int i = 0; i < authors.size(); i++){
-              Author author = (Author) authors.get(i);
+          issue = citation.getJournalInfo();
+          AuthorsList authors = citation.getAuthorList();
+          for (int i = 0; i < authors.getAuthor().size(); i++){
+              Authors author = authors.getAuthor().get(i);
               authorsString.append(author.getLastName());
               authorsString.append(", ");
               authorsString.append(getFormattedInitials(author.getInitials()));
-              if (i < authors.size()-1) authorsString.append(", ");
+              if (i < authors.getAuthor().size()-1) authorsString.append(", ");
           }
 
           title = citation.getTitle();
@@ -83,7 +86,7 @@ public class PubMedAccessor {
 
           volume = issue.getVolume();
 
-          newPubMedId = citation.getExternalId();
+          newPubMedId = citation.getId();
       } catch (Exception e) {
           e.printStackTrace();
           throw new DomainException("pubMedFetch[" + index + "]",
