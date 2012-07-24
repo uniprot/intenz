@@ -7,6 +7,15 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.1.3" date="2012-07-24"
+            description="Permissions in public databases">
+    		<action dev="rafalcan" type="fix">
+    			Fixed permissions when loading a public database. Now they are
+                granted to role ENZYME_SELECT and concrete users are granted
+                the role. This way users other than enzyme_webserver can query
+                the tables.
+    		</action>
+    	</release>
     	<release version="1.1.2" date="2011-07-08"
             description="">
     		<action dev="rafalcan" type="fix">

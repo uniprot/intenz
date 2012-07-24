@@ -53,8 +53,8 @@ echo
 echo "*** Restoring permissions..."
 GRANTS=grant_to_roles
 case $1 in
-*@iweb*)
-    GRANTS=grant_to_enzymewebserver
+*@iwebpro* | *@enzyme)
+    GRANTS=grant_to_roles_public
     ;;
 esac
 echo sqlplus $1 @$GRANTS
