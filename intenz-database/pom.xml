@@ -5,7 +5,7 @@
 	<groupId>uk.ac.ebi.intenz</groupId>
 	<artifactId>intenz-database</artifactId>
 	<name>IntEnz database</name>
-	<version>1.1.3</version>
+	<version>1.1.4-SNAPSHOT</version>
 	<description>IntEnz database scripts and utilities.</description>
 
 	<parent>
@@ -107,10 +107,4 @@
             </dependencies>
         </profile>
     </profiles>
-
-  <scm>
-    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-database-1.1.3</connection>
-    <developerConnection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-database-1.1.3</developerConnection>
-    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-database-1.1.3</url>
-  </scm>
 </project>
