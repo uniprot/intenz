@@ -50,3 +50,8 @@ GRANT SELECT ON cv_view TO ENZYME_SELECT;
 GRANT EXECUTE ON reaction_qualifiers TO ENZYME_SELECT;
 GRANT SELECT ON releases TO ENZYME_SELECT;
 
+-- Concrete users for the ENZYME_SELECT role:
+
+GRANT ENZYME_SELECT TO enzyme_webserver;
+GRANT ENZYME_SELECT TO pdbegroup;
+
