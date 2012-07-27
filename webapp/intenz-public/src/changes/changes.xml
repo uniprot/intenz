@@ -8,8 +8,8 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="70.0.3" date="In SVN"
-            description="">
+    	<release version="70.0.3" date="2012-07-27"
+    		description="Updated dependencies">
         	<action dev="rafalcan" type="update">
         		Updated to latest versions of intenz-core, intenz-mapper,
         		intenz-ffwriter, rhea-domain and biobabel-core.
