@@ -59,5 +59,11 @@ public class CC_LineFormatterTest extends TestCase {
 				"CC       faba, and Vicia sativa.\n";
         formattedLine = formatter.formatLines(ccLine, LineType.CC);
         assertEquals(enzymeLine, formattedLine);
+
+        // EC 1.14.15.10
+        ccLine = "This line with Rhodococcus sp. NCIMB 9784 should not be split";
+        enzymeLine = "CC   -!- This line with Rhodococcus sp. NCIMB 9784 should not be split\n";
+        formattedLine = formatter.formatLines(ccLine, LineType.CC);
+        assertEquals(enzymeLine, formattedLine);
     }
 }
