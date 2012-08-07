@@ -8,6 +8,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="70.0.4" date=""
+    		description="Health filter added">
+        	<action dev="rafalcan" type="add">
+				Added configuration to web.xml to allow filtering of URLs
+				requested by the load balancer, not to register in the access
+				log.
+			</action>
+    	</release>
     	<release version="70.0.3" date="2012-07-27"
     		description="Updated dependencies">
         	<action dev="rafalcan" type="update">
