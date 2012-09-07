@@ -9,6 +9,7 @@ import java.util.Set;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.View;
 import uk.ac.ebi.rhea.domain.Reaction;
+import uk.ac.ebi.rhea.domain.Status;
 
 /**
  * A collection of <i>alternative</i> reactions catalysed by one enzyme entry.
@@ -73,7 +74,8 @@ public class EnzymaticReactions {
      * @param view
      * @return a List containing the Reactions whose view match the parameter.
      *      For the IntEnz view, if there is at least one public Rhea reaction,
-     *      only public Rhea reactions are returned.
+     *      only public Rhea reactions are returned. Obsolete Rhea reactions
+     *      are ignored.
      */
     public List<Reaction> getReactions(View theView){
     	boolean isInView, isRhea, isPublicRhea;
@@ -84,6 +86,7 @@ public class EnzymaticReactions {
             isRhea = wr.reaction.getId() > Reaction.NO_ID_ASSIGNED;
             isPublicRhea = isRhea
                     && wr.reaction.getStatus().isPublic()
+                    && !wr.reaction.getStatus().equals(Status.OB) // ignore OBs
                     && wr.reaction.isMapped();
             switch (theView) {
 			case INTENZ:

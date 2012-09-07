@@ -46,8 +46,9 @@ public class XrefDatabaseConstant implements Comparable<XrefDatabaseConstant> {
    * <a href="http://ca.expasy.org/enzyme/">ENZYME</a> is the EXPASY version of the NC-IUBMB Nomenclature containing some
    * additional information (cofactors, improved comments and additional links).
    */
-  public static final XrefDatabaseConstant ENZYME = new XrefDatabaseConstant("EXPASY", "ENZYME@ExPASy",
-                                                                             "http://www.expasy.org/enzyme/", false);
+  public static final XrefDatabaseConstant ENZYME =
+		  new XrefDatabaseConstant("EXPASY", "ENZYME@ExPASy",
+				  "http://enzyme.expasy.org/EC/", false);
 
   /**
    * Gerry Moss' web pages (Nomenclature Comitee of the IUBMB).
