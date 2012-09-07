@@ -476,6 +476,17 @@ table.mailform td input, table.mailform textarea {
 .participant-coef-P:after {
 	content: ")";
 }
+.preliminary:after {
+	content: 'PRELIMINARY';
+	font-size: xx-small;
+	text-align: center;
+	vertical-align: super;
+	padding: 0.5ex 0.5em;
+	margin-left: 0.3em;
+	color: #e80;
+	border: #aaa dotted thin;
+	background-color: #ffa;
+}
 
 /* COMMON SETTINGS: ------------------------------------------------- */
 
