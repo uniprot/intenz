@@ -13,9 +13,10 @@
     type="uk.ac.ebi.rhea.domain.Reaction" %>
 
 <div>
-    <span style="margin-right: 1em">
+    <span style="margin-right: 1em"
+    	class="${reaction.status eq 'PM'? 'preliminary' : ''}">
     	<a target="rheaFromIntEnz"
-        	href="http://www.ebi.ac.uk/rhea/reaction.xhtml?id=${reaction.id}">
+    		href="http://www.ebi.ac.uk/rhea/reaction.xhtml?id=${reaction.id}">
         	RHEA:${reaction.id}
        	</a>
     </span>

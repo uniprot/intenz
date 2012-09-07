@@ -8,6 +8,18 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="70.0.5" date=""
+    		description="Updated dependencies">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest versions of intenz-core - which fixes ENZYME
+        		URLS - intenz-database, intenz-ffwriter, and biobabel-citations
+        		(overriding transitive dependency from rhea-domain to fix
+        		problems retrieving citations).
+        	</action>
+        	<<action dev="rafalcan" type="fix">
+				Preliminary Rhea reactions are now clearly labeled.
+			</action>
+    	</release>
     	<release version="70.0.4" date="2012-08-08"
     		description="Health filter added">
         	<action dev="rafalcan" type="add">
