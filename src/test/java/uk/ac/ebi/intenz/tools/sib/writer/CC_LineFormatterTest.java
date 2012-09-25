@@ -65,5 +65,20 @@ public class CC_LineFormatterTest extends TestCase {
         enzymeLine = "CC   -!- This line with Rhodococcus sp. NCIMB 9784 should not be split\n";
         formattedLine = formatter.formatLines(ccLine, LineType.CC);
         assertEquals(enzymeLine, formattedLine);
+        
+        ccLine = "foo Pseudomonas sp. HZN6 bar.";
+        enzymeLine = "CC   -!- foo Pseudomonas sp. HZN6 bar.\n";
+        formattedLine = formatter.formatLines(ccLine, LineType.CC);
+        assertEquals(enzymeLine, formattedLine);
+
+        ccLine = "foo Cladosporium sp. G-10 bar.";
+        enzymeLine = "CC   -!- foo Cladosporium sp. G-10 bar.\n";
+        formattedLine = formatter.formatLines(ccLine, LineType.CC);
+        assertEquals(enzymeLine, formattedLine);
+
+        ccLine = "foo Bradyrhizobium sp. JS329 bar.";
+        enzymeLine = "CC   -!- foo Bradyrhizobium sp. JS329 bar.\n";
+        formattedLine = formatter.formatLines(ccLine, LineType.CC);
+        assertEquals(enzymeLine, formattedLine);
     }
 }
