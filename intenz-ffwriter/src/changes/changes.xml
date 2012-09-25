@@ -9,11 +9,22 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.36" date="2012-09-25"
+			description="Added exception for non-sentence-ending 'sp.'">
+            <action dev="rafalcan" type="update">
+                Updated CC_LineFormatter with exception for 'Pseudomonas sp.
+                HZN6', 'Cladosporium sp. G-10' and 'Bradyrhizobium sp. JS329'.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated to latest versions of intenz-core, intenz-mapper and
+                rhea-domain.
+            </action>
+    	</release>
     	<release version="1.2.35" date="2012-08-02"
 			description="Added exception for non-sentence-ending 'sp.'">
             <action dev="rafalcan" type="update">
                 Updated CC_LineFormatter with exception for 'Rhodococcus sp.
-                NCIMB 9784.
+                NCIMB 9784'.
             </action>
             <action dev="rafalcan" type="update">
                 Updated to latest version of log4j.
