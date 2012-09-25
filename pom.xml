@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-		http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0   http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>uk.ac.ebi.intenz</groupId>
     <artifactId>intenz-ffwriter</artifactId>
-    <version>1.2.36-SNAPSHOT</version>
+    <version>1.2.36</version>
     <name>IntEnz flat file writer</name>
     <description>ENZYME.dat flat file writer</description>
     
@@ -252,4 +249,10 @@
 			</plugin>
         </plugins>
     </build>
+
+  <scm>
+    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-ffwriter-1.2.36</connection>
+    <developerConnection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-ffwriter-1.2.36</developerConnection>
+    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-ffwriter-1.2.36</url>
+  </scm>
 </project>
