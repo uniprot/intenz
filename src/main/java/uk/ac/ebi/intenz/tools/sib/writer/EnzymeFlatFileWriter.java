@@ -141,7 +141,7 @@ public class EnzymeFlatFileWriter {
     if (enzyme == null) throw new NullPointerException("Parameter 'enzyme' must not be null.");
     StringWriter sw = new StringWriter();
     try {
-        exportAndWrite(enzyme, sw);
+        export(enzyme, sw);
     } catch (IOException e) {
         throw new EnzymeFlatFileWriteException(e);
     }
@@ -179,7 +179,7 @@ public class EnzymeFlatFileWriter {
 
       while (enzymeIterator.hasNext()) {
         EnzymeEntryImpl enzymeEntry = (EnzymeEntryImpl) enzymeIterator.next();
-        exportAndWrite(enzymeEntry, fileWriter);
+        export(enzymeEntry, fileWriter);
       }
     } catch (UnsupportedOperationException e) {
       throw new EnzymeFlatFileWriteException(e);
@@ -202,7 +202,7 @@ public class EnzymeFlatFileWriter {
      * @throws SPTRException
      * @throws IOException
      */
-    private static void exportAndWrite(EnzymeEntryImpl enzymeEntry, Writer writer)
+    public static void export(EnzymeEntryImpl enzymeEntry, Writer writer)
         throws SPTRException, IOException {
         Map enzymeCrossReferences = getGroupedEnzymeCrossReferences(enzymeEntry.getCrossReferences());        
         // 0 - EC (ID)
