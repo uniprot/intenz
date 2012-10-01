@@ -9,6 +9,21 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.37" date="2012-01-01"
+			description="Method made public; ">
+            <action dev="rafalcan" type="fix">
+                Method EnzymeFlatFileWriter(EnzymeEntryImpl, Writer) made
+                public.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated DE_line_modifications with transfers for EC 1.2.3.11,
+                4.2.1.58, 4.2.1.60, 4.2.1.61 and 6.3.2.27.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated CC_LineFormatter with exception for 'Pseudomonas sp.
+                AP3' and 'Mycobacterium sp. JS330'. 
+            </action>
+    	</release>
     	<release version="1.2.36" date="2012-09-25"
 			description="Added exception for non-sentence-ending 'sp.'">
             <action dev="rafalcan" type="update">
