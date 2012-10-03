@@ -13,6 +13,10 @@
                 Search by EC number excludes now old versions of modified
                 entries.
             </action>
+            <action dev="rafalcan" type="fix">
+                Removed assertions which just broke completely legal calls in
+                EnzymeSubSubclassMapper.
+            </action>
             <action dev="rafalcan" type="update">
             	Updated to latest versions of intenz-core, rhea-mapper,
             	rhea-domain, commons-collections, biobabel-db and log4j.
