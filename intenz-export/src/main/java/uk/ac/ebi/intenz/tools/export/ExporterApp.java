@@ -59,7 +59,7 @@ public class ExporterApp {
     	}
 	}
     
-    public static Logger LOGGER = Logger.getLogger(ExporterApp.class);
+    public static final Logger LOGGER = Logger.getLogger(ExporterApp.class);
     
 	private Properties spotlights;
 
@@ -139,8 +139,10 @@ public class ExporterApp {
 		}
 		
         ExporterApp app = new ExporterApp(cl.getOptionValue("intenzDb"));
-        Collection<EnzymeEntry> enzymes = app.getEnzymeList(cl.getOptionValue("ec"));
-        Map<String, Object> descriptions = app.getDescriptions();
+        Collection<EnzymeEntry> enzymes =
+        		app.getEnzymeList(cl.getOptionValue("ec"));
+        Map<String, Object> descriptions =
+        		ExporterApp.getDescriptions(app.intenzConnection);
         for (EnzymeEntry enzyme : enzymes) {
         	String classEc = String.valueOf(enzyme.getEc().getEc1());
         	String subclassEc = classEc + "." + String.valueOf(enzyme.getEc().getEc2());
@@ -227,27 +229,29 @@ public class ExporterApp {
      * Builds a map of EC numbers (as String) to <code>EnzymeClass</code>,
      * <code>EnzymeSubClass</code> or <code>EnzymeSubSubClass</code> objects
      * from which to retrieve names and descriptions.
-     * @param con
-     * @return 
+     * @param con a database connection.
+     * @return a map of EC numbers (as String) to <code>EnzymeClass</code>,
+     * 		<code>EnzymeSubClass</code> or <code>EnzymeSubSubClass</code>
+     * 		objects.
      * @throws SQLException
      * @throws DomainException
      */
-    protected Map<String, Object> getDescriptions()
+    public static Map<String, Object> getDescriptions(Connection con)
     throws SQLException, DomainException{
         LOGGER.info("Retrieving IntEnz descriptions");
         Map<String, Object> descriptions = new HashMap<String, Object>();
         EnzymeClassMapper classMapper = new EnzymeClassMapper();
         EnzymeSubclassMapper subclassMapper = new EnzymeSubclassMapper();
         EnzymeSubSubclassMapper subsubclassMapper = new EnzymeSubSubclassMapper();
-        for (Object o : classMapper.findAll(intenzConnection)) {
+        for (Object o : classMapper.findAll(con)) {
             EnzymeClass enzymeClass = (EnzymeClass) o;
             descriptions.put(enzymeClass.getEc().toString(), enzymeClass);
         }
-        for (Object o : subclassMapper.findAll(intenzConnection)) {
+        for (Object o : subclassMapper.findAll(con)) {
             EnzymeSubclass enzymeSubclass = (EnzymeSubclass) o;
             descriptions.put(enzymeSubclass.getEc().toString(), enzymeSubclass);
         }
-        for (Object o : subsubclassMapper.findAll(intenzConnection)) {
+        for (Object o : subsubclassMapper.findAll(con)) {
             EnzymeSubSubclass enzymeSubsubclass = (EnzymeSubSubclass) o;
             descriptions.put(enzymeSubsubclass.getEc().toString(), enzymeSubsubclass);
         }
