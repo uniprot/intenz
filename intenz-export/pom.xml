@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+		http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>uk.ac.ebi.intenz</groupId>
@@ -18,7 +21,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-mapper</artifactId>
-			<version>4.4.6</version>
+			<version>4.4.7</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
@@ -38,22 +41,22 @@
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-database</artifactId>
-            <version>1.1.2</version>
+            <version>1.1.3</version>
         </dependency>
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
             <artifactId>rhea-domain</artifactId>
-            <version>1.6.8</version>
+            <version>1.7.0</version>
         </dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-mapper</artifactId>
-			<version>3.6.5</version>
+			<version>3.7.0</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
 			<artifactId>biobabel-db</artifactId>
-			<version>1.3.4</version>
+			<version>1.3.7</version>
 		</dependency>
 		<dependency>
 		    <groupId>commons-cli</groupId>
@@ -63,12 +66,12 @@
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
-            <version>1.6.4</version>
+            <version>1.7</version>
         </dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
+			<version>1.2.17</version>
 		</dependency>
 		<dependency>
 			<groupId>xerces</groupId>

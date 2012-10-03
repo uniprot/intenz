@@ -1,7 +1,9 @@
 package uk.ac.ebi.intenz.tools.export;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.io.StringReader;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,12 +23,20 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.log4j.Logger;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import uk.ac.ebi.biobabel.util.collections.OperatorSet;
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameQualifierConstant;
@@ -91,7 +101,7 @@ import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
  */
 public class XmlExporter {
 
-    static enum Flavour { ASCII, XCHARS }
+    public static enum Flavour { ASCII, XCHARS }
     
     /**
      * Elements known to (possibly) contain XML markup.
@@ -135,7 +145,7 @@ public class XmlExporter {
     private ObjectFactory of;
 	private Flavour flavour;
     
-    XmlExporter() throws JAXBException, SAXException{
+    public XmlExporter() throws JAXBException, SAXException{
 		this.DESCRIPTIONS = null;
 		this.flavour = Flavour.XCHARS;
         this.of = new ObjectFactory();
@@ -210,11 +220,27 @@ public class XmlExporter {
 		this.flavour = flavour;
 	}
 
+	/**
+	 * Exports one enzyme entry as IntEnzXML.
+	 * @param entry the enzyme entry to export.
+	 * @param release the IntEnz release number to mention in the exported XML.
+	 * @param relDate the IntEnz release date to mention in the exported XML.
+	 * @param os the OutputStream to write the XML to.
+	 * @throws Exception
+	 */
     public void export(EnzymeEntry entry, String release,
             String relDate, OutputStream os) throws Exception {
         export(Collections.singletonList(entry), release, relDate, os);
     }
     
+    /**
+     * Exports a list of enzymes as IntEnzXML.
+     * @param entries the entries to export.
+	 * @param release the IntEnz release number to mention in the exported XML.
+	 * @param relDate the IntEnz release date to mention in the exported XML.
+	 * @param os the OutputStream to write the XML to.
+     * @throws Exception
+     */
     public void export(List<EnzymeEntry> entries, String release,
             String relDate, OutputStream os) throws Exception{
         Intenz intenz = of.createIntenz();
@@ -232,7 +258,7 @@ public class XmlExporter {
             EntryType jaxbEntry = getJaxbEntry(entry);
             subSubClazz.getEnzyme().add(jaxbEntry);
         }
-        //marshaller.marshal(intenz, os);
+//        marshaller.marshal(intenz, os);
         marshaller.marshal(intenz, getXMLSerializer(os));
     }
     
@@ -362,38 +388,6 @@ public class XmlExporter {
         return serializer;
     }
 
-    private JAXBElement<EnzymeType> getJaxbEnzyme(EnzymeEntry entry,
-    		Map<?, ?> descriptions)
-    throws DatatypeConfigurationException {
-        JAXBElement<EnzymeType> jaxbEnzyme = of.createEnzyme(of.createEnzymeType());
-        // EC number:
-        jaxbEnzyme.getValue().setEc("EC ".concat(entry.getEc().toString()));
-        
-        if (entry.getHistory().isDeletedRootNode()){
-            jaxbEnzyme.getValue().setDeleted(of.createInactiveStatusType());
-            String note = getInactiveEntryNote(entry);
-            if (note.length() > 1)
-                jaxbEnzyme.getValue().getDeleted().setNote(getFlavoured(note));
-        } else if (entry.getHistory().isTransferredRootNode()){
-            jaxbEnzyme.getValue().setTransferred(of.createInactiveStatusType());
-            String note = getInactiveEntryNote(entry);
-            if (note.length() > 1)
-                jaxbEnzyme.getValue().getTransferred().setNote(getFlavoured(note));
-        } else {
-            setNames(entry, jaxbEnzyme.getValue(), of);
-            setReactions(entry, jaxbEnzyme.getValue(), of);
-            setCofactors(entry, jaxbEnzyme.getValue(), of);
-            setComments(entry, jaxbEnzyme.getValue(), of);
-            setLinks(entry, jaxbEnzyme.getValue(), of);
-            setReferences(entry, jaxbEnzyme.getValue(), of);
-        }
-        
-        // History:
-        jaxbEnzyme.getValue().setHistory(entry.getHistory().getRootNode().getHistoryLine());
-        
-        return jaxbEnzyme;
-    }
-    
     private EntryType getJaxbEntry(EnzymeEntry entry)
     throws DatatypeConfigurationException {
         EntryType jaxbEntry = of.createEntryType();
@@ -510,7 +504,8 @@ public class XmlExporter {
             }
             if (link.getDataComment() != null)
                 jaxbLink.setComment(link.getDataComment());
-            jaxbLink.getContent().add(link.getName());
+            jaxbLink.getContent().add(
+            		StringEscapeUtils.escapeXml(link.getName()));
             jaxbLink.setView(VIEWS.get(link.getView()));
             jaxbEnzyme.getLinks().getLink().add(jaxbLink);
         }
@@ -589,14 +584,11 @@ public class XmlExporter {
 	 */
 	private JAXBElement<CofactorType> cofactor2jaxb(ObjectFactory of, Cofactor cofactor) {
 		CofactorType cofactorType = of.createCofactorType();
-		cofactorType.getContent().add(getFlavoured(
-				((Cofactor) cofactor).getCompound().getName()));
-		cofactorType.setView(VIEWS.get(
-				((Cofactor) cofactor).getView()));
-		cofactorType.setDb(((Cofactor) cofactor).getCompound()
-				.getXref().getDatabaseName());
-		cofactorType.setAccession(((Cofactor) cofactor).getCompound()
-				.getAccession());
+		cofactorType.getContent()
+				.add(getFlavoured(cofactor.getCompound().getName()));
+		cofactorType.setView(VIEWS.get(cofactor.getView()));
+		cofactorType.setDb(cofactor.getCompound().getXref().getDatabaseName());
+		cofactorType.setAccession(cofactor.getCompound().getAccession());
 		return of.createCofactor(cofactorType);
 	}
 

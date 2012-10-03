@@ -184,8 +184,8 @@ public class ExporterApp {
         }
     }
 
-    private ExporterApp(String dbConfig)
-    throws ClassNotFoundException, SQLException, IOException, DomainException {
+    protected ExporterApp(String dbConfig)
+    throws SQLException, IOException, DomainException {
         intenzConnection = OracleDatabaseInstance.getInstance(dbConfig)
         		.getConnection();
         stats = new IntEnzDbStatistics(intenzConnection);
@@ -204,8 +204,7 @@ public class ExporterApp {
      * @throws SQLException
      * @throws DomainException
      */
-    @SuppressWarnings("unchecked")
-	private Collection<EnzymeEntry> getEnzymeList(String ecString)
+    protected Collection<EnzymeEntry> getEnzymeList(String ecString)
     throws SQLException, MapperException, DomainException{
         Collection<EnzymeEntry> enzymeList = null;
         EnzymeEntryMapper mapper = new EnzymeEntryMapper();
@@ -233,7 +232,7 @@ public class ExporterApp {
      * @throws SQLException
      * @throws DomainException
      */
-    private Map<String, Object> getDescriptions()
+    protected Map<String, Object> getDescriptions()
     throws SQLException, DomainException{
         LOGGER.info("Retrieving IntEnz descriptions");
         Map<String, Object> descriptions = new HashMap<String, Object>();
@@ -263,7 +262,7 @@ public class ExporterApp {
      * @param toDir destination directory for XML files.
      * @throws Exception
      */
-    private void exportXML(Collection<EnzymeEntry> enzymeList,
+    protected void exportXML(Collection<EnzymeEntry> enzymeList,
     		Map<String, Object> descriptions, String toDir) throws Exception {
         OutputStream os = null;
         checkWritable(toDir);
@@ -318,7 +317,7 @@ public class ExporterApp {
             }
     }
 
-    private void exportSitemap(Collection<EnzymeEntry> enzymeList,
+    protected void exportSitemap(Collection<EnzymeEntry> enzymeList,
     		Map<String, Object> descriptions, String sitemapFile)
     throws IOException, JAXBException, SAXException{
     	final String queryUrl = "http://www.ebi.ac.uk/intenz/query?cmd=SearchEC&q=";
@@ -361,7 +360,7 @@ public class ExporterApp {
     	}
     }
 
-    private void exportBiopax(Collection<EnzymeEntry> enzymeList, String biopaxFile)
+    protected void exportBiopax(Collection<EnzymeEntry> enzymeList, String biopaxFile)
     throws IOException, IllegalAccessException, InvocationTargetException{
         OutputStream os = null;
         LOGGER.info("Outputting BioPAX to " + biopaxFile);
@@ -376,7 +375,7 @@ public class ExporterApp {
         }
     }
 
-    private void exportKegg(Collection<EnzymeEntry> enzymes, String keggFile)
+    protected void exportKegg(Collection<EnzymeEntry> enzymes, String keggFile)
     throws Exception {
 		OutputStream os = null;
     	try {
