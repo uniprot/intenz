@@ -9,7 +9,7 @@
 				value="[%p]-%c{1} - %m%n" />
 		</layout>
 	</appender>
-
+<!-- 
 	<appender name="log_file"
 		class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File"
@@ -19,27 +19,28 @@
 				value="[%p]-%c{1} - %m%n" />
 		</layout>
 	</appender>
-
     <appender name="mail"
     	class="org.apache.log4j.net.SMTPAppender">
         <param name="BufferSize" value="512" />
-        <param name="From" value="foo@bar.baz" /><!-- Will be configured later -->
-        <param name="To" value="foo@bar.baz" /><!-- Will be configured later -->
+        <param name="From" value="foo@bar.baz" />
+        <param name="To" value="foo@bar.baz" />
         <param name="Subject" value="Rhea data import: " />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="[%d{ISO8601}]%n%n%m" />
         </layout>
    	</appender>
-
+ -->
 	<logger name="org.apache">
 		<level value="ERROR"/>
 	</logger>
 	<logger name="uk.ac.ebi.biobabel">
 		<level value="WARN"/>
 	</logger>
+<!-- 
     <logger name="MAIL">
     	<appender-ref ref="mail"/>
     </logger>
+ -->
 	<root>
 		<level value="INFO"/>
 		<appender-ref ref="stdout" />
