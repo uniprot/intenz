@@ -92,7 +92,8 @@ public class EnzymeEntryMapper {
 	   .append(" WHERE e.ec1 = ? AND e.ec2 = ? AND e.ec3 = ? AND e.ec4 = ?")
 	   .append(" AND s1.ec1 = ? AND s2.ec1 = ? AND s2.ec2 = ?")
 	   .append(" AND s3.ec1 = ? AND s3.ec2 = ? AND s3.ec3 = ?")
-	   .append(" AND e.status = ?")
+	   .append(" AND e.status = ? AND enzyme_id NOT IN")
+       .append(" (SELECT before_id FROM history_events WHERE event_class = 'MOD')")
 	   .toString();
   }
 

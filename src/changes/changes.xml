@@ -7,6 +7,17 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.4.7" date="2012-10-03"
+            description="Bug fix">
+            <action dev="rafalcan" type="fix">
+                Search by EC number excludes now old versions of modified
+                entries.
+            </action>
+            <action dev="rafalcan" type="update">
+            	Updated to latest versions of intenz-core, rhea-mapper,
+            	rhea-domain, commons-collections, biobabel-db and log4j.
+            </action>
+        </release>
         <release version="4.4.6" date="2012-05-22"
             description="DB objects properly closed.">
             <action dev="rafalcan" type="add">
