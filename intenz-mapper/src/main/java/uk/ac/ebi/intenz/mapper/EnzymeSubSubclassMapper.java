@@ -12,7 +12,6 @@ import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubSubclass;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
-import uk.ac.ebi.rhea.mapper.MapperException;
 
 /**
  * Maps enzyme Sub-subclass information to the corresponding database tables.
@@ -225,9 +224,6 @@ public class EnzymeSubSubclassMapper {
    */
   private EnzymeSubSubclass doLoad(ResultSet rs, List<EnzymeEntry> entries)
   throws SQLException, DomainException {
-    assert rs != null : "Parameter 'rs' must not be null.";
-    assert entries != null : "Parameter 'entries' must not be null.";
-
     int ec1 = 0;
     int ec2 = 0;
     int ec3 = 0;
