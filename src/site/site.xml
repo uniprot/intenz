@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="IntEnz web services">
+	<skin>
+		<groupId>uk.ac.ebi.skins</groupId>
+		<artifactId>ebi-skin</artifactId>
+	</skin>
+	<body>
+        <menu ref="parent" />
+        <menu ref="modules" />
+        <menu ref="reports" />
+	</body>
+    <publishDate format="yyyy-MM-dd"/>
+</project>
