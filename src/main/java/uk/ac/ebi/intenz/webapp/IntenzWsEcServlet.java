@@ -204,7 +204,7 @@ public class IntenzWsEcServlet extends HttpServlet {
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			processException(res, path, os, e);
 		} finally {
-			mapper.close();
+//			mapper.close();
 			res.flushBuffer();
 			if (con != null){
 				try {
