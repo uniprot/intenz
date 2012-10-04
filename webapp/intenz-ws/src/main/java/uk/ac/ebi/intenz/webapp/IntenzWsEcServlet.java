@@ -45,7 +45,7 @@ public class IntenzWsEcServlet extends HttpServlet {
 	private static final long serialVersionUID = 4868575459199989086L;
 	
 	private XmlExporterPool xmlExporterPool;
-	private EnzymeEntryMapperPool mapperPool;
+//	private EnzymeEntryMapperPool mapperPool;
 	
 	private static enum ResponseFormat {
 		/** <a href="http://intenz.sf.net/intenz-xml">IntEnz XML</a>. */
@@ -115,9 +115,9 @@ public class IntenzWsEcServlet extends HttpServlet {
 			int numOfExporters = Integer.parseInt(getServletContext()
 					.getInitParameter("xml.exporters.pool.size"));
 			xmlExporterPool = new XmlExporterPool(numOfExporters, descriptions);
-			int numOfMappers = Integer.parseInt(getServletContext().
-					getInitParameter("mappers.pool.size"));
-			mapperPool = new EnzymeEntryMapperPool(numOfMappers);
+//			int numOfMappers = Integer.parseInt(getServletContext().
+//					getInitParameter("mappers.pool.size"));
+//			mapperPool = new EnzymeEntryMapperPool(numOfMappers);
 		} catch (Exception e) {
 			LOGGER.error("Unable to create XML exporters pool", e);
 		}
@@ -171,7 +171,8 @@ public class IntenzWsEcServlet extends HttpServlet {
 			con = ds.getConnection();
 
 			// The enzyme
-			mapper = mapperPool.borrowObject();
+//			mapper = mapperPool.borrowObject();
+			mapper = new EnzymeEntryMapper();
 			EnzymeEntry enzyme = mapper.findByEc(
 					ec.getEc1(), ec.getEc2(), ec.getEc3(), ec.getEc4(),
 					status, con);
@@ -210,12 +211,14 @@ public class IntenzWsEcServlet extends HttpServlet {
 			processException(res, path, os, e);
 		} finally {
 			res.flushBuffer();
-			if (mapper != null)
-				try {
-					mapperPool.returnObject(mapper);
-				} catch (Exception e) {
-					LOGGER.error("Unable to return mapper to pool", e);
-				}
+			if (mapper != null){
+				mapper.close();
+//				try {
+//					mapperPool.returnObject(mapper);
+//				} catch (Exception e) {
+//					LOGGER.error("Unable to return mapper to pool", e);
+//				}
+			}
 			if (con != null){
 				try {
 					con.close();
