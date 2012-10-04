@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0
+		http://maven.apache.org/XDOC/2.0 ">
+  <body>
+    <section name="IntEnz web services">
+    	<p>Web services for the EC classification. The format of the requests
+    	and responses are documented in the home page of the web application.
+    	</p>
+    </section>
+  </body>
+</document>
