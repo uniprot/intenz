@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.naming.Context;
@@ -24,16 +23,10 @@ import org.apache.log4j.Logger;
 
 import uk.ac.ebi.intenz.biopax.level2.Biopax;
 import uk.ac.ebi.intenz.domain.constants.Status;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeClass;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubSubclass;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubclass;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
-import uk.ac.ebi.intenz.mapper.EnzymeClassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
-import uk.ac.ebi.intenz.mapper.EnzymeSubSubclassMapper;
-import uk.ac.ebi.intenz.mapper.EnzymeSubclassMapper;
 import uk.ac.ebi.intenz.stats.db.IntEnzDbStatistics;
 import uk.ac.ebi.intenz.tools.export.ExporterApp;
 import uk.ac.ebi.intenz.tools.export.XmlExporter;
@@ -211,6 +204,8 @@ public class IntenzWsEcServlet extends HttpServlet {
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			processException(res, path, os, e);
 		} finally {
+			mapper.close();
+			res.flushBuffer();
 			if (con != null){
 				try {
 					con.close();
@@ -218,7 +213,6 @@ public class IntenzWsEcServlet extends HttpServlet {
 					LOGGER.error("Unable to close connection", e);
 				}
 			}
-			res.flushBuffer();
 			if (os != null){
 				try {
 					os.close();
@@ -263,33 +257,6 @@ public class IntenzWsEcServlet extends HttpServlet {
 			os.write('\n');
 			os.write(e.getMessage().getBytes());
 		}
-	}
-
-	/**
-	 * Retrieves the upper levels of the EC hierarchy (including their
-	 * descriptions).
-	 * @param con a connection to IntEnz database.
-	 * @param ec the enzyme EC number.
-	 * @return a map of EC numbers to upper levels of the hierarchy.
-	 * @throws SQLException
-	 * @throws DomainException
-	 */
-	private Map<String, Object> getUpperLevels(Connection con,
-			EnzymeCommissionNumber ec)
-	throws SQLException, DomainException {
-		EnzymeClassMapper cm = new EnzymeClassMapper();
-		EnzymeClass c = cm.find(String.valueOf(ec.getEc1()), con);
-		EnzymeSubclassMapper scm = new EnzymeSubclassMapper();
-		EnzymeSubclass sc = scm.find(String.valueOf(ec.getEc1()),
-				String.valueOf(ec.getEc2()), con);
-		EnzymeSubSubclassMapper sscm = new EnzymeSubSubclassMapper();
-		EnzymeSubSubclass ssc = sscm.find(ec.getEc1(), ec.getEc2(),
-				ec.getEc3(), con);
-		Map<String, Object> descriptions = new HashMap<String, Object>();
-		descriptions.put(c.getEc().toString(), c);
-		descriptions.put(sc.getEc().toString(), sc);
-		descriptions.put(ssc.getEc().toString(), ssc);
-		return descriptions;
 	}
 
 	/**
