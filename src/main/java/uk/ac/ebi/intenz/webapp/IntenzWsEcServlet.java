@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -36,10 +35,11 @@ import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeSubSubclassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeSubclassMapper;
 import uk.ac.ebi.intenz.stats.db.IntEnzDbStatistics;
+import uk.ac.ebi.intenz.tools.export.ExporterApp;
 import uk.ac.ebi.intenz.tools.export.XmlExporter;
-import uk.ac.ebi.intenz.tools.export.XmlExporter.Flavour;
 import uk.ac.ebi.intenz.tools.sib.helper.SibEntryHelper;
 import uk.ac.ebi.intenz.tools.sib.writer.EnzymeFlatFileWriter;
+import uk.ac.ebi.intenz.webapp.util.XmlExporterPool;
 import uk.ac.ebi.xchars.SpecialCharacters;
 import uk.ac.ebi.xchars.domain.EncodingType;
 
@@ -50,8 +50,10 @@ public class IntenzWsEcServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 4868575459199989086L;
 
-	EnzymeEntryMapper mapper = new EnzymeEntryMapper();
-
+	private EnzymeEntryMapper mapper = new EnzymeEntryMapper();
+	
+	private XmlExporterPool xmlExporterPool;
+	
 	private static enum ResponseFormat {
 		/** <a href="http://intenz.sf.net/intenz-xml">IntEnz XML</a>. */
 		XML("xml", "application/xml"),
@@ -81,6 +83,14 @@ public class IntenzWsEcServlet extends HttpServlet {
 	 */
 	private IntEnzDbStatistics stats;
 	
+	private String relNum, relDate;
+
+	private Map<String, Object> descriptions;
+	
+	/**
+	 * Creates the naming context, loads shared data from the database and
+	 * creates a pool of XML exporters.
+	 */
 	@Override
 	public void init() throws ServletException {
 		try {
@@ -90,6 +100,30 @@ public class IntenzWsEcServlet extends HttpServlet {
 					getServletContext().getInitParameter("intenz.data.source"));
 		} catch (NamingException e) {
 			LOGGER.error("Unable to get data source", e);
+		}
+		
+		Connection con = null;
+		try {
+			con = ds.getConnection();
+			loadData(con);
+		} catch (Exception e) {
+			LOGGER.error("Unable to load shared data", e);
+		} finally {
+			if (con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					LOGGER.error("Unable to close connection");
+				}
+			}
+		}
+		
+		try {
+			int numOfExporters = Integer.parseInt(
+					getServletContext().getInitParameter("xml.exporters.pool.size"));
+			xmlExporterPool = new XmlExporterPool(numOfExporters, descriptions);
+		} catch (Exception e) {
+			LOGGER.error("Unable to create XML exporters pool", e);
 		}
 	}
 
@@ -148,14 +182,16 @@ public class IntenzWsEcServlet extends HttpServlet {
 			res.setContentType(rf.mimeType);
 			switch (rf) {
 			case XML:
-				if (stats == null) stats = new IntEnzDbStatistics(con);
-				String relDate = new SimpleDateFormat("yyyy-MM-dd")
-						.format(stats.getReleaseDate());
-				String relNum = String.valueOf(stats.getReleaseNumber());
-				XmlExporter xmlExporter = new XmlExporter();
-				xmlExporter.setFlavour(Flavour.ASCII);
-		        xmlExporter.setDescriptions(getUpperLevels(con, ec));
-				xmlExporter.export(enzyme, relNum, relDate, os);
+				if (stats == null) loadData(con);
+				XmlExporter xmlExporter = null;
+				try {
+					xmlExporter = xmlExporterPool.borrowObject();
+					xmlExporter.export(enzyme, relNum, relDate, os);
+				} finally {
+					if (xmlExporter != null){
+						xmlExporterPool.returnObject(xmlExporter);
+					}
+				}
 				break;
 			case BIOPAX_L2:
 				Biopax.write(Collections.singleton(enzyme), os);
@@ -191,6 +227,22 @@ public class IntenzWsEcServlet extends HttpServlet {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Loads shared data from the database, including release date ant number.
+	 * @param con a database connection.
+	 * @throws IOException
+	 * @throws SQLException
+	 * @throws DomainException
+	 */
+	private void loadData(Connection con)
+	throws IOException, SQLException, DomainException {
+		stats = new IntEnzDbStatistics(con);
+		relDate = new SimpleDateFormat("yyyy-MM-dd")
+				.format(stats.getReleaseDate());
+		relNum = String.valueOf(stats.getReleaseNumber());
+		descriptions = ExporterApp.getDescriptions(con);
 	}
 
 	/**
