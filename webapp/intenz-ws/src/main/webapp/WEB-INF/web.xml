@@ -16,6 +16,12 @@
 		<param-name>xml.exporters.pool.size</param-name>
 		<param-value>8</param-value>
 	</context-param>
+	
+	<context-param>
+		<description>The size of the EnzymeEntryMappers pool.</description>
+		<param-name>mappers.pool.size</param-name>
+		<param-value>8</param-value>
+	</context-param>
 
 	<servlet>
 		<display-name>Intenz WS EC Servlet</display-name>

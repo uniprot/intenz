@@ -32,6 +32,7 @@ import uk.ac.ebi.intenz.tools.export.ExporterApp;
 import uk.ac.ebi.intenz.tools.export.XmlExporter;
 import uk.ac.ebi.intenz.tools.sib.helper.SibEntryHelper;
 import uk.ac.ebi.intenz.tools.sib.writer.EnzymeFlatFileWriter;
+import uk.ac.ebi.intenz.webapp.util.EnzymeEntryMapperPool;
 import uk.ac.ebi.intenz.webapp.util.XmlExporterPool;
 import uk.ac.ebi.xchars.SpecialCharacters;
 import uk.ac.ebi.xchars.domain.EncodingType;
@@ -44,6 +45,7 @@ public class IntenzWsEcServlet extends HttpServlet {
 	private static final long serialVersionUID = 4868575459199989086L;
 	
 	private XmlExporterPool xmlExporterPool;
+	private EnzymeEntryMapperPool mapperPool;
 	
 	private static enum ResponseFormat {
 		/** <a href="http://intenz.sf.net/intenz-xml">IntEnz XML</a>. */
@@ -110,9 +112,12 @@ public class IntenzWsEcServlet extends HttpServlet {
 		}
 		
 		try {
-			int numOfExporters = Integer.parseInt(
-					getServletContext().getInitParameter("xml.exporters.pool.size"));
+			int numOfExporters = Integer.parseInt(getServletContext()
+					.getInitParameter("xml.exporters.pool.size"));
 			xmlExporterPool = new XmlExporterPool(numOfExporters, descriptions);
+			int numOfMappers = Integer.parseInt(getServletContext().
+					getInitParameter("mappers.pool.size"));
+			mapperPool = new EnzymeEntryMapperPool(numOfMappers);
 		} catch (Exception e) {
 			LOGGER.error("Unable to create XML exporters pool", e);
 		}
@@ -145,7 +150,7 @@ public class IntenzWsEcServlet extends HttpServlet {
 				path.substring(0, path.lastIndexOf('.')) : path;
 		Connection con = null;
 		OutputStream os = null;
-		EnzymeEntryMapper mapper = new EnzymeEntryMapper();
+		EnzymeEntryMapper mapper = null;
 		try {
 			res.setCharacterEncoding("UTF-8");
 			os = res.getOutputStream();
@@ -166,6 +171,7 @@ public class IntenzWsEcServlet extends HttpServlet {
 			con = ds.getConnection();
 
 			// The enzyme
+			mapper = mapperPool.borrowObject();
 			EnzymeEntry enzyme = mapper.findByEc(
 					ec.getEc1(), ec.getEc2(), ec.getEc3(), ec.getEc4(),
 					status, con);
@@ -203,8 +209,13 @@ public class IntenzWsEcServlet extends HttpServlet {
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			processException(res, path, os, e);
 		} finally {
-			mapper.close();
 			res.flushBuffer();
+			if (mapper != null)
+				try {
+					mapperPool.returnObject(mapper);
+				} catch (Exception e) {
+					LOGGER.error("Unable to return mapper to pool", e);
+				}
 			if (con != null){
 				try {
 					con.close();
