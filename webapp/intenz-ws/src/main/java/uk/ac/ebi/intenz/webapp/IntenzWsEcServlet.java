@@ -42,8 +42,6 @@ import uk.ac.ebi.xchars.domain.EncodingType;
 public class IntenzWsEcServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 4868575459199989086L;
-
-	private EnzymeEntryMapper mapper = new EnzymeEntryMapper();
 	
 	private XmlExporterPool xmlExporterPool;
 	
@@ -147,6 +145,7 @@ public class IntenzWsEcServlet extends HttpServlet {
 				path.substring(0, path.lastIndexOf('.')) : path;
 		Connection con = null;
 		OutputStream os = null;
+		EnzymeEntryMapper mapper = new EnzymeEntryMapper();
 		try {
 			res.setCharacterEncoding("UTF-8");
 			os = res.getOutputStream();
@@ -204,7 +203,7 @@ public class IntenzWsEcServlet extends HttpServlet {
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			processException(res, path, os, e);
 		} finally {
-//			mapper.close();
+			mapper.close();
 			res.flushBuffer();
 			if (con != null){
 				try {
