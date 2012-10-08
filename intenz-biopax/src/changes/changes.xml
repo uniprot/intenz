@@ -9,6 +9,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.0.4" date="2012-10-08"
+    		description="Dependency updates">
+        	<action dev="rafalcan" type="update">
+        		Updated to latest version of intenz-core, intenz-mapper,
+        		rhea-biopax - which fixes issue with citations model -,
+        		rhea-mapper and junit.
+        	</action>
+    	</release>
     	<release version="1.0.3" date="2012-05-22"
     		description="Fixed base and RDF IDs">
         	<action dev="rafalcan" type="fix">
