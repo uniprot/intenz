@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>uk.ac.ebi.intenz</groupId>
 	<artifactId>intenz-translator</artifactId>
-	<version>1.0.9</version>
+	<version>1.0.10-SNAPSHOT</version>
     <name>IntEnz translator</name>
     <description>Module to translate properly the XML-encoded (xchars) data
         into enzyme.dat-friendly text.</description>
@@ -37,11 +37,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-  <scm>
-    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-translator-1.0.9</connection>
-    <developerConnection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-translator-1.0.9</developerConnection>
-    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-translator-1.0.9</url>
-  </scm>
 </project>
 
