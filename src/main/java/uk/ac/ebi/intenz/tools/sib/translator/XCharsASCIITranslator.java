@@ -134,24 +134,33 @@ public class XCharsASCIITranslator {
    * @return the ASCII representation.
    * @throws NullPointerException if <code>texts</code> is <code>null</code>.
    */
-  public String toASCII(String text, boolean useReactionRules, boolean useDeLineRules) {
-    if (text == null) throw new NullPointerException("Parameter 'text' must not be null.");
-    int iii = 0;
-    //if (!useReactionRules) iii++; // skip reaction rules if desired
-    //if(!useReactionRules) iii++;
-    for (; iii < ruleGroups.size(); iii++) {
-      RuleGroup ruleGroup = (RuleGroup) ruleGroups.get(iii);
-
-       if( ruleGroup instanceof ReactionRules && !useReactionRules)
-         continue;
-       if ( ruleGroup instanceof DescriptionLineRules && !useDeLineRules)
-         continue;
-
-      text = ruleGroup.reverseRules(text);
-    }
-    return text;
+  public String toASCII(String text, boolean useReactionRules,
+		  boolean useDeLineRules) {
+    return toASCII(text, useReactionRules, useDeLineRules, true);
   }
 
+	/**
+	 * Translates a XChars encoded string into its ASCII representation.
+	 * @param text The string to be translated.
+	 * @param useReactionRules use the reaction rules?
+	 * @param useDeLineRules use the DE line rules?
+	 * @param useGrammarRules use the grammar rules?
+	 * @return
+	 */
+	public String toASCII(String text, boolean useReactionRules,
+			boolean useDeLineRules, boolean useGrammarRules) {
+		for (int iii = 0; iii < ruleGroups.size(); iii++) {
+			RuleGroup ruleGroup = (RuleGroup) ruleGroups.get(iii);
+			if (ruleGroup instanceof ReactionRules && !useReactionRules)
+				continue;
+			if (ruleGroup instanceof DescriptionLineRules && !useDeLineRules)
+				continue;
+			if (ruleGroup instanceof GrammarRules && !useGrammarRules)
+				continue;
+			text = ruleGroup.reverseRules(text);
+		}
+		return text;
+	}
 
    /**
     * Initialise the SpecialCharacters package as we can't encode without it.
