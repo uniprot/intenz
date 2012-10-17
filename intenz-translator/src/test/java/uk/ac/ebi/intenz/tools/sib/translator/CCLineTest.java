@@ -161,6 +161,10 @@ public class CCLineTest extends BaseLineTest {
       dataHolders.add(new DataHolder("No EC, just testing insertion of hyphens...",
     		  "X<stereo>L</stereo> 1<stereo>L</stereo> (<stereo>L</stereo> )<stereo>L</stereo> <ital>n</ital><stereo>L</stereo> <parenthesis>close</parenthesis><stereo>L</stereo> <stereo>L</stereo>",
     		  "XL 1L (L )L nL )L L"));
+      
+      dataHolders.add(new DataHolder("3.4.22.55",
+    		  "<greek>alpha</greek>II-spectrin, ...",
+    		  "Alpha-II-spectrin, ..."));
    }
 
   public CCLineTest(String name) {

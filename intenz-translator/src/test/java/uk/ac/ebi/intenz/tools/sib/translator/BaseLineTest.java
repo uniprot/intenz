@@ -32,7 +32,7 @@ public abstract class BaseLineTest extends TestCase {
    Logger LOGGER = Logger.getLogger(BaseLineTest.class);
    XCharsASCIITranslator translator;
    SpecialCharacters sc;
-   List dataHolders = new ArrayList();
+   List<DataHolder> dataHolders = new ArrayList<DataHolder>();
 
    public BaseLineTest (String s) {
       super(s);
@@ -52,9 +52,9 @@ public abstract class BaseLineTest extends TestCase {
   }
 
    public void testData(){
-      Iterator iter = dataHolders.iterator();
+      Iterator<DataHolder> iter = dataHolders.iterator();
       while ( iter.hasNext() ) {
-         DataHolder reactionData = (DataHolder) iter.next();
+         DataHolder reactionData = iter.next();
          boolean ca = this instanceof CALineTest;
          boolean de = this instanceof DELineTest;
          String translatedString = sc.xml2Display( translator.toASCII(reactionData.getIntenzData(), ca, de), EncodingType.SWISSPROT_CODE);

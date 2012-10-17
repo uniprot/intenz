@@ -58,6 +58,7 @@ V\\<smallsub\\>o\\<\\/smallsub\\>=V(o)
 V\\<smallsub\\>1\\<\\/smallsub\\>=V(1)
 (\\<plusmn\\/\\>)\\-=(+-)-
 (\\<\\/greek\\>)(\\<stereo\\>)=$1-$2
+\\<\\/greek\\>(\\w|\\d|\\(|\\>)=</greek>-$1
 ^\\<greek\\>omega\\<\\/greek\\>\\-=Omega-
 ^\\<greek\\>alpha\\<\\/greek\\>([\\-,\\s])=Alpha$1
 (.+?)(?<!i\\.e)(\\.\\s)\\<greek\\>alpha\\<\\/greek\\>([\\-,\\s])=$1$2Alpha$3
@@ -271,7 +272,6 @@ NADPH\\s\\+\\s((\\<b\\>)|)(\\d+?)((\\<ital\\>)|)n((\\<\\/ital\\>)|)((\\<\\/b\\>)
 NAD\\(P\\)H\\s\\+\\s((\\<b\\>)|)((\\d+?)|n|(n\\+1)|(n\\-1))((\\<\\/b\\>)|)\\sH\\<smallsup\\>\\+\\<\\/smallsup\\>=NAD(P)H
 (nicotinamide\\s\\+\\s.*?)\\s\\+\\sH\\<smallsup\\>\\+\\<\\/smallsup\\>=$1
 (\\w|\\d|\\)|\\<\\/(?!parenthesis)\\w+?\\>)\\<(greek|locant|stereo(?\=\\>alpha|\\>beta))\\>=$1-<$2>
-\\<\\/greek\\>(\\w|\\d|\\(|\\>)=</greek>-$1
 (\\w)\\<smallsub\\>(\\<greek\\>\\w+?\\<\\/greek\\>)\\<\\/smallsub\\>(\\w)=$1-$2-$3
 (\\w)\\<smallsup\\>(\\<greek\\>\\w+?\\<\\/greek\\>)\\<\\/smallsup\\>(\\w)=$1-$2-$3
 \\<quotes\\/\\>='
