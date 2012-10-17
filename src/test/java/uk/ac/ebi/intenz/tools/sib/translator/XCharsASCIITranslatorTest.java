@@ -1,5 +1,6 @@
 package uk.ac.ebi.intenz.tools.sib.translator;
 
+import uk.ac.ebi.intenz.tools.sib.translator.helper.DataHolder;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.framework.TestCase;
@@ -77,6 +78,10 @@ public class XCharsASCIITranslatorTest extends TestCase {
 
     expected = "Alpha-macroglobulins are cleaved much more rapidly.";
     input = "<greek>alpha</greek>-macroglobulins are cleaved much more rapidly.";
+    assertEquals(expected, translator.toASCII(input, false, false));
+
+	input = "<greek>alpha</greek>II-spectrin, ...";
+	expected = "Alpha-II-spectrin, ...";
     assertEquals(expected, translator.toASCII(input, false, false));
   }
 
