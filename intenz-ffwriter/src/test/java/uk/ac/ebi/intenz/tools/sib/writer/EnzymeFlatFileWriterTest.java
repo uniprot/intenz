@@ -4,6 +4,7 @@ import java.sql.Connection;
 
 import junit.framework.TestCase;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.tools.sib.helper.SibEntryHelper;
@@ -41,6 +42,11 @@ public class EnzymeFlatFileWriterTest extends TestCase {
 		String ffEntry = EnzymeFlatFileWriter.export(sibEntry);
 
 		entry = entryMapper.findById(18543L, con);
+        sibEntry = SibEntryHelper.getSibEnzymeEntry(entry,
+                SpecialCharacters.getInstance(null), EncodingType.SWISSPROT_CODE);
+		ffEntry = EnzymeFlatFileWriter.export(sibEntry);
+		
+		entry = entryMapper.findByEc(3, 4, 22, 55, Status.APPROVED, con);
         sibEntry = SibEntryHelper.getSibEnzymeEntry(entry,
                 SpecialCharacters.getInstance(null), EncodingType.SWISSPROT_CODE);
 		ffEntry = EnzymeFlatFileWriter.export(sibEntry);
