@@ -868,7 +868,7 @@
                                       <table width="100%">
                                         <tr>
                                           <logic:equal name="reference" property="type" value="J">
-                                            <td><html:text name="reference" property="volume" size="7" maxlength="7" indexed="true"/></td>
+                                            <td><html:text name="reference" property="volume" size="15" maxlength="15" indexed="true"/></td>
                                             <td nowrap="nowrap" class="data_region_name_cell" align="right">Year:</td>
                                             <td><html:text name="reference" property="year" size="7" maxlength="4" indexed="true"/></td>
                                             <td nowrap="nowrap" class="data_region_name_cell" align="right">First page:</td>
@@ -877,7 +877,7 @@
                                             <td width="100%"><html:text name="reference" property="lastPage" size="7" maxlength="12" indexed="true"/></td>
                                           </logic:equal>
                                           <logic:equal name="reference" property="type" value="B">
-                                            <td><html:text name="reference" property="volume" size="7" maxlength="7" indexed="true"/></td>
+                                            <td><html:text name="reference" property="volume" size="15" maxlength="15" indexed="true"/></td>
                                             <td nowrap="nowrap" class="data_region_name_cell" align="right">Year:</td>
                                             <td><html:text name="reference" property="year" size="7" maxlength="4" indexed="true"/></td>
                                             <td nowrap="nowrap" class="data_region_name_cell" align="right">First page:</td>
@@ -886,7 +886,7 @@
                                             <td width="100%"><html:text name="reference" property="lastPage" size="7" maxlength="12" indexed="true"/></td>
                                           </logic:equal>
                                           <logic:equal name="reference" property="type" value="P">
-                                            <td><html:text disabled="true" name="reference" property="volume" size="7" maxlength="7" indexed="true"/></td>
+                                            <td><html:text disabled="true" name="reference" property="volume" size="15" maxlength="15" indexed="true"/></td>
                                             <td nowrap="nowrap" class="data_region_name_cell" align="right">Year:</td>
                                             <td><html:text name="reference" property="year" size="7" maxlength="4" indexed="true"/></td>
                                             <td nowrap="nowrap" class="data_region_name_cell" align="right">First page:</td>
