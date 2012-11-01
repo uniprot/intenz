@@ -15,7 +15,10 @@
   <li><a class="nohref">Tools</a>
       <ul>
           <li><a href="createEntryFWD.do?<%=Constants.TOKEN_KEY%>=<%= request.getAttribute(Constants.TOKEN_KEY) %>">Create</a></li>
-          <li><html:link action="addSubSubclassFWD" >Create Sub-Subclass</html:link></li>
+	  		<li><a href="createInactiveEntryFWD.do"
+	   			title="Create an already deleted or transferred entry">Create
+	   			inactive</a></li>
+           <li><html:link action="addSubSubclassFWD" >Create Sub-Subclass</html:link></li>
           <li><a href="search.do">Last free text search</a></li>
       </ul>
   </li>

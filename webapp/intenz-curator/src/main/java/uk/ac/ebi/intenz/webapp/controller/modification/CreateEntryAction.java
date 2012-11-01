@@ -1,23 +1,32 @@
 package uk.ac.ebi.intenz.webapp.controller.modification;
 
-import org.apache.log4j.Logger;
-import org.apache.struts.action.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
+import uk.ac.ebi.intenz.domain.constants.Event;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
 import uk.ac.ebi.intenz.mapper.AuditPackageMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.mapper.EventPackageMapper;
+import uk.ac.ebi.intenz.mapper.HistoryEventMapper;
 import uk.ac.ebi.intenz.webapp.dtos.EcSearchForm;
 import uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO;
 import uk.ac.ebi.intenz.webapp.exceptions.DeregisterException;
 import uk.ac.ebi.intenz.webapp.utilities.UnitOfWork;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  * This Action ...
@@ -52,15 +61,59 @@ public class CreateEntryAction extends CurationAction {
       AuditPackageMapper auditPackageMapper = new AuditPackageMapper();
       auditPackageMapper.setRemark(AuditPackageMapper.STANDARD_REMARK, con);
 
+	  // First, if is is a new transferred entry check that the target EC exists:
+	  String transferredToEc = enzymeDTO.getTransferredToEc();
+	  EnzymeEntry targetEntry = null;
+	  if (transferredToEc != null && transferredToEc.length() > 0){
+		  EnzymeCommissionNumber targetEc = 
+				  EnzymeCommissionNumber.valueOf(transferredToEc);
+		  targetEntry = new EnzymeEntryMapper().findByEc(
+				  targetEc.getEc1(), targetEc.getEc2(),
+				  targetEc.getEc3(), targetEc.getEc4(),
+				  Status.APPROVED, con);
+		  if (targetEntry == null){
+		      errors.add("transferredToEc", new ActionMessage(
+		    		  "errors.application.ec.nonexisting", targetEc));
+		      saveErrors(request, errors);
+		      keepToken(request);
+		      return mapping.getInputForward();
+		  } else if (!targetEntry.isActive()){
+		      errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+		    		  "errors.application.ec.inactive", targetEc));
+		      saveErrors(request, errors);
+		      keepToken(request);
+		      return mapping.getInputForward();
+		  }
+	  }
+
       // Commit
       LOGGER.info("Committing form data.");
       unitOfWork.commit(enzymeDTO, con);
       LOGGER.info("Data subimtted");
-
-      // Store event.
-      if (!ec.getType().equals(Type.PRELIMINARY)){
-        EventPackageMapper eventPackageMapper = new EventPackageMapper();
-        eventPackageMapper.insertFutureCreationEvent(new Long(enzymeDTO.getId()), con);
+	  
+      if (enzymeDTO.isActive()){
+          // Store event.
+          if (!ec.getType().equals(Type.PRELIMINARY)){
+            EventPackageMapper eventPackageMapper = new EventPackageMapper();
+            eventPackageMapper.insertFutureCreationEvent(new Long(enzymeDTO.getId()), con);
+          }
+      } else {
+    	  // Creating an inactive entry:
+    	  HistoryEventMapper hem = new HistoryEventMapper();
+		  Long enzymeId = Long.valueOf(enzymeDTO.getId());
+    	  hem.insertEvent(Event.CREATION, null, enzymeId, null, con);
+    	  // Wait 1s before registering the deletion/transfer,
+    	  // otherwise the creation might look like the last event:
+    	  Thread.sleep(1000);
+    	  if (targetEntry != null){
+    		  // Transferred entry:
+    		  hem.insertEvent(Event.TRANSFER, enzymeId, targetEntry.getId(),
+    				  enzymeDTO.getLatestHistoryEventNote(), con);
+    	  } else {
+    		  // Deleted entry:
+    		  hem.insertEvent(Event.DELETION, enzymeId, null,
+    				  enzymeDTO.getLatestHistoryEventNote(), con);
+    	  }
       }
 
       con.commit();
@@ -70,7 +123,8 @@ public class CreateEntryAction extends CurationAction {
         con.rollback();
         throw e;
     } catch (EcException e) {
-      errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("errors.application.ec.invalid", enzymeDTO.getTransferredEc()));
+      errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+    		  "errors.application.ec.detail", e.getMessage()));
       saveErrors(request, errors);
       keepToken(request);
       return mapping.getInputForward();

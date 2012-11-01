@@ -63,6 +63,10 @@
     <put name="content" value="/pages/modify/create_entry.jsp" />
   </definition>
 
+  <definition name=".create_inactive" extends=".standard" role="intenz curator">
+    <put name="content" value="/pages/modify/create_inactive.jsp" />
+  </definition>
+
   <definition name=".transfer_entry_update" extends=".standard" role="intenz curator">
     <put name="content" value="/pages/modify/transfer_entry_update.jsp" />
   </definition>

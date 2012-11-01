@@ -27,13 +27,19 @@
               <td>
                 <table width="100%" border="0" cellspacing="20" cellpadding="0">
                   <tr>
-                    <td class="data_region_header_row">Transfer Entry <bean:write name="enzymeDTO" property="ec" filter="false"/></td>
+                    <td class="data_region_header_row">
+                    	Transfer${enzymeDTO.active? '' : 'red'} entry
+                    	<bean:write name="enzymeDTO" property="ec" filter="false"/>
+                    	${enzymeDTO.active? '' : '(updating notes)'}
+                   	</td>
                   </tr>
                   <tr>
                     <td>
-                      <html:form action="transferEntry" focus="transferredEc">
-                      <table width="100%" cellpadding="3">
+                      <html:form
+                      	action="${enzymeDTO.active? 'transferEntry' : 'transferredEntryUpdate'}"
+                      	focus="transferredEc">
                         <input type="hidden" name="<%= Constants.TOKEN_KEY %>" value="<%=request.getAttribute(Constants.TOKEN_KEY)%>"/>
+                      <table width="100%" cellpadding="3">
                         <logic:messagesPresent property="transferredEc" >
                           <tr>
                             <td colspan="2" class="error">
@@ -44,8 +50,13 @@
                           </tr>
                         </logic:messagesPresent>
                         <tr>
-                          <td align="right" nowrap="nowrap"><b>New EC:</b></td>
-                          <td><html:text property="transferredEc" tabindex="1" size="15" /></td>
+                        	<logic:equal value="true" name="enzymeDTO" property="active">
+	                          <td align="right" nowrap="nowrap"><b>New EC:</b></td>
+	                          <td><html:text property="transferredEc" tabindex="1" size="15" /></td>
+                        	</logic:equal>
+                        	<logic:equal value="false" name="enzymeDTO" property="active">
+                        		<td>Transferred to EC ${enzymeDTO.transferredToEc}</td>
+                        	</logic:equal>
                         </tr>
                         <tr>
                           <td colspan="2" nowrap="nowrap"><b>New History Line:</b></td>
@@ -68,7 +79,10 @@
                         <tr>
                           <td width="100%" align="right" colspan="2">
                           	<html:reset tabindex="4" />&nbsp;
-                          	<html:submit title="Transfer entry" value="Transfer entry" tabindex="5" styleClass="submitButton" />
+                          	<html:submit
+                          		title="${enzymeDTO.active? 'Transfer entry' : 'Update notes'}"
+                          		value="${enzymeDTO.active? 'Transfer entry' : 'Update notes'}"
+                          		tabindex="5" styleClass="submitButton" />
                           </td>
                         </tr>
                       </table>

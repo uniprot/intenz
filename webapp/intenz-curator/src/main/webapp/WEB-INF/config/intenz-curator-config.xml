@@ -100,6 +100,10 @@
 		<action path="/createEntryFWD"
 			type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.CreateEntryFWDAction"
 			parameter=".create_entry" roles="intenz curator" scope="request" />
+		<action path="/createInactiveEntryFWD"
+			name="enzymeDTO" scope="request" validate="false"
+			forward=".create_inactive"
+			roles="intenz curator"/>
 		<action path="/createEntryUpdateFWD"
 			type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.CreateEntryUpdateFWDAction"
 			parameter=".create_entry_update" roles="intenz curator" scope="request" />
@@ -213,6 +217,12 @@
 			roles="intenz curator" scope="session">
 			<forward name="searchEc" path="/searchEc.do" />
 		</action>
+		<action path="/transferredEntryUpdate"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.TransferEntryUpdateAction"
+			name="enzymeDTO" scope="session" validate="false"
+			input=".transfer_entry" roles="intenz curator">
+			<forward name="searchEc" path="/searchEc.do" />
+		</action>
 		<action path="/amendEntry"
 			type="uk.ac.ebi.intenz.webapp.controller.modification.AmendEntryAction"
 			name="enzymeDTO" scope="session" input=".amend_entry" validate="true"
@@ -235,6 +245,11 @@
 			type="uk.ac.ebi.intenz.webapp.controller.modification.CreateEntryUpdateAction"
 			name="enzymeDTO" input=".create_entry_update" validate="true"
 			roles="intenz curator" scope="session">
+			<forward name="searchEc" path="/searchEc.do" />
+		</action>
+		<action path="/createInactiveEntry" name="enzymeDTO" scope="request"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.CreateEntryAction"
+			input=".create_inactive" validate="false" roles="intenz curator">
 			<forward name="searchEc" path="/searchEc.do" />
 		</action>
 		<action path="/formButtonTransferEntryUpdate"

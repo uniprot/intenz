@@ -9,6 +9,7 @@ import uk.ac.ebi.intenz.domain.exceptions.EcException;
 import uk.ac.ebi.intenz.mapper.AuditPackageMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.mapper.EventPackageMapper;
+import uk.ac.ebi.intenz.mapper.HistoryEventMapper;
 import uk.ac.ebi.intenz.webapp.dtos.EcSearchForm;
 import uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO;
 import uk.ac.ebi.intenz.webapp.exceptions.DeregisterException;
@@ -67,14 +68,24 @@ public class TransferEntryUpdateAction extends CurationAction {
       unitOfWork.commit(enzymeDTO, con);
       LOGGER.info("Data subimtted");
 
-      // Store event.
-      LOGGER.info("Updating event.");
-      final String historyLineOfDeletedEntry = updateHistoryLineOfDeletedEntry(new Long(enzymeDTO.getLatestHistoryBeforeId()), con);
-      EventPackageMapper eventPackageMapper = new EventPackageMapper();
-      eventPackageMapper.updateFutureTransferEvent(Integer.parseInt(enzymeDTO.getLatestHistoryEventGroupId()),
-                                                   Integer.parseInt(enzymeDTO.getLatestHistoryEventId()),
-                                                   enzymeDTO.getLatestHistoryEventNote(), enzymeDTO.getStatusCode(),
-                                                   historyLineOfDeletedEntry, con);
+      if (enzymeDTO.isActive()){
+          // Store event.
+          LOGGER.info("Updating event.");
+          final String historyLine = updateHistoryLineOfDeletedEntry(
+        		  new Long(enzymeDTO.getLatestHistoryBeforeId()), con);
+          EventPackageMapper eventPackageMapper = new EventPackageMapper();
+          eventPackageMapper.updateFutureTransferEvent(
+        		  Integer.parseInt(enzymeDTO.getLatestHistoryEventGroupId()),
+        		  Integer.parseInt(enzymeDTO.getLatestHistoryEventId()),
+        		  enzymeDTO.getLatestHistoryEventNote(), enzymeDTO.getStatusCode(),
+        		  historyLine, con);
+      } else {
+    	  // Modifying notes of already transferred entry:
+    	  HistoryEventMapper hem = new HistoryEventMapper();
+    	  hem.updateEventNote(Integer.valueOf(enzymeDTO.getLatestHistoryEventId()),
+    			  Integer.valueOf(enzymeDTO.getLatestHistoryEventGroupId()),
+    			  enzymeDTO.getLatestHistoryEventNote(), con);
+      }
       con.commit();
 
       LOGGER.info("Transfer event updated.");
