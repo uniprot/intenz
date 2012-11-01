@@ -25,13 +25,14 @@
         <td align="center">
           Enzyme ID: <bean:write name="enzymeDTO" property="id" filter="false"/>
 	      <logic:equal value="false" name="enzymeDTO" property="active">
-	      	(<b style="color: red">INACTIVE</b>)
+	      	(<b style="color: red">
+	      		<bean:message bundle="form" key="title.entry.inactive" />
+      		</b>)
 	      </logic:equal>
         </td>
       </tr>
       <logic:equal value="SU" name="enzymeDTO" property="statusCode"><tr><td class="suggested" align="center"><bean:message bundle="form" key="title.entry.status.suggestion" /></td></tr></logic:equal>
       <logic:equal value="PR" name="enzymeDTO" property="statusCode"><tr><td class="proposed" align="center"><bean:message bundle="form" key="title.entry.status.proposal" /></td></tr></logic:equal>
-      <% if(!enzymeDTO.isActive()) { %><tr><td class="inactive" align="center"><bean:message bundle="form" key="title.entry.inactive" /></td></tr><% } %>
       <tr>
         <td height="30">&nbsp;</td>
       </tr>

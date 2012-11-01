@@ -1,6 +1,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
   <head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title><%= request.getAttribute("title") %> - Integrated Enzyme Database (IntEnz)</title>
     <link rel="stylesheet" href="<html:rewrite forward='intenzStyle'/>" type="text/css">
     <link rel="stylesheet" href="<html:rewrite forward='tabbedMenuStyle'/>" type="text/css">

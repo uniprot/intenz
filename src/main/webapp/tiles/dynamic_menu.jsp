@@ -24,35 +24,53 @@
     %>
         <c:choose>
             <c:when test="${enzymeDTO.statusCode eq 'OK'}">
-                <c:if test="${enzymeDTO.active}">
-        <li><a href="amendEntryFWD.do?<%=urlToLink%>">Amend</a></li>
-        <li><a href="transferEntryFWD.do?<%=urlToLink%>">Transfer</a></li>
-        <li><a href="deleteEntryFWD.do?<%=urlToLink%>">Delete</a></li>
-                </c:if>
-        <li><a href="createEntryFWD.do?<%=urlToLink%>">Create</a></li>
+            	<c:choose>
+            		<c:when test="${enzymeDTO.active}">
+				        <li><a href="amendEntryFWD.do?<%=urlToLink%>">Amend</a></li>
+				        <li><a href="transferEntryFWD.do?<%=urlToLink%>">Transfer</a></li>
+				        <li><a href="deleteEntryFWD.do?<%=urlToLink%>">Delete</a></li>
+            		</c:when>
+            		<c:when test="${enzymeDTO.latestHistoryEventClass eq 'transferred'}">
+				        <li><a href="transferEntryFWD.do?<%=urlToLink%>">Update
+				        	history notes</a></li>
+            		</c:when>
+            		<c:when test="${enzymeDTO.latestHistoryEventClass eq 'deleted'}">
+						<li><a href="deleteEntryUpdateFWD.do?<%=urlToLink%>">Update
+							history notes</a></li>
+					</c:when>
+            	</c:choose>
             </c:when>
             <c:when test="${enzymeDTO.statusCode eq 'PM'}">
                 <c:if test="${enzymeDTO.active}">
-        <li><a href="amendEntryUpdateFWD.do?<%=urlToLink%>">Amend (<i>update</i>)</a></li>
-        <li><a href="transferEntryFWD.do?<%=urlToLink%>">Transfer</a></li>
+			        <li><a href="amendEntryUpdateFWD.do?<%=urlToLink%>">Amend
+			        	(<i>update</i>)</a></li>
+			        <li><a href="transferEntryFWD.do?<%=urlToLink%>">Transfer</a>
+			        	</li>
                 </c:if>
-        <li><a href="createEntryFWD.do?<%=urlToLink%>">Create</a></li>
             </c:when>
             <c:otherwise>
                 <c:if test="${enzymeDTO.latestHistoryEventClass eq 'modified'}">
-            <li><a href="amendEntryUpdateFWD.do?<%=urlToLink%>">Amend (<i>update</i>)</a></li>
+            		<li><a href="amendEntryUpdateFWD.do?<%=urlToLink%>">Amend
+            			(<i>update</i>)</a></li>
                 </c:if>
                 <c:if test="${enzymeDTO.latestHistoryEventClass eq 'transferred'}">
-            <li><a href="transferEntryUpdateFWD.do?<%=urlToLink%>">Transfer (<i>update</i>)</a></li>
+            		<li><a href="transferEntryUpdateFWD.do?<%=urlToLink%>">Transfer
+            			(<i>update</i>)</a></li>
                 </c:if>
                 <c:if test="${enzymeDTO.latestHistoryEventClass eq 'deleted'}">
-          <li><a href="deleteEntryUpdateFWD.do?<%=urlToLink%>">Delete (<i>update</i>)</a></li>
+          			<li><a href="deleteEntryUpdateFWD.do?<%=urlToLink%>">Delete
+          				(<i>update</i>)</a></li>
                 </c:if>
                 <c:if test="${enzymeDTO.latestHistoryEventClass eq 'created'}">
-          <li><a href="createEntryUpdateFWD.do?<%=urlToLink%>">Create (<i>update</i>)</a></li>
+          			<li><a href="createEntryUpdateFWD.do?<%=urlToLink%>">Create
+          				(<i>update</i>)</a></li>
                 </c:if>
             </c:otherwise>
         </c:choose>
+   		<li><a href="createEntryFWD.do">Create</a></li>
+   		<li><a href="createInactiveEntryFWD.do"
+   			title="Create an already deleted or transferred entry">Create
+   			inactive</a></li>
         <li><html:link action="addSubSubclassFWD" >Create Sub-Subclass</html:link></li>
       <%
       if( enzymeDTO.getXcharsView().indexOf("false")!=-1) {

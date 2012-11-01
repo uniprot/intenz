@@ -184,7 +184,7 @@ public class EnzymeDTO extends ValidatorForm {
   }
 
   public EnzymeDTO() {
-    isActive = false;
+    isActive = true;
     id = "";
     ec = "";
     systematicName = new EnzymeNameDTO();

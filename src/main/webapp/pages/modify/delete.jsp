@@ -27,7 +27,8 @@
                 <table width="100%" border="0" cellspacing="20" cellpadding="0">
                   <tr>
                     <td class="data_region_header_row">
-                    	Delete Entry
+                    	Delete${enzymeDTO.statusCode eq 'OK'
+                    		and not enzymeDTO.active? 'd' : ''} Entry
                     	<bean:write name="enzymeDTO" property="ec" filter="false"/>
                     	<logic:equal name="update" value="Update">
                     	(<i>update</i>)
@@ -65,8 +66,8 @@
                               <td width="100%"><bean:write name="enzymeDTO" property="statusText" filter="false"/></td>
                           </tr>
                           <tr>
-                              <td align="right" nowrap="nowrap"><b>New Status:</b></td>
                               <logic:equal name="enzymeDTO" property="statusCode" value="SU">
+	                              <td align="right" nowrap="nowrap"><b>New Status:</b></td>
                                   <td width="100%">
                                       <html:select property="statusCode" tabindex="2" size="1" value="SU" >
                                           <html:option value="SU">suggested</html:option>
@@ -75,12 +76,13 @@
                                   </td>
                               </logic:equal>
                               <logic:equal name="enzymeDTO" property="statusCode" value="PR">
-                              <td width="100%">
-                                  <html:select property="statusCode" tabindex="2" size="1" value="SU" >
-                                      <html:option value="SU">suggested</html:option>
-                                      <html:option value="OK">approved</html:option>
-                                  </html:select>
-                              </td>
+	                              <td align="right" nowrap="nowrap"><b>New Status:</b></td>
+	                              <td width="100%">
+	                                  <html:select property="statusCode" tabindex="2" size="1" value="SU" >
+	                                      <html:option value="SU">suggested</html:option>
+	                                      <html:option value="OK">approved</html:option>
+	                                  </html:select>
+	                              </td>
                               </logic:equal>
                           </tr>
                           <tr>

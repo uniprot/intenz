@@ -30,7 +30,8 @@ public class CurationAction extends Action {
                                HttpServletResponse response) throws Exception {
     LOGGER.info("CurationAction");
     ActionMessages errors = new ActionMessages();
-    EnzymeDTO enzymeDTO = (EnzymeDTO) request.getSession().getAttribute("enzymeDTO");
+//    EnzymeDTO enzymeDTO = (EnzymeDTO) request.getSession().getAttribute("enzymeDTO");
+    EnzymeDTO enzymeDTO = (EnzymeDTO) form;
     if(enzymeDTO.getId() == null || enzymeDTO.getId().equals("")) return null; // new enzymes do not need token checking
     Long enzymeId = new Long(enzymeDTO.getId());
 

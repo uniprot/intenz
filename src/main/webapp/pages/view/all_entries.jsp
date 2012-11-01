@@ -36,7 +36,7 @@
                         </tr>
                       </table>
                     </td>
-                    <td align="center">
+                    <td align="center" class="${rowAt.status}">
                       <bean:write name="rowAt" property="status"/>
                     </td>
                     <logic:equal value="true" name="rowAt" property="active">

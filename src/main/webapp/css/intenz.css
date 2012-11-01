@@ -239,10 +239,6 @@ a img {
   border-bottom-width:1px;
 }
 
-
-
-
-
 .datatable {
   border-width: 1px;
   border-style: solid;
@@ -428,7 +424,7 @@ a.link:link, a.link:visited, a.link:active, a.link:hover {
   FONT-WEIGHT: bold;
 }
 
-.editButton, .submitButton, .previewButton {
+.editButton, .submitButton, .previewButton, .deleteButton {
     font-weight: bold;
     font-size: 12pt;
 }

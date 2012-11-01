@@ -79,7 +79,7 @@ public class PopulateEnzymeListDTOAction extends Action {
       ghostEnzymeDTO.setSource(enzymeEntry.getSource().toString());
       ghostEnzymeDTO.setStatus(enzymeEntry.getStatus().toString());
       ghostEnzymeDTO.setActive(enzymeEntry.isActive());
-      ghostEnzymeDTO.setEventClass(getEventHistory(enzymeEntry));
+      ghostEnzymeDTO.setEventClass(getEventClass(enzymeEntry));
       ghostEnzymeDTO.setEventNote(IntEnzUtilities.linkMarkedEC(enzymeEntry.getHistory().getLatestRelevantHistoryEventOfRoot().getNote(), true));
       ghostEntryList.add(ghostEnzymeDTO);
     }
@@ -87,11 +87,9 @@ public class PopulateEnzymeListDTOAction extends Action {
     LOGGER.debug("... EnzymeListDTO populated.");
   }
 
-   private String getEventHistory(EnzymeEntry enzymeEntry){
-      return enzymeEntry.getHistory().getLatestRelevantHistoryEventOfRoot().toString();
-//      if( history.isDeletedRootNode()) return history.getLatestHistoryEventOfRoot().getEventClass().toString();
-//      if( history.isTransferredRootNode()) return history.getLatestHistoryEventOfRoot().getEventClass().toString();
-//      return "";
+   private String getEventClass(EnzymeEntry enzymeEntry){
+      return enzymeEntry.getHistory().getLatestRelevantHistoryEventOfRoot()
+    		  .getEventClass().toString();
    }
 
 }

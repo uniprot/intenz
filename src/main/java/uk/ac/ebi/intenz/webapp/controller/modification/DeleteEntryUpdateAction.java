@@ -7,6 +7,7 @@ import org.apache.struts.action.ActionMapping;
 
 import uk.ac.ebi.intenz.mapper.AuditPackageMapper;
 import uk.ac.ebi.intenz.mapper.EventPackageMapper;
+import uk.ac.ebi.intenz.mapper.HistoryEventMapper;
 import uk.ac.ebi.intenz.webapp.dtos.EcSearchForm;
 import uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO;
 import uk.ac.ebi.intenz.webapp.utilities.EntryLockSingleton;
@@ -50,11 +51,19 @@ public class DeleteEntryUpdateAction extends CurationAction {
       unitOfWork.commit(enzymeDTO, con);
       LOGGER.info("Data subimtted");
 
-      // Update event.
-      EventPackageMapper eventPackageMapper = new EventPackageMapper();
-      eventPackageMapper.updateFutureDeletionEvent(Integer.parseInt(enzymeDTO.getLatestHistoryEventGroupId()),
-              Integer.parseInt(enzymeDTO.getLatestHistoryEventId()), enzymeDTO.getLatestHistoryEventNote(),
-              enzymeDTO.getStatusCode(), con);
+      if (!enzymeDTO.isActive()){
+    	  // Modifying an already deleted entry, just its event note:
+    	  HistoryEventMapper hem = new HistoryEventMapper();
+    	  hem.updateEventNote(Integer.valueOf(enzymeDTO.getLatestHistoryEventId()),
+    			  Integer.valueOf(enzymeDTO.getLatestHistoryEventGroupId()),
+    			  enzymeDTO.getLatestHistoryEventNote(), con);
+      } else {
+          // Update event.
+          EventPackageMapper eventPackageMapper = new EventPackageMapper();
+          eventPackageMapper.updateFutureDeletionEvent(Integer.parseInt(enzymeDTO.getLatestHistoryEventGroupId()),
+                  Integer.parseInt(enzymeDTO.getLatestHistoryEventId()), enzymeDTO.getLatestHistoryEventNote(),
+                  enzymeDTO.getStatusCode(), con);
+      }
       con.commit();
 
       LOGGER.info("Delete event updated.");

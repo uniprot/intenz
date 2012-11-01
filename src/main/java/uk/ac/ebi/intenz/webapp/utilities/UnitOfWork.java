@@ -177,23 +177,31 @@ public class UnitOfWork implements HttpSessionBindingListener {
 		if (copy == null) throw new DeregisterException(ActionMessages.GLOBAL_MESSAGE, "errors.application.uow.deregister");
 
 		compareCoreData(enzymeUnderDevelopment, copy, con);
-		reloadNames(enzymeUnderDevelopment.getCommonNames(), new Long(enzymeUnderDevelopment.getId()),
+		reloadNames(enzymeUnderDevelopment.getCommonNames(),
+				new Long(enzymeUnderDevelopment.getId()),
 				Status.fromCode(enzymeUnderDevelopment.getStatusCode()),
 				EnzymeNameTypeConstant.COMMON_NAME, con);
-		reloadReactions(enzymeUnderDevelopment.getReactionDtos(), new Long(enzymeUnderDevelopment.getId()),
-				Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
-		compareSystematicName(enzymeUnderDevelopment, copy, con);
-		reloadNames(enzymeUnderDevelopment.getSynonyms(), new Long(enzymeUnderDevelopment.getId()),
-				Status.fromCode(enzymeUnderDevelopment.getStatusCode()),
-				EnzymeNameTypeConstant.OTHER_NAME, con);
-		reloadCofactors(enzymeUnderDevelopment.getCofactors(), new Long(enzymeUnderDevelopment.getId()),
-				Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
-		reloadLinks(enzymeUnderDevelopment, con);
-		reloadComments(enzymeUnderDevelopment.getComments(), new Long(enzymeUnderDevelopment.getId()),
-				Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
-		reloadReferences(enzymeUnderDevelopment.getReferences(), new Long(enzymeUnderDevelopment.getId()),
-				Status.fromCode(enzymeUnderDevelopment.getStatusCode()),
-				EnzymeSourceConstant.valueOf(enzymeUnderDevelopment.getSource()), con);
+		if (enzymeUnderDevelopment.isActive()){
+			reloadReactions(enzymeUnderDevelopment.getReactionDtos(),
+					new Long(enzymeUnderDevelopment.getId()),
+					Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
+			compareSystematicName(enzymeUnderDevelopment, copy, con);
+			reloadNames(enzymeUnderDevelopment.getSynonyms(),
+					new Long(enzymeUnderDevelopment.getId()),
+					Status.fromCode(enzymeUnderDevelopment.getStatusCode()),
+					EnzymeNameTypeConstant.OTHER_NAME, con);
+			reloadCofactors(enzymeUnderDevelopment.getCofactors(),
+					new Long(enzymeUnderDevelopment.getId()),
+					Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
+			reloadLinks(enzymeUnderDevelopment, con);
+			reloadComments(enzymeUnderDevelopment.getComments(),
+					new Long(enzymeUnderDevelopment.getId()),
+					Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
+			reloadReferences(enzymeUnderDevelopment.getReferences(),
+					new Long(enzymeUnderDevelopment.getId()),
+					Status.fromCode(enzymeUnderDevelopment.getStatusCode()),
+					EnzymeSourceConstant.valueOf(enzymeUnderDevelopment.getSource()), con);
+		}
 		LOGGER.info("... commit completed.");
 	}
 
@@ -386,11 +394,13 @@ public class UnitOfWork implements HttpSessionBindingListener {
 		assert con != null : "Parameter 'con' must not be null.";
 		insertCoreData(enzymeUnderDevelopment, con);
 		insertNames(enzymeUnderDevelopment, con);
-		insertReactions(enzymeUnderDevelopment, con);
-		insertCofactors(enzymeUnderDevelopment, con);
-		insertLinks(enzymeUnderDevelopment, con);
-		insertComments(enzymeUnderDevelopment, con);
-		insertReferences(enzymeUnderDevelopment, con);
+		if (enzymeUnderDevelopment.isActive()){
+			insertReactions(enzymeUnderDevelopment, con);
+			insertCofactors(enzymeUnderDevelopment, con);
+			insertLinks(enzymeUnderDevelopment, con);
+			insertComments(enzymeUnderDevelopment, con);
+			insertReferences(enzymeUnderDevelopment, con);
+		}
 	}
 
 	/**
@@ -401,7 +411,8 @@ public class UnitOfWork implements HttpSessionBindingListener {
 	 * @throws SQLException if a database error occurs.
 	 * @throws EcException  if an invalid EC number has been used.
 	 */
-	private void insertCoreData(EnzymeDTO enzymeUnderDevelopment, Connection con) throws SQLException, EcException {
+	private void insertCoreData(EnzymeDTO enzymeUnderDevelopment, Connection con)
+	throws SQLException, EcException {
 		assert enzymeUnderDevelopment != null : "Parameter 'enzymeUnderDevelopment' must not be null.";
 		assert con != null : "Parameter 'con' must not be null.";
 		Long newEnzymeId = enzymeEntryMapper.findNextEnzymeId(con);
@@ -409,7 +420,9 @@ public class UnitOfWork implements HttpSessionBindingListener {
 		enzymeEntryMapper.insert(newEnzymeId, EnzymeCommissionNumber.valueOf(enzymeUnderDevelopment.getEc()),
 				Status.fromCode(enzymeUnderDevelopment.getStatusCode()),
 				EnzymeSourceConstant.valueOf(enzymeUnderDevelopment.getSource()),
-				enzymeUnderDevelopment.getNote(), enzymeUnderDevelopment.getHistoryLine(), true, con);
+				enzymeUnderDevelopment.getNote(),
+				enzymeUnderDevelopment.getHistoryLine(),
+				enzymeUnderDevelopment.isActive(), con);
 	}
 
 	/**
