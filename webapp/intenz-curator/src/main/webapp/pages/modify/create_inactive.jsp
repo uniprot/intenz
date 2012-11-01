@@ -41,6 +41,16 @@ function setDeltraType(field){
 </div>
 
 <div style="display: table-row;">
+    <span style="display: table-cell; vertical-align: top;
+        text-align: right;">Common name:</span>
+    <html:hidden name="enzymeDTO" property="commonNames[0].type" value="COM"/>
+    <html:text name="enzymeDTO" property="commonNames[0].xmlName" size="70"
+        style="display: table-cell;"/>
+    <input type="button" value="&lt;x&gt;"        onclick="openSpecialCharacterWindow('enzymeDTO', 'commonNames[0].xmlName');"
+        title="Open xchars window" class="xchars"/>
+</div>
+
+<div style="display: table-row;">
 	<span style="display: table-cell; vertical-align: top;
 		text-align: right;">Transferred to EC</span>
 	<html:text name="enzymeDTO" property="transferredToEc" size="15"
