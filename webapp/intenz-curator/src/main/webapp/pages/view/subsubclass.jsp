@@ -45,7 +45,7 @@
         <logic:iterate name="subSubclassDTO" id="ghostEntry" property="entries">
           <tr>
             <td align="right">
-                <a href="searchId.do?id=${ghostEntry.enzymeId}&view=INTENZ">${ghostEntry.ec}
+                <a href="searchId.do?id=${ghostEntry.enzymeId}&view=INTENZ">${ghostEntry.ec}</a>
             </td>
             <logic:equal value="deleted" name="ghostEntry" property="eventClass">
             <td align="left" class="deleted_transferred" align="left">deleted</td>
