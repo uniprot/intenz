@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 import java.sql.Types;
 
 import uk.ac.ebi.intenz.domain.constants.Event;
-import uk.ac.ebi.intenz.domain.constants.Status;
 
 public class HistoryEventMapper {
 
@@ -21,9 +20,13 @@ public class HistoryEventMapper {
 		"SELECT group_id, event_id, before_id, after_id, event_year," +
 		" event_note, event_class FROM history_events" +
 		" WHERE before_id = ? OR after_id = ?";
+	
+	private static final String UPDATE_EVENT_NOTE_SQL =
+			"UPDATE history_events SET event_note = ?" +
+			" WHERE event_id = ? AND group_id = ?";
 
     public void insertEvent(Event event, Long beforeId, Long afterId,
-			String note, Status status, Connection con) throws SQLException{
+			String note, Connection con) throws SQLException{
     	PreparedStatement stm = null;
     	try {
 	    	stm = con.prepareStatement(INSERT_EVENT_SQL);
@@ -55,4 +58,27 @@ public class HistoryEventMapper {
     		if (stm != null) stm.close();
     	}
 	}
+    
+    /**
+     * Updates the note for an event in the history.
+     * @param eventId the ID of the event.
+     * @param groupId the ID of the event group.
+     * @param newNote the new note for the event.
+     * @param con a database connection.
+     * @throws SQLException
+     */
+    public void updateEventNote(int eventId, int groupId, String newNote,
+    		Connection con) throws SQLException{
+    	PreparedStatement ps = null;
+    	try {
+    		ps = con.prepareStatement(UPDATE_EVENT_NOTE_SQL);
+    		int n = 1;
+    		ps.setString(n++, newNote);
+    		ps.setInt(n++, eventId);
+    		ps.setInt(n++, groupId);
+    		ps.executeUpdate();
+    	} finally {
+    		if (ps != null) ps.close();
+    	}
+    }
 }
