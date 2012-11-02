@@ -8,7 +8,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="4.2.8" date="In SVN"
+    	<release version="4.2.8" date="2012-11-02"
     		description="Editing notes for already deleted/transferred enzymes">
     		<action dev="rafalcan" type="update">
 				Updated to latest versions of intenz-core, intenz-mapper,
