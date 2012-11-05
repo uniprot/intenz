@@ -1,8 +1,20 @@
 package uk.ac.ebi.intenz.webapp.controller.modification;
 
-import org.apache.log4j.Logger;
-import org.apache.struts.action.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.GregorianCalendar;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
@@ -12,17 +24,9 @@ import uk.ac.ebi.intenz.mapper.EventPackageMapper;
 import uk.ac.ebi.intenz.mapper.HistoryEventMapper;
 import uk.ac.ebi.intenz.webapp.dtos.EcSearchForm;
 import uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO;
-import uk.ac.ebi.intenz.webapp.exceptions.DeregisterException;
 import uk.ac.ebi.intenz.webapp.utilities.EntryLockSingleton;
-import uk.ac.ebi.intenz.webapp.utilities.IntEnzValidations;
 import uk.ac.ebi.intenz.webapp.utilities.UnitOfWork;
 import uk.ac.ebi.rhea.mapper.MapperException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.GregorianCalendar;
 
 /**
  * This Action updates information of a transferred entry.
@@ -59,10 +63,32 @@ public class TransferEntryUpdateAction extends CurationAction {
     EntryLockSingleton els = (EntryLockSingleton) request.getSession().getServletContext().getAttribute("entryLock");
     UnitOfWork unitOfWork = (UnitOfWork) request.getSession().getAttribute("uow");
     try {
-      // Set the standard remark in the audit tables.
+    	/*
+        if (!enzymeDTO.isActive()){
+		  EnzymeCommissionNumber targetEc = EnzymeCommissionNumber
+				  .valueOf(enzymeDTO.getTransferredToEc());
+		  EnzymeEntry targetEntry = new EnzymeEntryMapper().findByEc(
+				  targetEc.getEc1(), targetEc.getEc2(),
+				  targetEc.getEc3(), targetEc.getEc4(),
+				  Status.APPROVED, con);
+		  if (targetEntry == null){
+		      errors.add("transferredToEc", new ActionMessage(
+		    		  "errors.application.ec.nonexisting", targetEc));
+		      saveErrors(request, errors);
+		      keepToken(request);
+		      return mapping.getInputForward();
+		  } else if (!targetEntry.isActive()){
+		      errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+		    		  "errors.application.ec.inactive", targetEc));
+		      saveErrors(request, errors);
+		      keepToken(request);
+		      return mapping.getInputForward();
+		  }
+        }
+		*/
+        // Set the standard remark in the audit tables.
       AuditPackageMapper auditPackageMapper = new AuditPackageMapper();
       auditPackageMapper.setRemark(AuditPackageMapper.STANDARD_REMARK, con);
-
       // Commit
       LOGGER.info("Committing form data.");
       unitOfWork.commit(enzymeDTO, con);
@@ -80,11 +106,21 @@ public class TransferEntryUpdateAction extends CurationAction {
         		  enzymeDTO.getLatestHistoryEventNote(), enzymeDTO.getStatusCode(),
         		  historyLine, con);
       } else {
-    	  // Modifying notes of already transferred entry:
+    	  // Modifying notes of already deleted/transferred entry:
+    	  Integer afterId = null;
+    	  if (enzymeDTO.getTransferredToEc() != null){
+    		  EnzymeEntry targetEntry = new EnzymeEntryMapper().findByEc(
+    				  enzymeDTO.getTransferredToEc(), Status.APPROVED, con);
+    		  afterId = targetEntry.getId().intValue();
+    	  }
     	  HistoryEventMapper hem = new HistoryEventMapper();
-    	  hem.updateEventNote(Integer.valueOf(enzymeDTO.getLatestHistoryEventId()),
+//    	  hem.updateEventNote(Integer.valueOf(enzymeDTO.getLatestHistoryEventId()),
+//    			  Integer.valueOf(enzymeDTO.getLatestHistoryEventGroupId()),
+//    			  enzymeDTO.getLatestHistoryEventNote(), con);
+    	  hem.updateEvent(Integer.valueOf(enzymeDTO.getLatestHistoryEventId()),
     			  Integer.valueOf(enzymeDTO.getLatestHistoryEventGroupId()),
-    			  enzymeDTO.getLatestHistoryEventNote(), con);
+				  enzymeDTO.getLatestHistoryEventNote(),
+				  Integer.valueOf(enzymeDTO.getId()), afterId, con);
       }
       con.commit();
 

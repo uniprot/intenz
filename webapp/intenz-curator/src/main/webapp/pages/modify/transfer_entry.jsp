@@ -55,7 +55,9 @@
 	                          <td><html:text property="transferredEc" tabindex="1" size="15" /></td>
                         	</logic:equal>
                         	<logic:equal value="false" name="enzymeDTO" property="active">
-                        		<td>Transferred to EC ${enzymeDTO.transferredToEc}</td>
+                        		<td>Transferred to EC
+                        			<html:text property="transferredToEc" tabindex="2" size="15" />
+                       			</td>
                         	</logic:equal>
                         </tr>
                         <tr>
@@ -63,7 +65,8 @@
                         </tr>
                         <tr>
                           <td colspan="2" width="100%">
-                          	<html:textarea property="historyLine" tabindex="2" cols="70" rows="2" value="<%= enzymeDTO.getHistoryLine() %>" />
+                          	<html:textarea property="historyLine" tabindex="3"
+                          		cols="70" rows="2" />
                           </td>
                         </tr>
                         <tr>
@@ -71,18 +74,18 @@
                         </tr>
                         <tr>
                           <td colspan="2">
-                          	<html:textarea property="latestHistoryEventNote" tabindex="3" cols="70" rows="5" />
+                          	<html:textarea property="latestHistoryEventNote" tabindex="4" cols="70" rows="5" />
                            	<input type="button" value="&lt;x&gt;" onclick="openSpecialCharacterWindow('enzymeDTO', 'latestHistoryEventNote');"
 								title="Open xchars window" class="xchars"/>
                           </td>
                         </tr>
                         <tr>
                           <td width="100%" align="right" colspan="2">
-                          	<html:reset tabindex="4" />&nbsp;
+                          	<html:reset tabindex="5" />&nbsp;
                           	<html:submit
                           		title="${enzymeDTO.active? 'Transfer entry' : 'Update notes'}"
                           		value="${enzymeDTO.active? 'Transfer entry' : 'Update notes'}"
-                          		tabindex="5" styleClass="submitButton" />
+                          		tabindex="6" styleClass="submitButton" />
                           </td>
                         </tr>
                       </table>

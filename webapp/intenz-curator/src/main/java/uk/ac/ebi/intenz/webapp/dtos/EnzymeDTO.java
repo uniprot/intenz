@@ -6,6 +6,8 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -29,10 +31,13 @@ import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
+import uk.ac.ebi.intenz.domain.exceptions.EcException;
+import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.webapp.utilities.AutoGrowingList;
-import uk.ac.ebi.rhea.domain.Reaction;
+import uk.ac.ebi.rhea.mapper.MapperException;
 
 /**
  * This ActionForm stores all enzyme properties in a <code>Map</code> since the number of properties needs to
@@ -634,47 +639,97 @@ public class EnzymeDTO extends ValidatorForm {
 //    id = "";
   }
 
-    @Override
-  public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-    ActionErrors errors = super.validate(mapping, request); // use Validator framework first
-    errors.add(systematicName.validate(mapping, request));
+	@Override
+	public ActionErrors validate(ActionMapping mapping,
+			HttpServletRequest request) {
+		ActionErrors errors = null;
+		if (isActive) {
+			// use Validator framework first:
+			errors = super.validate(mapping, request);
 
-    // Validate common names.
-    validateCommonNames(errors, mapping, request);
+			errors.add(systematicName.validate(mapping, request));
 
-    // Validate synonyms.
-    validateSynonyms(errors, mapping, request);
+			// Validate common names.
+			validateCommonNames(errors, mapping, request);
 
-    // Checks all names for uniqueness.
-    validateAllNames(errors, request);
+			// Validate synonyms.
+			validateSynonyms(errors, mapping, request);
 
-    // Validate reactions.
-    validateReactions(errors, mapping, request);
+			// Checks all names for uniqueness.
+			validateAllNames(errors, request);
 
-    // Validate cofactors.
-//    validateCofactors(errors, mapping, request);
+			// Validate reactions.
+			validateReactions(errors, mapping, request);
 
-    // Validate comments.
-    validateComments(errors, mapping, request);
+			// Validate cofactors.
+			// validateCofactors(errors, mapping, request);
 
-    // Validate links.
-    validateLinks(errors, mapping, request);
+			// Validate comments.
+			validateComments(errors, mapping, request);
 
-    // Validate UniProt links.
-    validateUniProtLinks(errors, mapping, request);
+			// Validate links.
+			validateLinks(errors, mapping, request);
 
-    // Validate references.
-    validateReferences(errors, mapping, request);
+			// Validate UniProt links.
+			validateUniProtLinks(errors, mapping, request);
 
-    updateStatus();
+			// Validate references.
+			validateReferences(errors, mapping, request);
 
-    if (errors == null) errors = new ActionErrors();
-    if (errors.isEmpty()) return null;
+			updateStatus();
+		} else {
+			errors = validateInactive(request, errors);
+		}
 
-    // Keep token when an error occurs.
-    if (request.getParameter(Constants.TOKEN_KEY) != null) request.setAttribute(Constants.TOKEN_KEY, request.getParameter(Constants.TOKEN_KEY));
-    return errors;
-  }
+		// Keep token when an error occurs.
+		if (request.getParameter(Constants.TOKEN_KEY) != null) {
+			request.setAttribute(Constants.TOKEN_KEY,
+					request.getParameter(Constants.TOKEN_KEY));
+		}
+
+		return (errors == null || errors.isEmpty()) ? null : errors;
+	}
+
+	/**
+	 * Validate an inactive (deleted or transferred) entry.
+	 * @param request
+	 * @param errors
+	 * @return
+	 */
+	private ActionErrors validateInactive(HttpServletRequest request,
+			ActionErrors errors) {
+		// If transferred, target EC must exist and be active:
+		if (transferredToEc != null && transferredToEc.length() > 0) {
+			if (errors == null) errors = new ActionErrors();
+			Connection con = (Connection)
+					request.getSession().getAttribute("connection");
+			EnzymeCommissionNumber targetEc = null;
+			try {
+				targetEc = EnzymeCommissionNumber.valueOf(transferredToEc);
+				EnzymeEntry targetEntry = null;
+				try {
+					targetEntry = new EnzymeEntryMapper().findByEc(
+							targetEc.getEc1(), targetEc.getEc2(),
+							targetEc.getEc3(), targetEc.getEc4(), Status.APPROVED,
+							con);
+					if (targetEntry == null) {
+						errors.add("transferredToEc", new ActionMessage(
+								"errors.application.ec.nonexisting", targetEc));
+					} else if (!targetEntry.isActive()) {
+						errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+								"errors.application.ec.inactive", targetEc));
+					}
+				} catch (Exception e) {
+					errors.add("transferredToEc", new ActionMessage(
+							"errors.application.database", transferredToEc));
+				}
+			} catch (Exception e) {
+				errors.add("transferredToEc", new ActionMessage(
+						"errors.application.ec.detail", transferredToEc));
+			}
+		}
+		return errors;
+	}
 
   /**
    * Validates the list of common names.

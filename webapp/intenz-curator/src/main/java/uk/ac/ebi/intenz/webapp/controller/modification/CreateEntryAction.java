@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -13,6 +14,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
+import uk.ac.ebi.biobabel.util.ObjectUtil;
 import uk.ac.ebi.intenz.domain.constants.Event;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
@@ -62,29 +64,29 @@ public class CreateEntryAction extends CurationAction {
       auditPackageMapper.setRemark(AuditPackageMapper.STANDARD_REMARK, con);
 
 	  // First, if is is a new transferred entry check that the target EC exists:
-	  String transferredToEc = enzymeDTO.getTransferredToEc();
-	  EnzymeEntry targetEntry = null;
-	  if (transferredToEc != null && transferredToEc.length() > 0){
-		  EnzymeCommissionNumber targetEc = 
-				  EnzymeCommissionNumber.valueOf(transferredToEc);
-		  targetEntry = new EnzymeEntryMapper().findByEc(
-				  targetEc.getEc1(), targetEc.getEc2(),
-				  targetEc.getEc3(), targetEc.getEc4(),
-				  Status.APPROVED, con);
-		  if (targetEntry == null){
-		      errors.add("transferredToEc", new ActionMessage(
-		    		  "errors.application.ec.nonexisting", targetEc));
-		      saveErrors(request, errors);
-		      keepToken(request);
-		      return mapping.getInputForward();
-		  } else if (!targetEntry.isActive()){
-		      errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-		    		  "errors.application.ec.inactive", targetEc));
-		      saveErrors(request, errors);
-		      keepToken(request);
-		      return mapping.getInputForward();
-		  }
-	  }
+//	  String transferredToEc = enzymeDTO.getTransferredToEc();
+//	  EnzymeEntry targetEntry = null;
+//	  if (transferredToEc != null && transferredToEc.length() > 0){
+//		  EnzymeCommissionNumber targetEc = 
+//				  EnzymeCommissionNumber.valueOf(transferredToEc);
+//		  targetEntry = new EnzymeEntryMapper().findByEc(
+//				  targetEc.getEc1(), targetEc.getEc2(),
+//				  targetEc.getEc3(), targetEc.getEc4(),
+//				  Status.APPROVED, con);
+//		  if (targetEntry == null){
+//		      errors.add("transferredToEc", new ActionMessage(
+//		    		  "errors.application.ec.nonexisting", targetEc));
+//		      saveErrors(request, errors);
+//		      keepToken(request);
+//		      return mapping.getInputForward();
+//		  } else if (!targetEntry.isActive()){
+//		      errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+//		    		  "errors.application.ec.inactive", targetEc));
+//		      saveErrors(request, errors);
+//		      keepToken(request);
+//		      return mapping.getInputForward();
+//		  }
+//	  }
 
       // Commit
       LOGGER.info("Committing form data.");
@@ -105,8 +107,11 @@ public class CreateEntryAction extends CurationAction {
     	  // Wait 1s before registering the deletion/transfer,
     	  // otherwise the creation might look like the last event:
     	  Thread.sleep(1000);
-    	  if (targetEntry != null){
+    	  if (enzymeDTO.getTransferredToEc() != null
+    			  && enzymeDTO.getTransferredToEc().length() > 0){
     		  // Transferred entry:
+    		  EnzymeEntry targetEntry = new EnzymeEntryMapper().findByEc(
+    				  enzymeDTO.getTransferredToEc(), Status.APPROVED, con);
     		  hem.insertEvent(Event.TRANSFER, enzymeId, targetEntry.getId(),
     				  enzymeDTO.getLatestHistoryEventNote(), con);
     	  } else {

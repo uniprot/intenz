@@ -6,7 +6,7 @@
 		<form-bean name="exportForm"
 			type="uk.ac.ebi.intenz.webapp.dtos.FlatFileExportForm" />
 		<form-bean name="enzymeDTO" type="uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO" />
-		<form-bean name="transferredEnzymeDTO" type="uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO" />
+		<form-bean name="inactiveEnzymeDTO" type="uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO" />
 		<form-bean name="newEnzymeDTO" type="uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO" />
 		<form-bean name="iubmbEnzymeDTO"
 			type="uk.ac.ebi.intenz.webapp.dtos.IubmbEnzymeDTO" />
@@ -219,7 +219,7 @@
 		</action>
 		<action path="/transferredEntryUpdate"
 			type="uk.ac.ebi.intenz.webapp.controller.modification.TransferEntryUpdateAction"
-			name="enzymeDTO" scope="session" validate="false"
+			name="enzymeDTO" scope="session" validate="true"
 			input=".transfer_entry" roles="intenz curator">
 			<forward name="searchEc" path="/searchEc.do" />
 		</action>
@@ -247,9 +247,10 @@
 			roles="intenz curator" scope="session">
 			<forward name="searchEc" path="/searchEc.do" />
 		</action>
-		<action path="/createInactiveEntry" name="enzymeDTO" scope="request"
+		<action path="/createInactiveEntry"
+			name="enzymeDTO" scope="request" validate="true"
 			type="uk.ac.ebi.intenz.webapp.controller.modification.CreateEntryAction"
-			input=".create_inactive" validate="false" roles="intenz curator">
+			input=".create_inactive" roles="intenz curator">
 			<forward name="searchEc" path="/searchEc.do" />
 		</action>
 		<action path="/formButtonTransferEntryUpdate"
