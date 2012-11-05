@@ -345,6 +345,27 @@ public class EnzymeEntryMapper {
     return result;
   }
   
+  /**
+   * Finds an enzyme by EC number (as String) and status.
+   * @param ecString the EC number.
+   * @param status the enzyme status.
+   * @param con a database connection.
+   * @return an enzyme entry, or <code>null</code> if not found.
+   * @throws NumberFormatException
+   * @throws SQLException
+   * @throws DomainException
+   * @throws MapperException
+   */
+  public EnzymeEntry findByEc(String ecString, Status status, Connection con)
+  throws NumberFormatException, SQLException, DomainException, MapperException{
+	  EnzymeCommissionNumber ec = EnzymeCommissionNumber.valueOf(ecString);
+	  if (EnzymeCommissionNumber.isPreliminary(ecString)){
+		  status = Status.PRELIMINARY;
+	  }
+	  return findByEc(ec.getEc1(), ec.getEc2(), ec.getEc3(), ec.getEc4(),
+			  status, con);
+  }
+  
   public List<EnzymeEntry> findAllByEc(int ec1, int ec2, int ec3, int ec4,
 		  Boolean preliminary, Connection con)
   throws SQLException, DomainException {

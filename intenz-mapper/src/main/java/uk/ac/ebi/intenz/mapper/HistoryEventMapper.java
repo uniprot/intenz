@@ -20,7 +20,12 @@ public class HistoryEventMapper {
 		"SELECT group_id, event_id, before_id, after_id, event_year," +
 		" event_note, event_class FROM history_events" +
 		" WHERE before_id = ? OR after_id = ?";
-	
+
+	private static final String UPDATE_EVENT_SQL =
+			"UPDATE history_events" +
+			" SET before_id = ?, after_id = ?, event_note = ?" +
+			" WHERE event_id = ? AND group_id = ?";
+
 	private static final String UPDATE_EVENT_NOTE_SQL =
 			"UPDATE history_events SET event_note = ?" +
 			" WHERE event_id = ? AND group_id = ?";
@@ -73,6 +78,42 @@ public class HistoryEventMapper {
     	try {
     		ps = con.prepareStatement(UPDATE_EVENT_NOTE_SQL);
     		int n = 1;
+    		ps.setString(n++, newNote);
+    		ps.setInt(n++, eventId);
+    		ps.setInt(n++, groupId);
+    		ps.executeUpdate();
+    	} finally {
+    		if (ps != null) ps.close();
+    	}
+    }
+    
+    /**
+     * Modifies an event in the history.
+     * @param eventId the event ID.
+     * @param groupId the event group ID.
+     * @param newNote the new history note.
+     * @param beforeId the ID of the enzyme before the event.
+     * @param afterId the ID of the enzyme after the event.
+     * @param con a database connection.
+     * @throws SQLException
+     */
+    public void updateEvent(int eventId, int groupId, String newNote,
+    		Integer beforeId, Integer afterId, Connection con)
+	throws SQLException{
+    	PreparedStatement ps = null;
+    	try {
+    		ps = con.prepareStatement(UPDATE_EVENT_SQL);
+    		int n = 1;
+    		if (beforeId == null){
+    			ps.setNull(n++, Types.INTEGER);
+    		} else {
+    			ps.setInt(n++, beforeId);
+    		}
+    		if (afterId == null){
+    			ps.setNull(n++, Types.INTEGER);
+    		} else {
+    			ps.setInt(n++, afterId);
+    		}
     		ps.setString(n++, newNote);
     		ps.setInt(n++, eventId);
     		ps.setInt(n++, groupId);
