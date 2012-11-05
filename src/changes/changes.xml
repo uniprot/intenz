@@ -8,6 +8,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.2.9" date="2012-11-05"
+    		description="Editing target EC of transferred entries">
+    		<action dev="rafalcan" type="add">
+				Now it is possible to edit the target EC in already transferred
+				entries.
+				<fixes issue="2987702"/>
+			</action>
+    	</release>
     	<release version="4.2.8" date="2012-11-02"
     		description="Editing notes for already deleted/transferred enzymes">
     		<action dev="rafalcan" type="update">
@@ -17,6 +25,11 @@
 				rhea-taglib, rhea-chebiUpdater, biobabel-core, biobabel-db,
 				biobabel-citations (which now uses CiteXplore WS v3) and
 				commons-collections.
+			</action>
+			<action dev="rafalcan" type="add">
+				Now it is possible to edit history notes for deleted and
+				transferred entries.
+				<fixes issue="2987702"/>
 			</action>
    		</release>
     	<release version="4.2.7" date="2011-05-13" description="Bug fix">
