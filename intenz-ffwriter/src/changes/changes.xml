@@ -9,8 +9,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="1.2.38" date=""
-			description="">
+    	<release version="1.2.38" date="2012-11-07"
+			description="Removed DE line exceptions">
+			<action dev="rafalcan" type="remove">
+				Removed a few lines in DE_line_exceptions, whose EC numbers now
+				have been transferred to the proper target.
+			</action>
             <action dev="rafalcan" type="update">
                 Updated to latest intenz-translator.
             </action>
