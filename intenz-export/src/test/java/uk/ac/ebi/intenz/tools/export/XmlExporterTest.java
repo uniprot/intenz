@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
+import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 
@@ -60,6 +61,13 @@ public class XmlExporterTest {
 	public void testExportEnzymeEntry() throws Exception{
 		try {
 	        EnzymeEntry entry = mapper.findById(10396L, con);
+			exporter.export(entry, "9999", "9999-09-09", System.out);
+		} catch (IOException e) {
+			fail(e.getMessage());
+		}
+		try {
+	        EnzymeEntry entry =
+	        		mapper.findByEc("1.1.3.41", Status.APPROVED, con);
 			exporter.export(entry, "9999", "9999-09-09", System.out);
 		} catch (IOException e) {
 			fail(e.getMessage());
