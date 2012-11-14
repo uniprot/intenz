@@ -636,6 +636,7 @@ public class XmlExporter {
             Object xmlReaction = null;
 			if (reaction.getId() > Reaction.NO_ID_ASSIGNED){
 				// Rhea reaction:
+				if (!reaction.getStatus().isPublic()) continue;
 				org.xml_cml.schema.cml2.react.Reaction cmlReaction =
 						new CmlMapper().mapRheaReaction(reaction);
 				// As of 2012-11-13, Rhea reactions are only used in IntEnz view

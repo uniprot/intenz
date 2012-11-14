@@ -72,6 +72,13 @@ public class XmlExporterTest {
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}
+		try {
+	        EnzymeEntry entry =
+	        		mapper.findByEc("1.1.1.100", Status.APPROVED, con);
+			exporter.export(entry, "9999", "9999-09-09", System.out);
+		} catch (IOException e) {
+			fail(e.getMessage());
+		}
 	}
 
 }
