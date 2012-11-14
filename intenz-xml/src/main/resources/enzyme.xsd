@@ -3,7 +3,13 @@
 	elementFormDefault="qualified"
 	version="0.2"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:i="http://www.ebi.ac.uk/intenz">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:i="http://www.ebi.ac.uk/intenz"
+	xmlns:cml="http://www.xml-cml.org/schema/cml2/react">
+
+	<xs:import namespace="http://www.xml-cml.org/schema/cml2/react"
+		schemaLocation="http://www.ebi.ac.uk/rhea/rest/1.0/schema/ext/cmlreact/cmlreact.xsd"/>
 
     <!--  Attributes: -->
 
@@ -524,7 +530,10 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="i:reaction" maxOccurs="unbounded" minOccurs="1"></xs:element>
+            	<xs:choice minOccurs="1" maxOccurs="unbounded">
+	                <xs:element ref="i:reaction" maxOccurs="1" minOccurs="1"/>
+                	<xs:element ref="cml:reaction" minOccurs="1" maxOccurs="1"/>
+            	</xs:choice>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
