@@ -9,7 +9,22 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-		<release version="1.3.11" date="2012-10-03"
+    	<release version="1.3.13" date="2012-11-14"
+    		description="Rhea reactions in CML for IntEnzXML">
+    		<action dev="rafalcan" type="add">
+				Added Rhea reactions as CML.
+			</action>
+			<action dev="rafalcan" type="update">
+				Updated to latest versions of intenz-xml - which allows
+				reactions to be included as CML -, intenz-mapper and
+				intenz-translator.
+			</action>
+			<action dev="rafalcan" type="add">
+				Added dependency on rhea-cml to export Rhea reactions as
+				CMLReact within IntEnzXML.
+			</action>
+   		</release>
+		<release version="1.3.12" date="2012-10-08"
 			description="Dependencies update">
     		<action dev="rafalcan" type="update">
     			Updated to latest version of intenz-biopax - which uses latest

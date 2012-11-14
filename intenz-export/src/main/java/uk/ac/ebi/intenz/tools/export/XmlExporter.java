@@ -1,10 +1,9 @@
 package uk.ac.ebi.intenz.tools.export;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.io.StringReader;
 import java.math.BigInteger;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,22 +20,18 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.log4j.Logger;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
-import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+import org.xml_cml.schema.cml2.react.Cml;
+import org.xml_cml.schema.cml2.react.Label;
 
 import uk.ac.ebi.biobabel.util.collections.OperatorSet;
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameQualifierConstant;
@@ -78,6 +73,7 @@ import uk.ac.ebi.intenz.xml.jaxb.ReferenceType;
 import uk.ac.ebi.intenz.xml.jaxb.ViewType;
 import uk.ac.ebi.intenz.xml.jaxb.ViewableType;
 import uk.ac.ebi.intenz.xml.jaxb.XmlContentType;
+import uk.ac.ebi.rhea.cml.CmlMapper;
 import uk.ac.ebi.rhea.domain.Database;
 import uk.ac.ebi.rhea.domain.Reaction;
 
@@ -135,6 +131,8 @@ public class XmlExporter {
     static {
     	NS_PREFIXES.put("http://www.w3.org/2001/XMLSchema-instance", "xsi");
 		NS_PREFIXES.put("http://www.ebi.ac.uk/xchars", "x");
+		NS_PREFIXES.put(Cml.class.getPackage().getAnnotation(XmlSchema.class)
+				.namespace(), "cml");
     }
 
     private Map<EnzymeNameQualifierConstant, EnzymeNameQualifierType> NAME_QUALIFIERS;
@@ -152,11 +150,15 @@ public class XmlExporter {
         buildNameQualifiersMap();
         buildViewMap();
         buildDbMap();
-        JAXBContext context = JAXBContext.newInstance("uk.ac.ebi.intenz.xml.jaxb");
+        Package intenzPkg = Intenz.class.getPackage();
+		JAXBContext context = JAXBContext.newInstance(
+        		intenzPkg.getName() + ":" + Cml.class.getPackage().getName());
         marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,
-        		"http://www.ebi.ac.uk/intenz ftp://ftp.ebi.ac.uk/pub/databases/intenz/xml/intenz.xsd");
+        		intenzPkg.getAnnotation(XmlSchema.class).namespace()
+        		+ " "
+        		+ "ftp://ftp.ebi.ac.uk/pub/databases/intenz/xml/intenz.xsd");
         marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper",
         		new NamespacePrefixMapper(){
 					@Override
@@ -169,18 +171,27 @@ public class XmlExporter {
 								new String[NS_PREFIXES.size()]);
 					}
 				});
-		Schema intenzXsd = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-			.newSchema(XmlExporter.class.getClassLoader().getResource("intenz.xsd"));
+		URL intenzXsdUrl =
+				XmlExporter.class.getClassLoader().getResource("intenz.xsd");
+		Schema intenzXsd =
+				SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
+					.newSchema(intenzXsdUrl);
 		marshaller.setSchema(intenzXsd);
     }
     
     private void buildNameQualifiersMap(){
-        NAME_QUALIFIERS = new HashMap<EnzymeNameQualifierConstant, EnzymeNameQualifierType>();
-        NAME_QUALIFIERS.put(EnzymeNameQualifierConstant.AMBIGUOUS, EnzymeNameQualifierType.AMBIGUOUS);
-        NAME_QUALIFIERS.put(EnzymeNameQualifierConstant.INCORRECT, EnzymeNameQualifierType.INCORRECT);
-        NAME_QUALIFIERS.put(EnzymeNameQualifierConstant.MISLEADING, EnzymeNameQualifierType.MISLEADING);
-        NAME_QUALIFIERS.put(EnzymeNameQualifierConstant.MISPRINT, EnzymeNameQualifierType.MISPRINT);
-        NAME_QUALIFIERS.put(EnzymeNameQualifierConstant.OBSOLETE, EnzymeNameQualifierType.OBSOLETE);
+        NAME_QUALIFIERS = new HashMap<EnzymeNameQualifierConstant,
+        		EnzymeNameQualifierType>();
+        NAME_QUALIFIERS.put(EnzymeNameQualifierConstant.AMBIGUOUS,
+        		EnzymeNameQualifierType.AMBIGUOUS);
+        NAME_QUALIFIERS.put(EnzymeNameQualifierConstant.INCORRECT,
+        		EnzymeNameQualifierType.INCORRECT);
+        NAME_QUALIFIERS.put(EnzymeNameQualifierConstant.MISLEADING,
+        		EnzymeNameQualifierType.MISLEADING);
+        NAME_QUALIFIERS.put(EnzymeNameQualifierConstant.MISPRINT,
+        		EnzymeNameQualifierType.MISPRINT);
+        NAME_QUALIFIERS.put(EnzymeNameQualifierConstant.OBSOLETE,
+        		EnzymeNameQualifierType.OBSOLETE);
     }
     
     private void buildViewMap(){
@@ -622,18 +633,27 @@ public class XmlExporter {
         EnzymaticReactions er = entry.getEnzymaticReactions();
         for (int i = 0; i < er.size(); i++) {
             Reaction reaction = er.getReaction(i);
-			// Rhea-ctions won't appear in IntEnzXML except for preliminary ECs:
-			if (reaction.getId() > Reaction.NO_ID_ASSIGNED
-					/*&& !reaction.getStatus().equals(Status.OK)*/
-					&& !EnzymeCommissionNumber.isPreliminary(entry.getEc().toString()))
-				continue;
+            Object xmlReaction = null;
+			if (reaction.getId() > Reaction.NO_ID_ASSIGNED){
+				// Rhea reaction:
+				org.xml_cml.schema.cml2.react.Reaction cmlReaction =
+						new CmlMapper().mapRheaReaction(reaction);
+				// As of 2012-11-13, Rhea reactions are only used in IntEnz view
+				Label viewLabel = new Label();
+				viewLabel.setValue("view:" + ViewType.INTENZ);
+				cmlReaction.getLabel().add(viewLabel);
+				xmlReaction = cmlReaction;
+			} else {
+				// Plain text reaction:
+	            ReactionType jaxbReaction = of.createReactionType();
+	            jaxbReaction.getContent().add(getFlavoured(reaction.getTextualRepresentation()));
+	            jaxbReaction.setView(VIEWS.get(er.getReactionView(i)));
+	            xmlReaction = jaxbReaction;
+			}
             if (jaxbEnzyme.getReactions() == null)
                 jaxbEnzyme.setReactions(of.createReactions());
 
-            ReactionType jaxbReaction = of.createReactionType();
-            jaxbReaction.getContent().add(getFlavoured(reaction.getTextualRepresentation()));
-            jaxbReaction.setView(VIEWS.get(er.getReactionView(i)));
-            jaxbEnzyme.getReactions().getReaction().add(jaxbReaction);
+            jaxbEnzyme.getReactions().getReactionOrReaction().add(xmlReaction);
         }
     }
 
