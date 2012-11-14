@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0
+		http://maven.apache.org/changes/1.0.0 ">
+		
+	<properties>
+        <title>Change log</title>
+        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+	</properties>
+	
+	<body>
+		<release version="1.0.1" date="2012-11-14"
+			description="Reactions as CMLReact in XML responses">
+			<action dev="rafalcan" type="update">
+				Updated to latest versions of intenz-mapper, intenz-export -
+				which now exports Rhea reactions as CMLReact - and
+				intenz-ffwriter.
+			</action>
+		</release>
+		<release version="1.0.0" date="2012-10-04" description="First release"/>
+	</body>
+</document>
