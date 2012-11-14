@@ -4,7 +4,7 @@
 
 	<groupId>uk.ac.ebi.intenz</groupId>
 	<artifactId>intenz-export</artifactId>
-	<version>1.3.13</version>
+	<version>1.3.14-SNAPSHOT</version>
 	<name>IntEnz export module</name>
 	<description>Module to export IntEnz in different formats</description>
 
@@ -157,10 +157,4 @@
 
 		</plugins>
 	</build>
-
-  <scm>
-    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-export-1.3.13</connection>
-    <developerConnection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-export-1.3.13</developerConnection>
-    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-export-1.3.13</url>
-  </scm>
 </project>
