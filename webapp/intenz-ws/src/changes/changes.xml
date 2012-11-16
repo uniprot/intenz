@@ -10,6 +10,13 @@
 	</properties>
 	
 	<body>
+		<release version="1.0.2" date="2012-11-16"
+			description="CMLReact schema local">
+			<action dev="rafalcan" type="fix">
+				CMLReact schema is now local, which fixes issue with the
+				IntEnzXML validation in LDCs.
+			</action>
+		</release>
 		<release version="1.0.1" date="2012-11-15"
 			description="Reactions as CMLReact in XML responses">
 			<action dev="rafalcan" type="update">
