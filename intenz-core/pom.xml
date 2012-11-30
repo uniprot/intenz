@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-		http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0   http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>uk.ac.ebi.intenz</groupId>
 	<artifactId>intenz-core</artifactId>
 	<name>IntEnz core module</name>
 	<packaging>jar</packaging>
-	<version>4.3.0-SNAPSHOT</version>
+	<version>4.3.0</version>
 	<description>IntEnz - Core package</description>
 
 	<parent>
@@ -51,4 +48,10 @@
 			<version>0.9.0</version>
 		</dependency>
 	</dependencies>
+
+  <scm>
+    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-core-4.3.0</connection>
+    <developerConnection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-core-4.3.0</developerConnection>
+    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-core-4.3.0</url>
+  </scm>
 </project>
