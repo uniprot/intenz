@@ -643,12 +643,16 @@ public class XmlExporter {
 				Label viewLabel = new Label();
 				viewLabel.setValue("view:" + ViewType.INTENZ);
 				cmlReaction.getLabel().add(viewLabel);
+				Label iubmbLabel = new Label();
+				iubmbLabel.setValue("iubmb:" + er.getReactionIubmbFlag(i));
+				cmlReaction.getLabel().add(iubmbLabel);
 				xmlReaction = cmlReaction;
 			} else {
 				// Plain text reaction:
 	            ReactionType jaxbReaction = of.createReactionType();
 	            jaxbReaction.getContent().add(getFlavoured(reaction.getTextualRepresentation()));
 	            jaxbReaction.setView(VIEWS.get(er.getReactionView(i)));
+	            jaxbReaction.setIubmb(er.getReactionIubmbFlag(i));
 	            xmlReaction = jaxbReaction;
 			}
             if (jaxbEnzyme.getReactions() == null)
