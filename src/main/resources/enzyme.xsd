@@ -248,6 +248,7 @@
     	</xs:annotation>
     	<xs:complexContent>
     		<xs:extension base="i:viewableType">
+    			<xs:attribute name="iubmb" type="xs:boolean"></xs:attribute>
     		</xs:extension>
     	</xs:complexContent>
     </xs:complexType>
