@@ -162,7 +162,7 @@ public class CC_LineFormatter extends DefaultLineFormatter {
       {"etc., ", ".*?"},
       {"etc.", ".*?"},
       {"etc.,", ".*?"},
-      {"sp. ", "(\\p{Lower}|OxB-1|PCC|AK2|M128|AL-1|SBUG 290|A17|CBB1|CL190|No\\.|\\d+|\\(|T62|HT23|DSM 3803|NCIMB 9784|HZN6|G-10|JS329|AP3|JS330).*?"},
+      {"sp. ", "(\\p{Lower}|OxB-1|PCC|AK2|M128|AL-1|SBUG 290|A17|CBB1|CL190|No\\.|\\d+|\\(|T62|HT23|DSM 3803|NCIMB 9784|HZN6|G-10|JS329|AP3|JS330|WBC-3).*?"},
       {"sp., ", ".*?"},
       {"sp.", ".*?"},
       {"sp.,", ".*?"},

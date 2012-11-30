@@ -9,6 +9,16 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.39" date="2012-11-30"
+			description="Added exception for non-sentence-ending 'sp.'">
+            <action dev="rafalcan" type="update">
+                Updated CC_LineFormatter with exception for 'Pseudomonas sp
+                WBC-3'.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated to latest version of junit.
+            </action>
+    	</release>
     	<release version="1.2.38" date="2012-11-07"
 			description="Removed DE line exceptions">
 			<action dev="rafalcan" type="remove">

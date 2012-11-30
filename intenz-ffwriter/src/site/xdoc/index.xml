@@ -34,7 +34,7 @@
         <subsection name="Other formatting exceptions">
         Other exceptions must be done to get the right format. For example,
         the characters 'sp.' don't mean the end of a sentence. This concrete
-        case is defined in CC_LineFormatter.jara.
+        case is defined in CC_LineFormatter.java.
         </subsection>
 	</body>
 </document>
