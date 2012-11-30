@@ -4,7 +4,7 @@
 
 	<groupId>uk.ac.ebi.intenz</groupId>
 	<artifactId>intenz-xml</artifactId>
-	<version>1.1.2-SNAPSHOT</version>
+	<version>1.1.2</version>
 	<name>IntEnzXML</name>
 	<description>XML format for IntEnz.</description>
 
@@ -142,4 +142,10 @@
             </plugin>
         </plugins>
     </reporting>
+
+  <scm>
+    <connection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-xml-1.1.2</connection>
+    <developerConnection>scm:svn:https://intenz.svn.sourceforge.net/svnroot/intenz/intenz/tags/intenz-xml-1.1.2</developerConnection>
+    <url>http://intenz.svn.sourceforge.net/viewvc/intenz/intenz/tags/intenz-xml-1.1.2</url>
+  </scm>
 </project>
