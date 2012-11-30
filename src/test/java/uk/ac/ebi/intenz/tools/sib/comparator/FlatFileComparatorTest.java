@@ -1,5 +1,7 @@
 package uk.ac.ebi.intenz.tools.sib.comparator;
 
+import org.junit.Ignore;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -12,6 +14,7 @@ import uk.ac.ebi.intenz.tools.sib.exceptions.EnzymeEntryValidationException;
  * @version 1.0
  * @since <pre>04/06/2005</pre>
  */
+@Ignore("Comparator not used any longer")
 public class FlatFileComparatorTest extends TestCase {
   public FlatFileComparatorTest(String name) {
     super(name);
