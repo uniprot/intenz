@@ -8,6 +8,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.3.0" date="2012-11-30" description="IUBMB flags">
+        	<action dev="rafalcan" type="add">
+        		Added IUBMB flag to enzyme-(Rhea)reaction relationships.
+        	</action>
+        	<action dev="rafalcan" type="add">
+        		EnzymaticReactions now implements Collection.
+        	</action>
+    	</release>
     	<release version="4.2.9" date="2012-09-07"
     		description="Updated ENZYME URL.">
     		<action dev="rafalcan" type="fix">
