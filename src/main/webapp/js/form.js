@@ -320,3 +320,39 @@ function checkPreliminary(ev){
 		}
 	}
 }
+
+/**
+ * Checks that the value of the view selector and the IUBMB checkbox are
+ * compatible.
+ * @param event the event triggering the check
+ */
+function checkIubmbView(target){
+	if (target.id.indexOf('view') > -1){
+		// Modified view, we have to check the IUBMB flag:
+		var iubmbElemId = target.id.replace('view', 'iubmb');
+		if (target.value == 'INTENZ' || target.value.indexOf('IUBMB') > -1){
+			// This is IUBMB's:
+			document.getElementById(iubmbElemId).checked = true;
+        } else {
+        	document.getElementById(iubmbElemId).checked = false;
+		}
+	} else if (target.id.indexOf('iubmb') > -1){
+		// Modified IUBMB flag, we have to check the view:
+		var viewElemId = target.id.replace('iubmb', 'view');
+		var viewElem = document.getElementById(viewElemId);
+		if (target.checked){
+			// All views:
+			viewElem.value = 'INTENZ';
+		} else {
+			if (viewElem.value == 'INTENZ' || viewElem.value.indexOf('IUBMB') > -1){
+				// Conflict:
+				alert('According to the view, this is an IUBMB reaction');
+				target.checked = true;
+			}
+		}
+	}
+}
+
+function setIubmbFlag(target, index){
+	document.getElementById('iubmbFlag-'+index).value = target.checked;
+}

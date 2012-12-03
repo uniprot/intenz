@@ -94,7 +94,7 @@ public class UnitOfWork implements HttpSessionBindingListener {
 	/**
 	 * The EnzymeDTO instance the curator is working on.
 	 */
-	private Map enzymesUnderDevelopment;
+	private Map<Integer, EnzymeDTO> enzymesUnderDevelopment;
 	
 	EnzymeReactionMapper enzymeReactionMapper;
 
@@ -105,18 +105,18 @@ public class UnitOfWork implements HttpSessionBindingListener {
 	 * @deprecated 
 	 */
 	public UnitOfWork() {
-		this(new EnzymeEntryMapper(), new EnzymeReactionMapper());
+		this(new EnzymeReactionMapper());
 	}
 	
 	public UnitOfWork(EnzymeReactionMapper enzymeReactionMapper){
-		this(new EnzymeEntryMapper(enzymeReactionMapper), enzymeReactionMapper);
+		this(enzymeReactionMapper, new EnzymeEntryMapper(enzymeReactionMapper));
 	}
 	
-	public UnitOfWork(EnzymeEntryMapper enzymeEntryMapper,
-			EnzymeReactionMapper enzymeReactionMapper){
-		this.enzymeEntryMapper = enzymeEntryMapper;
+	public UnitOfWork(EnzymeReactionMapper enzymeReactionMapper,
+			EnzymeEntryMapper enzymeEntryMapper){
 		this.enzymeReactionMapper = enzymeReactionMapper;
-		enzymesUnderDevelopment = new HashMap();
+		this.enzymeEntryMapper = enzymeEntryMapper;
+		enzymesUnderDevelopment = new HashMap<Integer, EnzymeDTO>();
 	}
 	
 	@Override
@@ -258,19 +258,20 @@ public class UnitOfWork implements HttpSessionBindingListener {
 		assert con != null : "Parameter 'con' must not be null.";
 		EnzymaticReactions er = new EnzymaticReactions();
 		for (ReactionDTO reactionDTO : reactions) {
-			er.add(getReactionObject(reactionDTO), reactionDTO.getView());
+			er.add(getReactionObject(reactionDTO), reactionDTO.getView(),
+					Boolean.parseBoolean(reactionDTO.getIubmb()));
 		}
 		enzymeReactionMapper.update(enzymeId, er, con);
 	}
 
-	private void reloadNames(List names, Long enzymeId, Status status, EnzymeNameTypeConstant type,
+	private void reloadNames(List<?> names, Long enzymeId, Status status, EnzymeNameTypeConstant type,
 			Connection con) throws SQLException {
 		assert names != null : "Parameter 'names' must not be null.";
 		assert enzymeId != null : "Parameter 'enzymeId' must not be null.";
 		assert status != null : "Parameter 'status' must not be null.";
 		assert type != null : "Parameter 'type' must not be null.";
 		assert con != null : "Parameter 'con' must not be null.";
-		List enzymeNames = new ArrayList();
+		List<EnzymeName> enzymeNames = new ArrayList<EnzymeName>();
 		for (int iii = 0; iii < names.size(); iii++) {
 			enzymeNames.add(getEnzymeNameObject((EnzymeNameDTO) names.get(iii)));
 		}
@@ -340,19 +341,19 @@ public class UnitOfWork implements HttpSessionBindingListener {
 	private void reloadLinks(EnzymeDTO enzymeUnderDevelopment, Connection con) throws SQLException, DomainException {
 		assert enzymeUnderDevelopment != null : "Parameter 'enzymeUnderDevelopment' must not be null.";
 		assert con != null : "Parameter 'con' must not be null.";
-		List links = getEnzymeLinkObjects(enzymeUnderDevelopment.getLinks(), enzymeUnderDevelopment.getUniProtLinks());
+		List<EnzymeLink> links = getEnzymeLinkObjects(enzymeUnderDevelopment.getLinks(), enzymeUnderDevelopment.getUniProtLinks());
 		EnzymeLinkMapper enzymeLinkMapper = new EnzymeLinkMapper();
 		enzymeLinkMapper.reloadLinks(links, new Long(enzymeUnderDevelopment.getId()),
 				Status.fromCode(enzymeUnderDevelopment.getStatusCode()), con);
 	}
 
-	private void reloadComments(List comments, Long enzymeId, Status status, Connection con)
+	private void reloadComments(List<?> comments, Long enzymeId, Status status, Connection con)
 	throws SQLException {
 		assert comments != null : "Parameter 'names' must not be null.";
 		assert enzymeId != null : "Parameter 'enzymeId' must not be null.";
 		assert status != null : "Parameter 'status' must not be null.";
 		assert con != null : "Parameter 'con' must not be null.";
-		List enzymeComments = new ArrayList();
+		List<EnzymeComment> enzymeComments = new ArrayList<EnzymeComment>();
 		for (int iii = 0; iii < comments.size(); iii++) {
 			enzymeComments.add(getEnzymeCommentObject((CommentDTO) comments.get(iii)));
 		}
@@ -362,13 +363,13 @@ public class UnitOfWork implements HttpSessionBindingListener {
 
 	}
 
-	private void reloadReferences(List references, Long enzymeId, Status status,
+	private void reloadReferences(List<?> references, Long enzymeId, Status status,
 			EnzymeSourceConstant source, Connection con) throws SQLException {
 		assert references != null : "Parameter 'names' must not be null.";
 		assert enzymeId != null : "Parameter 'enzymeId' must not be null.";
 		assert status != null : "Parameter 'status' must not be null.";
 		assert con != null : "Parameter 'con' must not be null.";
-		List<Reference> enzymeReferences = new ArrayList();
+		List<Reference> enzymeReferences = new ArrayList<Reference>();
 		for (int iii = 0; iii < references.size(); iii++) {
 			enzymeReferences.add(getReferenceObject((ReferenceDTO) references.get(iii)));
 		}
@@ -435,12 +436,12 @@ public class UnitOfWork implements HttpSessionBindingListener {
 		assert enzymeUnderDevelopment != null : "Parameter 'enzymeUnderDevelopment' must not be null.";
 		assert con != null : "Parameter 'con' must not be null.";
 		EnzymeNameMapper enzymeNameMapper = new EnzymeNameMapper();
-		List enzymeNames = new ArrayList();
-		List commonNames = enzymeUnderDevelopment.getCommonNames();
+		List<EnzymeName> enzymeNames = new ArrayList<EnzymeName>();
+		List<?> commonNames = enzymeUnderDevelopment.getCommonNames();
 		for (int iii = 0; iii < commonNames.size(); iii++) {
 			enzymeNames.add(getEnzymeNameObject((EnzymeNameDTO) commonNames.get(iii)));
 		}
-		List synonyms = enzymeUnderDevelopment.getSynonyms();
+		List<?> synonyms = enzymeUnderDevelopment.getSynonyms();
 		for (int iii = 0; iii < synonyms.size(); iii++) {
 			enzymeNames.add(getEnzymeNameObject((EnzymeNameDTO) synonyms.get(iii)));
 		}
@@ -463,7 +464,8 @@ public class UnitOfWork implements HttpSessionBindingListener {
 		assert con != null : "Parameter 'con' must not be null.";
 		EnzymaticReactions er = new EnzymaticReactions();
 		for (ReactionDTO reactionDTO : enzymeUnderDevelopment.getReactionDtos()) {
-			er.add(getReactionObject(reactionDTO), reactionDTO.getView());
+			er.add(getReactionObject(reactionDTO), reactionDTO.getView(),
+					Boolean.parseBoolean(reactionDTO.getIubmb()));
 		}
 
 		if (er.size() > 0) {
@@ -502,7 +504,7 @@ public class UnitOfWork implements HttpSessionBindingListener {
 	private void insertLinks(EnzymeDTO enzymeUnderDevelopment, Connection con) throws SQLException, DomainException {
 		assert enzymeUnderDevelopment != null : "Parameter 'enzymeUnderDevelopment' must not be null.";
 		assert con != null : "Parameter 'con' must not be null.";
-		List enzymeLinks = getEnzymeLinkObjects(enzymeUnderDevelopment.getLinks(), enzymeUnderDevelopment.getUniProtLinks());
+		List<EnzymeLink> enzymeLinks = getEnzymeLinkObjects(enzymeUnderDevelopment.getLinks(), enzymeUnderDevelopment.getUniProtLinks());
 		if (enzymeLinks.size() > 0) {
 			EnzymeLinkMapper enzymeLinkMapper = new EnzymeLinkMapper();
 			enzymeLinkMapper.insert(enzymeLinks, new Long(enzymeUnderDevelopment.getId()),
@@ -519,8 +521,8 @@ public class UnitOfWork implements HttpSessionBindingListener {
 	private void insertComments(EnzymeDTO enzymeUnderDevelopment, Connection con) throws SQLException {
 		assert enzymeUnderDevelopment != null : "Parameter 'enzymeUnderDevelopment' must not be null.";
 		assert con != null : "Parameter 'con' must not be null.";
-		List enzymeComments = new ArrayList();
-		List comments = enzymeUnderDevelopment.getComments();
+		List<EnzymeComment> enzymeComments = new ArrayList<EnzymeComment>();
+		List<?> comments = enzymeUnderDevelopment.getComments();
 		for (int iii = 0; iii < comments.size(); iii++) {
 			enzymeComments.add(getEnzymeCommentObject((CommentDTO) comments.get(iii)));
 		}
@@ -541,8 +543,8 @@ public class UnitOfWork implements HttpSessionBindingListener {
 	private void insertReferences(EnzymeDTO enzymeUnderDevelopment, Connection con) throws SQLException {
 		assert enzymeUnderDevelopment != null : "Parameter 'enzymeUnderDevelopment' must not be null.";
 		assert con != null : "Parameter 'con' must not be null.";
-		List enzymeReferences = new ArrayList();
-		List references = enzymeUnderDevelopment.getReferences();
+		List<Reference> enzymeReferences = new ArrayList<Reference>();
+		List<?> references = enzymeUnderDevelopment.getReferences();
 		for (int iii = 0; iii < references.size(); iii++) {
 			enzymeReferences.add(getReferenceObject((ReferenceDTO) references.get(iii)));
 		}
@@ -644,10 +646,10 @@ public class UnitOfWork implements HttpSessionBindingListener {
 	 *                     {@link uk.ac.ebi.intenz.domain.enzyme.EnzymeLink} objects.
 	 * @return List {@link uk.ac.ebi.intenz.domain.enzyme.EnzymeLink} objects.
 	 */
-	private List getEnzymeLinkObjects(List links, List uniprotLinks) throws DomainException {
+	private List<EnzymeLink> getEnzymeLinkObjects(List<?> links, List<?> uniprotLinks) throws DomainException {
 		assert links != null : "Parameter 'links' must not be null.";
 		assert uniprotLinks != null : "Parameter 'uniprotLinks' must not be null.";
-		List enzymeLinks = new ArrayList();
+		List<EnzymeLink> enzymeLinks = new ArrayList<EnzymeLink>();
 		for (int iii = 0; iii < links.size(); iii++) {
 			EnzymeLinkDTO enzymeLinkDTO = (EnzymeLinkDTO) links.get(iii);
 			EnzymeLink enzymeLink = EnzymeLink.valueOf(XrefDatabaseConstant.valueOf(enzymeLinkDTO.getDatabaseCode()),

@@ -8,6 +8,17 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="4.2.10" date="2012-12-03" description="IUBMB flag">
+    		<action dev="rafalcan" type="update">
+    			Updated to latest version of intenz-core and intenz-mapper -
+    			which implement IUBMB flags for enzyme-reaction associations -,
+    			intenz-ffwriter, rhea-domain, rhea-mapper, biobabel-core and
+    			biobabel-citations.
+    		</action>
+    		<action dev="rafalcan" type="add">
+				Added controls to manage IUBMB flags for reactions.
+			</action>
+   		</release>
     	<release version="4.2.9" date="2012-11-05"
     		description="Editing target EC of transferred entries">
     		<action dev="rafalcan" type="add">
