@@ -57,13 +57,13 @@ public class PubMedAccessor {
           if (citation == null) return;
 
           issue = citation.getJournalInfo();
-          AuthorsList authors = citation.getAuthorList();
-          for (int i = 0; i < authors.getAuthor().size(); i++){
-              Authors author = authors.getAuthor().get(i);
+          List<Authors> authors = citation.getAuthorList().getAuthor();
+          for (int i = 0; i < authors.size(); i++){
+              Authors author = authors.get(i);
               authorsString.append(author.getLastName());
               authorsString.append(", ");
               authorsString.append(getFormattedInitials(author.getInitials()));
-              if (i < authors.getAuthor().size()-1) authorsString.append(", ");
+              if (i < authors.size()-1) authorsString.append(", ");
           }
 
           title = citation.getTitle();
