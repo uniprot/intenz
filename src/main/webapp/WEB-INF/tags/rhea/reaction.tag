@@ -11,6 +11,10 @@
     description="The reaction to render."
     required="true"
     type="uk.ac.ebi.rhea.domain.Reaction" %>
+<%@attribute name="iubmb"
+	rtexprvalue="true"
+	description="Flag as IUBMB reaction?"
+	type="java.lang.Boolean" %>
 
 <div>
     <span style="margin-right: 1em"
@@ -20,6 +24,7 @@
         	RHEA:${reaction.id}
        	</a>
     </span>
+    <c:if test="${iubmb}"><b>[IUBMB]</b></c:if>
 </div>
 <div style="display: table-row">
     <r:reactionSide

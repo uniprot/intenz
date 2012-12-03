@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
-import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.webapp.utilities.IntEnzMessenger;
 
 /**
