@@ -8,6 +8,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="70.1.1" date="" description="">
+    		<action dev="rafalcan" type="fix">
+				Changed citations links from CiteXplore (retiring) to Europe
+				PubMed Central.
+			</action>
+    	</release>
     	<release version="70.1.0" date="2012-12-03" description="IUBMB flag">
             <action dev="rafalcan" type="add">
             	Added IUBMB flag to reactions.
