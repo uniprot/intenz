@@ -169,7 +169,7 @@ CAS Registry Number${fn:length(entry.casNumbers) gt 1? 's' : '' }:
                     (${ref.year}).
                     <c:if test="${not empty ref.pubMedId}">
                         [PMID: <a target="_blank"
-                            href="http://www.ebi.ac.uk/citexplore/citationDetails.do?dataSource=MED&externalId=${ref.pubMedId}">${ref.pubMedId}</a>]
+                            href="http://europepmc.org/abstract/MED/${ref.pubMedId}">${ref.pubMedId}</a>]
                     </c:if>
                 </c:when>
                 <c:when test="${ref.class.simpleName eq 'Book'}">
