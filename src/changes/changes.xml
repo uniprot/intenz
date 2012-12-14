@@ -13,6 +13,10 @@
 				Changed citations links from CiteXplore (retiring) to Europe
 				PubMed Central.
 			</action>
+			<action dev="rafalcan" type="fix">
+				Caught exception in case the news RSS feed (SourceForge) does
+				not work.
+			</action>
     	</release>
     	<release version="70.1.0" date="2012-12-03" description="IUBMB flag">
             <action dev="rafalcan" type="add">
