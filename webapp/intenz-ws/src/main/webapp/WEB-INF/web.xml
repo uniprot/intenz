@@ -22,6 +22,17 @@
 		<param-name>mappers.pool.size</param-name>
 		<param-value>8</param-value>
 	</context-param>
+	
+	<context-param>
+		<description>
+			Base URL for templates (EBI web service).
+			FIXME: THIS SHOULD BE TAKEN FROM IntenzConfig SINGLETON!
+		</description>
+		<param-name>templatesUrl</param-name>
+		<param-value>
+			http://wwwint.ebi.ac.uk/web/template-service/prod/templates/compliance
+		</param-value>
+	</context-param>
 
 	<servlet>
 		<display-name>Intenz WS EC Servlet</display-name>
@@ -36,7 +47,7 @@
 	</servlet-mapping>
 
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
   
 </web-app>
