@@ -4,7 +4,7 @@
 	<groupId>uk.ac.ebi.intenz.webapp</groupId>
 	<artifactId>intenz-ws</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<name>intenz-ws</name>
 	<parent>
 		<artifactId>webapp</artifactId>
@@ -16,6 +16,17 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<build>
+		<resources>
+			<resource>
+				<directory>${intenz.config.dir}</directory>
+				<includes>
+					<include>intenz-public.properties</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+	
 	<dependencies>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
@@ -53,6 +64,11 @@
 			<groupId>uk.ac.ebi.biobabel</groupId>
 			<artifactId>biobabel-core</artifactId>
 			<version>0.13</version>
+		</dependency>
+		<dependency>
+			<groupId>uk.ac.ebi.biobabel.webapp</groupId>
+			<artifactId>biobabel-webapp</artifactId>
+			<version>0.1.6</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-pool</groupId>
