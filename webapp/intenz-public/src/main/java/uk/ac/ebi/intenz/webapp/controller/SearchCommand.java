@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 
 import uk.ac.ebi.biobabel.util.WebUtil;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
+import uk.ac.ebi.intenz.domain.exceptions.EcException;
 import uk.ac.ebi.intenz.webapp.IntEnzConfig;
 import uk.ac.ebi.intenz.webapp.exceptions.QueryException;
 import uk.ac.ebi.intenz.webapp.utilities.IntEnzMessenger;
@@ -158,7 +159,7 @@ public class SearchCommand extends DatabaseCommand {
         String id = rs.getString("enzyme_id");
         // Check if we already have the entry within the results:
         for (int i = 0; i < results.size(); i++){
-            Result previous = (Result) results.get(i);
+            Result previous = results.get(i);
             if (id.equals(previous.id)){
                 previous.addText(rs.getString("text"), rs.getInt("text_order"));
                 previous.addScore(rs.getInt("score"));
@@ -168,7 +169,7 @@ public class SearchCommand extends DatabaseCommand {
 
         Result res = new Result();
         res.id = id;
-        res.ec = rs.getString("ec");
+        res.ec = EnzymeCommissionNumber.valueOf(rs.getString("ec"));
         String commonName = rs.getString("common_name");
         if (commonName == null) commonName = "";
         res.commonName = commonName;
@@ -179,7 +180,7 @@ public class SearchCommand extends DatabaseCommand {
         }
         res.score = rs.getInt("score");
         res.addText(rs.getString("text"), rs.getInt("text_order"));
-        if (res.ec.equals(query)){
+        if (res.ec.toString().equals(query)){
         	results.add(0, res);
         } else {
         	results.add(res);
@@ -189,6 +190,9 @@ public class SearchCommand extends DatabaseCommand {
     } catch (IllegalArgumentException e) {
       doErrorExceptionHandling(e);
       return;
+    } catch (EcException e){
+        doErrorExceptionHandling(e);
+        return;
     } catch (SQLException e) {
        LOGGER.error("While searching", e);
       IntEnzMessenger.sendError(this.getClass().toString(),
@@ -215,7 +219,7 @@ public class SearchCommand extends DatabaseCommand {
               this.databaseErrorMessage);
       forward("/error.jsp");
       return;
-    } finally {
+	} finally {
       try {
         ps.close();
       } catch (SQLException e) {
@@ -235,12 +239,12 @@ public class SearchCommand extends DatabaseCommand {
 
     if (results.size() == 1){
         // Go straight to the only one result:
-        String ec = ((Result) results.get(0)).ec;
+        String ec = results.get(0).ec.toString();
         try {
             switch (EnzymeCommissionNumber.valueOf(ec).getType()) {
                 case ENZYME:
                 case PRELIMINARY:
-                    String id = ((Result) results.get(0)).id;
+                    String id = results.get(0).id;
                     forward("/query?cmd=SearchID&id=" + id);
                     return;
                 default:
@@ -798,7 +802,7 @@ public class SearchCommand extends DatabaseCommand {
 
   public class Result {
       private String id;
-      private String ec;
+      private EnzymeCommissionNumber ec;
       private String commonName;
       private String status;
       private int score;
@@ -813,11 +817,11 @@ public class SearchCommand extends DatabaseCommand {
       private String getText(){
           StringBuffer wholeXml = new StringBuffer();
           for (Iterator<String> it = xmlFragments.values().iterator(); it.hasNext();){
-              wholeXml.append((String) it.next());
+              wholeXml.append(it.next());
           }
           return wholeXml.toString();
       }
-      public String getEc() {
+      public EnzymeCommissionNumber getEc() {
           return ec;
       }
       public String getId() {

@@ -8,7 +8,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-    	<release version="70.1.1" date="" description="">
+    	<release version="71.0.0" date="" description="Frontier">
+    		<action dev="rafalcan" type="update">
+				Redesigned pages according to the new EBI website guidelines.
+			</action>
+    		<action dev="rafalcan" type="update">
+				Updated to latest versions of intenz-core, intenz-mapper,
+				intenz-ffwriter and biobabel-core.
+			</action>
     		<action dev="rafalcan" type="fix">
 				Changed citations links from CiteXplore (retiring) to Europe
 				PubMed Central.

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+		http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>uk.ac.ebi.intenz.webapp</groupId>
 	<artifactId>intenz-public</artifactId>
     <name>IntEnz public webapp</name>
 	<packaging>war</packaging>
-	<version>70.1.1-SNAPSHOT</version>
+	<version>71.0.0-SNAPSHOT</version>
 	<description>IntEnz public web application</description>
 
 	<parent>
@@ -136,7 +139,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel.webapp</groupId>
 			<artifactId>biobabel-webapp</artifactId>
-			<version>0.1.5</version>
+			<version>0.1.6</version>
 		</dependency>
 		<dependency>
 			<!-- overriding rhea-domain's transitive one: -->

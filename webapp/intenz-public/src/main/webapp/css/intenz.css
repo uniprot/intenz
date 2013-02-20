@@ -2,8 +2,13 @@
 
 /* OVERRIDES -------------------------------------------------------------- */
 
+b i, i b {
+    font-weight: bold;
+    font-style: italic;
+}
+
 h2, h3, .pubauthors, .pubtitle, .pubjournal {
-	background-color: transparent !important;
+	background-color: transparent;
 }
 .pubName {
 	font-style: italic !important;
@@ -21,16 +26,18 @@ h2, h3, .pubauthors, .pubtitle, .pubjournal {
 /* TOCs ------------------------------------------------------------------- */
 
 .toc {
-	width: 200px;
-	float: right;
+	/*width: 200px;*/
+	/*float: right;*/
 	margin: 1em;
 }
+/*
 .tocHeader {
 	width: 163px !important;
 }
 .tocBody {
 	width: 190px !important;
 }
+*/
 
 .tocBody ol {
 	margin-left: 1em;
@@ -42,20 +49,44 @@ h2, h3, .pubauthors, .pubtitle, .pubjournal {
 	margin-bottom: 0em;
 }
 
+.linktotop {
+    color: #999999;
+    float: right;
+    font-size: 8pt;
+    list-style: none outside none;
+    margin: 0 0 12px;
+    padding: 0;
+}
+.linktotop a {
+    background: url("http://www.ebi.ac.uk/inc/images/top_arrow.gif") no-repeat scroll right top transparent;
+    height: 14px;
+    padding: 2px 12px 0 0;
+    text-align: left;
+}
+.linktotop a:link, .linktotop a:visited {
+    color: #999999;
+    text-decoration: none;
+}
+.linktotop a:link, .linktotop a:visited {
+    color: #E33E3E;
+    text-decoration: underline;
+}
+
 .centered {
 	display: block !important;
 	margin-left: auto !important;
 	margin-right: auto !important;
 	text-align: center;
 }
-
+/*
 .externalLink:after,
 a[target="_blank"]:after,
 a[target="chebiFromIntEnz"]:after,
 a[target="rheaFromIntEnz"]:after {
-	content: url(images/external-link.png);
+	content: url(../images/external-link.png);
+	padding-left: 0.3em;
 }
-
+*/
 .text {
 	COLOR: #000000;
 	FONT-FAMILY: "Arial Unicode MS", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
@@ -307,9 +338,6 @@ A.white:hover {
 .pt_enzyme_black      {font-family: "Arial Unicode MS", "Lucida Sans Unicode", Arial, Helvetica, sans-serif; font-size: 11pt; color: #000000}
 .greenboldheader {font-weight: bold; font-size: 10pt; font-family: "Arial Unicode MS", "Lucida Sans Unicode", Arial, Helvetica, sans-serif; color: #336666}
 
-.inactiveEntry { color: #888; }
-.inactiveEntry:before { content: "(" }
-.inactiveEntry:after { content: ")" }
 
 .entryNav {
 	font-size: 75%;
@@ -405,7 +433,7 @@ h2.spotlight {
 	margin-top: 0em;
 	margin-bottom: 1em;
 	padding-top: 1em;
-	padding-bottom: 2px;
+	/*padding-bottom: 2px;*/
 }
 
 /* XML : ----------------------------------------------------------- */
@@ -457,6 +485,24 @@ td.searchbar b {
 	font-weight: bold;
 	background-color: #edf6f5;
 }
+
+div.result {
+	display: table-row;
+}
+
+div.result div {
+	display: table-cell;
+	vertical-align: top;
+	padding-left: 1em;
+	padding-top: 1ex;
+}
+
+div.result.SUGGESTED, div.result.PROPOSED {
+	display: none;
+}
+
+.inactiveEntry { color: #888; }
+
 
 /* FEEDBACK ------------------------------------------------------------------ */
 table.mailForm th {

@@ -12,7 +12,7 @@
 	<%@include file="xmlLink.jspf" %>
 </c:if>
 
-<div style="text-align: center; font-weight: bold; display: table; width: 100%">
+<p style="text-align: center; font-weight: bold; display: table; width: 100%">
 	IntEnz Enzyme Nomenclature<br/>
 	<span style="font-size: 150%">EC ${entry.ec}</span>
 	<c:if test="${entry.status eq 'PROPOSED'}"><br/>(proposal)</c:if>
@@ -20,42 +20,45 @@
 		<div>This is a preliminary EC number. The content has not yet been
 		validated and included in the official IUBMB Enzyme list.</div>
 	</c:if>
-</div>
+</p>
 
 <i:getSynonyms view="INTENZ" var="synonyms" entry="${entry}"/>
 <c:if test="${not empty entry.commonName or not empty synonyms or not empty entry.systematicName}">
-<h2>Names</h2>
-<table border="0" cellspacing="5" style="margin-left: 2em">
+<h3>Names</h3>
 <c:if test="${not empty entry.commonName}">
-	<tr>
-		<th nowrap="nowrap" valign="top">Accepted name:</th>
-		<td width="100%" valign="top"><x:translate>${entry.commonName.name}</x:translate></td>
-	</tr>
+	<div style="display: table-row;">
+		<b style="display: table-cell; padding: 0ex 1em;">Accepted name: </b>
+		<div style="display: table-cell">
+			<x:translate>${entry.commonName.name}</x:translate>
+		</div>
+	</div>
 </c:if>
 <c:if test="${not empty synonyms}">
-	<tr>
-		<th nowrap="nowrap" valign="top">Other name${fn:length(synonyms) gt 1? 's' : ''}:</th>
-		<td width="100%" valign="top">
+	<div style="display: table-row">
+		<b style="display: table-cell; padding: 0ex 1em;">Other
+			name${fn:length(synonyms) gt 1? 's' : ''}: </b>
+		<div style="display: table-cell">
 		<c:forEach var="synonym" items="${synonyms}" varStatus="i">
 			<x:translate>${synonym.name}</x:translate>
 			<c:if test="${not empty synonym.qualifier and synonym.qualifier ne 'NON'}">
 				[${synonym.qualifier.label}]</c:if>
 			<c:if test="${not i.last}"><br/></c:if>
 		</c:forEach>
-		</td>
-	</tr>
+		</div>
+	</div>
 </c:if>
 <c:if test="${not empty entry.systematicName and entry.systematicName ne '-'}">
-	<tr>
-		<th nowrap="nowrap" valign="top">Systematic name:</th>
-		<td width="100%" valign="top"><x:translate>${entry.systematicName.name}</x:translate></td>
-	</tr>
+	<div style="display: table-row">
+		<b style="display: table-cell; padding: 0ex 1em;">Systematic name: </b>
+		<div style="display: table-cell">
+			<x:translate>${entry.systematicName.name}</x:translate>
+		</div>
+	</div>
 </c:if>
-</table>
 </c:if>
 
 <i:getReactions view="INTENZ" var="ers" entry="${entry}"/>
-<h2>Reaction${fn:length(ers) gt 1? 's' : ''}</h2>
+<h3>Reaction${fn:length(ers) gt 1? 's' : ''}</h3>
 <c:set var="steps" value="0"/>
 <ul>
 <c:forEach var="er" items="${ers}" varStatus="i">
@@ -68,7 +71,7 @@
 	<c:otherwise><%-- not in Rhea (old plain text) --%>
 		<li style="list-style-type: none">
 		<c:choose>
-			<c:when test="${fn:length(ers) > 1
+			<c:when test="${fn:length(ers) gt 1
 				and !fn:startsWith(er.reaction.textualRepresentation, '(1a)')
 				and !fn:startsWith(er.reaction.textualRepresentation, '(1b)')
 				and !fn:startsWith(er.reaction.textualRepresentation, '(1c)')
@@ -79,7 +82,7 @@
 			</c:when>
 			<c:otherwise>
 				<c:set var="steps" value="${steps + 1}"/>
-                <c:if test="${fn:length(ers) > 1}"><span style="margin-left: 1em">&nbsp;</span></c:if>
+                <c:if test="${fn:length(ers) gt 1}"><span style="margin-left: 1em">&nbsp;</span></c:if>
 			</c:otherwise>
 		</c:choose>
 		<x:translate><i:cleanLinks>${er.reaction}</i:cleanLinks></x:translate>
@@ -90,7 +93,7 @@
 </ul>
 
 <c:if test="${not empty entry.cofactors}">
-    <h2>Cofactor${fn:length(entry.cofactors) gt 1? 's' : ''}</h2>
+    <h3>Cofactor${fn:length(entry.cofactors) gt 1? 's' : ''}</h3>
     <ul>
         <c:forEach var="cofactor" items="${entry.cofactors}">
             <li style="list-style-type: ${fn:length(entry.cofactors) gt 1? 'disc' : 'none'}">
@@ -102,15 +105,15 @@
 
 <i:getComments entry="${entry}" var="comments" view="INTENZ"/>
 <c:if test="${not empty comments}">
-    <h2>Comments:</h2>
+    <h3>Comments:</h3>
     <c:forEach var="comment" items="${comments}">
-        <div style="margin-left: 2em"><b:ucfl><i:cleanLinks><x:translate>${comment.commentText}</x:translate></i:cleanLinks></b:ucfl></div>
+        <p style="margin-left: 2em"><b:ucfl><i:cleanLinks><x:translate>${comment.commentText}</x:translate></i:cleanLinks></b:ucfl></p>
     </c:forEach>
 </c:if>
 
 <i:getLinks view="INTENZ" var="links" entry="${entry}"/>
-<h2>Links to other databases</h2>
-<div style="margin-left: 2em">
+<h3>Links to other databases</h3>
+<p style="margin-left: 2em">
 <c:forEach var="link" items="${links}" varStatus="i">
     <c:if test="${link.xrefDatabaseConstant ne 'Swiss-Prot'}">
     <i:link enzymeLink="${link}" ec="${entry.ec}"/><c:if test="${not i.last}">,</c:if>
@@ -123,11 +126,11 @@ CAS Registry Number${fn:length(entry.casNumbers) gt 1? 's' : '' }:
         <c:if test="${not empty casNo.dataComment}">(${casNo.dataComment})</c:if>
     </c:forEach>
 </c:if>
-</div>
+</p>
 <c:set var="uniProtLinks" value="${entry.uniProtLinks}"/>
 <c:set var="uniProtLinksSize" value="${fn:length(uniProtLinks)}"/>
 <c:if test="${not empty uniProtLinks}">
-<table border="0" cellpadding="0" style="margin-left: 2em; margin-top: 1ex">
+<table border="0" cellpadding="0">
     <tr>
         <td valign="top" nowrap="nowrap" width="130">
             <b title="UniProt Knowledge Base: curated protein sequence database">UniProtKB/Swiss-Prot:</b>
@@ -151,7 +154,7 @@ CAS Registry Number${fn:length(entry.casNumbers) gt 1? 's' : '' }:
 </c:if>
 
 <c:if test="${not empty entry.references}">
-<h2>References</h2>
+<h3>References</h3>
 <ol>
 <c:forEach var="ref" items="${entry.references}">
     <li><x:translate>
@@ -196,4 +199,4 @@ CAS Registry Number${fn:length(entry.casNumbers) gt 1? 's' : '' }:
 </ol>
 </c:if>
 
-<div class="centered"><b>[${entry.history.rootNode.historyLine}]</b></div>
+<p class="centered"><b>[${entry.history.rootNode.historyLine}]</b></p>

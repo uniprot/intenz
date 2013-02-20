@@ -55,4 +55,7 @@ public interface IntEnzConfigMBean {
 
 	public abstract void setPageSize(String pageSize);
 
+	public abstract String getTemplatesUrl();
+	
+	public abstract void setTemplatesUrl(String templatesUrl); 
 }
