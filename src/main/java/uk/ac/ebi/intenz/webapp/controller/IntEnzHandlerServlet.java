@@ -1,5 +1,7 @@
 package uk.ac.ebi.intenz.webapp.controller;
 
+import static uk.ac.ebi.intenz.webapp.IntEnzConfig.Property.DATA_SOURCE;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -16,12 +18,10 @@ import java.util.PropertyResourceBundle;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 import javax.management.MBeanRegistrationException;
 import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
-import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -47,8 +47,6 @@ import uk.ac.ebi.intenz.webapp.IntEnzConfig;
 import uk.ac.ebi.intenz.webapp.controller.SearchECCommand.EnzymeEntryCacheKey;
 import uk.ac.ebi.intenz.webapp.utilities.IntEnzMessenger;
 import uk.ac.ebi.xchars.SpecialCharacters;
-
-import static uk.ac.ebi.intenz.webapp.IntEnzConfig.Property.DATA_SOURCE;
 
 /**
  * This servlet acts as a handler of the front controller.
@@ -273,7 +271,7 @@ public class IntEnzHandlerServlet extends HttpServlet
 	private Command getCommand(HttpServletRequest request) {
 		Command command = null;
 		try {
-			command = (Command) getCommandClass(request).newInstance();
+			command = getCommandClass(request).newInstance();
 		} catch (Exception e) {
 			return new UnknownDatabaseCommand();
 		}
@@ -284,11 +282,12 @@ public class IntEnzHandlerServlet extends HttpServlet
 	private Class<? extends Command> getCommandClass(HttpServletRequest request) {
 		Class<? extends Command> result;
 		try {
-			if (request.getParameter("cmd") == null || request.getParameter("cmd").equals("")){
-				throw new ClassNotFoundException();
+			String cmdParam = request.getParameter("cmd");
+			if (cmdParam == null || cmdParam.equals("")){
+				cmdParam = "Search";
 			}
 			final String commandClassName = "uk.ac.ebi.intenz.webapp.controller."
-					+ request.getParameter("cmd") + "Command";
+					+ cmdParam + "Command";
 			result = (Class<Command>) Class.forName(commandClassName);
 		} catch (ClassNotFoundException e) {
 			result = UnknownDatabaseCommand.class;
@@ -300,20 +299,7 @@ public class IntEnzHandlerServlet extends HttpServlet
 	throws NamingException, SQLException, IOException {
 		DataSource ds = (DataSource) envContext.lookup(IntEnzConfig
 				.getInstance().getIntEnzDataSource());
-		Connection con = ds.getConnection();
-        // This will not be needed if configured in the context file
-        // for the new dbcp as init SQL:
-        // FIXME when moved to LDCs with new tomcat dbcp
-        Statement stm = null;
-        try {
-            stm = con.createStatement();
-            stm.execute("ALTER SESSION SET CURRENT_SCHEMA = \"ENZYME\"");
-        } catch (SQLException e){
-            LOGGER.error("Unable to change database schema", e);
-        } finally {
-            if (stm != null) stm.close();
-        }
-        return con;
+		return ds.getConnection();
 	}
 
     public void propertyChange(PropertyChangeEvent evt){

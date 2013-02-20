@@ -32,7 +32,8 @@ public class IntEnzConfig implements IntEnzConfigMBean {
         CONTACT_MAIL_SUBJECT("intenz.contact.mail.subject"),
         ERROR_MAIL_TO("intenz.error.mail.to"),
         ERROR_MAIL_SUBJECT("intenz.error.mail.subject"),
-        SEARCH_PAGE_SIZE("intenz.search.page.size");
+        SEARCH_PAGE_SIZE("intenz.search.page.size"),
+        TEMPLATES_URL("ebi.template.service.url");
 		private String key;
         private Property(String key){ this.key = key; }
         @Override
@@ -170,7 +171,16 @@ public class IntEnzConfig implements IntEnzConfigMBean {
 		appProperties.setProperty(Property.SEARCH_PAGE_SIZE.key, pageSize);
 	}
 	
-    public void addPropertyChangeListener(String propName,
+    public String getTemplatesUrl() {
+		return appProperties.getProperty(Property.TEMPLATES_URL.key);
+	}
+
+	public void setTemplatesUrl(String templatesUrl) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addPropertyChangeListener(String propName,
             PropertyChangeListener pcl){
         LOGGER.info("Adding listener for " + propName);
         pcs.addPropertyChangeListener(propName, pcl);

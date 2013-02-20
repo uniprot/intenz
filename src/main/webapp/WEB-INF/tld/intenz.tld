@@ -1,51 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+		web-jsptaglibrary_2_0.xsd">
   <tlib-version>1.0</tlib-version>
   <short-name>intenz</short-name>
   <uri>http://www.ebi.ac.uk/intenz</uri>
 
   <tag-file>
-      <name></name>
+      <name>cleanLinks</name>
       <path>/WEB-INF/tags/intenz/cleanLinks.tag</path>
   </tag-file>
   <tag-file>
-      <name></name>
+      <name>createFfLinks</name>
       <path>/WEB-INF/tags/intenz/createFfLinks.tag</path>
   </tag-file>
   <tag-file>
-      <name></name>
+      <name>getComments</name>
       <path>/WEB-INF/tags/intenz/getComments.tag</path>
   </tag-file>
   <tag-file>
-      <name></name>
+      <name>getLinks</name>
       <path>/WEB-INF/tags/intenz/getLinks.tag</path>
   </tag-file>
   <tag-file>
-      <name></name>
+      <name>getReactions</name>
       <path>/WEB-INF/tags/intenz/getReactions.tag</path>
   </tag-file>
   <tag-file>
-      <name></name>
+      <name>getSynonyms</name>
       <path>/WEB-INF/tags/intenz/getSynonyms.tag</path>
   </tag-file>
   <tag-file>
-      <name></name>
+      <name>link</name>
       <path>/WEB-INF/tags/intenz/link.tag</path>
   </tag-file>
   <tag-file>
-      <name></name>
+      <name>linkEc</name>
       <path>/WEB-INF/tags/intenz/linkEc.tag</path>
   </tag-file>
   <tag-file>
-      <name></name>
+      <name>linkCofactor</name>
       <path>/WEB-INF/tags/intenz/linkCofactor.tag</path>
   </tag-file>
   <tag-file>
-      <name></name>
+      <name>linkCofactors</name>
       <path>/WEB-INF/tags/intenz/linkCofactors.tag</path>
   </tag-file>
   <tag-file>
-      <name></name>
+      <name>sibView</name>
       <path>/WEB-INF/tags/intenz/sibView.tag</path>
   </tag-file>
   

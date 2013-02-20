@@ -13,7 +13,7 @@
 	<%@include file="xmlLink.jspf" %>
 </c:if>
 
-<div style="text-align: center; font-weight: bold; display: table; width: 100%">
+<p style="text-align: center; font-weight: bold; display: table; width: 100%">
 	${param.view eq 'IUBMB'? 'NC-IUBMB' : 'IntEnz'} Enzyme Nomenclature<br/>
 	<span style="font-size: 150%">EC ${entry.ec}</span>
 	<c:if test="${entry.status eq 'PROPOSED'}"><br/>(proposal)</c:if>
@@ -21,7 +21,7 @@
         <div>This is a preliminary EC number. The content was
         validated and included in the official IUBMB Enzyme list.</div>
     </c:if>
-</div>
+</p>
 
 <table width="100%" border="0">
 	<tr>
