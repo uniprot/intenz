@@ -82,7 +82,7 @@
         	$('#local-searchbox').val('${requestScope.query}');
         	// this is where we switch from intenz wildcard to EBEye wildcard:
         	var ebeyeQuery = '${requestScope.query}'.replace('%','*');
-        	while (ebeyeQuery.length > 0 && ebeyeQuery.startsWith('*')) {
+        	while (ebeyeQuery.length > 0 && ebeyeQuery.indexOf('*') == 0) {
         		ebeyeQuery = ebeyeQuery.substring(1);
         	}
         	$('#global-searchbox').val(ebeyeQuery);
