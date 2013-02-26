@@ -15,7 +15,6 @@
             <ul>
                 <li>JDK 1.6</li>
                 <li>tomcat-6.0</li>
-                <li>CVS (the project is currently on the HEAD branch)</li>
             </ul>
             The application has also been tested on the following configuration:
             <ul>
