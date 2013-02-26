@@ -10,7 +10,7 @@
 	</properties>
 	
 	<body>
-		<release version="2.0.0" date="" description="Frontier">
+		<release version="2.0.0" date="2013-02-26" description="Frontier">
 			<action dev="rafalcan" type="update">
 				Updated index page to the new EBI website guidelines.
 			</action>
