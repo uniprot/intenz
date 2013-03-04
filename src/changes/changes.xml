@@ -9,6 +9,15 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+    	<release version="1.2.40" date="2013-03-04"
+			description="Added DE line exception">
+            <action dev="rafalcan" type="update">
+                Updated DE_line_modifications with transfer for EC 2.1.1.149.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated to latest version of intenz-core and intenz-mapper.
+            </action>
+    	</release>
     	<release version="1.2.39" date="2012-11-30"
 			description="Added exception for non-sentence-ending 'sp.'">
             <action dev="rafalcan" type="update">
