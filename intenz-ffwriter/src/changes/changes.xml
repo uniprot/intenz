@@ -12,7 +12,8 @@
     	<release version="1.2.40" date="2013-03-04"
 			description="Added DE line exception">
             <action dev="rafalcan" type="update">
-                Updated DE_line_modifications with transfer for EC 2.1.1.149.
+                Updated DE_line_modifications with transfers for EC 2.1.1.149
+                and 2.3.1.104.
             </action>
             <action dev="rafalcan" type="update">
                 Updated to latest version of intenz-core and intenz-mapper.
