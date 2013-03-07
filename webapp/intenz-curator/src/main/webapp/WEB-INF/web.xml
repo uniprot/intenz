@@ -20,7 +20,7 @@
         <description>Name of the properties file with the configuration to connect
         to the public ChEBI database.</description>
         <param-name>chebi.pub.db.config</param-name>
-        <param-value>chebi-db-public2</param-value>
+        <param-value>chebi-db-public</param-value>
     </context-param>
 
     <context-param>
