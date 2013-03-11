@@ -147,6 +147,7 @@ public class CC_LineFormatter extends DefaultLineFormatter {
     final String[][] nonSentenceDelimiters = {
       {"C. ", "\\p{Lower}.*?"},
       {"E. ", ".*?"},
+      {"L. ", "\\(.*"},
       {"(cf. ", ".*?"},
       {"Cf. ", ".*?"},
       {"cf. ", ".*?"},
