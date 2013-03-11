@@ -6,7 +6,7 @@
 	<artifactId>intenz-mapper</artifactId>
     <name>IntEnz mapper module</name>
 	<packaging>jar</packaging>
-	<version>4.5.1</version>
+	<version>4.5.2-SNAPSHOT</version>
 	<description>IntEnz - Mapper package</description>
 
 	<parent>
