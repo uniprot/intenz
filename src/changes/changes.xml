@@ -9,6 +9,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.2.42" date="2013-03-11"
+            description="Workaround for oracle bug">
+            <action dev="rafalcan" type="update">
+                Updated to latest version of intenz-mapper, which works an
+                oracle bug around, which caused an error during the generation
+                of the enzyme.dat file.
+            </action>
+            </release>
     	<release version="1.2.41" date="2013-03-07"
 			description="Added DE line exception">
             <action dev="rafalcan" type="update">
