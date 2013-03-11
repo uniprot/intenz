@@ -85,5 +85,10 @@ public class CC_LineFormatterTest extends TestCase {
         enzymeLine = "CC   -!- foo Pseudomonas sp. WBC-3 bar.\n";
         formattedLine = formatter.formatLines(ccLine, LineType.CC);
         assertEquals(enzymeLine, formattedLine);
+
+        ccLine = "Melissa officinalis L. (lemon balm)";
+        enzymeLine = "CC   -!- Melissa officinalis L. (lemon balm)\n";
+        formattedLine = formatter.formatLines(ccLine, LineType.CC);
+        assertEquals(enzymeLine, formattedLine);
     }
 }
