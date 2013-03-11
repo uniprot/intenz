@@ -56,7 +56,7 @@ public class EnzymeReactionMapper {
 	  SEL_COLS_FROM_TBLS +
 	" WHERE rm.enzyme_id = ? AND rm.reaction_id = ir.reaction_id" +
 	" AND (rm.web_view  LIKE '%SIB%' OR rm.web_view = 'INTENZ')" +
-	" FOR UPDATE ORDER BY rm.order_in";
+	" ORDER BY rm.order_in";
 
   private static final String INSERT_STM =
 	  "INSERT INTO reactions_map (reaction_id, enzyme_id, web_view, iubmb," +
