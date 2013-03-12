@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<document>
+<document xmlns="http://maven.apache.org/XDOC/2.0">
 	<properties>
 		<title>IntEnz public web application</title>
 		<author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
 	</properties>
 	<body>
 		<section name="IntEnz public web application">
-            This is the <a href="http://www.ebi.ac.uk/intenz">public web
-            application</a> for the IntEnz project.
+		    <p>This is the <a href="http://www.ebi.ac.uk/intenz">public web
+                application</a> for the IntEnz project.</p>
 
 			<subsection name="Requirements">
-            The application is currently running on the following configuration:
-            <ul>
-                <li>JDK 1.6</li>
-                <li>tomcat-6.0</li>
-            </ul>
-            The application has also been tested on the following configuration:
-            <ul>
-                <li>JDK 1.5</li>
-                <li>tomcat-5.5</li>
-            </ul>
+                <p>The application is currently running on the following
+                configuration:</p>
+                <ul>
+                    <li>JDK 1.6</li>
+                    <li>tomcat-6.0</li>
+                </ul>
             </subsection>
 		</section>
 	</body>
