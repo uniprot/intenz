@@ -22,7 +22,7 @@
           </p>
        </subsection>
        <subsection name="2.	The enzyme's lifecycle">
-          <img src="../images/enzyme_lifecycle.gif"/>
+          <img src="../img/enzyme_lifecycle.gif"/>
           <p>
              Statechart explanation:
              <ul>

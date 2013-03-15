@@ -49,7 +49,7 @@
         <small>Note: only data for (S)-lactate is shown for tables
         REACTION_PARTICIPANTS and COMPOUND_DATA. Current implementation in blue,
         designed future implementation in green.</small>
-        <img src="../../images/reactionsSpec/reactionsExample.png"
+        <img src="../../img/reactionsSpec/reactionsExample.png"
             alt="Reaction example"/>
         <br/>
     </p>

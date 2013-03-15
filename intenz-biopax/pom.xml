@@ -11,7 +11,7 @@
 	<parent>
 		<artifactId>intenz</artifactId>
 		<groupId>uk.ac.ebi.intenz</groupId>
-		<version>4.2.3</version>
+		<version>4.2.4</version>
 	</parent>
 
 	<build>
@@ -45,13 +45,13 @@
     <dependency>
         <groupId>uk.ac.ebi.intenz</groupId>
         <artifactId>intenz-mapper</artifactId>
-        <version>4.5.0</version>
+        <version>4.5.1</version>
   		<scope>test</scope>
     </dependency>
     <dependency>
         <groupId>uk.ac.ebi.rhea</groupId>
         <artifactId>rhea-mapper</artifactId>
-        <version>3.7.0</version>
+        <version>3.7.1</version>
   		<scope>test</scope>
     </dependency>
     <dependency>

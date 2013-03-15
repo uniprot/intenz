@@ -10,19 +10,19 @@
 	<parent>
 		<groupId>uk.ac.ebi.intenz</groupId>
 		<artifactId>intenz</artifactId>
-		<version>4.2.3</version>
+		<version>4.2.4</version>
 	</parent>
     
     <dependencies>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.8</version>
+            <version>1.2.17</version>
         </dependency>
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-mapper</artifactId>
-            <version>4.4.6</version>
+            <version>4.5.1</version>
         </dependency>
         <dependency>
             <groupId>uk.ac.ebi.uniprot.kraken</groupId>
@@ -32,7 +32,7 @@
         <dependency>
         	<groupId>uk.ac.ebi.biobabel</groupId>
         	<artifactId>biobabel-db</artifactId>
-        	<version>1.3.6</version>
+        	<version>1.3.7</version>
         </dependency>
         <dependency>
             <groupId>com.oracle</groupId>
@@ -87,6 +87,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
@@ -163,7 +164,7 @@
 					</reportPlugins>
 				</configuration>
 			</plugin>
-            
+            -->
         </plugins>
     </build>
 </project>

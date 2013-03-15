@@ -5,10 +5,15 @@
 	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
 
     <properties>
-        <title>IntEnz ffwriter module change log</title>
+        <title>Change log</title>
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.2.43" date="" description="Dependency updates">
+            <action dev="rafalcan" type="update">
+                Update to latest version of parent.
+            </action>
+        </release>
         <release version="1.2.42" date="2013-03-11"
             description="Workaround for oracle bug">
             <action dev="rafalcan" type="update">

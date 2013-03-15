@@ -27,7 +27,7 @@
        </section>
         <a name="Current_status"/>
         <section name="Current status and problems to solve" id="currentStatus">
-            <img src="../../../images/reactionsSpec/reactionsDbCurrentStatus.png"
+            <img src="../../../img/reactionsSpec/reactionsDbCurrentStatus.png"
                  alt="reactions in the current DB schema"/>
             <p>IntEnz includes one or more reactions per enzyme entry, as free
                 text. Those reactions have no unique identifiers, so if two
@@ -256,7 +256,7 @@
 
         <a name="Potential_external"/>
         <section name="Potential external users of enhanced IntEnz reactions">
-            <img src="../../../images/reactionsSpec/reactionsUsers.png"
+            <img src="../../../img/reactionsSpec/reactionsUsers.png"
                  alt="IntEnz reactions users"/>
             <ul>
                 <li><a href="http://www.ebi.ac.uk/embl/index.html">EMBL</a>:
@@ -301,7 +301,7 @@
                 <p>A <b>simple reaction</b> has no steps. It can be part of an
                     overall (complex) reaction, i.e. be a <b>step reaction</b>.
                     </p>
-                <img src="../../../images/reactionsSpec/reactionsSimpleUcd.png"
+                <img src="../../../img/reactionsSpec/reactionsSimpleUcd.png"
                      alt="Use-case diagram"/>
                 <p>Deletion of reactions is actually a change of status (the
                     data won't be removed from the database), much in the same
@@ -310,14 +310,14 @@
             <subsection name="Complex reactions">
                 <p>A <b>complex (overall) reaction</b> has two or more steps
                     (simple reactions).</p>
-                <img src="../../../images/reactionsSpec/reactionsComplexUcd.png"
+                <img src="../../../img/reactionsSpec/reactionsComplexUcd.png"
                      alt="Use-case diagram"/>
             </subsection>
             <subsection name="Cofactors">
                 <p>Though not being part of the reaction itsef, <b>cofactors</b>
                     will be reimplemented to take advantage of the new mapping
                     to ChEBI, favouring the reuse of data in IntEnz.</p>
-                <img src="../../../images/reactionsSpec/reactionsCofactorsUcd.png"
+                <img src="../../../img/reactionsSpec/reactionsCofactorsUcd.png"
                      alt="Use-case diagram"/>
             </subsection>
             <subsection name="Enzyme entries">
@@ -328,7 +328,7 @@
                     Several reactions assigned to the same enzyme entry are
                     considered as alternative reactions. Sorting of alternative
                     reactions will be implemented as well.</p>
-                <img src="../../../images/reactionsSpec/reactionsEnzymeUcd.png"
+                <img src="../../../img/reactionsSpec/reactionsEnzymeUcd.png"
                      alt="Use-case diagram"/>
             </subsection>
             <subsection name="IntEnz reactions users">
@@ -338,7 +338,7 @@
                     External databases will update cross references to stable
                     public reaction id's, querying the database or - in the
                     future - using webservices.</p>
-                <img src="../../../images/reactionsSpec/reactionsUsersUcd.png"
+                <img src="../../../img/reactionsSpec/reactionsUsersUcd.png"
                      alt="Use-case diagram"/>
             </subsection>
         </section>
@@ -523,7 +523,7 @@
                             cofactor texts.</li>
                     </ul>
                 </p>
-                <img src="../../images/reactionsSpec/reactionsDbSchemaModifications2.png"
+                <img src="../../img/reactionsSpec/reactionsDbSchemaModifications2.png"
                      alt="DB schema modifications"/>
                 <p>There is an <a href="reactionsExample.html">example</a>
                     available (outdated, as of 2006-10-31).</p>
@@ -593,7 +593,7 @@
                     around <code>Compound</code>.</p>
              -->
 
-	            <img src="../../images/reactionsSpec/reactionsDomainCd.png"
+	            <img src="../../img/reactionsSpec/reactionsDomainCd.png"
                     alt="Class diagram"/>
             </subsection>
 
@@ -612,7 +612,7 @@
                     client, retrieving information on the reaction participants:
                     recommended name, formula, structure (image)...
                     <br/>
-                    <img src="../../images/reactionsSpec/reactionsHelperCd.png"
+                    <img src="../../img/reactionsSpec/reactionsHelperCd.png"
                          alt="Class diagram"/>
                 </p>
 
@@ -622,7 +622,7 @@
                     used by <b><code>EnzymeReactionMapper</code></b> and
                     <b><code>EnzymeCofactorMapper</code></b>.
                     <br/>
-                    <img src="../../images/reactionsSpec/reactionsMapperCd.png"
+                    <img src="../../img/reactionsSpec/reactionsMapperCd.png"
                          alt="Class diagram"/>
                 </p>
 

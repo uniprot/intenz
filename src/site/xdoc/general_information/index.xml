@@ -10,7 +10,6 @@
 
 <section name="Project: IntEnz">
 
-<a href="http://www.ebi.ac.uk/IntEnz/index.html"><img src="http://www3.ebi.ac.uk/internal/seqdb/images/intenz_small.gif" height="50" width="75" align="right" border="0"></img></a>
 <hr></hr>
 <ol>
 <li><a href="#introduction">Introduction</a> 
@@ -50,8 +49,8 @@
 <section name="1. Introduction">
 <a name="what"></a>
 <subsection name="1.1 What is IntEnz?">
-<p>
-<font color="darkgreen"><b>IntEnz</b></font> is the name for the <font 
+<p><a href="http://www.ebi.ac.uk/intenz/"><font
+color="darkgreen"><b>IntEnz</b></font></a> is the name for the <font
 color="darkgreen"><b>Int</b></font>egrated relational <font 
 color="darkgreen"><b>Enz</b></font>yme database. IntEnz will contain
 enzyme data approved by the Nomenclature Committee of the
@@ -151,7 +150,7 @@ implemented. The data will enter IntEnz in one of two ways:
 <subsection name="2.2 IntEnz to ChEBI mapping">
 <p>
 Since IntEnz is one of the sources of terminology for
-<a href="http://www3.ebi.ac.uk/internal/seqdb/projects/chebi/">ChEBI</a> database,
+<a href="http://www.ebi.ac.uk/chebi/">ChEBI</a> database,
 it was logical to link all the compound terms in reaction and cofactor fields of IntEnz
 to corresponding ChEBI entries.
 </p>

@@ -9,7 +9,7 @@
 	<parent>
 		<artifactId>webapp</artifactId>
 		<groupId>uk.ac.ebi.intenz</groupId>
-		<version>1.2.1</version>
+		<version>1.2.2</version>
 	</parent>
 
 	<properties>

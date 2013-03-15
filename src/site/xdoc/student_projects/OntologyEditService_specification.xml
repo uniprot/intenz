@@ -29,7 +29,7 @@
 			The following PPT presentation gives an idea how the OES tool will look like and what
 			functions will be available. 
 			</p>
-			<a href="../images/oesSpecification/Ontology_Edit_Service_Outline.ppt">OES outline.</a>			
+			<a href="../img/oesSpecification/Ontology_Edit_Service_Outline.ppt">OES outline.</a>
 		
 		</section>
 		
@@ -40,19 +40,19 @@
 			There are graphics for the procedures Ontology Upload, Term Search, Edit Term and Manage Ontology.
 			</p>
 			<subsection name="Ontology Upload">
-			<img src="../images/oesSpecification/File_Upload.bmp" alt="File Upload"> </img>
+			<img src="../img/oesSpecification/File_Upload.bmp" alt="File Upload"> </img>
 			</subsection>
 			
 			<subsection name="Term Search">
-			<img src="../images/oesSpecification/Term_Search.bmp" alt="Term Search"> </img>
+			<img src="../img/oesSpecification/Term_Search.bmp" alt="Term Search"> </img>
 			</subsection>
 			
 			<subsection name="Edit Term">
-			<img src="../images/oesSpecification/Edit_Term.bmp" alt="Edit Term"> </img>
+			<img src="../img/oesSpecification/Edit_Term.bmp" alt="Edit Term"> </img>
 			</subsection>
 			
 			<subsection name="Manage Ontology">
-			<img src="../images/oesSpecification/Manage_Ontology.bmp" alt="Manage Ontology"> </img>
+			<img src="../img/oesSpecification/Manage_Ontology.bmp" alt="Manage Ontology"> </img>
 			</subsection>
 		
 		</section>
@@ -65,7 +65,7 @@
 			 "term", "annotation", "term_synonym" and "ontology". Furthermore it has three additional 
 			 tables "users", "term_access"  and "ontology_user".
 			 </p>
-			 <img src="../images/oesSpecification/OES_Table_Schema_Cleaned.gif" alt="OES Table Schema"> </img>
+			 <img src="../img/oesSpecification/OES_Table_Schema_Cleaned.gif" alt="OES Table Schema"> </img>
 			 <p>
 			The tables "term", "annotation", "term_synonym" and "dbxref" have been extended by the additional 
 			attributes "modified_by", "modified_at", "created_by" and "created_at". This should provide a traceability

@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
     <properties>
-        <title>IntEnz import module change log</title>
+        <title>Change log</title>
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.0.12" description="Dependency updates">
+            <action dev="rafalcan" type="update">
+                Updated to latest versions of parent, intenz-mapper, biobabel-db
+                and log4j.
+            </action>
+        </release>
         <release version="1.0.11" date="2012-05-22"
             description="Dependencies update">
         	<action dev="rafalcan" type="update">

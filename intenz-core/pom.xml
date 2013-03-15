@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>uk.ac.ebi.intenz</groupId>
 		<artifactId>intenz</artifactId>
-		<version>4.2.3</version>
+		<version>4.2.4</version>
 	</parent>
 
 	<dependencies>
@@ -34,7 +34,7 @@
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>3.2</version>
+			<version>3.2.1</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -45,7 +45,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
 			<artifactId>biobabel-core</artifactId>
-			<version>0.9.0</version>
+			<version>0.13</version>
 		</dependency>
 	</dependencies>
 </project>

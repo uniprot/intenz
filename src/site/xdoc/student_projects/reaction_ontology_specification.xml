@@ -112,7 +112,7 @@
 			<p>
 			    
 			</p>			
-        	<img src="../images/Man_Woman_Ontology.png" alt="Man_Woman_Ontology">            
+        	<img src="../img/Man_Woman_Ontology.png" alt="Man_Woman_Ontology">
         	</img>
         	</p>
         	<p>
@@ -262,7 +262,7 @@
 			enzymatic and non-enzymatic or reversible and irreversible reactions.		
 		 </p>
 		 <p>
-	     <img src="../images/sbo_ontology.jpg" alt="SBO_Ontology">
+	     <img src="../img/sbo_ontology.jpg" alt="SBO_Ontology">
          </img>
         	
 	     </p>	    
@@ -277,7 +277,7 @@
 	     which they produce.
 	     </p>
 	     <p>
-	     <img src="../images/BioCyc.jpg" alt="BioCyc_Ontology">            
+	     <img src="../img/BioCyc.jpg" alt="BioCyc_Ontology">
         	</img>
 	     </p>
 	    </subsection>
@@ -290,7 +290,7 @@
 	    considered. Furthermore, all listed reactions are only reversible reactions. 
 	    </p>
 	    <p>
-	     <img src="../images/Kegg.jpg" alt="Kegg_Ontology">            
+	     <img src="../img/Kegg.jpg" alt="Kegg_Ontology">
         	</img>
 	     </p>
 	    </subsection>
@@ -304,7 +304,7 @@
 	     or subatomic processes (not visible in the sreenshot).
 	     </p>
 	     <p>
-	     <img src="../images/rex.jpg" alt="Rex_Ontology">            
+	     <img src="../img/rex.jpg" alt="Rex_Ontology">
         	</img>
 	     </p>
 	    </subsection>
@@ -316,7 +316,7 @@
 	      reactions are described as subentities of molecular functions, like binding or catalytic activity (not visible in the screenshot). 	      
 	     </p>
 	     <p>
-	     <img src="../images/gene_ontology.jpg" alt="Gene_Ontology">
+	     <img src="../img/gene_ontology.jpg" alt="Gene_Ontology">
         	</img>
 	     </p>
 	    </subsection>
@@ -328,7 +328,7 @@
 	      A distinction between enzymatic and non-enzymatic is missing as well as distinction between reversible/irreversible reactions.
 	     </p>
 	     <p>
-	     <img src="../images/EventOntology.jpg" alt="EventOntology">            
+	     <img src="../img/EventOntology.jpg" alt="EventOntology">
         	</img>
 	     </p>
 	    </subsection>   	     
