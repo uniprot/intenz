@@ -9,7 +9,19 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="1.2.43" date="" description="Dependency updates">
+        <release version="1.2.43" date="2013-03-19"
+            description="Fixed flat file formattings">
+            <action dev="rafalcan" type="fix">
+                Updated CC_LineFormatter with exception for Pseudomonas sp. Y2
+                (non-breaking-line).
+            </action>
+            <action dev="rafalcan" type="fix">
+                Updated to latest version of intenz-translator which fixes
+                casing of dIDP.
+            </action>
+            <action dev="rafalcan" type="fix">
+                Added generics to CC_LineFormatter.
+            </action>
             <action dev="rafalcan" type="update">
                 Update to latest version of parent.
             </action>
