@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>uk.ac.ebi.intenz</groupId>
 	<artifactId>intenz-translator</artifactId>
-	<version>1.0.10</version>
+	<version>1.0.11-SNAPSHOT</version>
     <name>IntEnz translator</name>
     <description>Module to translate properly the XML-encoded (xchars) data
         into enzyme.dat-friendly text.</description>
