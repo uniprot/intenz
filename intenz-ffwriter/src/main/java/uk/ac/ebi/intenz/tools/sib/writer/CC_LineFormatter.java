@@ -35,13 +35,13 @@ public class CC_LineFormatter extends DefaultLineFormatter {
     if (lineType != LineType.CC) throw new IllegalArgumentException();
 
     // Every sentence within the CC lines will be wrapped individually and starts with '-!-'.
-    List commentSentences = getCommentSentences(text);
-    StringBuffer CCContent = new StringBuffer();
+    List<String> commentSentences = getCommentSentences(text);
+    StringBuilder CCContent = new StringBuilder();
     boolean containsOrderedListWithIndent = text.matches(".*?\\:\\s+?\\(\\d+\\)\\s+.+?");
-    for (int iii = 0; iii < commentSentences.size(); iii++) {
-      String sentence = (String) commentSentences.get(iii);
-      CCContent.append(wrapCCLine(sentence, containsOrderedListWithIndent));
-    }
+      for (Object commentSentence : commentSentences) {
+          String sentence = (String) commentSentence;
+          CCContent.append(wrapCCLine(sentence, containsOrderedListWithIndent));
+      }
 
     // Comments ending with '/' do not have a period in the end (e.g. URLs).
     String ccLines = CCContent.toString();
@@ -66,7 +66,7 @@ public class CC_LineFormatter extends DefaultLineFormatter {
 
     String lineStart = "CC   ";
     int netLineWidth = LINEWIDTH - (lineStart.length() + 4); // Minus length '-!- '.
-    StringBuffer wrappedText = new StringBuffer();
+    StringBuilder wrappedText = new StringBuilder();
     if (text.length() <= netLineWidth) {
       wrappedText.append(lineStart);
       wrappedText.append("-!- ");
@@ -75,7 +75,7 @@ public class CC_LineFormatter extends DefaultLineFormatter {
       return wrappedText.toString();
     }
 
-    StringBuffer restText = new StringBuffer(text);
+    StringBuilder restText = new StringBuilder(text);
     wrappedText.append(lineStart);
     wrappedText.append("-!- ");
 
@@ -84,7 +84,7 @@ public class CC_LineFormatter extends DefaultLineFormatter {
     String indent = "";
     LineWrapper lineWrapPositioner = LineWrapperFactory.create(text, LineType.CC);
     while (restText.toString().trim().length() > netLineWidth) {
-      int position = 0;
+      int position;
       if (restText.charAt(0) == ' ') restText.deleteCharAt(0);
       // Calculate correct net line width in case of an ordered list with additional indent.
       if (orderedListIndicatorFound) {
@@ -135,10 +135,10 @@ public class CC_LineFormatter extends DefaultLineFormatter {
    * @param commentText The comment text.
    * @return a list of sentences.
    */
-  public List getCommentSentences(String commentText) {
+  public List<String> getCommentSentences(String commentText) {
     assert commentText != null : commentText;
 
-    List sentences = new ArrayList();
+    List<String> sentences = new ArrayList<String>();
     final String sentenceDelimiterPattern = "(.*?\\.\\s|.*?http\\:\\/\\/\\S+?\\/\\s)";
 
     // Exceptions which do NOT indicate the end of a sentence.
@@ -163,7 +163,7 @@ public class CC_LineFormatter extends DefaultLineFormatter {
       {"etc., ", ".*?"},
       {"etc.", ".*?"},
       {"etc.,", ".*?"},
-      {"sp. ", "(\\p{Lower}|OxB-1|PCC|AK2|M128|AL-1|SBUG 290|A17|CBB1|CL190|No\\.|\\d+|\\(|T62|HT23|DSM 3803|NCIMB 9784|HZN6|G-10|JS329|AP3|JS330|WBC-3).*?"},
+      {"sp. ", "(\\p{Lower}|OxB-1|PCC|AK2|M128|AL-1|SBUG 290|A17|CBB1|CL190|No\\.|\\d+|\\(|T62|HT23|DSM 3803|NCIMB 9784|HZN6|G-10|JS329|AP3|JS330|WBC-3|Y2).*?"},
       {"sp., ", ".*?"},
       {"sp.", ".*?"},
       {"sp.,", ".*?"},
@@ -197,16 +197,16 @@ public class CC_LineFormatter extends DefaultLineFormatter {
       }
 
       // Check if the current substring is not a sentence and needs to be extended by the next substring.
-      for (int iii = 0; iii < nonSentenceDelimiters.length; iii++) {
-        String nonSentenceDelimiter = nonSentenceDelimiters[iii][0];
-        if (substring.endsWith(nonSentenceDelimiter)) {
-          String restOfSentence = commentText.substring(matcher.end());
-          if (Pattern.matches(nonSentenceDelimiters[iii][1], restOfSentence)){
-              concat = true;
-              break;
-          }
+        for (String[] nonSentenceDelimiter1 : nonSentenceDelimiters) {
+            String nonSentenceDelimiter = nonSentenceDelimiter1[0];
+            if (substring.endsWith(nonSentenceDelimiter)) {
+                String restOfSentence = commentText.substring(matcher.end());
+                if (Pattern.matches(nonSentenceDelimiter1[1], restOfSentence)) {
+                    concat = true;
+                    break;
+                }
+            }
         }
-      }
 
       found = matcher.find();                      // Any more sentences/substrings?
       if (concat && found) continue;               // Concatenate the next substring.
@@ -218,7 +218,8 @@ public class CC_LineFormatter extends DefaultLineFormatter {
     }
 
     if (concat) { // Concatenate the tail.
-      StringBuffer temp = new StringBuffer((String) sentences.get(sentences.size() - 1));
+      StringBuilder temp =
+            new StringBuilder(sentences.get(sentences.size() - 1));
       temp.append(commentText.substring(end));
       sentences.remove(sentences.size() - 1);
       sentences.add(temp.toString().trim());
@@ -237,14 +238,15 @@ public class CC_LineFormatter extends DefaultLineFormatter {
    * @param sentences All sentences identified in the given text.
    * @return If the list of sentences contained an ordered list the returned list will have less elements.
    */
-  private List mergeListSentences(List sentences) {
-    List mergedSentences = new ArrayList();
+  private List<String> mergeListSentences(List<String> sentences) {
+    List<String> mergedSentences = new ArrayList<String>();
 
     int count = 0;
     for (int iii = 0; iii < sentences.size(); iii++) {
-      String sentence = (String) sentences.get(iii);
+      String sentence = sentences.get(iii);
       if (sentence.matches("^\\(\\d+\\).*?")) {
-        StringBuffer extendedSentence = new StringBuffer((String) mergedSentences.remove(iii - (1 + count))); // Previous sentence.
+        StringBuilder extendedSentence = new StringBuilder(
+                mergedSentences.remove(iii - (1 + count))); // Previous sentence
         extendedSentence.append(" ");
         extendedSentence.append(sentence); // Current sentence.
         mergedSentences.add(iii - (1 + count), extendedSentence.toString());
@@ -265,7 +267,7 @@ public class CC_LineFormatter extends DefaultLineFormatter {
   private String getIndent(String line) {
     assert line != null : line;
 
-    StringBuffer indent = new StringBuffer();
+    StringBuilder indent = new StringBuilder();
     // Ex.: >(1) < -> 4 spaces.
 //    for (int counter = 0, spaces = line.substring(line.indexOf("("), line.indexOf(")") + 2).length();
 //         counter < spaces;
