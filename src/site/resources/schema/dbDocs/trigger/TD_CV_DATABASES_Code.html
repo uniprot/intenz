@@ -1,0 +1,35 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF8" />
+<script src="../dbdoc.js" type="text/javascript"></script>
+<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+</head>
+<body class="object">
+<div id="header"><h2>TD_CV_DATABASES</h2>
+<div class="tabs clearfix">
+
+<div class="tab"><div><a href="TD_CV_DATABASES.html">Details</a></div></div>
+<div class="tab"><div><a href="TD_CV_DATABASES_Grants.html">Grants</a></div></div>
+<div class="tab"><div><a href="TD_CV_DATABASES_References.html">References</a></div></div>
+<div class="tab"><div><a href="TD_CV_DATABASES_Dependencies.html">Dependencies</a></div></div>
+<div class="tab" id="current"><div><a href="TD_CV_DATABASES_Code.html">Code</a></div></div>
+</div></div><br/>
+<div class="tab-panes">
+<div id="Code"> <table cellpadding="0" cellspacing="0" cellspacing="0" summary=""><tr>
+	<th>TEXT</th>
+</tr>
+	<tr><td><pre>
+TRIGGER "ENZYME".td_cv_databases
+  AFTER DELETE ON cv_databases FOR EACH ROW
+
+
+
+BEGIN
+  INSERT INTO cv_databases_audit (
+    code,name,display_name,sort_order,
+    timestamp,audit_id,dbuser,osuser,remark,action)
+  VALUES (
+    :old.code,:old.name,:old.display_name,:old.sort_order,
+    sysdate,s_audit_id.nextval,user,auditpackage.osuser,auditpackage.remark,'D');
+END;</pre>	</td></tr>
+</table></div></body></html>

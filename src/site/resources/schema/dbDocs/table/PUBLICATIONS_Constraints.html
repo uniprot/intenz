@@ -1,0 +1,295 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF8" />
+<script src="../dbdoc.js" type="text/javascript"></script>
+<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+</head>
+<body class="object">
+<div id="header"><h2>PUBLICATIONS</h2>
+<div class="tabs clearfix">
+
+<div class="tab"><div><a href="PUBLICATIONS.html">Columns</a></div></div>
+<div class="tab" id="current"><div><a href="PUBLICATIONS_Constraints.html">Constraints</a></div></div>
+<div class="tab"><div><a href="PUBLICATIONS_Grants.html">Grants</a></div></div>
+<div class="tab"><div><a href="PUBLICATIONS_Statistics.html">Statistics</a></div></div>
+<div class="tab"><div><a href="PUBLICATIONS_Triggers.html">Triggers</a></div></div>
+<div class="tab"><div><a href="PUBLICATIONS_Dependencies.html">Dependencies</a></div></div>
+<div class="tab"><div><a href="PUBLICATIONS_Details.html">Details</a></div></div>
+<div class="tab"><div><a href="PUBLICATIONS_Partitions.html">Partitions</a></div></div>
+<div class="tab"><div><a href="PUBLICATIONS_Indexes.html">Indexes</a></div></div>
+</div></div><br/>
+<div class="tab-panes">
+<div id="Constraints"> <table cellpadding="0" cellspacing="0" cellspacing="0" summary=""><tr>
+	<th> </th>
+	<th>CONSTRAINT_NAME</th>
+	<th>CONSTRAINT_TYPE</th>
+	<th>SEARCH_CONDITION</th>
+	<th>R_OWNER</th>
+	<th>R_TABLE_NAME</th>
+	<th>R_CONSTRAINT_NAME</th>
+	<th>DELETE_RULE</th>
+	<th>STATUS</th>
+	<th>DEFERRABLE</th>
+	<th>VALIDATED</th>
+	<th>GENERATED</th>
+	<th>BAD</th>
+	<th>RELY</th>
+	<th>LAST_CHANGE</th>
+	<th>INDEX_OWNER</th>
+	<th>INDEX_NAME</th>
+	<th>INVALID</th>
+	<th>VIEW_RELATED</th>
+</tr>
+	<tr>
+<td><a href="PUBLICATIONS_Constraints_Row1.html" target="ObjectDetailsChildrenFrame">1</a></td>
+<td>CK_PUBLICATIONS$PUB_TYPE</td>
+<td>Check</td>
+<td>pub_type IN ('J', 'B', 'P')</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10 00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td><a href="PUBLICATIONS_Constraints_Row2.html" target="ObjectDetailsChildrenFrame">2</a></td>
+<td>FK_PUBLICATIONS$SOURCE</td>
+<td>Foreign_Key</td>
+<td>null</td>
+<td>ENZYME</td>
+<td>CV_DATABASES</td>
+<td>PK_CV_DATABASES</td>
+<td>NO ACTION</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10 00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td><a href="PUBLICATIONS_Constraints_Row3.html" target="ObjectDetailsChildrenFrame">3</a></td>
+<td>FK_PUBLICATIONS$WEB_VIEW</td>
+<td>Foreign_Key</td>
+<td>null</td>
+<td>ENZYME</td>
+<td>CV_VIEW</td>
+<td>PK_CV_VIEW</td>
+<td>NO ACTION</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10 00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td><a href="PUBLICATIONS_Constraints_Row4.html" target="ObjectDetailsChildrenFrame">4</a></td>
+<td>PK_PUBLICATIONS</td>
+<td>Primary_Key</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10 00:00</td>
+<td>null</td>
+<td>PK_PUBLICATIONS</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td><a href="PUBLICATIONS_Constraints_Row5.html" target="ObjectDetailsChildrenFrame">5</a></td>
+<td>SYS_C0018833</td>
+<td>Check</td>
+<td>"PUB_ID" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10 00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td><a href="PUBLICATIONS_Constraints_Row6.html" target="ObjectDetailsChildrenFrame">6</a></td>
+<td>SYS_C0018834</td>
+<td>Check</td>
+<td>"PUB_TYPE" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10 00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td><a href="PUBLICATIONS_Constraints_Row7.html" target="ObjectDetailsChildrenFrame">7</a></td>
+<td>SYS_C0018835</td>
+<td>Check</td>
+<td>"PUB_YEAR" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10 00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td><a href="PUBLICATIONS_Constraints_Row8.html" target="ObjectDetailsChildrenFrame">8</a></td>
+<td>SYS_C0018836</td>
+<td>Check</td>
+<td>"JOURNAL_BOOK" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10 00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td><a href="PUBLICATIONS_Constraints_Row9.html" target="ObjectDetailsChildrenFrame">9</a></td>
+<td>SYS_C0018837</td>
+<td>Check</td>
+<td>"WEB_VIEW" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10 00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td><a href="PUBLICATIONS_Constraints_Row10.html" target="ObjectDetailsChildrenFrame">10</a></td>
+<td>SYS_C0018838</td>
+<td>Check</td>
+<td>"SOURCE" IS NOT NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10 00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td><a href="PUBLICATIONS_Constraints_Row11.html" target="ObjectDetailsChildrenFrame">11</a></td>
+<td>UQ_PUBLICATIONS$MEDLINE_ID</td>
+<td>Unique</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>DISABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>NOT VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10 00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+	<tr>
+<td><a href="PUBLICATIONS_Constraints_Row12.html" target="ObjectDetailsChildrenFrame">12</a></td>
+<td>UQ_PUBLICATIONS$PUBMED_ID</td>
+<td>Unique</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>DISABLED</td>
+<td>NOT DEFERRABLE</td>
+<td>NOT VALIDATED</td>
+<td>USER NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10 00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+	</tr>
+</table></div></body></html>

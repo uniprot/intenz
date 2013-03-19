@@ -1,0 +1,36 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF8" />
+<script src="../dbdoc.js" type="text/javascript"></script>
+<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+</head>
+<body class="object">
+<div id="header"><h2>F_REACTION</h2>
+<div class="tabs clearfix">
+
+<div class="tab"><div><a href="F_REACTION.html">Doc</a></div></div>
+<div class="tab"><div><a href="F_REACTION_Details.html">Details</a></div></div>
+<div class="tab"><div><a href="F_REACTION_Grants.html">Grants</a></div></div>
+<div class="tab"><div><a href="F_REACTION_References.html">References</a></div></div>
+<div class="tab"><div><a href="F_REACTION_Dependencies.html">Dependencies</a></div></div>
+<div class="tab" id="current"><div><a href="F_REACTION_Code.html">Code</a></div></div>
+</div></div><br/>
+<div class="tab-panes">
+<div id="Code"> <table cellpadding="0" cellspacing="0" cellspacing="0" summary=""><tr>
+	<th>TEXT</th>
+</tr>
+	<tr><td><pre>
+function f_reaction (p_enzyme_id enzymes.enzyme_id%type)
+return varchar2
+as
+  separator char(1) := ',';
+  output    varchar2(4000) :='';
+begin
+  for r_reac in (select equation from reactions where enzyme_id = p_enzyme_id ) loop
+     output := output||r_reac.equation||separator;
+  end loop;
+  output := substr (output,1,(length(output)-1)) ; -- get rid of last comma
+  return output;
+end;
+</pre>	</td></tr>
+</table></div></body></html>
