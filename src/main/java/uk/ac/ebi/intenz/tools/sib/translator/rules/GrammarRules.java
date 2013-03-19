@@ -85,6 +85,7 @@ public class GrammarRules implements RuleGroup {
       "^dTMP",
       "^dTDP",
       "^dTTP",
+      "^dIDP",
       "^cAMP",
       "^cGMP",
       "^ppGpp",
