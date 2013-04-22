@@ -10,7 +10,8 @@
 	</properties>
 	
 	<body>
-	    <release version="2.0.1" date="" description="Dependency updates">
+	    <release version="2.0.1" date="2013-04-22"
+	        description="Dependency updates">
             <action dev="rafalcan" type="update">
                 Updated to latest versions of intenz-mapper and intenz-ffwriter.
             </action>
