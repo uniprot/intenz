@@ -9,8 +9,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="71.0.1" date="2013-03-12"
+        <release version="71.0.2" date="2013-04-22"
             description="Dependencies update">
+            <action dev="rafalcan" type="update">
+                Updated to latest version of intenz-ffwriter.
+            </action>
+        </release>
+        <release version="71.0.1" date="2013-03-12"
+                 description="Dependencies update">
             <action dev="rafalcan" type="update">
                 Updated to latest versions of intenz-mapper and intenz-ffwriter.
             </action>
