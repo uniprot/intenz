@@ -9,6 +9,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="71.0.3" date=""
+            description="Fixed ajax URL">
+            <action dev="rafalcan" type="fix">
+                Fixed URL for ajax call, which worked from inside the EBI
+                network but not from outside and resulting in an error dialog
+                when there were no search results.
+            </action>
+        </release>
         <release version="71.0.2" date="2013-04-22"
             description="Dependencies update">
             <action dev="rafalcan" type="update">
