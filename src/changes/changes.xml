@@ -9,7 +9,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="71.0.3" date=""
+        <release version="71.0.3" date="2013-04-26"
             description="Fixed ajax URL">
             <action dev="rafalcan" type="fix">
                 Fixed URL for ajax call, which worked from inside the EBI
