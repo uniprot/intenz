@@ -5,7 +5,20 @@
     xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0
     	http://maven.apache.org/xsd/decoration-1.0.0.xsd">
 
-	<body>
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.3.0</version>
+    </skin>
+
+    <bannerRight>
+        <name>EMBL-EBI</name>
+        <src>http://www.ebi.ac.uk/web_guidelines/images/logos/EMBL-EBI/EMBL_EBI_Logo_black.png</src>
+        <alt>EMBL-EBI</alt>
+        <href>http://www.ebi.ac.uk</href>
+    </bannerRight>
+	
+    <body>
 
 		<menu ref="parent" />
 		<menu name="IntEnz flat file writer">
