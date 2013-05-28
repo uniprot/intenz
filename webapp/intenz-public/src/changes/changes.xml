@@ -9,6 +9,17 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="71.0.4" date="2013-05-28"
+            description="Removed ERGO links">
+            <action dev="rafalcan" type="remove">
+                Updated to latest intenz-core version, which removes automatic
+                links to ERGO (website not working any more).
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated to latest versions of intenz-ffwriter,
+                biobabel-citations and junit.
+            </action>
+        </release>
         <release version="71.0.3" date="2013-04-26"
             description="Fixed ajax URL">
             <action dev="rafalcan" type="fix">
