@@ -6,7 +6,7 @@
 	<artifactId>intenz-core</artifactId>
 	<name>IntEnz core module</name>
 	<packaging>jar</packaging>
-	<version>4.3.1</version>
+	<version>4.3.2-SNAPSHOT</version>
 	<description>IntEnz - Core package</description>
 
 	<parent>
@@ -48,10 +48,4 @@
 			<version>0.13</version>
 		</dependency>
 	</dependencies>
-
-  <scm>
-    <connection>scm:svn:svn://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-core-4.3.1</connection>
-    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-core-4.3.1</developerConnection>
-    <url>https://sourceforge.net/p/intenz/code/intenz-core/tags/intenz-core-4.3.1</url>
-  </scm>
 </project>
