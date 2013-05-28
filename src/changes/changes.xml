@@ -8,7 +8,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="4.3.1" date="" description="Dependency updates">
+        <release version="4.3.1" date="2013-05-28"
+            description="Removed ERGO links; dependency updates">
+            <action dev="rafalcan" type="remove">
+                Removed automatic links to ERGO, as the website does not exist
+                any longer.
+            </action>
             <action dev="rafalca" type="update">
                 Updated to latest version of parent, biobabel-core and
                 commons-collections.

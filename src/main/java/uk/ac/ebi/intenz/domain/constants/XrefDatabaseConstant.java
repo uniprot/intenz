@@ -1,8 +1,8 @@
 package uk.ac.ebi.intenz.domain.constants;
 
-import uk.ac.ebi.intenz.domain.exceptions.DomainException;
-
 import java.util.*;
+
+import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 
 /**
  * This class represents an enumeration of all supported link source types.
@@ -124,7 +124,9 @@ public class XrefDatabaseConstant implements Comparable<XrefDatabaseConstant> {
   /**
    * <a href="http://ca.expasy.org/sprot/">ERGO</a> is a not very reliable enzyme source ... (I couldn't get any
    * information about it because the server was down).
+   * @deprecated This website does not work any more (if it ever did).
    */
+   @Deprecated
   public static final XrefDatabaseConstant ERGO = new XrefDatabaseConstant("ERGO", "ERGO",
                                                                            "http://www.ergo-light.com/ERGO/CGI/fr.cgi?org=&user=&fr=", false);
 
