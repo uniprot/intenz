@@ -4,7 +4,7 @@
     
     <groupId>uk.ac.ebi.intenz</groupId>
     <artifactId>intenz-ffwriter</artifactId>
-    <version>1.2.45-SNAPSHOT</version>
+    <version>1.2.45</version>
     <name>IntEnz flat file writer</name>
     <description>ENZYME.dat flat file writer</description>
     
@@ -175,4 +175,10 @@
             </plugin>
         </plugins>
     </build>
+
+  <scm>
+    <connection>scm:svn:svn://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-ffwriter-1.2.45</connection>
+    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-ffwriter-1.2.45</developerConnection>
+    <url>https://sourceforge.net/p/intenz/code/intenz-ffwriter/tags/intenz-ffwriter-1.2.45</url>
+  </scm>
 </project>
