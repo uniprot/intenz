@@ -8,6 +8,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.2.12" description="">
+            <action dev="rafalcan" type="fix">
+                Fixed URL for bibliographic references (used to be SRS, now is
+                Europe PubMed Central).
+            </action>
+        </release>
         <release version="4.2.11" description="Dependency updates">
             <action dev="rafalcan" type="update">
                 Updated to latest version of parent, intenz-mapper,
