@@ -15,6 +15,11 @@
 	</parent>
 
 	<dependencies>
+	    <dependency>
+            <groupId>uk.ac.ebi.intenz</groupId>
+            <artifactId>intenz-core</artifactId>
+            <version>4.3.2</version>
+	    </dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-mapper</artifactId>
@@ -172,7 +177,6 @@
             </build>
         </profile>
     </profiles>
-
 
   <scm>
     <connection>scm:svn:svn://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-export-1.3.17</connection>
