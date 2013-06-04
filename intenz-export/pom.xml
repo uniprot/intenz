@@ -23,7 +23,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-translator</artifactId>
-			<version>1.0.9</version>
+			<version>1.0.10</version>
 		</dependency>
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
@@ -113,14 +113,10 @@
         <resources>
             <resource>
                 <directory>${basedir}/src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>${intenz.config.dir}</directory>
-                <includes>
-                    <include>intenz-release.properties</include>
-                    <include>intenz-db-*.properties</include>
-                    <include>ebi-proxy.properties</include>
-                </includes>
+                <excludes>
+                    <exclude>log4j.xml</exclude>
+                    <exclude>*-README.txt</exclude>
+                </excludes>
             </resource>
         </resources>
 		<testResources>
@@ -134,26 +130,47 @@
                 </includes>
             </testResource>
 		</testResources>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}</outputDirectory>
-							<overWriteReleases>false</overWriteReleases>
-							<overWriteSnapshots>false</overWriteSnapshots>
-							<overWriteIfNewer>true</overWriteIfNewer>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 	</build>
+
+    <profiles>
+        <profile>
+            <id>apps</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${basedir}/src/main/resources</directory>
+                    </resource>
+                    <resource>
+                        <directory>${intenz.config.dir}</directory>
+                        <includes>
+                            <include>intenz-db-*.properties</include>
+                            <include>ebi-proxy.properties</include>
+                        </includes>
+                    </resource>
+                </resources>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-dependencies</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <overWriteReleases>false</overWriteReleases>
+                                    <overWriteSnapshots>false</overWriteSnapshots>
+                                    <overWriteIfNewer>true</overWriteIfNewer>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
