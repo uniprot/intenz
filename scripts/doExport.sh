@@ -16,7 +16,7 @@ INTENZ_PUBLIC_DIR=$INTENZ_DIR/webapp/intenz-public
 
 cd $EXPORT_HOME
 [ ! -d 'logs' ] && mkdir logs
-mvn clean package
+mvn -P apps clean package
 
 PROXY_OPTS=$(grep 'ebi.proxy.java.options' $INTENZ_CONFIG_DIR/ebi-proxy.properties | cut -d '=' -f 2)
 

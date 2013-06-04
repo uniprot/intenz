@@ -15,6 +15,9 @@
                     <li><a href="Sitemap">Sitemap</a></li>
                     <li><a href="BioPAX">BioPAX</a></li>
                 </ul>
+                If used outside of a web application - like the IntEnz web
+                services - it should be built with the <code>apps</code> maven
+                profile.
             </div>
             
             <subsection name="IntEnzXML">
