@@ -35,7 +35,7 @@ public class XrefDatabaseConstant implements Comparable<XrefDatabaseConstant> {
 
   public static final XrefDatabaseConstant METACYC = new XrefDatabaseConstant(
 		  "MCYC", "MetaCyc",
-		  "http://biocyc.org/META/NEW-IMAGE?type=REACTION&object=", true);
+		  "http://www.metacyc.org/META/NEW-IMAGE?type=EC-NUMBER&object=EC-", true);
   
   /**
    * <a href="http://www.cas.org/">CAS</a> is commercial and cannot be linked to.
@@ -69,7 +69,7 @@ public class XrefDatabaseConstant implements Comparable<XrefDatabaseConstant> {
    * provides catalytic residues details.
    */
   public static final XrefDatabaseConstant CSA = new XrefDatabaseConstant("CSA", "CSA",
-          "http://www.ebi.ac.uk/thornton-srv/databases/cgi-bin/CSA/CSA_Show_EC_List.pl?", false);
+      "http://www.ebi.ac.uk/thornton-srv/databases/CSA_NEW/SearchResults_EC.php?ECID=", false);
 
   /**
    * <a href="http://wwwbiotech.nist.gov:8030/enzyme/ename.html">NIST74</a> provides further information about the
@@ -141,39 +141,51 @@ public class XrefDatabaseConstant implements Comparable<XrefDatabaseConstant> {
    */
   public static final XrefDatabaseConstant PDB = new XrefDatabaseConstant("PDB", "EC2PDB", "http://www.ebi.ac.uk/thornton-srv/databases/cgi-bin/enzymes/GetPage.pl?ec_number=", false);
 
+    /**
+     * Link to ExplorEnz (Dublin's MySQL implementation of NC-IUBMB).
+     */
+  public static final XrefDatabaseConstant EXPLORENZ = new XrefDatabaseConstant(
+    "EXP", "ExplorEnz", "http://www.enzyme-database.org/query.php?ec=", false);
+
+  public static final XrefDatabaseConstant UNIPATHWAY =
+        new XrefDatabaseConstant("UP", "UniPathway",
+        "http://www.unipathway.org/enzyme/entry?ec=", false);
+
   private static XrefDatabaseConstant[] PRIVATE_LINK_SOURCES = {
-    UNDEF,
-    BRENDA,
-    CAS,
-    ENZYME,
     NC_IUBMB,
+    BRENDA,
+    DIAGRAM,
+    ENZYME,
+    ERGO,
+    EXPLORENZ,
     GO,
-    NIST74,
     KEGG,
     MEROPS,
     METACYC,
     MIM,
+    NIST74,
     PROSITE,
     SWISSPROT,
     UMBBD,
-    ERGO,
+    UNIPATHWAY,
     WIT,
-    DIAGRAM,
+    CSA,
     PDB,
-    CSA
+    CAS,
+    UNDEF
   };
 
   private static XrefDatabaseConstant[] PRIVATE_UNIQUE_LINK_SOURCES = {
+    NC_IUBMB,
     BRENDA,
     ENZYME,
-    NC_IUBMB,
+    EXPLORENZ,
     GO,
+    KEGG,
     METACYC,
     NIST74,
-    KEGG,
-    //MIM,
     UMBBD,
-    ERGO,
+    UNIPATHWAY,
     WIT
   };
 

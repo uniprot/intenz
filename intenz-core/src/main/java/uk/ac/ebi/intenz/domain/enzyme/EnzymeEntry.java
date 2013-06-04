@@ -902,6 +902,9 @@ public class EnzymeEntry {
           case INTENZ:
               linksInView.add(EnzymeLink.CSA);
               linksInView.add(EnzymeLink.NC_IUBMB);
+              linksInView.add(EnzymeLink.UNIPATHWAY);
+              linksInView.add(EnzymeLink.EXPLORENZ);
+              linksInView.add(EnzymeLink.METACYC);
           case IUBMB:
               linksInView.add(EnzymeLink.PDB);
               linksInView.add(EnzymeLink.BRENDA);

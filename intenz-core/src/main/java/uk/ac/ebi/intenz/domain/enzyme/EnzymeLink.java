@@ -112,6 +112,16 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
 	  new EnzymeLink(XrefDatabaseConstant.CSA, XrefDatabaseConstant.CSA.getUrl(),
 			  "", "", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
 
+  public static final EnzymeLink EXPLORENZ = new EnzymeLink(
+    XrefDatabaseConstant.EXPLORENZ,
+    XrefDatabaseConstant.EXPLORENZ.getUrl(),
+    "", "", EnzymeSourceConstant.IUBMB, EnzymeViewConstant.INTENZ);
+
+  public static final EnzymeLink UNIPATHWAY = new EnzymeLink(
+    XrefDatabaseConstant.UNIPATHWAY,
+    XrefDatabaseConstant.UNIPATHWAY.getUrl(),
+    "", "", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
+
   private static Map<XrefDatabaseConstant, EnzymeLink> STATIC_LINKS;
 
   static {
@@ -120,10 +130,11 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
     STATIC_LINKS.put(METACYC.getXrefDatabaseConstant(), METACYC);
     STATIC_LINKS.put(KEGG.getXrefDatabaseConstant(), KEGG);
     STATIC_LINKS.put(EXPASY.getXrefDatabaseConstant(), EXPASY);
-    STATIC_LINKS.put(ERGO.getXrefDatabaseConstant(), ERGO);
-//    STATIC_LINKS.put(GO.getXrefDatabaseConstant(), GO);
+    STATIC_LINKS.put(EXPLORENZ.getXrefDatabaseConstant(), EXPLORENZ);
     STATIC_LINKS.put(NIST74.getXrefDatabaseConstant(), NIST74);
     STATIC_LINKS.put(UMBBD.getXrefDatabaseConstant(), UMBBD);
+    STATIC_LINKS.put(UNIPATHWAY.getXrefDatabaseConstant(), UNIPATHWAY);
+    STATIC_LINKS.put(CSA.getXrefDatabaseConstant(), CSA);
     STATIC_LINKS.put(PDB.getXrefDatabaseConstant(), PDB);
   }
 
@@ -272,8 +283,10 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
       }
       return name.compareTo(link.getName());
     }
-
-    return xrefDatabaseConstant.getDatabaseCode().compareTo(link.getXrefDatabaseConstant().getDatabaseCode());
+    // NC-IUBMB always listed first:
+    return xrefDatabaseConstant.equals(XrefDatabaseConstant.NC_IUBMB)?
+        -1 : link.getXrefDatabaseConstant().equals(XrefDatabaseConstant.NC_IUBMB)?
+        1 : xrefDatabaseConstant.compareTo(link.getXrefDatabaseConstant());
   }
 
   /**
@@ -375,15 +388,6 @@ public class EnzymeLink implements Comparable<EnzymeLink>, Commented, Viewable {
     	boolean withAccession = EnzymeCommissionNumber.isPreliminary(ec)
     		&& accession != null && accession.length() > 0;
         return specificUrl + (withAccession? accession : ec);
-    }
-    if (xrefDatabaseConstant == XrefDatabaseConstant.CSA){
-        StringTokenizer st = new StringTokenizer(ec, ".");
-        StringBuffer sb = new StringBuffer(xrefDatabaseConstant.getUrl());
-        sb.append("ec1=").append(st.nextToken())
-            .append("&ec2=").append(st.nextToken())
-            .append("&ec3=").append(st.nextToken())
-            .append("&ec4=").append(st.nextToken());
-        return sb.toString();
     }
     if (xrefDatabaseConstant == XrefDatabaseConstant.PROSITE ||
         xrefDatabaseConstant == XrefDatabaseConstant.SWISSPROT ||

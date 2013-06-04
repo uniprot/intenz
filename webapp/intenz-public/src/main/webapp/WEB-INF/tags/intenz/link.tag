@@ -34,6 +34,9 @@ jspContext.setAttribute("fullUrl",
         </c:otherwise>
     </c:choose>
 </c:set>
+<c:set var="linkId"
+    value="${enzymeLink.xrefDatabaseConstant.databaseCode}${enzymeLink.accession}"/>
+
 <jsp:element name="a">
 	<jsp:attribute name="href">${fullUrl}</jsp:attribute>
 	<jsp:attribute name="target">_blank</jsp:attribute>

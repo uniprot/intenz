@@ -8,6 +8,23 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.3.2" date="" description="">
+            <action dev="rafalcan" type="fix">
+                Fixed order of links: first enzyme nomenclature (NC-IUBMB and
+                then others alphabetically), then structural data (CSA, PDB),
+                then CAS.
+            </action>
+            <action dev="rafalcan" type="fix">
+                Fixed MetaCyc and CSA base URLs.
+            </action>
+            <action dev="rafalcan" type="add">
+                Added links to UniPathway and ExplorEnz.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated to latest versions of intenz-core - which includes links
+                to ExplorEnz and UniPathway - and intenz-ffwriter.
+            </action>
+        </release>
         <release version="4.3.1" date="2013-05-28"
             description="Removed ERGO links; dependency updates">
             <action dev="rafalcan" type="remove">
