@@ -113,55 +113,80 @@
 
 <i:getLinks view="INTENZ" var="links" entry="${entry}"/>
 <h3>Links to other databases</h3>
-<p style="margin-left: 2em">
-    <b>Enzyme nomenclature: </b>
-    <c:set var="alreadyHave" value="false"/>
-    <c:forEach var="link" items="${links}" varStatus="i">
-        <c:if test="${link.xrefDatabaseConstant ne 'Swiss-Prot'
-            and link.xrefDatabaseConstant ne 'CSA'
-            and link.xrefDatabaseConstant ne 'EC2PDB'}">
-            ${alreadyHave? ',' : ''}
-            <i:link enzymeLink="${link}" ec="${entry.ec}"/>
-            <c:set var="alreadyHave" value="true"/>
-        </c:if>
-    </c:forEach>
-</p>
 
-<p style="margin-left: 2em">
-    <b>Structural data: </b>
+<div style="margin-left: 2em">
+    <b>Enzymes and pathways:</b>
     <c:set var="alreadyHave" value="false"/>
-    <c:forEach var="link" items="${links}" varStatus="i">
-        <c:if test="${link.xrefDatabaseConstant eq 'CSA'
-            or link.xrefDatabaseConstant eq 'EC2PDB'}">
-            ${alreadyHave? ',' : ''}
-            <i:link enzymeLink="${link}" ec="${entry.ec}"/>
-            <c:set var="alreadyHave" value="true"/>
-        </c:if>
+    <c:forEach var="link" items="${links['EC']}" varStatus="i">
+        ${alreadyHave? ',' : ''}
+        <i:link enzymeLink="${link}" ec="${entry.ec}"/>
+        <c:set var="alreadyHave" value="true"/>
     </c:forEach>
-</p>
+</div>
+
+<c:if test="${not empty links['DOMAINS_FAMILIES']}">
+<div style="margin-left: 2em">
+    <b>Protein domains and families:</b>
+    <c:set var="alreadyHave" value="false"/>
+    <c:forEach var="link" items="${links['DOMAINS_FAMILIES']}" varStatus="i">
+        ${alreadyHave? ',' : ''}
+        <i:link enzymeLink="${link}" ec="${entry.ec}"/>
+        <c:set var="alreadyHave" value="true"/>
+    </c:forEach>
+</div>
+</c:if>
+
+<c:if test="${not empty links['STRUCTURE']}">
+<div style="margin-left: 2em">
+    <b>Structural data:</b>
+    <c:set var="alreadyHave" value="false"/>
+    <c:forEach var="link" items="${links['STRUCTURE']}" varStatus="i">
+        ${alreadyHave? ',' : ''}
+        <i:link enzymeLink="${link}" ec="${entry.ec}"/>
+        <c:set var="alreadyHave" value="true"/>
+    </c:forEach>
+</div>
+</c:if>
+
+<c:if test="${not empty links['ONTOLOGIES']}">
+<div style="margin-left: 2em">
+    <b>Gene Ontology:</b>
+    <c:set var="alreadyHave" value="false"/>
+    <c:forEach var="link" items="${links['ONTOLOGIES']}" varStatus="i">
+        ${alreadyHave? ',' : ''}
+        <i:link enzymeLink="${link}" ec="${entry.ec}"/>
+        <c:set var="alreadyHave" value="true"/>
+    </c:forEach>
+</div>
+</c:if>
 
 <c:if test="${not empty entry.casNumbers}">
-<p style="margin-left: 2em">
+<div style="margin-left: 2em">
     <b>CAS Registry Number${fn:length(entry.casNumbers) gt 1? 's' : '' }: </b>
     <c:forEach var="casNo" items="${entry.casNumbers}" varStatus="i">
         ${casNo.accession}
         <c:if test="${not empty casNo.dataComment}">(${casNo.dataComment})</c:if>
     </c:forEach>
-</p>
+</div>
 </c:if>
 
 <c:set var="uniProtLinks" value="${entry.uniProtLinks}"/>
 <c:set var="uniProtLinksSize" value="${fn:length(uniProtLinks)}"/>
 <c:if test="${not empty uniProtLinks}">
-<p style="margin-left: 2em;">
+<div style="margin-left: 2em;">
     <b title="UniProt Knowledge Base: curated protein sequence database">UniProtKB/Swiss-Prot:
         <c:if test="${uniProtLinksSize gt 9}">
             (${uniProtLinksSize})
-            <span class="link_url">[<a class="link" id="sp_more"
-                href="javascript:fold('spLinks', 'sp_more', 'show', 'hide');">show</a>]</span>
+            <span class="link_url">
+                [<a class="link" id="sp_more"
+                    href="javascript:fold('spLinks', 'sp_more', 'show', 'hide')"
+                    >show</a>]
+                [<a href="http://www.uniprot.org/uniprot/?query=reviewed:yes%20and%20ec:${entry.ec}"
+                    >UniProt</a>]
+            </span>
         </c:if>
     </b>
-</p>
+</div>
 <div id="spLinks"
     style="margin-left: 6em; display: ${uniProtLinksSize gt 9? 'none':'block'}">
 <c:forEach var="link" items="${uniProtLinks}" varStatus="i">
@@ -172,7 +197,7 @@
 </div>
 </c:if>
 
-<br style="margin-bottom: 3ex"/>
+<br/>
 
 <c:if test="${not empty entry.references}">
 <h3>References</h3>

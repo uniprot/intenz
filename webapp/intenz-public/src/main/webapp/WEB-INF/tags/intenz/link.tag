@@ -1,7 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"
 	body-content="empty"
-	description="Returns a hypertext link to an external database entry,
-		based on EC number as an identifier."
+	description="Returns a hypertext link to an external database entry."
 	import="uk.ac.ebi.intenz.domain.enzyme.EnzymeLink" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
