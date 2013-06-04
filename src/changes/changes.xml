@@ -9,6 +9,18 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="71-0.5" date="2013-06-04"
+            description="Database links fixed, added and sorted.">
+            <action dev="rafalcan" type="update">
+                Updated to latest version of intenz-core, which adds links to
+                MetaCyc, ExplorEnz and UniPathway and fixes the URLs for
+                MetaCyc and CSA.
+            </action>
+            <action dev="rafalcan" type="fixed">
+                Database links now grouped ("Enzyme Nomenclature", "Structural
+                data") and sorted.
+            </action>
+        </release>
         <release version="71.0.4" date="2013-05-28"
             description="Removed ERGO links">
             <action dev="rafalcan" type="remove">
