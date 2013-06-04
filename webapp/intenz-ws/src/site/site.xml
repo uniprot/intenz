@@ -6,7 +6,7 @@
         http://maven.apache.org/xsd/decoration-1.0.0.xsd">
 	<body>
         <menu ref="parent" />
-		<menu name="IntEnz curator webapp">
+		<menu name="IntEnz WS">
             <item name="Home" href="index.html" />
 		</menu>
         <menu ref="reports" />
