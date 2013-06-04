@@ -10,6 +10,14 @@
 	</properties>
 	
 	<body>
+	    <release version="2.0.2" date="2013-06-04"
+	        description="Dependencies updates">
+            <action dev="rafalcan" type="update">
+                Updated to latest versions of intenz-core, intenz-ffwriter and
+                intez-export (which fixes issue with rogue log file in the
+                server).
+            </action>
+	    </release>
 	    <release version="2.0.1" date="2013-04-22"
 	        description="Dependency updates">
             <action dev="rafalcan" type="update">
