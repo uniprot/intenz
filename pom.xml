@@ -33,7 +33,6 @@
                 <directory>${intenz.config.dir}</directory>
                 <includes>
                     <include>intenz-db-*.properties</include>
-                    <include>chebi-db-public.properties</include>
                     <include>chebi-db-prod.properties</include>
                 </includes>
             </resource>
