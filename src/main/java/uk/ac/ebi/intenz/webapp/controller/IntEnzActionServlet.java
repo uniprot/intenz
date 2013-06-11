@@ -60,7 +60,6 @@ public class IntEnzActionServlet extends ActionServlet {
             try {
                 establishConnection(httpServletRequest);
                 establishChebiProductionConnection(httpServletRequest);
-                establishChebiPublicConnection(httpServletRequest);
                 LOGGER.info("... connections established.");
             } catch (SQLException e) {
                 LOGGER.fatal("Connection could not be established.", e);
@@ -117,17 +116,6 @@ public class IntEnzActionServlet extends ActionServlet {
         if (con != null){
         	req.getSession().setAttribute("chebi.connection.production", con);
             req.getSession().setAttribute("chebiProdConBindingListener", new ConnectionBindingListener(con));
-        }
-        return con;
-    }
-
-    private Connection establishChebiPublicConnection(HttpServletRequest req) throws IOException {
-        DatabaseInstance dbi = OracleDatabaseInstance
-                .getInstance(getServletContext().getInitParameter("chebi.pub.db.config"));
-        Connection con = dbi.getConnection();
-        if (con != null){
-        	req.getSession().setAttribute("chebi.connection.public", con);
-        	req.getSession().setAttribute("chebiPubConBindingListener", new ConnectionBindingListener(con));
         }
         return con;
     }
