@@ -102,7 +102,6 @@ public class UnitOfWork implements HttpSessionBindingListener {
 
 	/**
 	 * Initialises <code>enzymesUnderDevelopment</code>.
-	 * @deprecated 
 	 */
 	public UnitOfWork() {
 		this(new EnzymeReactionMapper());
