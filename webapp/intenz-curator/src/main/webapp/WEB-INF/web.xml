@@ -45,18 +45,39 @@
         </init-param>
         <load-on-startup>2</load-on-startup>
     </servlet>
-    
-    <!-- Standard Action Servlet Mapping -->
     <servlet-mapping>
         <servlet-name>action</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-    
+
+    <servlet>
+        <servlet-name>areYouAlive</servlet-name>
+        <jsp-file>/areYouAlive.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>areYouAlive</servlet-name>
+        <url-pattern>/areYouAlive</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <description>
+            This filter adds a boolean attribute health=true to the request,
+            so that we can configure the AccessLogValve in server.xml with the
+            attribute condition="health" and those filtered requests will not be
+            logged.
+        </description>
+        <filter-name>HealthFilter</filter-name>
+        <filter-class>uk.ac.ebi.es.HealthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HealthFilter</filter-name>
+        <url-pattern>/areYouAlive</url-pattern>
+    </filter-mapping>
+
     <welcome-file-list>
         <welcome-file>init.jsp</welcome-file>
     </welcome-file-list>
-    
-    
+
     <error-page>
         <error-code>404</error-code>
         <location>/pages/error.jsp</location>
@@ -66,7 +87,14 @@
         <error-code>500</error-code>
         <location>/pages/error.jsp</location>
     </error-page>
-    
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Unrestricted</web-resource-name>
+            <url-pattern>/areYouAlive</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Init page</web-resource-name>
