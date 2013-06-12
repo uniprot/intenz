@@ -8,6 +8,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.2.12" date="2013-06-12"
+            description="Health check for the curator tool.">
+            <action dev="rafalcan" type="add">
+                Added filter and JSP to allow health checks from the load
+                balancer without logging them.
+            </action>
+        </release>
         <release version="4.2.11" date="2013-06-11"
             description="Fixed citations URLs; using WS for ChEBI public data.">
             <action dev="rafalcan" type="fix">
