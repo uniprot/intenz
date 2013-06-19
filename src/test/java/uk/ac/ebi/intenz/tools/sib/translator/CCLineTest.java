@@ -165,6 +165,11 @@ public class CCLineTest extends BaseLineTest {
       dataHolders.add(new DataHolder("3.4.22.55",
     		  "<greek>alpha</greek>II-spectrin, ...",
     		  "Alpha-II-spectrin, ..."));
+
+      dataHolders.add(new DataHolder("1.1.1.168",
+              "The enzyme from <ital>Saccharomyces cerevisiae</ital> differs from that from <ital>Escherichia coli</ital> (EC 1.1.1.214), which is specific for the <ital>Si</ital>-face of NADP, and in receptor requirements from EC 1.1.99.26.",
+              "The enzyme from Saccharomyces cerevisiae differs from that from Escherichia coli (EC 1.1.1.214), which is specific for the Si-face of NADP, and in receptor requirements from EC 1.1.99.26."));
+
    }
 
   public CCLineTest(String name) {
