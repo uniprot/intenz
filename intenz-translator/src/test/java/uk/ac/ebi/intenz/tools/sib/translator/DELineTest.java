@@ -5,11 +5,11 @@ in the root directory of this distribution.
 */
 package uk.ac.ebi.intenz.tools.sib.translator;
 
-import uk.ac.ebi.xchars.domain.EncodingType;
 import java.util.Iterator;
 
-import uk.ac.ebi.intenz.tools.sib.translator.helper.DataHolder;
 import org.apache.log4j.Logger;
+import uk.ac.ebi.intenz.tools.sib.translator.helper.DataHolder;
+import uk.ac.ebi.xchars.domain.EncodingType;
 
 
 /**
@@ -53,6 +53,9 @@ public class DELineTest extends BaseLineTest {
       dataHolders.add(new DataHolder("3.4.13.20",
             "<greek>beta</greek>-Ala-His dipeptidase",
             "Beta-Ala-His dipeptidase"));
+      dataHolders.add(new DataHolder("2.3.3.1",
+            "citrate (<ital>Si</ital>)-synthase",
+            "Citrate (Si)-synthase"));
    }
 
    public DELineTest(String name) {
