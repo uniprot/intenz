@@ -9,6 +9,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.2.46" date="2013-06-19"
+            description="Removed extra parentheses">
+            <action dev="rafalcan" type="update">
+                Updated to latest version of intenz-translator - which removes
+                extra parentheses for the text 'Si-specific' - and intenz-core.
+            </action>
+        </release>
         <release version="1.2.45" date="2013-05-28"
             description="Fixed flat file formattings">
             <action dev="rafalcan" type="fix">
