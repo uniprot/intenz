@@ -4,11 +4,9 @@ import uk.ac.ebi.intenz.tools.sib.translator.XCharsASCIITranslator;
 import junit.framework.TestCase;
 
 /**
- * Created by IntelliJ IDEA.
  * User: rafalcan
  * Date: 14-Sep-2005
  * Time: 14:28:27
- * To change this template use File | Settings | File Templates.
  */
 public class CC_LineFormatterTest extends TestCase {
 
