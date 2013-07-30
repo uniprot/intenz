@@ -9,6 +9,17 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.2.47" date="2013-07-30"
+            description="Added DE line exceptions">
+            <action dev="rafalcan" type="fix">
+                Updated CC_LineFormatter with exception for Burkholderia sp. WS
+                (non-breaking-line).
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated DE_line_modifications with transfers for several EC
+                numbers.
+            </action>
+        </release>
         <release version="1.2.46" date="2013-06-19"
             description="Removed extra parentheses">
             <action dev="rafalcan" type="update">
