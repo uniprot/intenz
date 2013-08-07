@@ -2,10 +2,8 @@ package uk.ac.ebi.intenz.webapp.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
-
+import java.sql.Statement;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +13,6 @@ import org.apache.struts.Globals;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.ActionServlet;
-
 import uk.ac.ebi.biobabel.util.db.DatabaseInstance;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.biobabel.webapp.listeners.ConnectionBindingListener;
@@ -94,15 +91,13 @@ public class IntEnzActionServlet extends ActionServlet {
     private Connection establishConnection(HttpServletRequest request)
             throws SQLException, IOException, ClassNotFoundException {
         DatabaseInstance odbi = OracleDatabaseInstance.getInstance(
-            this.getServletConfig().getServletContext().getInitParameter("intenz.db.config"));
-        Properties props = new Properties();
-        props.put("user", odbi.getUser());
-        props.put("password", odbi.getPassword());
-        props.put("v$session.osuser",
-                request.getUserPrincipal().getName() + "-webapp");
-        Class.forName(odbi.getDriver());
-        Connection con = DriverManager.getConnection(odbi.getUrl(), props);
+                this.getServletConfig().getServletContext()
+                    .getInitParameter("intenz.db.config"));
+        Connection con = odbi.getConnection();
         con.setAutoCommit(false);
+        Statement stm = con.createStatement();
+        stm.execute("{CALL auditpackage.setosuser('"
+                + request.getUserPrincipal().getName() + " (webapp)" + "')}");
         request.getSession().setAttribute("connectionBindingListener", new ConnectionBindingListener(con));
         request.getSession().setAttribute("connection", con);
         request.getSession().setAttribute("rhea.connection", con);
