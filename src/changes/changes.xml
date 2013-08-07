@@ -8,6 +8,19 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.2.13" date="2013-08-07"
+            description="No V$SESSION in auditpackage">
+            <action dev="rafalcan" type="fix">
+                Variable osuser is now set in the database session
+                (auditpackage) when the connection is established, by calling
+                explicitly the method setosuser, which allows removing the
+                reference to V$SESSION from the body of the package (Rhea does
+                not use it, but this explicit call instead).
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated dependency on intenz-ffwriter.
+            </action>
+        </release>
         <release version="4.2.12" date="2013-06-12"
             description="Health check for the curator tool.">
             <action dev="rafalcan" type="add">
