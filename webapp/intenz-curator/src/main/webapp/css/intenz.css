@@ -159,11 +159,6 @@ a img {
     margin-right: 15px;
 }
 
-.inactive {
-    float: right;
-    color: red;
-}
-
 .tablebody {
 	BACKGROUND-COLOR: #ffefc6;
 }
@@ -459,8 +454,22 @@ a.link:link, a.link:visited, a.link:active, a.link:hover {
 }
 
 .inactive {
-  COLOR: #ff0000;
   FONT-WEIGHT: bold;
+    float: right;
+    color: red;
+}
+
+.created {
+    color: green;
+}
+.modified {
+    color: blue;
+}
+.transferred {
+    color: #a0f;
+}
+.deleted {
+    color: red;
 }
 
 .longLine {

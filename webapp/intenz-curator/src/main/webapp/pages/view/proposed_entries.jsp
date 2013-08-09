@@ -32,25 +32,18 @@
                     </tr>
 
                     <logic:iterate id="proposedEntry" name="ghostEnzymeListDTO" property="ghostEnzymeList">
-                      <%
-                        Map params = new HashMap();
-                        GhostEnzymeDTO ghostEnzymeDTO = (GhostEnzymeDTO) proposedEntry;
-                        params.put("id", ghostEnzymeDTO.getEnzymeId());
-                        params.put("view", "INTENZ");
-                        pageContext.setAttribute("proposedEntryLinkParams", params);
-                      %>
                       <tr>
                         <td colspan="2">
                           <table cellspacing="5">
                             <tr>
-                              <td width="100px" align="right"><html:link action="searchId" name="proposedEntryLinkParams"><bean:write name="proposedEntry" property="ec"/></html:link>
-                              <logic:equal value="deleted" name="proposedEntry" property="eventClass"><td align="left" class="deleted_transferred" align="left">deleted</td></logic:equal>
-                              <logic:equal value="transferred" name="proposedEntry" property="eventClass"><td align="left" class="deleted_transferred" align="left">transferred. <bean:write name="proposedEntry" property="eventNote" filter="false"/>.</td></logic:equal>
-                              <logic:notEqual value="deleted" name="proposedEntry" property="eventClass">
-                                <logic:notEqual value="transferred" name="proposedEntry" property="eventClass">
-                                  <td align="left"><bean:write name="proposedEntry" property="name" filter="false"/></td>
-                                </logic:notEqual>
-                              </logic:notEqual>
+                              <td width="100px" align="right">
+                                  <a href="searchId.do?id=${proposedEntry.enzymeId}&view=INTENZ">${proposedEntry.ec}</a>
+                                  (<span class="${proposedEntry.eventClass}">${proposedEntry.eventClass}</span>)
+                                  <c:if test="${proposedEntry.eventClass != 'deleted'
+                                    and proposedEntry.eventClass != 'transferred'}">
+                                          ${proposedEntry.name}
+                                  </c:if>
+                              </td>
                             </tr>
                           </table>
                         </td>

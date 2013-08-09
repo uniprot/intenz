@@ -1,11 +1,10 @@
 package uk.ac.ebi.intenz.webapp.dtos;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
-
-import javax.servlet.http.HttpServletRequest;
-
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.xchars.SpecialCharacters;
 
@@ -13,7 +12,7 @@ import uk.ac.ebi.xchars.SpecialCharacters;
  * @author Michael Darsow
  * @version $Revision: 1.2 $ $Date: 2008/01/28 12:33:07 $
  */
-public class CofactorDTO extends ActionForm {
+public class CofactorDTO extends ActionForm implements Comparable<CofactorDTO>{
 
   private String cofactorValue;
   private String xmlCofactorValue; // may include several compound names
@@ -38,14 +37,11 @@ public CofactorDTO() {
   }
 
   public CofactorDTO(CofactorDTO cofactorDTO) {
-    setCofactorValue(cofactorDTO.getCofactorValue());
     setXmlCofactorValue(cofactorDTO.getXmlCofactorValue());
     setOrderIn(cofactorDTO.getOrderIn());
     setSource(cofactorDTO.getSource());
     setView(cofactorDTO.getView());
     setSourceDisplay(cofactorDTO.getSourceDisplay());
-    setViewDisplayString(cofactorDTO.getViewDisplayString());
-    setViewDisplayImage(cofactorDTO.getViewDisplayImage());
     setAccession(cofactorDTO.accession);
   }
 
@@ -107,6 +103,8 @@ public CofactorDTO() {
 
   public void setXmlCofactorValue(String xmlCofactorValue) {
     this.xmlCofactorValue = xmlCofactorValue;
+    cofactorValue = SpecialCharacters.getInstance(null)
+            .xml2Display(xmlCofactorValue.trim());
   }
 
   public String getOrderIn() {
@@ -131,6 +129,7 @@ public CofactorDTO() {
 
   public void setView(String view) {
     this.view = view;
+    updateView();
   }
 
   public String getSourceDisplay() {
@@ -174,4 +173,7 @@ public void setCompoundId(String compoundId) {
 }
 
 
+    public int compareTo(CofactorDTO other) {
+        return this.cofactorValue.compareTo(other.cofactorValue);
+    }
 }

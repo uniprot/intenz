@@ -4,6 +4,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
     <!---------------------------------------------- Content --------------------------------------------------------->
 
@@ -31,28 +32,16 @@
                       <td colspan="3">&nbsp;</td>
                     </tr>
 
-                    <logic:iterate id="suggestedEntry" name="ghostEnzymeListDTO" property="ghostEnzymeList">
-                      <%
-                        Map params = new HashMap();
-                        GhostEnzymeDTO ghostEnzymeDTO = (GhostEnzymeDTO) suggestedEntry;
-                        params.put("id", ghostEnzymeDTO.getEnzymeId());
-                        params.put("view", "INTENZ");
-                        pageContext.setAttribute("suggestedEntryLinkParams", params);
-                      %>
+                    <logic:iterate id="suggestedEntry"
+                        name="ghostEnzymeListDTO" property="ghostEnzymeList">
                       <tr>
                         <td colspan="2">
-                          <table cellspacing="5">
-                            <tr>
-                              <td width="100px" align="right"><html:link action="searchId" name="suggestedEntryLinkParams"><bean:write name="suggestedEntry" property="ec"/></html:link>
-                              <logic:equal value="deleted" name="suggestedEntry" property="eventClass"><td align="left" class="deleted_transferred" align="left">deleted</td></logic:equal>
-                              <logic:equal value="transferred" name="suggestedEntry" property="eventClass"><td align="left" class="deleted_transferred" align="left">transferred. <bean:write name="suggestedEntry" property="eventNote" filter="false"/>.</td></logic:equal>
-                              <logic:notEqual value="deleted" name="suggestedEntry" property="eventClass">
-                                <logic:notEqual value="transferred" name="suggestedEntry" property="eventClass">
-                                  <td align="left"><bean:write name="suggestedEntry" property="name" filter="false"/></td>
-                                </logic:notEqual>
-                              </logic:notEqual>
-                            </tr>
-                          </table>
+                            <a href="searchId.do?id=${suggestedEntry.enzymeId}&view=INTENZ">${suggestedEntry.ec}</a>
+                            (<span class="${suggestedEntry.eventClass}">${suggestedEntry.eventClass}</span>)
+                            <c:if test="${suggestedEntry.eventClass != 'deleted'
+                                and suggestedEntry.eventClass != 'transferred'}">
+                                ${suggestedEntry.name}
+                            </c:if>
                         </td>
                       </tr>
                     </logic:iterate>
