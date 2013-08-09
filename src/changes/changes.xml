@@ -8,6 +8,38 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.2.14" date="2013-08-09" description="Bug fixes">
+            <action dev="rafalcan" type="fix">
+                Inactive preliminary EC numbers can be created now.
+                <fixes issue="217"/>
+            </action>
+            <action dev="rafalcan" type="fix">
+                UniProt cross references shown also when there are no others.
+                <fixes issue="186"/>
+            </action>
+            <action dev="rafalcan" type="fix">
+                Cofactors view is now properly shown.
+                <fixes issue="172"/>
+            </action>
+            <action dev="rafalcan" type="fix">
+                Now the reason of a suggestion or proposal is shown in the
+                entry view and also in the listing of suggested/proposed
+                changes.
+                <fixes issue="101"/>
+            </action>
+            <action dev="rafalcan" type="fix">
+                Book editions can have values other than integers (ex. '2nd').
+                <fixes issue="113"/>
+            </action>
+            <action dev="rafalcan" type="fix">
+                XChars markup can now be properly stored and edited for links.
+                <fixes issue="114"/>
+            </action>
+            <action dev="rafalcan" type="fix">
+                Cofactors are now properly sorted in SIB preview.
+                <fixes issue="116"/>
+            </action>
+        </release>
         <release version="4.2.13" date="2013-08-07"
             description="No V$SESSION in auditpackage">
             <action dev="rafalcan" type="fix">

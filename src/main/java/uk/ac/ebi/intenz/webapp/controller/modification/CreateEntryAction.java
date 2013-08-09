@@ -2,19 +2,11 @@ package uk.ac.ebi.intenz.webapp.controller.modification;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
-import uk.ac.ebi.biobabel.util.ObjectUtil;
+import org.apache.struts.action.*;
 import uk.ac.ebi.intenz.domain.constants.Event;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
@@ -58,35 +50,14 @@ public class CreateEntryAction extends CurationAction {
         return mapping.getInputForward();
       }
       enzymeDTO.setEc(ec.toString());
+      if (ec.getType().equals(Type.PRELIMINARY)){
+          // change the default status of enzymeDTO:
+          enzymeDTO.setStatusCode(Status.PRELIMINARY.getCode());
+      }
 
       // Set the standard remark in the audit tables.
       AuditPackageMapper auditPackageMapper = new AuditPackageMapper();
       auditPackageMapper.setRemark(AuditPackageMapper.STANDARD_REMARK, con);
-
-	  // First, if is is a new transferred entry check that the target EC exists:
-//	  String transferredToEc = enzymeDTO.getTransferredToEc();
-//	  EnzymeEntry targetEntry = null;
-//	  if (transferredToEc != null && transferredToEc.length() > 0){
-//		  EnzymeCommissionNumber targetEc = 
-//				  EnzymeCommissionNumber.valueOf(transferredToEc);
-//		  targetEntry = new EnzymeEntryMapper().findByEc(
-//				  targetEc.getEc1(), targetEc.getEc2(),
-//				  targetEc.getEc3(), targetEc.getEc4(),
-//				  Status.APPROVED, con);
-//		  if (targetEntry == null){
-//		      errors.add("transferredToEc", new ActionMessage(
-//		    		  "errors.application.ec.nonexisting", targetEc));
-//		      saveErrors(request, errors);
-//		      keepToken(request);
-//		      return mapping.getInputForward();
-//		  } else if (!targetEntry.isActive()){
-//		      errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-//		    		  "errors.application.ec.inactive", targetEc));
-//		      saveErrors(request, errors);
-//		      keepToken(request);
-//		      return mapping.getInputForward();
-//		  }
-//	  }
 
       // Commit
       LOGGER.info("Committing form data.");

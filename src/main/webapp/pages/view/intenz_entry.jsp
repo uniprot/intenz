@@ -45,9 +45,17 @@
 	      </logic:equal>
         </td>
       </tr>
-      <logic:equal value="SU" name="enzymeDTO" property="statusCode"><tr><td class="suggested" align="center"><bean:message bundle="form" key="title.entry.status.suggestion" /></td></tr></logic:equal>
+      <logic:equal value="SU" name="enzymeDTO" property="statusCode">
+        <tr><td class="suggested" align="center">
+            <bean:message bundle="form" key="title.entry.status.suggestion" />
+            (<span class="${enzymeDTO.latestHistoryEventClass}">${enzymeDTO.latestHistoryEventClass}</span>)
+        </td></tr>
+      </logic:equal>
       <logic:equal value="PR" name="enzymeDTO" property="statusCode">
-    	  <tr><td class="proposed" align="center"><bean:message bundle="form" key="title.entry.status.proposal" /></td></tr>
+    	  <tr><td class="proposed" align="center">
+    	    <bean:message bundle="form" key="title.entry.status.proposal" />
+              (<span class="${enzymeDTO.latestHistoryEventClass}">${enzymeDTO.latestHistoryEventClass}</span>)
+          </td></tr>
       </logic:equal>
       <c:if test="${not preview}">
       <tr>
@@ -290,7 +298,7 @@
 
                   <!-- LINKS -->
 
-                  <bean:size id="listSize" name="enzymeDTO" property="links" />
+                  <bean:size id="listSize" name="enzymeDTO" property="allLinks" />
                   <logic:greaterThan name="listSize" value="0">
                   <tr>
                     <td colspan="2" class="data_region_header_row">Links to other databases</td>

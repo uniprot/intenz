@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,12 +12,9 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
-import uk.ac.ebi.rhea.domain.Reaction;
-import uk.ac.ebi.rhea.domain.Status;
 import uk.ac.ebi.intenz.tools.sib.helper.FFWriterHelper;
 import uk.ac.ebi.intenz.tools.sib.helper.SibEntryHelper;
 import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeCrossReference;
@@ -27,17 +23,12 @@ import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeXrefFactory;
 import uk.ac.ebi.intenz.tools.sib.translator.XCharsASCIITranslator;
 import uk.ac.ebi.intenz.tools.sib.writer.EnzymeFlatFileWriteException;
 import uk.ac.ebi.intenz.tools.sib.writer.EnzymeFlatFileWriter;
-import uk.ac.ebi.intenz.webapp.dtos.CofactorDTO;
-import uk.ac.ebi.intenz.webapp.dtos.CommentDTO;
-import uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO;
-import uk.ac.ebi.intenz.webapp.dtos.EnzymeLinkDTO;
-import uk.ac.ebi.intenz.webapp.dtos.EnzymeNameDTO;
-import uk.ac.ebi.intenz.webapp.dtos.ReactionDTO;
-import uk.ac.ebi.intenz.webapp.dtos.SibEnzymeDTO;
+import uk.ac.ebi.intenz.webapp.dtos.*;
 import uk.ac.ebi.intenz.webapp.helper.EnzymeNamesHelper;
 import uk.ac.ebi.intenz.webapp.helper.HyperlinkHelper;
 import uk.ac.ebi.interfaces.sptr.SPTRCrossReference;
 import uk.ac.ebi.interfaces.sptr.SPTRException;
+import uk.ac.ebi.rhea.domain.Reaction;
 import uk.ac.ebi.xchars.SpecialCharacters;
 import uk.ac.ebi.xchars.domain.EncodingType;
 
@@ -156,6 +147,7 @@ public class PopulatePreviewSibEnzymeDTOAction extends Action {
 
          // CFs
          List cofactors = enzymeDTO.getCofactors();
+         Collections.sort(cofactors);
          StringBuffer cofactorString = new StringBuffer();
          for ( int iii = 0, iiiListSize = cofactors.size(); iii < iiiListSize; iii++ ) {
         	 CofactorDTO cofactorDTO = (CofactorDTO) cofactors.get(iii);

@@ -146,10 +146,10 @@ public class ReferenceDTO extends ActionForm {
         	errors.add("reference", new ActionMessage("errors.form.unicode", "title", xmlTitle));
     }
 
-	if (!StringUtil.isNullOrEmpty(edition) && !StringUtil.isInteger(edition)){
-      ActionMessage message = new ActionMessage("errors.form.reference.edition");
-      errors.add("reference", message);
-	}
+//	if (!StringUtil.isNullOrEmpty(edition) && !StringUtil.isInteger(edition)){
+//      ActionMessage message = new ActionMessage("errors.form.reference.edition");
+//      errors.add("reference", message);
+//	}
     
     if (StringUtil.isNullOrEmpty(year)){
       ActionMessage message = new ActionMessage("errors.form.reference.year.missing");
