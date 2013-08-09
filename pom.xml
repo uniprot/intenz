@@ -4,7 +4,7 @@
 	
 	<groupId>uk.ac.ebi.intenz.webapp</groupId>
 	<artifactId>intenz-curator</artifactId>
-	<version>4.2.14-SNAPSHOT</version>
+	<version>4.2.14</version>
     <name>IntEnz curator webapp</name>
 	<description>IntEnz curator tool - Web application</description>
 	<packaging>war</packaging>
@@ -368,4 +368,10 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+  <scm>
+    <connection>scm:svn:svn://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-curator-4.2.14</connection>
+    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-curator-4.2.14</developerConnection>
+    <url>https://sourceforge.net/p/intenz/code/webapp/intenz-curator/tags/intenz-curator-4.2.14</url>
+  </scm>
 </project>
