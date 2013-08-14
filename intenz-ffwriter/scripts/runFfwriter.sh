@@ -1,10 +1,10 @@
 #!/bin/bash
 # Parameters:
 #   $1: configuration directory (optional)
-#   $2: EC number to be exported (just one) (optional)
-# If none provided, all SIB entries are exported.
+#   $2: EC number to be exported (just one) (optional). If none provided,
+#       all SIB entries are exported.
 
-SCRIPT_DIR=`dirname $0`
+SCRIPT_DIR=$(dirname $0)
 
 function addJarsToCp(){
     for JAR in $1/*.jar
