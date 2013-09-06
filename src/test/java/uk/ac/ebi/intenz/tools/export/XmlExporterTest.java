@@ -1,7 +1,5 @@
 package uk.ac.ebi.intenz.tools.export;
 
-import static org.junit.Assert.fail;
-
 import java.io.IOException;
 import java.sql.Connection;
 
@@ -9,11 +7,12 @@ import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
+
+import static org.junit.Assert.fail;
 
 public class XmlExporterTest {
 
@@ -25,6 +24,8 @@ public class XmlExporterTest {
 	@Before
 	public void setUp() throws Exception {
 		exporter = new XmlExporter();
+		exporter.setReleaseDate("9999-09-09");
+		exporter.setReleaseNumber(9999);
 		con = OracleDatabaseInstance.getInstance("intenz-db-dev")
 				.getConnection();
 		mapper = new EnzymeEntryMapper();
@@ -40,7 +41,7 @@ public class XmlExporterTest {
 	throws Exception {
 		try {
 	        EnzymeEntry entry = mapper.findById(1000L, con);
-			exporter.export(entry, "9999", "9999-09-09", System.out);
+			exporter.export(entry, System.out);
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}
@@ -51,7 +52,7 @@ public class XmlExporterTest {
 	throws Exception {
 		try {
 	        EnzymeEntry entry = mapper.findById(17515L, con);
-			exporter.export(entry, "9999", "9999-09-09", System.out);
+			exporter.export(entry, System.out);
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}
@@ -61,21 +62,21 @@ public class XmlExporterTest {
 	public void testExportEnzymeEntry() throws Exception{
 		try {
 	        EnzymeEntry entry = mapper.findById(10396L, con);
-			exporter.export(entry, "9999", "9999-09-09", System.out);
+			exporter.export(entry, System.out);
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}
 		try {
 	        EnzymeEntry entry =
 	        		mapper.findByEc("1.1.3.41", Status.APPROVED, con);
-			exporter.export(entry, "9999", "9999-09-09", System.out);
+			exporter.export(entry, System.out);
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}
 		try {
 	        EnzymeEntry entry =
 	        		mapper.findByEc("1.1.1.100", Status.APPROVED, con);
-			exporter.export(entry, "9999", "9999-09-09", System.out);
+			exporter.export(entry, System.out);
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}

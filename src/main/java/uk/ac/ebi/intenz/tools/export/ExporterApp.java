@@ -8,35 +8,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
+import java.util.*;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.MarshalException;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.GnuParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.OptionBuilder;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
-
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.biopax.level2.Biopax;
 import uk.ac.ebi.intenz.domain.constants.Status;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeClass;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
+import uk.ac.ebi.intenz.domain.enzyme.*;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubSubclass;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubclass;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.mapper.EnzymeClassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
@@ -74,9 +56,9 @@ public class ExporterApp {
      * 			{@link uk.ac.ebi.intenz.tools.export.XmlExporter XmlExporter}
      *          class.</li>
      * 	   <li>Site map XML file (<code>sitemap.xml</code>) to be used in
-     * 		   	{@link http://www.google.com/webmasters/sitemaps Google sitemaps}
-     * 			to make every IntEnz entry available to Google indexing.
-     * 			Other search engines accept this standard too.</li>
+     * 		   	<a href="http://www.google.com/webmasters/sitemaps">Google
+     * 		   	sitemaps</a> to make every IntEnz entry available to Google
+     * 		   	indexing. Other search engines accept this standard too.</li>
      * 	   <li><a href="http://www.biopax.org">BioPAX</a>, using the biopax
      *          module.</li>
      * 	   <li><a href="ftp://ftp.genome.jp/pub/kegg/ligand/ligand.txt">KEGG
@@ -139,7 +121,7 @@ public class ExporterApp {
 		}
 		
         ExporterApp app = new ExporterApp(cl.getOptionValue("intenzDb"));
-        Collection<EnzymeEntry> enzymes =
+        List<EnzymeEntry> enzymes =
         		app.getEnzymeList(cl.getOptionValue("ec"));
         Map<String, Object> descriptions =
         		ExporterApp.getDescriptions(app.intenzConnection);
@@ -200,15 +182,14 @@ public class ExporterApp {
 
 	/**
      * Gets the list of enzymes to be exported.
-     * @param con
-     * @param ec An EC number. If <code>null</code>, every exportable enzyme is
-     * 		included.
+     * @param ecString An EC number. If <code>null</code>, every exportable
+     *      enzyme is included.
      * @throws SQLException
      * @throws DomainException
      */
-    protected Collection<EnzymeEntry> getEnzymeList(String ecString)
+    protected List<EnzymeEntry> getEnzymeList(String ecString)
     throws SQLException, MapperException, DomainException{
-        Collection<EnzymeEntry> enzymeList = null;
+        List<EnzymeEntry> enzymeList = null;
         EnzymeEntryMapper mapper = new EnzymeEntryMapper();
 		if (ecString != null){
         	EnzymeCommissionNumber ec = EnzymeCommissionNumber.valueOf(ecString);
@@ -270,12 +251,13 @@ public class ExporterApp {
     		Map<String, Object> descriptions, String toDir) throws Exception {
         OutputStream os = null;
         checkWritable(toDir);
-        String releaseDate = new SimpleDateFormat("yyyy-MM-dd")
-                .format(stats.getReleaseDate());
         LOGGER.info("Intenz exporter - Release " + stats.getReleaseNumber());
         LOGGER.info("Outputting XML to " + toDir);
             XmlExporter exporter = new XmlExporter();
             exporter.setDescriptions(descriptions);
+            exporter.setReleaseDate(new SimpleDateFormat("yyyy-MM-dd")
+                    .format(stats.getReleaseDate()));
+            exporter.setReleaseNumber(stats.getReleaseNumber());
             for (XmlExporter.Flavour flavour : XmlExporter.Flavour.values()){
                 exporter.setFlavour(flavour);
                 File flavourDir = new File(toDir, flavour.toString());
@@ -293,12 +275,8 @@ public class ExporterApp {
                     File outputFile = new File(subsubclassDir, "EC_" + entry.getEc().toString() + ".xml");
                     try {
                         os = new FileOutputStream(outputFile);
-                        exporter.export(entry,
-                                String.valueOf(stats.getReleaseNumber()),
-                                releaseDate, os);
+                        exporter.export(entry, os);
                         validEntriesList.add(entry);
-                    } catch (MarshalException e) {
-                        LOGGER.warn(entry.getEc().toString(), e);
                     } finally {
                         if (os != null) os.close();
                     }
@@ -309,9 +287,7 @@ public class ExporterApp {
                 try {
                     os = new FileOutputStream(treeFile);
                     LOGGER.info("Whole tree XML start");
-                    exporter.export(validEntriesList,
-                            String.valueOf(stats.getReleaseNumber()),
-                            releaseDate, os);
+                    exporter.export(validEntriesList, os);
                     LOGGER.info("Whole tree XML end");
                 } catch (Exception e) {
                     LOGGER.error("Whole tree dump", e);
