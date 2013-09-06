@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Collection;
-import java.util.Map;
+import java.util.Collections;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -13,13 +13,12 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
-
 import uk.ac.ebi.intenz.domain.constants.View;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.xchars.SpecialCharacters;
 import uk.ac.ebi.xchars.domain.EncodingType;
 
-public class KeggExporter {
+public class KeggExporter implements IntenzExporter {
 
 	private static final Logger LOGGER = Logger.getLogger(KeggExporter.class);
 
@@ -61,4 +60,8 @@ public class KeggExporter {
             if (osw != null) osw.close();
         }
 	}
+
+    public void export(EnzymeEntry enzyme, OutputStream os) throws IOException {
+        export(Collections.singleton(enzyme), os);
+    }
 }

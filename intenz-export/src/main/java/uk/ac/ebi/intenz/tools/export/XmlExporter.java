@@ -1,5 +1,6 @@
 package uk.ac.ebi.intenz.tools.export;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -95,7 +96,10 @@ import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
  * the flavour in the middle of a dump.
  * @author rafalcan
  */
-public class XmlExporter {
+public class XmlExporter implements IntenzExporter {
+
+    private int releaseNumber;
+    private String releaseDate = "";
 
     public static enum Flavour { ASCII, XCHARS }
     
@@ -178,7 +182,15 @@ public class XmlExporter {
 					.newSchema(intenzXsdUrl);
 		marshaller.setSchema(intenzXsd);
     }
-    
+
+    public void setReleaseNumber(int releaseNumber) {
+        this.releaseNumber = releaseNumber;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
     private void buildNameQualifiersMap(){
         NAME_QUALIFIERS = new HashMap<EnzymeNameQualifierConstant,
         		EnzymeNameQualifierType>();
@@ -231,6 +243,38 @@ public class XmlExporter {
 		this.flavour = flavour;
 	}
 
+    public void export(Collection<EnzymeEntry> enzymes, OutputStream os)
+    throws IOException {
+        try {
+            Intenz intenz = of.createIntenz();
+            intenz.setRelease(BigInteger.valueOf(releaseNumber));
+            intenz.setDate(DatatypeFactory.newInstance()
+                    .newXMLGregorianCalendar(releaseDate));
+            for (EnzymeEntry entry : enzymes) {
+                int ec1 = entry.getEc().getEc1();
+                int ec2 = entry.getEc().getEc2();
+                int ec3 = entry.getEc().getEc3();
+
+                EcClassType clazz = getClazz(intenz, ec1);
+                EcSubclassType subClazz = getSubClazz(clazz, ec1, ec2);
+                EcSubsubclassType subSubClazz = getSubSubClazz(subClazz, ec1, ec2, ec3);
+
+                EntryType jaxbEntry = getJaxbEntry(entry);
+                subSubClazz.getEnzyme().add(jaxbEntry);
+            }
+    //        marshaller.marshal(intenz, os);
+                marshaller.marshal(intenz, getXMLSerializer(os));
+        } catch (JAXBException e) {
+            throw new IOException(e);
+        } catch (DatatypeConfigurationException e) {
+            throw new IOException(e);
+        }
+    }
+
+    public void export(EnzymeEntry enzyme, OutputStream os) throws IOException {
+        export(Collections.singleton(enzyme), os);
+    }
+
 	/**
 	 * Exports one enzyme entry as IntEnzXML.
 	 * @param entry the enzyme entry to export.
@@ -238,6 +282,10 @@ public class XmlExporter {
 	 * @param relDate the IntEnz release date to mention in the exported XML.
 	 * @param os the OutputStream to write the XML to.
 	 * @throws Exception
+     * @deprecated Use the method from the interface {@link
+     *      IntenzExporter#export(uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry,
+     *      java.io.OutputStream)} instead, using the setters for release date
+     *      and number beforehand.
 	 */
     public void export(EnzymeEntry entry, String release,
             String relDate, OutputStream os) throws Exception {
@@ -251,6 +299,9 @@ public class XmlExporter {
 	 * @param relDate the IntEnz release date to mention in the exported XML.
 	 * @param os the OutputStream to write the XML to.
      * @throws Exception
+     * @deprecated Use the method from the interface {@link
+     *      IntenzExporter#export(java.util.Collection, java.io.OutputStream)}
+     *      instead, using the setters for release date and number beforehand.
      */
     public void export(List<EnzymeEntry> entries, String release,
             String relDate, OutputStream os) throws Exception{

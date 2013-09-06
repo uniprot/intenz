@@ -9,6 +9,22 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.3.18" date="2013-09-06" description="JSON exporter">
+            <action dev="rafalcan" type="add">
+                Added interface IntenzExporter for exporters, and a new
+                implementation JsonExporter to be used by webapps.
+            </action>
+            <action dev="rafalcan" type="remove">
+                Deprecated methods from XmlExporter taking release number and
+                date as parameters, as they don't conform to the interface and
+                are not needed for every exporter implementation. In this case,
+                they can be set using the accessor methods.
+            </action>
+            <action dev="rafalcan" type="fix">
+                Moved dependency on Oracle driver to the apps profile and test
+                scope, avoiding its inclusion in the jar package.
+            </action>
+        </release>
         <release version="1.3.17" date="2013-06-04"
             description="Dependency updates">
             <action dev="rafalcan" type="update">
