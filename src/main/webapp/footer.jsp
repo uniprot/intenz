@@ -1,2 +1,2 @@
 <%@ taglib prefix="b" uri="http://www.ebi.ac.uk/biobabel" %>
-<b:include url="${initParam.templatesUrl}/footer/global"/>
+<b:include url="${config.templatesUrl}/footer/global"/>

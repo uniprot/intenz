@@ -21,7 +21,8 @@ public class XmlExporterPool implements ObjectPool<XmlExporter> {
 
 	private ObjectPool<XmlExporter> pool;
 
-	public XmlExporterPool(int numOfExporters, final Map<String, Object> desc)
+	public XmlExporterPool(int numOfExporters, final Map<String, Object> desc,
+	        final int relNum, final String relDate)
 	throws IllegalArgumentException, Exception{
 		pool = new GenericObjectPool<XmlExporter>(
 				new BasePoolableObjectFactory<XmlExporter>(){
@@ -29,6 +30,8 @@ public class XmlExporterPool implements ObjectPool<XmlExporter> {
 					public XmlExporter makeObject() throws Exception {
 						XmlExporter xmlExporter = new XmlExporter();
 						xmlExporter.setDescriptions(desc);
+						xmlExporter.setReleaseNumber(relNum);
+						xmlExporter.setReleaseDate(relDate);
 						xmlExporter.setFlavour(Flavour.ASCII);
 						return xmlExporter;
 					}

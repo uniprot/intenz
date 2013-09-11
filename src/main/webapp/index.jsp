@@ -19,19 +19,29 @@
         
         <h3>Usage:</h3>
         <dl>
-	        <dt><code>/EC/<i>{ecNumber}.{extension}</i></code></dt>
+	        <dt><code>/EC/<i>{ecNumber}</i>.<i>{extension}</i></code></dt>
 	        <dd>Retrieve an EC number (<i>{ecNumber}</i>) in the format
 	        	corresponding to the given <i>{extension}</i> (see below for
 	        	supported extensions and content types).<br/>
 	        	Ex: <a href="EC/1.1.1.1.xml">/EC/1.1.1.1.xml</a>
         	</dd>
+            <dt><code>/EC/<i>{ecNumber}</i>?format=<i>{format}</i></code></dt>
+            <dd>Retrieve an EC number (<i>{ecNumber}</i>) in the format
+                corresponding to the given <i>{format}</i> query parameter (see
+                below for supported extensions and content types).<br/>
+                Ex: <a href="EC/1.1.1.1?format=xml">/EC/1.1.1.1?format=xml</a>
+            </dd>
+            <dt><code>/EC/<i>{ecNumber}</i></code>
+                <span style="font-size: small;">(with <code>Accept</code>
+                HTTP header set to one of the supported MIME types)</span>
+            </dt>
+            <dd>Retrieve an EC number (<i>{ecNumber}</i>) in the format
+                corresponding to the given <i>Accept</i> HTTP header (see
+                below for supported extensions and content types).
+            </dd>
         </dl>
         <p>
-	        Note that though this is the preferred way of specifying the
-	        response format, you can alternatively do it using a request
-	        parameter <code>format</code> or a supported MIME type in the
-	        <code>Accept</code> HTTP header (see below for supported parameter
-	        values and MIME types).
+	        See below for supported extensions, parameter values and MIME types.
         </p>
         <table class="contenttable">
         	<caption align="bottom">Supported content types</caption>
@@ -45,22 +55,33 @@
         		<td>xml</td>
         		<td>xml</td>
         		<td class="mimeType">application/xml</td>
-        		<td>XML (schema <a
-        			href="ftp://ftp.ebi.ac.uk/pub/databases/intenz/xml/intenz.xsd">here</a>)</td>
+        		<td>XML (<a href="xsd/intenz.xsd">IntEnzXML schema</a>). This
+        		    is the default, if no other is especified.</td>
         	</tr>
         	<tr>
         		<td>owl</td>
         		<td>biopax_l2</td>
         		<td class="mimeType">application/rdf+xml</td>
-        		<td><a href="http://www.biopax.org">BioPAX</a> level 2</td>
+        		<td><a href="http://www.biopax.org">BioPAX</a> level 2.</td>
         	</tr>
  	      	<tr>
         		<td>txt</td>
         		<td>enzyme</td>
         		<td class="mimeType">text/plain</td>
         		<td><a href="http://enzyme.expasy.org/enzuser.txt">ENZYME</a>
-        			flat file</td>
+        			flat file.</td>
         	</tr>
+            <tr>
+                <td>json</td>
+                <td>json</td>
+                <td class="mimeType">application/json</td>
+                <td><a href="http://json.org/">JSON</a> (JavaScript Object
+                    Notation). This is the only case where the requested
+                    <code>{ecNumber}</code> can be an EC sub-subclass,
+                    subclass, class or even empty (meaning all of the EC
+                    classes).
+                </td>
+            </tr>
          </table>
 
 	</div>

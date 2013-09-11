@@ -5,35 +5,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 		http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-	<context-param>
-		<description>JNDI name of the intenz database connection.</description>
-		<param-name>intenz.data.source</param-name>
-		<param-value>jdbc/intenz/web</param-value>
-	</context-param>
-	
-	<context-param>
-		<description>The size of the XML exporters pool.</description>
-		<param-name>xml.exporters.pool.size</param-name>
-		<param-value>8</param-value>
-	</context-param>
-	
-	<context-param>
-		<description>The size of the EnzymeEntryMappers pool.</description>
-		<param-name>mappers.pool.size</param-name>
-		<param-value>8</param-value>
-	</context-param>
-	
-	<context-param>
-		<description>
-			Base URL for templates (EBI web service).
-			FIXME: THIS SHOULD BE TAKEN FROM IntenzConfig SINGLETON!
-		</description>
-		<param-name>templatesUrl</param-name>
-		<param-value>
-			http://wwwint.ebi.ac.uk/web/template-service/prod/templates/compliance
-		</param-value>
-	</context-param>
-
 	<servlet>
 		<display-name>Intenz WS EC Servlet</display-name>
 		<servlet-name>IntenzWsEcServlet</servlet-name>
