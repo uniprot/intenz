@@ -1,7 +1,7 @@
 <%@ taglib prefix="b" uri="http://www.ebi.ac.uk/biobabel" %>
 <header>
-    <b:include url="${initParam.templatesUrl}/masthead/global/services"/>
-    <b:include url="${initParam.templatesUrl}/masthead/local" method="POST">
+    <b:include url="${config.templatesUrl}/masthead/global/services"/>
+    <b:include url="${config.templatesUrl}/masthead/local" method="POST">
         <b:param name="">
 {
 	"localMasthead": {

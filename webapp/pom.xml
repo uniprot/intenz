@@ -17,7 +17,8 @@
     <modules>
         <module>intenz-curator</module>
         <module>intenz-public</module>
-    <module>intenz-ws</module>
+        <module>intenz-ws</module>
+        <module>intenz-config</module>
   </modules>
     
 </project>
