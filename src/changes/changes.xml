@@ -10,7 +10,7 @@
     </properties>
 
     <body>
-        <release date="" version="1.0.0" description="First release">
+        <release date="2013-09-11" version="1.0.0" description="First release">
             <action dev="rafalcan" type="add">
                 Added this module, refactored out from intenz-public so that
                 configuration can also be used by intenz-ws.
