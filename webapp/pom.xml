@@ -5,7 +5,7 @@
     <artifactId>webapp</artifactId>
     <name>IntEnz webapps</name>
     <packaging>pom</packaging>
-    <version>1.2.3</version>
+    <version>1.2.4-SNAPSHOT</version>
     <description>IntEnz web applications</description>
 
  	<parent>
