@@ -27,6 +27,7 @@ import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.*;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
+import uk.ac.ebi.intenz.domain.exceptions.EcException;
 import uk.ac.ebi.intenz.mapper.EnzymeClassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeSubSubclassMapper;
@@ -193,6 +194,9 @@ implements PropertyChangeListener {
             checkEcTypeFormat(rf, ec);
             con = ds.getConnection();
             Object output = getOutput(con, ec);
+            if (output == null){
+                throw new EcException("EC " + ecString + " not found");
+            }
 
             res.setCharacterEncoding("UTF-8");
 			res.setContentType(rf.mimeType);
@@ -215,6 +219,10 @@ implements PropertyChangeListener {
 				break;
 			}
 			res.setStatus(HttpServletResponse.SC_OK);
+        } catch (EcException e){
+            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            LOGGER.warn("EC not found: " + ecString);
+            processException(res, path, os, e);
 		} catch (IllegalArgumentException e){
 			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             LOGGER.warn("Bad request: " + path);
