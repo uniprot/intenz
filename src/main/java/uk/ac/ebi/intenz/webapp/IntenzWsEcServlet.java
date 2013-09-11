@@ -191,12 +191,12 @@ implements PropertyChangeListener {
             EnzymeCommissionNumber ec = ecString.length() == 0?
                     null : EnzymeCommissionNumber.valueOf(ecString);
             rf = getResponseFormat(req);
-            checkEcTypeFormat(rf, ec);
             con = ds.getConnection();
             Object output = getOutput(con, ec);
             if (output == null){
                 throw new EcException("EC " + ecString + " not found");
             }
+            checkEcTypeFormat(rf, ec);
 
             res.setCharacterEncoding("UTF-8");
 			res.setContentType(rf.mimeType);
