@@ -7,7 +7,7 @@
     <parent>
         <groupId>uk.ac.ebi.intenz</groupId>
         <artifactId>webapp</artifactId>
-        <version>1.2.3-SNAPSHOT</version>
+        <version>1.2.3</version>
     </parent>
     <groupId>uk.ac.ebi.intenz.webapp</groupId>
     <artifactId>intenz-config</artifactId>
