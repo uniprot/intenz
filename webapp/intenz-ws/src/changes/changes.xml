@@ -10,7 +10,7 @@
 	</properties>
 	
 	<body>
-	    <release version="2.0.3" date="" description="JSON format">
+	    <release version="2.0.3" date="2013-09-11" description="JSON format">
             <action dev="rafalcan" type="add" issue="219">
                 Added JSON to the list of supported formats. This one relies on
                 the updated intenz-export dependency.
@@ -18,6 +18,9 @@
             <action dev="rafalcan" type="add">
                 Added explicit dependency on intenz-xml in order to extract the
                 XML schemas and make them also available from the web service.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated versions of intenz-ffwriter and biobabel-core.
             </action>
 	    </release>
 	    <release version="2.0.2" date="2013-06-04"
