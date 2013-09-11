@@ -8,6 +8,11 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.2.15" date="" description="">
+            <action dev="rafalcan" type="update">
+                Updated to latest version of parent.
+            </action>
+        </release>
         <release version="4.2.14" date="2013-08-09" description="Bug fixes">
             <action dev="rafalcan" type="fix">
                 Inactive preliminary EC numbers can be created now.

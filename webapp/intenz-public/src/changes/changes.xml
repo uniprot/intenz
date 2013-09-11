@@ -9,6 +9,11 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="71.0.6" date="" description="">
+            <action dev="rafalcan" type="update">
+                Updated to latest version of parent.
+            </action>
+        </release>
         <release version="71.0.5" date="2013-06-05"
             description="Database links fixed, added and sorted.">
             <action dev="rafalcan" type="update">
