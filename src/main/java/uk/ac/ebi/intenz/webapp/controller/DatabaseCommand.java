@@ -1,19 +1,17 @@
 package uk.ac.ebi.intenz.webapp.controller;
 
-import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
-import uk.ac.ebi.intenz.webapp.utilities.IntEnzMessenger;
-import uk.ac.ebi.rhea.mapper.MapperException;
-
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
+import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
+import uk.ac.ebi.intenz.webapp.utilities.IntEnzMessenger;
 
 /**
  * A database command always relies on a connection to the database.
@@ -84,7 +82,8 @@ public abstract class DatabaseCommand extends Command {
        }
     } catch (SQLException e) {
        LOGGER.error("Closing connection", e);
-      IntEnzMessenger.sendError(this.getClass().toString(), e.getMessage(), (String) request.getSession().getAttribute("user"));
+      IntEnzMessenger.sendError(this.getClass().toString(), e.getMessage(),
+            (String) request.getSession().getAttribute("user"));
       request.setAttribute("message", "The following database error occured:\n" + e.getMessage() +
               this.databaseErrorMessage);
       RequestDispatcher dispatcher = context.getRequestDispatcher("/error.jsp");

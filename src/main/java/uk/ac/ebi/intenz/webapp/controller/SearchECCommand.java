@@ -5,22 +5,15 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.PropertyResourceBundle;
 import java.util.StringTokenizer;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
-
 import uk.ac.ebi.intenz.domain.constants.Status;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeClass;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubSubclass;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubclass;
+import uk.ac.ebi.intenz.domain.enzyme.*;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
 import uk.ac.ebi.intenz.mapper.EnzymeClassMapper;
-import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeSubSubclassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeSubclassMapper;
 import uk.ac.ebi.intenz.webapp.utilities.IntEnzMessenger;

@@ -101,13 +101,18 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-ffwriter</artifactId>
-			<version>1.2.45</version>
+			<version>1.2.48</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-database</artifactId>
 			<version>1.1.3</version>
 		</dependency>
+        <dependency>
+            <groupId>uk.ac.ebi.intenz.webapp</groupId>
+            <artifactId>intenz-config</artifactId>
+            <version>1.0.1</version>
+        </dependency>
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
             <artifactId>rhea-domain</artifactId>
@@ -131,7 +136,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
 			<artifactId>biobabel-core</artifactId>
-			<version>0.13</version>
+			<version>0.15</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel.webapp</groupId>

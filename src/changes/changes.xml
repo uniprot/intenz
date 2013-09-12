@@ -10,8 +10,13 @@
     </properties>
     <body>
         <release version="71.0.6" date="" description="">
+            <action dev="rafalcan" type="add">
+                Added dependency on intenz-config, refactored out from this
+                module and also used by intenz-ws.
+            </action>
             <action dev="rafalcan" type="update">
-                Updated to latest version of parent.
+                Updated to latest versions of parent, intenz-ffwriter and
+                biobabel-core.
             </action>
         </release>
         <release version="71.0.5" date="2013-06-05"

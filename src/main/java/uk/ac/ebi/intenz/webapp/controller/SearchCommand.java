@@ -4,24 +4,15 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.SortedMap;
-import java.util.StringTokenizer;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.servlet.ServletException;
 
 import org.apache.log4j.Logger;
-
 import uk.ac.ebi.biobabel.util.WebUtil;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
-import uk.ac.ebi.intenz.webapp.IntEnzConfig;
 import uk.ac.ebi.intenz.webapp.exceptions.QueryException;
 import uk.ac.ebi.intenz.webapp.utilities.IntEnzMessenger;
 import uk.ac.ebi.xchars.SpecialCharacters;
@@ -73,8 +64,13 @@ public class SearchCommand extends DatabaseCommand {
    * @throws IOException      ...
    */
   public void process() throws ServletException, IOException {
-    int groupSize = Integer.parseInt(IntEnzConfig.getInstance().getPageSize());
-    String query = null;
+      int groupSize = 10;
+      try {
+          groupSize = Integer.parseInt(config.getPageSize());
+      } catch (NumberFormatException e) {
+          LOGGER.error("Bad page size: " + config.getPageSize(), e);
+      }
+      String query = null;
     StringBuffer userFriendlyQuery = null;
     String userFriendlyQueryTF = null;
 
@@ -196,7 +192,8 @@ public class SearchCommand extends DatabaseCommand {
     } catch (SQLException e) {
        LOGGER.error("While searching", e);
       IntEnzMessenger.sendError(this.getClass().toString(),
-              e.getMessage() + " query (checked query): " + query + "(" + checkedQuery + ")",
+              e.getMessage() + " query (checked query): " + query + "("
+                    + checkedQuery + ")",
               (String) request.getSession().getAttribute("user"));
       if (e.getMessage().indexOf("DRG-51030") > -1) {
         request.setAttribute("message", "Your query resulted in too many terms.\nPlease refine your query.");
