@@ -10,7 +10,7 @@
 	</properties>
 	
 	<body>
-	    <release version="2.0.4" date=""
+	    <release version="2.0.4" date="2013-09-12"
 	        description="Independent configuration from website">
             <action dev="rafalcan" type="update">
                 Updated to latest version of intenz-config, which avoids the
