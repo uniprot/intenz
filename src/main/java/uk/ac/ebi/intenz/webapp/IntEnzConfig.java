@@ -7,7 +7,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 /**
- * Configuration for IntEnz web applications (singleton).<br/>
+ * Configuration for IntEnz web applications.<br/>
  * Configuration values can be read from the files
  * <code>intenz-public.properties</code> and
  * <code>intenz-public-mail.properties</code> in the classpath.
@@ -16,7 +16,6 @@ public class IntEnzConfig implements IntEnzConfigMBean {
 
     private static Logger LOGGER = Logger.getLogger(IntEnzConfig.class);
 
-    private static IntEnzConfig instance;
 	/**
 	 * Configuration properties (see intenz-public.properties and
      * intenz-public-mail.properties files).
@@ -52,18 +51,11 @@ public class IntEnzConfig implements IntEnzConfigMBean {
 	private Properties appProperties;
 	private Properties mailProperties;
 
-	private IntEnzConfig(){
+	public IntEnzConfig(){
 		appProperties = new Properties();
 		mailProperties = new Properties();
         pcs = new PropertyChangeSupport(this);
         loadFromFile();
-	}
-
-	public static IntEnzConfig getInstance(){
-	    if (instance == null){
-            instance = new IntEnzConfig();
-        }
-	    return instance;
 	}
 
     /**

@@ -10,6 +10,17 @@
     </properties>
 
     <body>
+        <release date="2013-09-12" version="1.0.1"
+            description="No more singleton">
+            <action dev="rafalcan" type="fix">
+                IntEnzConfig will not be a singleton, as one static instance is
+                created for every web application context (namely intenz-public
+                and intenz-ws), but only one is available via JMX in the end,
+                the other remaining hidden.
+                Solution: register two instances (not singletons to avoid
+                memory leaks).
+            </action>
+        </release>
         <release date="2013-09-11" version="1.0.0" description="First release">
             <action dev="rafalcan" type="add">
                 Added this module, refactored out from intenz-public so that
