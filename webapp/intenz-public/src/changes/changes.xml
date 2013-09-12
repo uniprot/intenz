@@ -9,7 +9,8 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="71.0.6" date="" description="">
+        <release version="71.0.6" date="2013-09-12"
+            description="Refactored configuration; updates">
             <action dev="rafalcan" type="add">
                 Added dependency on intenz-config, refactored out from this
                 module and also used by intenz-ws.
