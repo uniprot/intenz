@@ -4,7 +4,7 @@
 	<groupId>uk.ac.ebi.intenz.webapp</groupId>
 	<artifactId>intenz-ws</artifactId>
 	<packaging>war</packaging>
-	<version>2.0.4</version>
+	<version>2.0.5-SNAPSHOT</version>
 	<name>intenz-ws</name>
 	<description>IntEnz web services.</description>
 	<parent>
@@ -134,10 +134,4 @@
 			<version>1.2.17</version>
 		</dependency>
 	</dependencies>
-
-  <scm>
-    <connection>scm:svn:svn://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-ws-2.0.4</connection>
-    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-ws-2.0.4</developerConnection>
-    <url>https://sourceforge.net/p/intenz/code/webapp/intenz-ws/tags/intenz-ws-2.0.4</url>
-  </scm>
 </project>
