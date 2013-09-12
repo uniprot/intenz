@@ -8,7 +8,7 @@
     </parent>
     <groupId>uk.ac.ebi.intenz.webapp</groupId>
     <artifactId>intenz-config</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>intenz-config</name>
     <description>A module to manage common configurations for intenz web
         applications.</description>
@@ -24,4 +24,10 @@
             <version>1.2.17</version>
         </dependency>
     </dependencies>
+
+  <scm>
+    <connection>scm:svn:svn://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-config-1.0.1</connection>
+    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-config-1.0.1</developerConnection>
+    <url>https://sourceforge.net/p/intenz/code/webapp/intenz-config/tags/intenz-config-1.0.1</url>
+  </scm>
 </project>
