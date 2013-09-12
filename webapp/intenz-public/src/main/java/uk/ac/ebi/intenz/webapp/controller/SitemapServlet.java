@@ -1,17 +1,15 @@
 package uk.ac.ebi.intenz.webapp.controller;
 
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-
 import uk.ac.ebi.intenz.webapp.IntEnzConfig;
 
 /**
@@ -28,7 +26,10 @@ public class SitemapServlet extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("application/gzip");
         LOGGER.info("Getting URL connection to sitemap...");
-        URL url = new URL(IntEnzConfig.getInstance().getSitemapUrl());
+        URL url = null;
+        IntEnzConfig config = (IntEnzConfig) request.getSession()
+                .getServletContext().getAttribute("intenzConfig");
+        url = new URL(config.getSitemapUrl());
         URLConnection con = url.openConnection(java.net.Proxy.NO_PROXY);
         LOGGER.info("Connecting to sitemap...");
         //con.connect();

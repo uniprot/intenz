@@ -1,7 +1,5 @@
 package uk.ac.ebi.intenz.webapp.controller;
 
-import static uk.ac.ebi.intenz.webapp.IntEnzConfig.Property.DATA_SOURCE;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -9,20 +7,8 @@ import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.PropertyResourceBundle;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
-import javax.management.InstanceNotFoundException;
-import javax.management.MBeanRegistrationException;
-import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
+import java.util.*;
+import javax.management.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -34,19 +20,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
-
 import uk.ac.ebi.intenz.domain.constants.View;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeClass;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubSubclass;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubclass;
+import uk.ac.ebi.intenz.domain.enzyme.*;
 import uk.ac.ebi.intenz.stats.IIntEnzStatistics;
 import uk.ac.ebi.intenz.stats.db.IntEnzDbStatistics;
 import uk.ac.ebi.intenz.webapp.IntEnzConfig;
 import uk.ac.ebi.intenz.webapp.controller.SearchECCommand.EnzymeEntryCacheKey;
 import uk.ac.ebi.intenz.webapp.utilities.IntEnzMessenger;
 import uk.ac.ebi.xchars.SpecialCharacters;
+
+import static uk.ac.ebi.intenz.webapp.IntEnzConfig.Property.DATA_SOURCE;
 
 /**
  * This servlet acts as a handler of the front controller.
@@ -69,6 +52,8 @@ public class IntEnzHandlerServlet extends HttpServlet
     // JNDI context
     private Context envContext;
 
+    private IntEnzConfig config;
+
 	public void init(ServletConfig servletConfig) throws ServletException {
 		super.init(servletConfig);
 		initJndiContext();
@@ -76,33 +61,22 @@ public class IntEnzHandlerServlet extends HttpServlet
 		populateApplication();
 		createCaches();
 		gatherStatistics();
-        try {
-            IntEnzConfig.getInstance()
-                .addPropertyChangeListener(DATA_SOURCE.toString(), this);
-        } catch (IOException e){
-            throw new ServletException(e);
-        }
     }
 
 	@Override
 	public void destroy() {
-		IntEnzConfig intenzConfig = null;
-		try {
-			intenzConfig = IntEnzConfig.getInstance();
-			try {
-				ObjectName name = new ObjectName(intenzConfig.getIntEnzConfigMbeanName());
-				MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-				mbs.unregisterMBean(name);
-			} catch (MalformedObjectNameException e) {
-				LOGGER.error(intenzConfig.getIntEnzConfigMbeanName());
-			} catch (MBeanRegistrationException e) {
-				LOGGER.error("Unable to unregister IntEnzConfig MBean", e);
-			} catch (InstanceNotFoundException e) {
-				LOGGER.error("IntEnzConfig MBean not found", e);
-			}
-		} catch (IOException e) {
-			LOGGER.error("Unable to get the IntEnz configuration", e);
-		}
+        config.removePropertyChangeListener(
+                IntEnzConfig.Property.XML_EXPORTER_POOL_SIZE.toString(), this);
+        try {
+            // Unregister in JMX server:
+            ObjectName name = new ObjectName(config.getIntEnzConfigMbeanName());
+            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+            if (mbs.isRegistered(name)){
+                mbs.unregisterMBean(name);
+            }
+        } catch (Exception e){
+            LOGGER.error("Unable to unregister config MBean", e);
+        }
 		super.destroy();
 	}
 
@@ -171,18 +145,25 @@ public class IntEnzHandlerServlet extends HttpServlet
 	private void populateApplication() {
 		this.getServletContext().setAttribute("characters",
 				SpecialCharacters.getInstance(null));
-		try {
-			IntEnzConfig intenzConfig = IntEnzConfig.getInstance();
-			this.getServletContext().setAttribute("intenzConfig", intenzConfig);
-			// Publish as MBean:
-			ObjectName name = new ObjectName(intenzConfig.getIntEnzConfigMbeanName());
-			MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-			mbs.registerMBean(intenzConfig, name);
-		} catch (Exception e) {
-			LOGGER.error("Unable to load IntEnz configuration", e);
-		}
-		
-		this.getServletContext().setAttribute("views", EnumSet.of(View.INTENZ, View.SIB));
+        this.getServletContext().setAttribute("views",
+                EnumSet.of(View.INTENZ, View.SIB));
+        try {
+            config = new IntEnzConfig();
+            config.addPropertyChangeListener(
+                    IntEnzConfig.Property.DATA_SOURCE.toString(), this);
+            // Make config available from webapp context:
+            this.getServletContext().setAttribute("intenzConfig", config);
+            // Make config available via JMX:
+            ObjectName name = new ObjectName(config.getIntEnzConfigMbeanName());
+            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+            if (!mbs.isRegistered(name)){
+                mbs.registerMBean(config, name);
+            }
+            // Make IntEnzMessenger aware of the configuration:
+            IntEnzMessenger.setIntenzConfig(config);
+        } catch (Exception e){
+            LOGGER.error("Problem with the configuration MBean", e);
+        }
 	}
 
 	/**
@@ -272,6 +253,8 @@ public class IntEnzHandlerServlet extends HttpServlet
 		Command command = null;
 		try {
 			command = getCommandClass(request).newInstance();
+			command.setConfig((IntEnzConfig) request.getSession()
+			        .getServletContext().getAttribute("intenzConfig"));
 		} catch (Exception e) {
 			return new UnknownDatabaseCommand();
 		}
@@ -297,8 +280,8 @@ public class IntEnzHandlerServlet extends HttpServlet
 
 	private Connection getConnection()
 	throws NamingException, SQLException, IOException {
-		DataSource ds = (DataSource) envContext.lookup(IntEnzConfig
-				.getInstance().getIntEnzDataSource());
+		DataSource ds = (DataSource)
+		        envContext.lookup(config.getIntEnzDataSource());
 		return ds.getConnection();
 	}
 
