@@ -37,7 +37,8 @@
             </dt>
             <dd>Retrieve an EC number (<i>{ecNumber}</i>) in the format
                 corresponding to the given <i>Accept</i> HTTP header (see
-                below for supported extensions and content types).
+                below for supported extensions and content types).<br/>
+                Ex: <a href="EC/1.1.1.1">/EC/1.1.1.1</a>
             </dd>
         </dl>
         <p>

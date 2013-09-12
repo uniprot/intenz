@@ -97,17 +97,8 @@ implements PropertyChangeListener {
 	 */
 	@Override
 	public void init() throws ServletException {
-        config = IntEnzConfig.getInstance();
-		try {
-            // Publish as MBean:
-            ObjectName name = new ObjectName(config.getIntEnzConfigMbeanName());
-            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            if (!mbs.isRegistered(name)){
-                mbs.registerMBean(config, name);
-            }
-        } catch (Exception e){
-            LOGGER.error("Problem with the configuration MBean", e);
-        }
+        config = new IntEnzConfig();
+        switchJmxConfig(true);
         getServletContext().setAttribute("config", config);
         try {
             Context initContext = new InitialContext();
@@ -151,9 +142,30 @@ implements PropertyChangeListener {
     @Override
     public void destroy() {
         if (config != null){
+            switchJmxConfig(false);
             config.removePropertyChangeListener(
                     IntEnzConfig.Property.XML_EXPORTER_POOL_SIZE.toString(),
                     this);
+        }
+    }
+
+    /**
+     * Registers/unregisters the configuration in the JMX server.
+     * @param on switch it on? <code>true</code> means <i>register</i>,
+     *      <code>false</code> means <i>unregister</i>.
+     */
+    private void switchJmxConfig(boolean on) {
+        try {
+            ObjectName name = new ObjectName(
+                    config.getIntEnzConfigMbeanName() + "-ws");
+            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+            if (on && !mbs.isRegistered(name)){
+                mbs.registerMBean(config, name);
+            } else if (!on && mbs.isRegistered(name)){
+                mbs.unregisterMBean(name);
+            }
+        } catch (Exception e){
+            LOGGER.error("Problem with the configuration MBean", e);
         }
     }
 

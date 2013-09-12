@@ -10,6 +10,18 @@
 	</properties>
 	
 	<body>
+	    <release version="2.0.4" date=""
+	        description="Independent configuration from website">
+            <action dev="rafalcan" type="update">
+                Updated to latest version of intenz-config, which avoids the
+                singleton pattern.
+            </action>
+            <action dev="rafalcan" type="fix">
+                Independent configuration from the website (a singleton was not
+                shared, as two instances were created actually but only one of
+                them was available via JMX).
+            </action>
+	    </release>
 	    <release version="2.0.3" date="2013-09-11" description="JSON format">
             <action dev="rafalcan" type="add" issue="219">
                 Added JSON to the list of supported formats. This one relies on
