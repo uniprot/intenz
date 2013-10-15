@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="x" uri="http://www.ebi.ac.uk/xchars" %>
 <%@ taglib prefix="i" tagdir="/WEB-INF/tags/intenz" %>
-<%@ taglib prefix="r" tagdir="/WEB-INF/tags/rhea" %>
+<%@ taglib prefix="rhea" uri="http://www.ebi.ac.uk/rhea" %>
 <%@ taglib prefix="b" tagdir="/WEB-INF/tags" %>
 
 <c:if test="${entry.status ne 'PROPOSED'}">
@@ -65,7 +65,19 @@
 <c:choose>
 	<c:when test="${er.reaction.id gt 0}"> <%-- RHEA-ction --%>
         <li style="list-style-type: ${fn:length(ers) gt 1? 'disc' : 'none'}">
-            <r:reaction reaction="${er.reaction}" iubmb="${er.iubmb}"/>
+            <div>
+                <span style="margin-right: 1em"
+                    class="${reaction.status eq 'PM'? 'preliminary' : ''}">
+                    <a target="rheaFromIntEnz" class="rheaId"
+                        href="http://www.ebi.ac.uk/rhea/reaction.xhtml?id=${er.reaction.id}">
+                        ${er.reaction.id}</a>
+                </span>
+                <c:if test="${er.iubmb}"><b>[IUBMB]</b></c:if>
+            </div>
+            <rhea:reaction reaction="${er.reaction}"
+                showRheaId="false" showChebiId="true"
+                rheaPublicUrl="http://www.ebi.ac.uk/rhea"
+                chebiPublicUrl="http://www.ebi.ac.uk/chebi"/>
         </li>
 	</c:when>
 	<c:otherwise><%-- not in Rhea (old plain text) --%>

@@ -533,6 +533,39 @@ table.mailform td input, table.mailform textarea {
 	border: #aaa dotted thin;
 	background-color: #ffa;
 }
+.compoundFormula {
+	display: none;
+}
+.compoundFormattedName {
+	text-align: center;
+}
+.compoundFormattedName b {
+	font-weight: normal;
+}
+.coef-F, .coef-A, .coef-G, .coef-P {
+	font-weight: bold;
+}
+.rheaId:before {
+	content: "[RHEA:";
+}
+.rheaId:after {
+	content: "]"
+}
+.participant {
+	text-align: center;
+}
+.location:before {
+	content: "(";
+	font-style: italic;
+}
+.location:after {
+	content: ")";
+    font-style: italic;
+}
+.location {
+	text-transform: lowercase;
+    font-style: italic;
+}
 
 /* COMMON SETTINGS: ------------------------------------------------- */
 
