@@ -6,6 +6,7 @@
     <meta name="description" content="EMBL-EBI">
     <meta name="keywords" content="bioinformatics, europe, institute">
     <meta name="author" content="EMBL-EBI">
+    <meta name="google-site-verification" content="tXBo-O4mKKZgv__6QG6iyjqDJibhSb3ZAQtXQGjo86I" />
 
     <!-- Mobile viewport optimized: j.mp/bplateviewport -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
