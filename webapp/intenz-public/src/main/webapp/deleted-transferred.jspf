@@ -29,17 +29,15 @@
 			<c:if test="${not empty entry.commonName.name}">
 				<x:translate>${entry.commonName.name}</x:translate>.
 			</c:if>
-            <c:choose>
-                <c:when test="${not empty historyEvent.note}">
-                    <b:ucfl><i:cleanLinks>
-                        ${historyEvent.note}${fn:endsWith(historyEvent.note, ".")? '' : '.' }
-                    </i:cleanLinks></b:ucfl>
-                </c:when>
-                <c:when test="${historyEvent.eventClass == 'transferred'}">
-                    <i>Transferred to EC
-                    <i:linkEc>${historyEvent.afterNode.enzymeEntry.ec}</i:linkEc></i>
-                </c:when>
-            </c:choose>
+            <c:if test="${not empty historyEvent.note}">
+                <b:ucfl><i:cleanLinks>
+                    ${historyEvent.note}${fn:endsWith(historyEvent.note, ".")? '' : '.' }
+                </i:cleanLinks></b:ucfl>
+            </c:if>
+            <c:if test="${historyEvent.eventClass eq 'transferred'}">
+                <i>Transferred to EC
+                <i:linkEc>${historyEvent.afterNode.enzymeEntry.ec}</i:linkEc></i>
+            </c:if>
 		</td>
 	</tr>
 	<tr>

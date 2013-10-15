@@ -16,6 +16,9 @@
                 avoid duplication of code. This shows compound locations in
                 transport reactions.
             </action>
+            <action dev="rafalcan" type="fix" issue="100">
+                Added prevailing EC number for transferred entries.
+            </action>
         </release>
         <release version="71.0.6" date="2013-09-12"
             description="Refactored configuration; updates">
