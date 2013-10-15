@@ -9,6 +9,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="71.0.7" date=""
+            description="Locations in transport reactions">
+            <action dev="rafalcan" type="fix" issue="220">
+                Added dependency on rhea-taglib, which will be reused here to
+                avoid duplication of code. This shows compound locations in
+                transport reactions.
+            </action>
+        </release>
         <release version="71.0.6" date="2013-09-12"
             description="Refactored configuration; updates">
             <action dev="rafalcan" type="add">
