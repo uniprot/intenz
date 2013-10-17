@@ -6,7 +6,7 @@
 	<artifactId>intenz-public</artifactId>
     <name>IntEnz public webapp</name>
 	<packaging>war</packaging>
-	<version>71.0.7-SNAPSHOT</version>
+	<version>71.0.7</version>
 	<description>IntEnz public web application</description>
 
 	<parent>
@@ -225,4 +225,10 @@
             </plugin>
         </plugins>
     </reporting>
+
+  <scm>
+    <connection>scm:svn:svn://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-public-71.0.7</connection>
+    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-public-71.0.7</developerConnection>
+    <url>https://sourceforge.net/p/intenz/code/webapp/intenz-public/tags/intenz-public-71.0.7</url>
+  </scm>
 </project>
