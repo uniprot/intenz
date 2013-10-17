@@ -19,7 +19,7 @@ do
 			gzip $PARAM
 			;;
         '-intenzXml')
-			cp $EXPORT_HOME/../intenz-xml/src/main/resources/{intenz,enzyme}.xsd $PARAM
+			cp $EXPORT_HOME/../intenz-xml/src/main/resources/*.xsd $PARAM
 			cp $EXPORT_HOME/src/main/resources/IntEnzXML-README.txt $PARAM
 			cd $PARAM
 			zip -r IntEnzXML.zip *

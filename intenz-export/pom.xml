@@ -57,7 +57,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-mapper</artifactId>
-			<version>3.7.1</version>
+			<version>3.7.2</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
@@ -67,7 +67,7 @@
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
 			<artifactId>biobabel-core</artifactId>
-			<version>0.13</version>
+			<version>0.15</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
