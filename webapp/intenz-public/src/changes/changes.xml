@@ -9,7 +9,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="71.0.7" date=""
+        <release version="71.0.7" date="2013-10-17"
             description="Locations in transport reactions">
             <action dev="rafalcan" type="fix" issue="220">
                 Added dependency on rhea-taglib, which will be reused here to
