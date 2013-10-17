@@ -9,11 +9,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 import javax.xml.bind.JAXBException;
 
 import org.apache.commons.cli.*;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
+
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.biopax.level2.Biopax;
 import uk.ac.ebi.intenz.domain.constants.Status;
@@ -277,6 +279,9 @@ public class ExporterApp {
                         os = new FileOutputStream(outputFile);
                         exporter.export(entry, os);
                         validEntriesList.add(entry);
+                    } catch (Exception e) {
+                        // Continue with any other entries
+                        LOGGER.warn(entry.getEc().toString(), e);
                     } finally {
                         if (os != null) os.close();
                     }

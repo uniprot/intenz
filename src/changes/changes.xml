@@ -9,6 +9,19 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.3.19" date="2013-10-17" description="Bug fix">
+            <action dev="rafalcan" type="fix">
+                Restablished exception catching removed by mistake in the
+                previous, which allows going on with other entries if there is
+                some problem during XML marshalling.
+            </action>
+            <action dev="rafalcan" type="update">
+                Updated to latest versions of rhea-mapper and biobabel-core.
+            </action>
+            <action dev="rafalcan" type="add">
+                Added cml schema to the output directory (script).
+            </action>
+        </release>
         <release version="1.3.18" date="2013-09-06" description="JSON exporter">
             <action dev="rafalcan" type="add">
                 Added interface IntenzExporter for exporters, and a new
