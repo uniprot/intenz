@@ -26,7 +26,7 @@ public class EnzymeCommentMapper {
   private static final String COLUMNS = "enzyme_id, comment_text, order_in, status, source, web_view";
 
   private static final Logger LOGGER =
-	  Logger.getLogger(EnzymeCofactorMapper.class.getName());
+	  Logger.getLogger(EnzymeCommentMapper.class.getName());
 
   public EnzymeCommentMapper() {
   }
@@ -88,7 +88,8 @@ public class EnzymeCommentMapper {
     }
 
     if (noResult) {
-      LOGGER.info("No comment information found for the enzyme with ID " + enzymeId);
+      LOGGER.debug("No comment information found for the enzyme with ID "
+              + enzymeId);
       return null;
     }
     return result;
