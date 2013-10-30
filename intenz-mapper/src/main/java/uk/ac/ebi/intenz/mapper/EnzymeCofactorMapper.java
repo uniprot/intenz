@@ -124,7 +124,8 @@ public class EnzymeCofactorMapper {
     }
 
     if (result == null) {
-      LOGGER.info("No cofactor information found for the enzyme with ID " + enzymeId);
+      LOGGER.debug("No cofactor information found for the enzyme with ID "
+              + enzymeId);
     }
     return result;
   }
