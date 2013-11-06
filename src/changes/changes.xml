@@ -9,6 +9,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.2.51" date="2013-11-06"
+            description="Added DE line exceptions">
+            <action dev="rafalcan" type="update">
+                Updated DE_line_modifications with transfers for two EC
+                numbers.
+            </action>
+        </release>
         <release version="1.2.50" date="2013-11-04"
             description="Fixed line formatting.">
             <action dev="rafalcan" type="fix">
