@@ -174,7 +174,8 @@ public class CC_LineFormatter extends DefaultLineFormatter {
       {".(", ".*?"},
       {" var. ", ".*?"},
       {"No. ", ".*?"},
-      {"bv. ", ".*?"}
+      {"bv. ", ".*?"},
+      { " pv. ", ".*?" }
     };
 
     Pattern pattern = Pattern.compile(sentenceDelimiterPattern);
