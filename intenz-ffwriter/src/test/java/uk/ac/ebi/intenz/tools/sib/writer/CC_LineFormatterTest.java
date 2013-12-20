@@ -108,5 +108,10 @@ public class CC_LineFormatterTest extends TestCase {
         enzymeLine = "CC   -!- foo Streptomyces sp. C5 bar.\n";
         formattedLine = formatter.formatLines(ccLine, LineType.CC);
         assertEquals(enzymeLine, formattedLine);
+
+        ccLine = "foo Xanthomonas campestris pv. campestris bar.";
+        enzymeLine = "CC   -!- foo Xanthomonas campestris pv. campestris bar.\n";
+        formattedLine = formatter.formatLines(ccLine, LineType.CC);
+        assertEquals(enzymeLine, formattedLine);
     }
 }
