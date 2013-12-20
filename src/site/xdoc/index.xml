@@ -34,7 +34,10 @@
         <subsection name="Other formatting exceptions">
         Other exceptions must be done to get the right format. For example,
         the characters 'sp.' don't mean the end of a sentence. This concrete
-        case is defined in CC_LineFormatter.java.
+        case is defined in CC_LineFormatter.java.<br/>
+        For other cases, like capitalisation exceptions at the beginning of a
+        sentence, it may be necessary to make changes to the
+        <a href="../intenz-translator">intenz-translator</a> module.
         </subsection>
 	</body>
 </document>
