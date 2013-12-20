@@ -168,6 +168,9 @@ public class CALineTest extends BaseLineTest {
       dataHolders.add(new DataHolder("unknown",
     		  "[tRNA]-guanine + queuine = [tRNA]-queuine + guanine",
     		  "[tRNA]-guanine + queuine = [tRNA]-queuine + guanine"));
+      dataHolders.add(new DataHolder("3.6.1.66",
+              "dITP + H<smallsub>2</smallsub>O = dIMP + diphosphate",
+              "dITP + H(2)O = dIMP + diphosphate"));
    }
 
    public CALineTest(String name) {

@@ -5,6 +5,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.0.12" date="2013-12-20"
+            description="Fix for dITP">
+            <action dev="rafalcan" type="add">
+                Added capitalisation exclusion for dITP.
+            </action>
+        </release>
         <release version="1.0.11" date="2013-06-19"
             description="Removed parentheses">
             <action dev="rafalcan" type="remove">
