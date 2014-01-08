@@ -4,10 +4,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
-import javax.json.*;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonWriter;
+
+import uk.ac.ebi.intenz.domain.constants.View;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeClass;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeName;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubSubclass;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubclass;
 import uk.ac.ebi.xchars.SpecialCharacters;
@@ -103,6 +110,7 @@ public class JsonExporter implements IntenzExporter {
      * <ul>
      *  <li>ec (string)</li>
      *  <li>name (string)</li>
+     *  <li>synonyms (array of string)</li>
      * </ul>
      * @param enzyme
      * @return a JSON object
@@ -112,6 +120,12 @@ public class JsonExporter implements IntenzExporter {
         jsonObjectBuilder.add("ec", enzyme.getEc().toString());
         jsonObjectBuilder.add("name", SpecialCharacters.getInstance(null)
                 .xml2Display(enzyme.getCommonName().getName()));
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for (EnzymeName synonym : enzyme.getSynonyms(View.INTENZ)){
+            jsonArrayBuilder.add(SpecialCharacters.getInstance(null)
+                    .xml2Display(synonym.getName()));
+        }
+        jsonObjectBuilder.add("synonyms", jsonArrayBuilder);
         // ...
         return jsonObjectBuilder.build();
     }
