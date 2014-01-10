@@ -1,6 +1,7 @@
 #!/bin/bash
 # Parameters:
-#   $1: EC number to be exported (just one) or 'all'
+#   $1: (optional) EC number to be exported (just one). If none provided, all
+#       EC classification is exported.
 
 if [ -z $1 ]
 then
