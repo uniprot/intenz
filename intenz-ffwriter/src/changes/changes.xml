@@ -9,6 +9,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.2.53" date="2014-01-10"
+            description="Fixed line formatting.">
+            <action dev="rafalcan" type="fix">
+                Updated CC_LineFormatter with generic exception for subspecies.
+            </action>
+        </release>
         <release version="1.2.52" date="2013-12-20"
             description="Fixed line formatting.">
             <action dev="rafalcan" type="fix">
