@@ -1,40 +1,238 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF8" />
-<script src="../dbdoc.js" type="text/javascript"></script>
-<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+<script src="V_EC_FOR_DATALIB/report.js" type="text/javascript"></script>
+<link href="V_EC_FOR_DATALIB/report.css" type="text/css" rel="stylesheet">
 </head>
-<body class="object">
-<div id="header"><h2>V_EC_FOR_DATALIB</h2>
-<div class="tabs clearfix">
-
-<div class="tab" id="current"><div><a href="V_EC_FOR_DATALIB.html">Columns</a></div></div>
-<div class="tab"><div><a href="V_EC_FOR_DATALIB_Grants.html">Grants</a></div></div>
-<div class="tab"><div><a href="V_EC_FOR_DATALIB_Dependencies.html">Dependencies</a></div></div>
-<div class="tab"><div><a href="V_EC_FOR_DATALIB_Details.html">Details</a></div></div>
-<div class="tab"><div><a href="V_EC_FOR_DATALIB_Triggers.html">Triggers</a></div></div>
-</div></div><br/>
-<div class="tab-panes">
-<div id="Columns"> <table cellpadding="0" cellspacing="0" cellspacing="0" summary=""><tr>
-	<th>COLUMN_NAME</th>
-	<th>DATA_TYPE</th>
-	<th>NULLABLE</th>
-	<th>DATA_DEFAULT</th>
-	<th>COLUMN_ID</th>
-	<th>COMMENTS</th>
-	<th>INSERTABLE</th>
-	<th>UPDATABLE</th>
-	<th>DELETABLE</th>
+<body>
+<div class="banner">
+<table width="98%"><tr>
+<td><h2 class="banner">V_EC_FOR_DATALIB</h2></td>
+</tr></table></div>
+<div id="maintabs">
+<div class="currentmaintab" onclick="onSelectMainTab(this, 0)">
+<div>
+<p>Columns</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 1)">
+<div>
+<p>Grants</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 2)">
+<div>
+<p>Dependencies</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 3)">
+<div>
+<p>Details</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 4)">
+<div>
+<p>Triggers</p>
+</div>
+</div>
+</div>
+<br/>
+<div id="masterreports">
+<div id="Master.0">
+<div class="currentmasterreport">
+<table id="Table.0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>DATA_TYPE</th>
+<th>NULLABLE</th>
+<th>DATA_DEFAULT</th>
+<th>COLUMN_ID</th>
+<th>COMMENTS</th>
+<th>INSERTABLE</th>
+<th>UPDATABLE</th>
+<th>DELETABLE</th>
 </tr>
-	<tr>
-<td>EC_NUMBER</td>
-<td>VARCHAR2(4000)</td>
-<td>Yes</td>
+<tr onclick="table_onSelectMasterRow(this, 0, 0)" class="currentrow">
+<td class="currentcell">EC_NUMBER</td>
+<td class="currentcell">VARCHAR2(4000)</td>
+<td class="currentcell">Yes</td>
+<td class="currentcell">null</td>
+<td class="currentcell">1</td>
+<td class="currentcell">null</td>
+<td class="currentcell">NO</td>
+<td class="currentcell">NO</td>
+<td class="currentcell">NO</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.1">
+<div class="masterreport">
+<table id="Table.1" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>PRIVILEGE</th>
+<th>GRANTEE</th>
+<th>GRANTABLE</th>
+<th>GRANTOR</th>
+<th>OBJECT_NAME</th>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 0)" class="currentrow">
+<td class="currentcell">SELECT</td>
+<td class="currentcell">ENZYME_COMMITTEE</td>
+<td class="currentcell">NO</td>
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">V_EC_FOR_DATALIB</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 1)">
+<td>SELECT</td>
+<td>ENZYME_CURATOR</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>V_EC_FOR_DATALIB</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 2)">
+<td>SELECT</td>
+<td>ENZYME_PRODUCTION</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>V_EC_FOR_DATALIB</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 3)">
+<td>SELECT</td>
+<td>ENZYME_SELECT</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>V_EC_FOR_DATALIB</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.2">
+<div class="masterreport">
+<table id="Table.2" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+<br/>
+<hr/>
+<br/><div id="ChildTabs.2">
+<div class="currentchildtab" onclick="onSelectChildTab(this, 0)">
+<div>
+<p>References</p>
+</div>
+</div>
+</div>
+<br/>
+<div id="ChildReports.2">
+</div>
+</div>
+</div>
+<div id="Master.3">
+<div class="masterreport">
+<table id="Table.3" cellpadding="0" cellspacing="0" summary="">
+<th>NAME</th>
+<th>VALUE</th>
+</tr>
+<tr>
+<td>CREATED</td>
+<td>13-OCT-10&nbsp;00:00</td>
+</tr>
+<tr>
+<td>LAST_DDL_TIME</td>
+<td>06-FEB-14&nbsp;00:00</td>
+</tr>
+<tr>
+<td>OWNER</td>
+<td>ENZYME</td>
+</tr>
+<tr>
+<td>VIEW_NAME</td>
+<td>V_EC_FOR_DATALIB</td>
+</tr>
+<tr>
+<td>TEXT_LENGTH</td>
+<td>155</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>SELECT&nbsp;distinct&nbsp;f_quad2string(ec1,ec2,ec3,ec4)
+&nbsp;&nbsp;FROM&nbsp;enzymes&nbsp;E1
+&nbsp;WHERE&nbsp;E1.active&nbsp;=&nbsp;'Y'
+&nbsp;&nbsp;&nbsp;AND&nbsp;E1.status&nbsp;=&nbsp;'OK'
+&nbsp;&nbsp;&nbsp;AND&nbsp;E1.ec1&nbsp;IS&nbsp;NOT&nbsp;NULL
+&nbsp;&nbsp;WITH&nbsp;READ&nbsp;ONLY
+</td>
+</tr>
+<tr>
+<td>TYPE_TEXT_LENGTH</td>
 <td>null</td>
-<td>1</td>
+</tr>
+<tr>
+<td>TYPE_TEXT</td>
 <td>null</td>
-<td>NO</td>
-<td>NO</td>
-<td>NO</td>
-	</tr>
-</table></div></body></html>
+</tr>
+<tr>
+<td>OID_TEXT_LENGTH</td>
+<td>null</td>
+</tr>
+<tr>
+<td>OID_TEXT</td>
+<td>null</td>
+</tr>
+<tr>
+<td>VIEW_TYPE_OWNER</td>
+<td>null</td>
+</tr>
+<tr>
+<td>VIEW_TYPE</td>
+<td>null</td>
+</tr>
+<tr>
+<td>SUPERVIEW_NAME</td>
+<td>null</td>
+</tr>
+<tr>
+<td>EDITIONING_VIEW</td>
+<td>N</td>
+</tr>
+<tr>
+<td>READ_ONLY</td>
+<td>Y</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.4">
+<div class="masterreport">
+<table id="Table.4" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>TRIGGER_NAME</th>
+<th>TRIGGER_TYPE</th>
+<th>TRIGGERING_EVENT</th>
+<th>STATUS</th>
+<th>OBJECT_ID</th>
+</tr>
+</table>
+<br/>
+<hr/>
+<br/><div id="ChildTabs.4">
+<div class="currentchildtab" onclick="onSelectChildTab(this, 0)">
+<div>
+<p></p>
+</div>
+</div>
+</div>
+<br/>
+<div id="ChildReports.4">
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

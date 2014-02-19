@@ -1,21 +1,51 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF8" />
-<script src="../dbdoc.js" type="text/javascript"></script>
-<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+<script src="AUDITPACKAGE/report.js" type="text/javascript"></script>
+<link href="AUDITPACKAGE/report.css" type="text/css" rel="stylesheet">
 </head>
-<body class="object">
-<div id="header"><h2>AUDITPACKAGE</h2>
-<div class="tabs clearfix">
-
-<div class="tab" id="current"><div><a href="AUDITPACKAGE.html">Doc</a></div></div>
-<div class="tab"><div><a href="AUDITPACKAGE_Details.html">Details</a></div></div>
-<div class="tab"><div><a href="AUDITPACKAGE_Grants.html">Grants</a></div></div>
-<div class="tab"><div><a href="AUDITPACKAGE_References.html">References</a></div></div>
-<div class="tab"><div><a href="AUDITPACKAGE_Dependencies.html">Dependencies</a></div></div>
-<div class="tab"><div><a href="AUDITPACKAGE_Code.html">Code</a></div></div>
-</div></div><br/>
-<div class="tab-panes"><TABLE CELLSPACING="0" CELLPADDING="1" WIDTH="100%" BORDER="0">
+<body>
+<div class="banner">
+<table width="98%"><tr>
+<td><h2 class="banner">AUDITPACKAGE</h2></td>
+</tr></table></div>
+<div id="maintabs">
+<div class="currentmaintab" onclick="onSelectMainTab(this, 0)">
+<div>
+<p>Doc</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 1)">
+<div>
+<p>Details</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 2)">
+<div>
+<p>Grants</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 3)">
+<div>
+<p>References</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 4)">
+<div>
+<p>Dependencies</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 5)">
+<div>
+<p>Code</p>
+</div>
+</div>
+</div>
+<br/>
+<div id="masterreports">
+<div id="Master.0">
+<div class="currentmasterreport">
+<TABLE CELLSPACING="0" CELLPADDING="1" WIDTH="100%" BORDER="0">
 <TR><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2">      SUMMARY:  <A HREF="#field_summary">FIELD</A> | <A HREF="#type_summary">TYPE</A> | <A HREF="#method_summary">METHOD</A></FONT></TD><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2"></TR></TABLE><HR><P></P><HR><P></P><A NAME="method_summary"></A><TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="3" BORDER="1"><TR CLASS="TableHeadingColor"><TD COLSPAN="2"><FONT SIZE="+2"><B>Method Summary</B></FONT></TD><TR CLASS="TableRowColor"><TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#clr">clr</A></B></CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shortcut for clrremark </TD></TR>
 <TR CLASS="TableRowColor"><TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#clrremark">clrremark</A></B></CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reset any remark to null </TD></TR>
 <TR CLASS="TableRowColor"><TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#put">put</A></B>( s IN VARCHAR2 ) </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shortcut for procedure setremark </TD></TR>
@@ -28,4 +58,827 @@
 <H3>put</H3><PRE>          <B>put</B>( s IN VARCHAR2 ) </PRE><DL>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shortcut for procedure setremark <DD><DL></DL></DD></DL><HR><A NAME="setosuser"></A>
 <H3>setosuser</H3><PRE>          <B>setosuser</B>( s IN VARCHAR2 ) </PRE><DL>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<DD><DL></DL></DD></DL><HR><A NAME="setremark"></A>
 <H3>setremark</H3><PRE>          <B>setremark</B>( s IN VARCHAR2 ) </PRE><DL>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set session wide remark for all audit actions <DD><DL></DL></DD></DL><HR><TABLE CELLSPACING="0" CELLPADDING="1" WIDTH="100%" BORDER="0">
-<TR><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2">      SUMMARY:  <A HREF="#field_summary">FIELD</A> | <A HREF="#type_summary">TYPE</A> | <A HREF="#method_summary">METHOD</A></FONT></TD><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2"></TR></TABLE></body></html>
+<TR><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2">      SUMMARY:  <A HREF="#field_summary">FIELD</A> | <A HREF="#type_summary">TYPE</A> | <A HREF="#method_summary">METHOD</A></FONT></TD><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2"></TR></TABLE></div>
+</div>
+<div id="Master.1">
+<div class="masterreport">
+<table id="Table.0" cellpadding="0" cellspacing="0" summary="">
+<th>NAME</th>
+<th>VALUE</th>
+</tr>
+<tr>
+<td>OWNER</td>
+<td>ENZYME</td>
+</tr>
+<tr>
+<td>OBJECT_NAME</td>
+<td>AUDITPACKAGE</td>
+</tr>
+<tr>
+<td>SUBOBJECT_NAME</td>
+<td>null</td>
+</tr>
+<tr>
+<td>OBJECT_ID</td>
+<td>64543</td>
+</tr>
+<tr>
+<td>DATA_OBJECT_ID</td>
+<td>0</td>
+</tr>
+<tr>
+<td>OBJECT_TYPE</td>
+<td>PACKAGE</td>
+</tr>
+<tr>
+<td>CREATED</td>
+<td>13-OCT-10&nbsp;00:00</td>
+</tr>
+<tr>
+<td>LAST_DDL_TIME</td>
+<td>06-FEB-14&nbsp;00:00</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>2012-07-06:22:23:11</td>
+</tr>
+<tr>
+<td>STATUS</td>
+<td>VALID</td>
+</tr>
+<tr>
+<td>TEMPORARY</td>
+<td>N</td>
+</tr>
+<tr>
+<td>GENERATED</td>
+<td>N</td>
+</tr>
+<tr>
+<td>SECONDARY</td>
+<td>N</td>
+</tr>
+<tr>
+<td>NAMESPACE</td>
+<td>1</td>
+</tr>
+<tr>
+<td>EDITION_NAME</td>
+<td>null</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.2">
+<div class="masterreport">
+<table id="Table.1" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>PRIVILEGE</th>
+<th>GRANTEE</th>
+<th>GRANTABLE</th>
+<th>GRANTOR</th>
+<th>OBJECT_NAME</th>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 0)" class="currentrow">
+<td class="currentcell">EXECUTE</td>
+<td class="currentcell">ENZYME_COMMITTEE</td>
+<td class="currentcell">NO</td>
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">AUDITPACKAGE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 1)">
+<td>EXECUTE</td>
+<td>ENZYME_CURATOR</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>AUDITPACKAGE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 2)">
+<td>EXECUTE</td>
+<td>ENZYME_PRODUCTION</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>AUDITPACKAGE</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.3">
+<div class="masterreport">
+<table id="Table.2" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>NAME</th>
+<th>OWNER</th>
+<th>TYPE</th>
+<th>OBJECT_ID</th>
+<th>STATUS</th>
+<th>TYPE_LINK</th>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 0)" class="currentrow">
+<td class="currentcell">TI_CLASSES</td>
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">TRIGGER</td>
+<td class="currentcell">85318</td>
+<td class="currentcell">VALID</td>
+<td class="currentcell">TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 1)">
+<td>TD_CV_NAME_CLASSES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85298</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 2)">
+<td>TU_CV_STATUS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85296</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 3)">
+<td>TD_NAMES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85267</td>
+<td>INVALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 4)">
+<td>TD_REACTION_PARTICIPANTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85254</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 5)">
+<td>TU_REACTION_PARTICIPANTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85253</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 6)">
+<td>TD_INTENZ_REACTIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>186706</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 7)">
+<td>TU_CLASSES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85319</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 8)">
+<td>TU_COMMENTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85313</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 9)">
+<td>TD_COMMENTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85311</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 10)">
+<td>TI_COMPOUND_DATA</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85305</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 11)">
+<td>TI_CV_DATABASES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85302</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 12)">
+<td>TD_CV_DATABASES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85301</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 13)">
+<td>TI_CV_VIEW</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85294</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 14)">
+<td>TD_CV_VIEW</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85292</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 15)">
+<td>TU_CV_WARNINGS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85290</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 16)">
+<td>TI_ENZYMES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85288</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 17)">
+<td>TI_NAMES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85269</td>
+<td>INVALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 18)">
+<td>TD_REACTIONS_MAP</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85260</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 19)">
+<td>TU_REACTION_XREFS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85250</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 20)">
+<td>TU_SUBCLASSES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85247</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 21)">
+<td>TI_TIMEOUTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85242</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 22)">
+<td>TI_XREFS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85238</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 23)">
+<td>TU_INTENZ_REACTIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>186704</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 24)">
+<td>TU_CITATIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85322</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 25)">
+<td>TI_COMPLEX_REACTIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85308</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 26)">
+<td>TI_CV_WARNINGS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85291</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 27)">
+<td>TU_FUTURE_EVENTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85283</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 28)">
+<td>TI_HISTORY_EVENTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85281</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 29)">
+<td>TU_NAMES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85268</td>
+<td>INVALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 30)">
+<td>TD_REACTION_CITATIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85257</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 31)">
+<td>TI_REACTION_PARTICIPANTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85252</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 32)">
+<td>TU_SUBSUBCLASSES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85244</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 33)">
+<td>TD_CITATIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85320</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 34)">
+<td>TD_COMPOUND_DATA</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85307</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 35)">
+<td>TD_CV_STATUS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85295</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 36)">
+<td>TD_HISTORY_EVENTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85279</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 37)">
+<td>TD_REACTIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85261</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 38)">
+<td>TI_REACTIONS_MAP</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85258</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 39)">
+<td>TI_REACTION_CITATIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85255</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 40)">
+<td>TD_REACTION_XREFS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85251</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 41)">
+<td>TD_SUBCLASSES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85246</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 42)">
+<td>TU_TIMEOUTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85241</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 43)">
+<td>TD_COMPLEX_REACTIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85310</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 44)">
+<td>TU_COMPLEX_REACTIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85309</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 45)">
+<td>TU_ENZYMES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85287</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 46)">
+<td>TD_ENZYMES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85285</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 47)">
+<td>TD_LINKS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85272</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 48)">
+<td>TI_PUBLICATIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85266</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 49)">
+<td>TU_PUBLICATIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85265</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 50)">
+<td>TI_REACTION_XREFS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85249</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 51)">
+<td>TD_TIMEOUTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85240</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 52)">
+<td>TI_INTENZ_REACTIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>186705</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 53)">
+<td>TD_COFACTORS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85315</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 54)">
+<td>TI_COMMENTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85312</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 55)">
+<td>TU_COMPOUND_DATA</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85306</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 56)">
+<td>TI_CV_STATUS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85297</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 57)">
+<td>TD_FUTURE_EVENTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85282</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 58)">
+<td>TU_HISTORY_EVENTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85280</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 59)">
+<td>TD_SUBSUBCLASSES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85243</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 60)">
+<td>TU_COFACTORS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85314</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 61)">
+<td>TU_CV_DATABASES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85303</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 62)">
+<td>TU_CV_NAME_CLASSES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85300</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 63)">
+<td>TD_CV_WARNINGS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85289</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 64)">
+<td>TI_LINKS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85270</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 65)">
+<td>TD_PUBLICATIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85264</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 66)">
+<td>TI_REACTIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85263</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 67)">
+<td>TU_REACTIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85262</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 68)">
+<td>TU_REACTIONS_MAP</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85259</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 69)">
+<td>TI_SUBCLASSES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85248</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 70)">
+<td>AUDITPACKAGE</td>
+<td>ENZYME</td>
+<td>PACKAGE&nbsp;BODY</td>
+<td>64545</td>
+<td>VALID</td>
+<td>PACKAGE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 71)">
+<td>TI_CITATIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85321</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 72)">
+<td>TD_CLASSES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85317</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 73)">
+<td>TI_COFACTORS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85316</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 74)">
+<td>TI_CV_NAME_CLASSES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85299</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 75)">
+<td>TU_CV_VIEW</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85293</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 76)">
+<td>TI_FUTURE_EVENTS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85284</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 77)">
+<td>TU_LINKS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85271</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 78)">
+<td>TU_REACTION_CITATIONS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85256</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 79)">
+<td>TI_SUBSUBCLASSES</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85245</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 80)">
+<td>TD_XREFS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85239</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 81)">
+<td>TU_XREFS</td>
+<td>ENZYME</td>
+<td>TRIGGER</td>
+<td>85237</td>
+<td>VALID</td>
+<td>TRIGGER</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 82)">
+<td>P_MERGE_PUBLICATIONS</td>
+<td>ENZYME</td>
+<td>PROCEDURE</td>
+<td>64532</td>
+<td>VALID</td>
+<td>PROCEDURE</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.4">
+<div class="masterreport">
+<table id="Table.3" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>NAME</th>
+<th>OWNER</th>
+<th>TYPE</th>
+<th>OBJECT_ID</th>
+<th>STATUS</th>
+<th>TYPE_LINK</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.5">
+<div class="masterreport">
+<pre>
+PACKAGE auditpackage AS
+  osuser    varchar2(30);
+  remark    VARCHAR2(4000);
+
+  /* set session wide remark for all audit actions */
+  PROCEDURE setremark (s IN VARCHAR2);
+
+  /* shortcut for procedure setremark */
+  PROCEDURE put       (s IN VARCHAR2);
+
+  /* reset any remark to null */
+  PROCEDURE clrremark;
+
+  /* shortcut for clrremark */
+  procedure clr;
+  
+  procedure setosuser(s IN VARCHAR2);
+
+end auditpackage;</pre>
+</div>
+</div>
+</div>
+</body>
+</html>
