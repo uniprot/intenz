@@ -1,23 +1,285 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF8" />
-<script src="../dbdoc.js" type="text/javascript"></script>
-<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+<script src="P_CHANGE_STATUS/report.js" type="text/javascript"></script>
+<link href="P_CHANGE_STATUS/report.css" type="text/css" rel="stylesheet">
 </head>
-<body class="object">
-<div id="header"><h2>P_CHANGE_STATUS</h2>
-<div class="tabs clearfix">
-
-<div class="tab" id="current"><div><a href="P_CHANGE_STATUS.html">Doc</a></div></div>
-<div class="tab"><div><a href="P_CHANGE_STATUS_Details.html">Details</a></div></div>
-<div class="tab"><div><a href="P_CHANGE_STATUS_Grants.html">Grants</a></div></div>
-<div class="tab"><div><a href="P_CHANGE_STATUS_References.html">References</a></div></div>
-<div class="tab"><div><a href="P_CHANGE_STATUS_Dependencies.html">Dependencies</a></div></div>
-<div class="tab"><div><a href="P_CHANGE_STATUS_Code.html">Code</a></div></div>
-</div></div><br/>
-<div class="tab-panes"><TABLE CELLSPACING="0" CELLPADDING="1" WIDTH="100%" BORDER="0">
+<body>
+<div class="banner">
+<table width="98%"><tr>
+<td><h2 class="banner">P_CHANGE_STATUS</h2></td>
+</tr></table></div>
+<div id="maintabs">
+<div class="currentmaintab" onclick="onSelectMainTab(this, 0)">
+<div>
+<p>Doc</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 1)">
+<div>
+<p>Details</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 2)">
+<div>
+<p>Grants</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 3)">
+<div>
+<p>References</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 4)">
+<div>
+<p>Dependencies</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 5)">
+<div>
+<p>Code</p>
+</div>
+</div>
+</div>
+<br/>
+<div id="masterreports">
+<div id="Master.0">
+<div class="currentmasterreport">
+<TABLE CELLSPACING="0" CELLPADDING="1" WIDTH="100%" BORDER="0">
 <TR><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2">      SUMMARY:  <A HREF="#field_summary">FIELD</A> | <A HREF="#type_summary">TYPE</A> | <A HREF="#method_summary">METHOD</A></FONT></TD><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2"></TR></TABLE><HR><P></P><HR><P></P><A NAME="method_summary"></A><TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="3" BORDER="1"><TR CLASS="TableHeadingColor"><TD COLSPAN="2"><FONT SIZE="+2"><B>Method Summary</B></FONT></TD><TR CLASS="TableRowColor"><TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#p_change_status">p_change_status</A></B>( the_enzyme_id IN enzymes . enzyme_id % type , the_status IN enzymes . status % type ) </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD></TR>
 </TABLE>
 <P></P><A NAME="method_detail"></A><TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="3" BORDER="1"><TR CLASS="TableHeadingColor"><TD COLSPAN="2"><FONT SIZE="+2"><B>Method Detail</B></FONT></TD></TABLE><A NAME="p_change_status"></A>
 <H3>p_change_status</H3><PRE>          <B>p_change_status</B>( the_enzyme_id IN enzymes . enzyme_id % type , the_status IN enzymes . status % type ) </PRE><DL>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<DD><DL></DL></DD></DL><HR><TABLE CELLSPACING="0" CELLPADDING="1" WIDTH="100%" BORDER="0">
-<TR><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2">      SUMMARY:  <A HREF="#field_summary">FIELD</A> | <A HREF="#type_summary">TYPE</A> | <A HREF="#method_summary">METHOD</A></FONT></TD><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2"></TR></TABLE></body></html>
+<TR><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2">      SUMMARY:  <A HREF="#field_summary">FIELD</A> | <A HREF="#type_summary">TYPE</A> | <A HREF="#method_summary">METHOD</A></FONT></TD><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2"></TR></TABLE></div>
+</div>
+<div id="Master.1">
+<div class="masterreport">
+<table id="Table.0" cellpadding="0" cellspacing="0" summary="">
+<th>NAME</th>
+<th>VALUE</th>
+</tr>
+<tr>
+<td>OWNER</td>
+<td>ENZYME</td>
+</tr>
+<tr>
+<td>OBJECT_NAME</td>
+<td>P_CHANGE_STATUS</td>
+</tr>
+<tr>
+<td>SUBOBJECT_NAME</td>
+<td>null</td>
+</tr>
+<tr>
+<td>OBJECT_ID</td>
+<td>64523</td>
+</tr>
+<tr>
+<td>DATA_OBJECT_ID</td>
+<td>0</td>
+</tr>
+<tr>
+<td>OBJECT_TYPE</td>
+<td>PROCEDURE</td>
+</tr>
+<tr>
+<td>CREATED</td>
+<td>13-OCT-10&nbsp;00:00</td>
+</tr>
+<tr>
+<td>LAST_DDL_TIME</td>
+<td>13-OCT-10&nbsp;00:00</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>2007-11-05:13:18:13</td>
+</tr>
+<tr>
+<td>STATUS</td>
+<td>VALID</td>
+</tr>
+<tr>
+<td>TEMPORARY</td>
+<td>N</td>
+</tr>
+<tr>
+<td>GENERATED</td>
+<td>N</td>
+</tr>
+<tr>
+<td>SECONDARY</td>
+<td>N</td>
+</tr>
+<tr>
+<td>NAMESPACE</td>
+<td>1</td>
+</tr>
+<tr>
+<td>EDITION_NAME</td>
+<td>null</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.2">
+<div class="masterreport">
+<table id="Table.1" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>PRIVILEGE</th>
+<th>GRANTEE</th>
+<th>GRANTABLE</th>
+<th>GRANTOR</th>
+<th>OBJECT_NAME</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.3">
+<div class="masterreport">
+<table id="Table.2" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>NAME</th>
+<th>OWNER</th>
+<th>TYPE</th>
+<th>OBJECT_ID</th>
+<th>STATUS</th>
+<th>TYPE_LINK</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.4">
+<div class="masterreport">
+<table id="Table.3" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>NAME</th>
+<th>OWNER</th>
+<th>TYPE</th>
+<th>OBJECT_ID</th>
+<th>STATUS</th>
+<th>TYPE_LINK</th>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 3, 0)" class="currentrow">
+<td class="currentcell">LINKS</td>
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">TABLE</td>
+<td class="currentcell">85768</td>
+<td class="currentcell">VALID</td>
+<td class="currentcell">TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 3, 1)">
+<td>COMMENTS</td>
+<td>ENZYME</td>
+<td>TABLE</td>
+<td>85689</td>
+<td>VALID</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 3, 2)">
+<td>ENZYMES</td>
+<td>ENZYME</td>
+<td>TABLE</td>
+<td>85746</td>
+<td>VALID</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 3, 3)">
+<td>NAMES</td>
+<td>ENZYME</td>
+<td>TABLE</td>
+<td>85771</td>
+<td>VALID</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 3, 4)">
+<td>XREFS</td>
+<td>ENZYME</td>
+<td>TABLE</td>
+<td>85811</td>
+<td>VALID</td>
+<td>TABLE</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.5">
+<div class="masterreport">
+<pre>
+PROCEDURE p_change_status (
+  the_enzyme_id IN enzymes.enzyme_id%type,
+  the_status    IN enzymes.status%type
+)
+AS
+  CURSOR lockcursor IS
+  SELECT 1
+    FROM enzymes e1,
+         names n1,
+         comments c1,
+         xrefs x1,
+         links l1
+   WHERE e1.enzyme_id = the_enzyme_id
+     AND e1.enzyme_id = n1.enzyme_id (+)
+     AND e1.enzyme_id = c1.enzyme_id (+)
+     AND e1.enzyme_id = x1.enzyme_id (+)
+     AND e1.enzyme_id = l1.enzyme_id (+)
+         FOR UPDATE;
+  lockrec lockcursor%rowtype;
+BEGIN
+  /* check the_enzyme_id is not null */
+  IF the_enzyme_id IS NULL THEN
+    RAISE_APPLICATION_ERROR(-20000, 'the_enzyme_id is null');
+  END IF;
+  /* check the_status is not null */
+  IF the_status IS NULL THEN
+    RAISE_APPLICATION_ERROR(-20000, 'the_status is null');
+  END IF;
+  /* lock affected rows */
+  OPEN lockcursor;
+  /* check if the enzyme exists */
+  DECLARE
+    tmp_id enzymes.enzyme_id%type;
+  BEGIN
+    SELECT enzyme_id INTO tmp_id
+      FROM enzymes
+     WHERE enzyme_id = the_enzyme_id;
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+    RAISE_APPLICATION_ERROR(-20000, 'the_enzyme_id not found');
+  END;
+  /* do table enzymes */
+  UPDATE enzymes
+     SET status = the_status
+   WHERE enzyme_id = the_enzyme_id
+     AND status != 'NO'
+     AND status != the_status;
+  /* do table names */
+  UPDATE names
+     SET status = the_status
+   WHERE enzyme_id = the_enzyme_id
+     AND status != 'NO'
+     AND status != the_status;
+  /* do table comments */
+  UPDATE comments
+     SET status = the_status
+   WHERE enzyme_id = the_enzyme_id
+     AND status != 'NO'
+     AND status != the_status;
+  /* do table xrefs */
+  UPDATE xrefs
+     SET status = the_status
+   WHERE enzyme_id = the_enzyme_id
+     AND status != 'NO'
+     AND status != the_status;
+  /* do table links */
+  UPDATE links
+     SET status = the_status
+   WHERE enzyme_id = the_enzyme_id
+     AND status != 'NO'
+     AND status != the_status;
+  CLOSE lockcursor;
+END;</pre>
+</div>
+</div>
+</div>
+</body>
+</html>

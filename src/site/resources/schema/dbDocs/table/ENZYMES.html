@@ -1,110 +1,1676 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF8" />
-<script src="../dbdoc.js" type="text/javascript"></script>
-<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+<script src="ENZYMES/report.js" type="text/javascript"></script>
+<link href="ENZYMES/report.css" type="text/css" rel="stylesheet">
 </head>
-<body class="object">
-<div id="header"><h2>ENZYMES</h2>
-<div class="tabs clearfix">
-
-<div class="tab" id="current"><div><a href="ENZYMES.html">Columns</a></div></div>
-<div class="tab"><div><a href="ENZYMES_Constraints.html">Constraints</a></div></div>
-<div class="tab"><div><a href="ENZYMES_Grants.html">Grants</a></div></div>
-<div class="tab"><div><a href="ENZYMES_Statistics.html">Statistics</a></div></div>
-<div class="tab"><div><a href="ENZYMES_Triggers.html">Triggers</a></div></div>
-<div class="tab"><div><a href="ENZYMES_Dependencies.html">Dependencies</a></div></div>
-<div class="tab"><div><a href="ENZYMES_Details.html">Details</a></div></div>
-<div class="tab"><div><a href="ENZYMES_Partitions.html">Partitions</a></div></div>
-<div class="tab"><div><a href="ENZYMES_Indexes.html">Indexes</a></div></div>
-</div></div><br/>
-<div class="tab-panes">
-<div id="Columns"> <table cellpadding="0" cellspacing="0" cellspacing="0" summary=""><tr>
-	<th>COLUMN_NAME</th>
-	<th>DATA_TYPE</th>
-	<th>NULLABLE</th>
-	<th>DATA_DEFAULT</th>
-	<th>COLUMN_ID</th>
-	<th>COMMENTS</th>
+<body>
+<div class="banner">
+<table width="98%"><tr>
+<td><h2 class="banner">ENZYMES</h2></td>
+</tr></table></div>
+<div id="maintabs">
+<div class="currentmaintab" onclick="onSelectMainTab(this, 0)">
+<div>
+<p>Columns</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 1)">
+<div>
+<p>Constraints</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 2)">
+<div>
+<p>Grants</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 3)">
+<div>
+<p>Statistics</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 4)">
+<div>
+<p>Triggers</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 5)">
+<div>
+<p>Dependencies</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 6)">
+<div>
+<p>Details</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 7)">
+<div>
+<p>Partitions</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 8)">
+<div>
+<p>Indexes</p>
+</div>
+</div>
+</div>
+<br/>
+<div id="masterreports">
+<div id="Master.0">
+<div class="currentmasterreport">
+<table id="Table.0" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>DATA_TYPE</th>
+<th>NULLABLE</th>
+<th>DATA_DEFAULT</th>
+<th>COLUMN_ID</th>
+<th>COMMENTS</th>
 </tr>
-	<tr>
-<td>ENZYME_ID</td>
-<td>NUMBER(7,0)</td>
-<td>No</td>
-<td>null</td>
-<td>1</td>
-<td>Enzyme_id is used as an internal unique identifier throughout the database as some entries don't have an EC number, e.g. suggested entries. Example is '70001', '9945', etc.</td>
-	</tr>
-	<tr>
+<tr onclick="table_onSelectMasterRow(this, 0, 0)" class="currentrow">
+<td class="currentcell">ENZYME_ID</td>
+<td class="currentcell">NUMBER(7,0)</td>
+<td class="currentcell">No</td>
+<td class="currentcell">null</td>
+<td class="currentcell">1</td>
+<td class="currentcell">Enzyme_id&nbsp;is&nbsp;used&nbsp;as&nbsp;an&nbsp;internal&nbsp;unique&nbsp;identifier&nbsp;throughout&nbsp;the&nbsp;database&nbsp;as&nbsp;some&nbsp;entries&nbsp;don't&nbsp;have&nbsp;an&nbsp;EC&nbsp;number,&nbsp;e.g.&nbsp;suggested&nbsp;entries.&nbsp;Example&nbsp;is&nbsp;'70001',&nbsp;'9945',&nbsp;etc.</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 0, 1)">
 <td>EC1</td>
 <td>NUMBER(1,0)</td>
 <td>Yes</td>
 <td>null</td>
 <td>2</td>
-<td>The first number, ec1, is the number of the class, example '3'.</td>
-	</tr>
-	<tr>
+<td>The&nbsp;first&nbsp;number,&nbsp;ec1,&nbsp;is&nbsp;the&nbsp;number&nbsp;of&nbsp;the&nbsp;class,&nbsp;example&nbsp;'3'.</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 0, 2)">
 <td>EC2</td>
 <td>NUMBER(2,0)</td>
 <td>Yes</td>
 <td>null</td>
 <td>3</td>
-<td>The second number, ec2, defines the subclass inside the class, example '3.1'.</td>
-	</tr>
-	<tr>
+<td>The&nbsp;second&nbsp;number,&nbsp;ec2,&nbsp;defines&nbsp;the&nbsp;subclass&nbsp;inside&nbsp;the&nbsp;class,&nbsp;example&nbsp;'3.1'.</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 0, 3)">
 <td>EC3</td>
 <td>NUMBER(3,0)</td>
 <td>Yes</td>
 <td>null</td>
 <td>4</td>
-<td>The third number, ec3, defines the subsubclass inside the subclass, example '3.1.1'.</td>
-	</tr>
-	<tr>
+<td>The&nbsp;third&nbsp;number,&nbsp;ec3,&nbsp;defines&nbsp;the&nbsp;subsubclass&nbsp;inside&nbsp;the&nbsp;subclass,&nbsp;example&nbsp;'3.1.1'.</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 0, 4)">
 <td>EC4</td>
 <td>NUMBER(4,0)</td>
 <td>Yes</td>
 <td>null</td>
 <td>5</td>
-<td>The fourth number, ec4, is a serial number of the enzyme inside the subsubclass, example '3.1.1.1'.</td>
-	</tr>
-	<tr>
+<td>The&nbsp;fourth&nbsp;number,&nbsp;ec4,&nbsp;is&nbsp;a&nbsp;serial&nbsp;number&nbsp;of&nbsp;the&nbsp;enzyme&nbsp;inside&nbsp;the&nbsp;subsubclass,&nbsp;example&nbsp;'3.1.1.1'.</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 0, 5)">
 <td>HISTORY</td>
-<td>VARCHAR2(400 BYTE)</td>
+<td>VARCHAR2(400&nbsp;BYTE)</td>
 <td>Yes</td>
 <td>null</td>
 <td>6</td>
-<td>Short form of history of an enzyme, especially date of creation, e.g. 'EC 1.1.1.1 created 1961', 'EC 1.1.3.8 created 1965, modified 2001'.</td>
-	</tr>
-	<tr>
+<td>Short&nbsp;form&nbsp;of&nbsp;history&nbsp;of&nbsp;an&nbsp;enzyme,&nbsp;especially&nbsp;date&nbsp;of&nbsp;creation,&nbsp;e.g.&nbsp;'EC&nbsp;1.1.1.1&nbsp;created&nbsp;1961',&nbsp;'EC&nbsp;1.1.3.8&nbsp;created&nbsp;1965,&nbsp;modified&nbsp;2001'.</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 0, 6)">
 <td>STATUS</td>
-<td>VARCHAR2(2 BYTE)</td>
+<td>VARCHAR2(2&nbsp;BYTE)</td>
 <td>No</td>
 <td>null</td>
 <td>7</td>
-<td>Internal code of status, for example 'NO', 'UN', 'SN', 'OK', etc.</td>
-	</tr>
-	<tr>
+<td>Internal&nbsp;code&nbsp;of&nbsp;status,&nbsp;for&nbsp;example&nbsp;'NO',&nbsp;'UN',&nbsp;'SN',&nbsp;'OK',&nbsp;etc.</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 0, 7)">
 <td>NOTE</td>
-<td>VARCHAR2(2000 BYTE)</td>
+<td>VARCHAR2(2000&nbsp;BYTE)</td>
 <td>Yes</td>
 <td>null</td>
 <td>8</td>
-<td>Comment or note of an enzyme annotator which wont be viewable for the public.</td>
-	</tr>
-	<tr>
+<td>Comment&nbsp;or&nbsp;note&nbsp;of&nbsp;an&nbsp;enzyme&nbsp;annotator&nbsp;which&nbsp;wont&nbsp;be&nbsp;viewable&nbsp;for&nbsp;the&nbsp;public.</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 0, 8)">
 <td>SOURCE</td>
-<td>VARCHAR2(6 BYTE)</td>
+<td>VARCHAR2(6&nbsp;BYTE)</td>
 <td>No</td>
 <td>null</td>
 <td>9</td>
-<td>Database internal code, for example 'INTENZ', 'IUBMB', 'BRENDA', 'SIB' etc. Each enzyme belongs to one of them.</td>
-	</tr>
-	<tr>
+<td>Database&nbsp;internal&nbsp;code,&nbsp;for&nbsp;example&nbsp;'INTENZ',&nbsp;'IUBMB',&nbsp;'BRENDA',&nbsp;'SIB'&nbsp;etc.&nbsp;Each&nbsp;enzyme&nbsp;belongs&nbsp;to&nbsp;one&nbsp;of&nbsp;them.</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 0, 9)">
 <td>ACTIVE</td>
-<td>VARCHAR2(1 BYTE)</td>
+<td>VARCHAR2(1&nbsp;BYTE)</td>
 <td>No</td>
-<td>'Y' </td>
+<td>'Y'&nbsp;</td>
 <td>10</td>
-<td>IUBMB uses 'deleted' for different meanings. We say 'active' for enzymes that are currently recommended by IUBMB. Opposit of inactive</td>
-	</tr>
-</table></div></body></html>
+<td>IUBMB&nbsp;uses&nbsp;'deleted'&nbsp;for&nbsp;different&nbsp;meanings.&nbsp;We&nbsp;say&nbsp;'active'&nbsp;for&nbsp;enzymes&nbsp;that&nbsp;are&nbsp;currently&nbsp;recommended&nbsp;by&nbsp;IUBMB.&nbsp;Opposit&nbsp;of&nbsp;inactive</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.1">
+<div class="masterreport">
+<table id="Table.1" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>CONSTRAINT_NAME</th>
+<th>CONSTRAINT_TYPE</th>
+<th>SEARCH_CONDITION</th>
+<th>R_OWNER</th>
+<th>R_TABLE_NAME</th>
+<th>R_CONSTRAINT_NAME</th>
+<th>DELETE_RULE</th>
+<th>STATUS</th>
+<th>DEFERRABLE</th>
+<th>VALIDATED</th>
+<th>GENERATED</th>
+<th>BAD</th>
+<th>RELY</th>
+<th>LAST_CHANGE</th>
+<th>INDEX_OWNER</th>
+<th>INDEX_NAME</th>
+<th>INVALID</th>
+<th>VIEW_RELATED</th>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 0)" class="currentrow">
+<td class="currentcell">CK_ENZYMES$ACTIVE</td>
+<td class="currentcell">Check</td>
+<td class="currentcell">active&nbsp;IN&nbsp;('Y','N')</td>
+<td class="currentcell">null</td>
+<td class="currentcell">null</td>
+<td class="currentcell">null</td>
+<td class="currentcell">null</td>
+<td class="currentcell">ENABLED</td>
+<td class="currentcell">NOT&nbsp;DEFERRABLE</td>
+<td class="currentcell">VALIDATED</td>
+<td class="currentcell">USER&nbsp;NAME</td>
+<td class="currentcell">null</td>
+<td class="currentcell">null</td>
+<td class="currentcell">13-OCT-10&nbsp;00:00</td>
+<td class="currentcell">null</td>
+<td class="currentcell">null</td>
+<td class="currentcell">null</td>
+<td class="currentcell">null</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 1)">
+<td>CK_ENZYMES$EC4_ZERO</td>
+<td>Check</td>
+<td>ec4&nbsp;>&nbsp;0</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT&nbsp;DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER&nbsp;NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10&nbsp;00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 2)">
+<td>CK_ENZYMES$EC_QUAD_NULL</td>
+<td>Check</td>
+<td>(ec1&nbsp;IS&nbsp;NOT&nbsp;NULL&nbsp;AND&nbsp;ec2&nbsp;IS&nbsp;NOT&nbsp;NULL&nbsp;and&nbsp;ec3&nbsp;IS&nbsp;NOT&nbsp;NULL&nbsp;and&nbsp;ec4&nbsp;IS&nbsp;NOT&nbsp;NULL)
+OR&nbsp;(ec1&nbsp;IS&nbsp;NOT&nbsp;NULL&nbsp;AND&nbsp;ec2&nbsp;IS&nbsp;NOT&nbsp;NULL&nbsp;and&nbsp;ec3&nbsp;IS&nbsp;NOT&nbsp;NULL&nbsp;and&nbsp;ec4&nbsp;IS&nbsp;NULL)&nbsp;OR
+(ec1&nbsp;IS&nbsp;NOT&nbsp;NULL&nbsp;AND&nbsp;ec2&nbsp;IS&nbsp;NOT&nbsp;NULL&nbsp;and&nbsp;ec3&nbsp;IS&nbsp;NULL&nbsp;and&nbsp;ec4&nbsp;IS&nbsp;NULL)&nbsp;OR
+(ec1&nbsp;IS&nbsp;NOT&nbsp;NULL&nbsp;AND&nbsp;ec2&nbsp;IS&nbsp;NULL&nbsp;and&nbsp;ec3&nbsp;IS&nbsp;NULL&nbsp;and&nbsp;ec4&nbsp;IS&nbsp;NULL)&nbsp;OR
+(ec1&nbsp;IS&nbsp;NULL&nbsp;AND&nbsp;ec2&nbsp;IS&nbsp;NULL&nbsp;and&nbsp;ec3&nbsp;IS&nbsp;NULL&nbsp;and&nbsp;ec4&nbsp;IS&nbsp;NULL)</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT&nbsp;DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER&nbsp;NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10&nbsp;00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 3)">
+<td>FK_ENZYMES$EC1$EC2$EC3</td>
+<td>Foreign_Key</td>
+<td>null</td>
+<td>ENZYME</td>
+<td>SUBSUBCLASSES</td>
+<td>PK_SUBSUBCLASSES</td>
+<td>NO&nbsp;ACTION</td>
+<td>ENABLED</td>
+<td>NOT&nbsp;DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER&nbsp;NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10&nbsp;00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 4)">
+<td>FK_ENZYMES$SOURCE</td>
+<td>Foreign_Key</td>
+<td>null</td>
+<td>ENZYME</td>
+<td>CV_DATABASES</td>
+<td>PK_CV_DATABASES</td>
+<td>NO&nbsp;ACTION</td>
+<td>ENABLED</td>
+<td>NOT&nbsp;DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER&nbsp;NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10&nbsp;00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 5)">
+<td>FK_ENZYMES$STATUS</td>
+<td>Foreign_Key</td>
+<td>null</td>
+<td>ENZYME</td>
+<td>CV_STATUS</td>
+<td>PK_CV_STATUS</td>
+<td>NO&nbsp;ACTION</td>
+<td>ENABLED</td>
+<td>NOT&nbsp;DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER&nbsp;NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10&nbsp;00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 6)">
+<td>PK_ENZYMES</td>
+<td>Primary_Key</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT&nbsp;DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER&nbsp;NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10&nbsp;00:00</td>
+<td>null</td>
+<td>PK_ENZYMES</td>
+<td>null</td>
+<td>null</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 7)">
+<td>SYS_C0018769</td>
+<td>Check</td>
+<td>"ENZYME_ID"&nbsp;IS&nbsp;NOT&nbsp;NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT&nbsp;DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED&nbsp;NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10&nbsp;00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 8)">
+<td>SYS_C0018770</td>
+<td>Check</td>
+<td>"STATUS"&nbsp;IS&nbsp;NOT&nbsp;NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT&nbsp;DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED&nbsp;NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10&nbsp;00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 9)">
+<td>SYS_C0018771</td>
+<td>Check</td>
+<td>"SOURCE"&nbsp;IS&nbsp;NOT&nbsp;NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT&nbsp;DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED&nbsp;NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10&nbsp;00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 10)">
+<td>SYS_C0018772</td>
+<td>Check</td>
+<td>"ACTIVE"&nbsp;IS&nbsp;NOT&nbsp;NULL</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT&nbsp;DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>GENERATED&nbsp;NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10&nbsp;00:00</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 11)">
+<td>UQ_ENZYMES$SOURCE$ID</td>
+<td>Unique</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>null</td>
+<td>ENABLED</td>
+<td>NOT&nbsp;DEFERRABLE</td>
+<td>VALIDATED</td>
+<td>USER&nbsp;NAME</td>
+<td>null</td>
+<td>null</td>
+<td>13-OCT-10&nbsp;00:00</td>
+<td>null</td>
+<td>UQ_ENZYMES$SOURCE$ID</td>
+<td>null</td>
+<td>null</td>
+</tr>
+</table>
+<br/>
+<hr/>
+<br/><div id="ChildTabs.1">
+<div class="currentchildtab" onclick="onSelectChildTab(this, 0)">
+<div>
+<p>Columns</p>
+</div>
+</div>
+</div>
+<br/>
+<div id="ChildReports.1">
+<div id="Child.0.0.1">
+<div class="currentchildreport"><table id="Table.2" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 2)" class="currentrow">
+<td class="currentcell">ACTIVE</td>
+<td class="currentcell">null</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.1.1">
+<div class="childreport"><table id="Table.3" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 3)" class="currentrow">
+<td class="currentcell">EC4</td>
+<td class="currentcell">null</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.2.1">
+<div class="childreport"><table id="Table.4" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 4)" class="currentrow">
+<td class="currentcell">EC1</td>
+<td class="currentcell">null</td>
+</tr>
+<tr onclick="table_onSelectRow(this, 4)">
+<td>EC4</td>
+<td>null</td>
+</tr>
+<tr onclick="table_onSelectRow(this, 4)">
+<td>EC3</td>
+<td>null</td>
+</tr>
+<tr onclick="table_onSelectRow(this, 4)">
+<td>EC2</td>
+<td>null</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.3.1">
+<div class="childreport"><table id="Table.5" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 5)" class="currentrow">
+<td class="currentcell">EC1</td>
+<td class="currentcell">1</td>
+</tr>
+<tr onclick="table_onSelectRow(this, 5)">
+<td>EC2</td>
+<td>2</td>
+</tr>
+<tr onclick="table_onSelectRow(this, 5)">
+<td>EC3</td>
+<td>3</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.4.1">
+<div class="childreport"><table id="Table.6" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 6)" class="currentrow">
+<td class="currentcell">SOURCE</td>
+<td class="currentcell">1</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.5.1">
+<div class="childreport"><table id="Table.7" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 7)" class="currentrow">
+<td class="currentcell">STATUS</td>
+<td class="currentcell">1</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.6.1">
+<div class="childreport"><table id="Table.8" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 8)" class="currentrow">
+<td class="currentcell">ENZYME_ID</td>
+<td class="currentcell">1</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.7.1">
+<div class="childreport"><table id="Table.9" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 9)" class="currentrow">
+<td class="currentcell">ENZYME_ID</td>
+<td class="currentcell">null</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.8.1">
+<div class="childreport"><table id="Table.10" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 10)" class="currentrow">
+<td class="currentcell">STATUS</td>
+<td class="currentcell">null</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.9.1">
+<div class="childreport"><table id="Table.11" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 11)" class="currentrow">
+<td class="currentcell">SOURCE</td>
+<td class="currentcell">null</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.10.1">
+<div class="childreport"><table id="Table.12" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 12)" class="currentrow">
+<td class="currentcell">ACTIVE</td>
+<td class="currentcell">null</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.11.1">
+<div class="childreport"><table id="Table.13" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 13)" class="currentrow">
+<td class="currentcell">SOURCE</td>
+<td class="currentcell">1</td>
+</tr>
+<tr onclick="table_onSelectRow(this, 13)">
+<td>ENZYME_ID</td>
+<td>2</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="Master.2">
+<div class="masterreport">
+<table id="Table.14" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>PRIVILEGE</th>
+<th>GRANTEE</th>
+<th>GRANTABLE</th>
+<th>GRANTOR</th>
+<th>OBJECT_NAME</th>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 14, 0)" class="currentrow">
+<td class="currentcell">DELETE</td>
+<td class="currentcell">ENZYME_COMMITTEE</td>
+<td class="currentcell">NO</td>
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 14, 1)">
+<td>INSERT</td>
+<td>ENZYME_COMMITTEE</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 14, 2)">
+<td>SELECT</td>
+<td>ENZYME_COMMITTEE</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 14, 3)">
+<td>UPDATE</td>
+<td>ENZYME_COMMITTEE</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 14, 4)">
+<td>DELETE</td>
+<td>ENZYME_CURATOR</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 14, 5)">
+<td>INSERT</td>
+<td>ENZYME_CURATOR</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 14, 6)">
+<td>SELECT</td>
+<td>ENZYME_CURATOR</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 14, 7)">
+<td>UPDATE</td>
+<td>ENZYME_CURATOR</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 14, 8)">
+<td>DELETE</td>
+<td>ENZYME_PRODUCTION</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 14, 9)">
+<td>INSERT</td>
+<td>ENZYME_PRODUCTION</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 14, 10)">
+<td>SELECT</td>
+<td>ENZYME_PRODUCTION</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 14, 11)">
+<td>UPDATE</td>
+<td>ENZYME_PRODUCTION</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 14, 12)">
+<td>SELECT</td>
+<td>ENZYME_SELECT</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.3">
+<div class="masterreport">
+<table id="Table.15" cellpadding="0" cellspacing="0" summary="">
+<th>NAME</th>
+<th>VALUE</th>
+</tr>
+<tr>
+<td>NUM_ROWS</td>
+<td>6879</td>
+</tr>
+<tr>
+<td>BLOCKS</td>
+<td>61</td>
+</tr>
+<tr>
+<td>AVG_ROW_LEN</td>
+<td>68</td>
+</tr>
+<tr>
+<td>SAMPLE_SIZE</td>
+<td>5058</td>
+</tr>
+<tr>
+<td>LAST_ANALYZED</td>
+<td>22-NOV-13&nbsp;00:00</td>
+</tr>
+<tr>
+<td>LAST_ANALYZED_SINCE</td>
+<td>22-NOV-13&nbsp;00:00</td>
+</tr>
+</table>
+<br/>
+<hr/>
+<br/><div id="ChildTabs.3">
+<div class="currentchildtab" onclick="onSelectChildTab(this, 0)">
+<div>
+<p>Column Statistics</p>
+</div>
+</div>
+</div>
+<br/>
+<div id="ChildReports.3">
+</div>
+</div>
+</div>
+<div id="Master.4">
+<div class="masterreport">
+<table id="Table.16" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>TRIGGER_NAME</th>
+<th>TRIGGER_TYPE</th>
+<th>TRIGGER_OWNER</th>
+<th>TRIGGERING_EVENT</th>
+<th>STATUS</th>
+<th>TABLE_NAME</th>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 16, 0)" class="currentrow">
+<td class="currentcell">TD_ENZYMES</td>
+<td class="currentcell">AFTER&nbsp;EACH&nbsp;ROW</td>
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">DELETE</td>
+<td class="currentcell">ENABLED</td>
+<td class="currentcell">ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 16, 1)">
+<td>T_ENZYMES$SOURCE_CHANGE</td>
+<td>BEFORE&nbsp;EACH&nbsp;ROW</td>
+<td>ENZYME</td>
+<td>UPDATE</td>
+<td>ENABLED</td>
+<td>ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 16, 2)">
+<td>TU_ENZYMES</td>
+<td>AFTER&nbsp;EACH&nbsp;ROW</td>
+<td>ENZYME</td>
+<td>UPDATE</td>
+<td>ENABLED</td>
+<td>ENZYMES</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 16, 3)">
+<td>TI_ENZYMES</td>
+<td>AFTER&nbsp;EACH&nbsp;ROW</td>
+<td>ENZYME</td>
+<td>INSERT</td>
+<td>ENABLED</td>
+<td>ENZYMES</td>
+</tr>
+</table>
+<br/>
+<hr/>
+<br/><div id="ChildTabs.4">
+<div class="currentchildtab" onclick="onSelectChildTab(this, 0)">
+<div>
+<p></p>
+</div>
+</div>
+</div>
+<br/>
+<div id="ChildReports.4">
+<div id="Child.0.0.4">
+<div class="currentchildreport"><pre>
+TRIGGER "ENZYME".td_enzymes
+  AFTER DELETE ON enzymes FOR EACH ROW
+
+
+
+BEGIN
+  INSERT INTO enzymes_audit (
+    enzyme_id,ec1,ec2,ec3,ec4,history,status,note,source,active,
+    timestamp,audit_id,dbuser,osuser,remark,action)
+  VALUES (
+    :old.enzyme_id,:old.ec1,:old.ec2,:old.ec3,:old.ec4,:old.history,:old.status,:old.note,:old.source,:old.active,
+    sysdate,s_audit_id.nextval,user,auditpackage.osuser,auditpackage.remark,'D');
+END;
+</pre>
+</div>
+</div>
+<div id="Child.0.1.4">
+<div class="childreport"><pre>
+TRIGGER "ENZYME".t_enzymes$source_change
+  BEFORE UPDATE OF source ON enzymes
+  FOR EACH ROW
+  WHEN (new.source != old.source)
+BEGIN
+  RAISE_APPLICATION_ERROR(-20000, 'enzyme.source must not be changed', TRUE);
+END;</pre>
+</div>
+</div>
+<div id="Child.0.2.4">
+<div class="childreport"><pre>
+TRIGGER "ENZYME".tu_enzymes
+  AFTER UPDATE ON enzymes FOR EACH ROW
+
+
+
+BEGIN
+  INSERT INTO enzymes_audit (
+    enzyme_id,ec1,ec2,ec3,ec4,history,status,note,source,active,
+    timestamp,audit_id,dbuser,osuser,remark,action)
+  VALUES (
+    :new.enzyme_id,:new.ec1,:new.ec2,:new.ec3,:new.ec4,:new.history,:new.status,:new.note,:new.source,:new.active,
+    sysdate,s_audit_id.nextval,user,auditpackage.osuser,auditpackage.remark,'U');
+END;
+</pre>
+</div>
+</div>
+<div id="Child.0.3.4">
+<div class="childreport"><pre>
+TRIGGER "ENZYME".ti_enzymes
+  AFTER INSERT ON enzymes FOR EACH ROW
+
+
+
+BEGIN
+  INSERT INTO enzymes_audit (
+    enzyme_id,ec1,ec2,ec3,ec4,history,status,note,source,active,
+    timestamp,audit_id,dbuser,osuser,remark,action)
+  VALUES (
+    :new.enzyme_id,:new.ec1,:new.ec2,:new.ec3,:new.ec4,:new.history,:new.status,:new.note,:new.source,:new.active,
+    sysdate,s_audit_id.nextval,user,auditpackage.osuser,auditpackage.remark,'I');
+END;
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="Master.5">
+<div class="masterreport">
+<table id="Table.17" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 0)" class="currentrow">
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">T_ENZYMES$SOURCE_CHANGE</td>
+<td class="currentcell">TRIGGER</td>
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">ENZYMES</td>
+<td class="currentcell">TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 1)">
+<td>ENZYME</td>
+<td>P_CLONE_ENZYME</td>
+<td>PROCEDURE</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 2)">
+<td>ENZYME</td>
+<td>TD_ENZYMES</td>
+<td>TRIGGER</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 3)">
+<td>ENZYME</td>
+<td>F_PUBDATA</td>
+<td>FUNCTION</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 4)">
+<td>ENZYME</td>
+<td>F_OTHER_NAMES</td>
+<td>FUNCTION</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 5)">
+<td>ENZYME</td>
+<td>EVENT</td>
+<td>PACKAGE</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 6)">
+<td>ENZYME</td>
+<td>EVENT</td>
+<td>PACKAGE&nbsp;BODY</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 7)">
+<td>ENZYME</td>
+<td>V_EC_REACTION_IUBMB</td>
+<td>VIEW</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 8)">
+<td>ENZYME</td>
+<td>V_EC_RHEA_STATUS_OK</td>
+<td>VIEW</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 9)">
+<td>ENZYME</td>
+<td>V_EC_FOR_DATALIB</td>
+<td>VIEW</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 10)">
+<td>ENZYME</td>
+<td>P_STOP_TIMEOUT</td>
+<td>PROCEDURE</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 11)">
+<td>ENZYME</td>
+<td>P_START_TIMEOUT</td>
+<td>PROCEDURE</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 12)">
+<td>ENZYME</td>
+<td>P_RESTART_TIMEOUT</td>
+<td>PROCEDURE</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 13)">
+<td>ENZYME</td>
+<td>F_LINKS</td>
+<td>FUNCTION</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 14)">
+<td>ENZYME</td>
+<td>F_REACTION</td>
+<td>FUNCTION</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 15)">
+<td>ENZYME</td>
+<td>P_CHANGE_STATUS</td>
+<td>PROCEDURE</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 16)">
+<td>ENZYME</td>
+<td>TU_ENZYMES</td>
+<td>TRIGGER</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 17, 17)">
+<td>ENZYME</td>
+<td>TI_ENZYMES</td>
+<td>TRIGGER</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>TABLE</td>
+</tr>
+</table>
+<br/>
+<hr/>
+<br/><div id="ChildTabs.5">
+<div class="currentchildtab" onclick="onSelectChildTab(this, 0)">
+<div>
+<p>References</p>
+</div>
+</div>
+</div>
+<br/>
+<div id="ChildReports.5">
+<div id="Child.0.0.5">
+<div class="currentchildreport"><table id="Table.18" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.1.5">
+<div class="childreport"><table id="Table.19" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.2.5">
+<div class="childreport"><table id="Table.20" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.3.5">
+<div class="childreport"><table id="Table.21" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.4.5">
+<div class="childreport"><table id="Table.22" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.5.5">
+<div class="childreport"><table id="Table.23" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.6.5">
+<div class="childreport"><table id="Table.24" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.7.5">
+<div class="childreport"><table id="Table.25" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.8.5">
+<div class="childreport"><table id="Table.26" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.9.5">
+<div class="childreport"><table id="Table.27" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.10.5">
+<div class="childreport"><table id="Table.28" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.11.5">
+<div class="childreport"><table id="Table.29" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.12.5">
+<div class="childreport"><table id="Table.30" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.13.5">
+<div class="childreport"><table id="Table.31" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.14.5">
+<div class="childreport"><table id="Table.32" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.15.5">
+<div class="childreport"><table id="Table.33" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.16.5">
+<div class="childreport"><table id="Table.34" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.17.5">
+<div class="childreport"><table id="Table.35" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>OWNER</th>
+<th>NAME</th>
+<th>TYPE</th>
+<th>REFERENCED_OWNER</th>
+<th>REFERENCED_NAME</th>
+<th>REFERENCED_TYPE</th>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="Master.6">
+<div class="masterreport">
+<table id="Table.36" cellpadding="0" cellspacing="0" summary="">
+<th>NAME</th>
+<th>VALUE</th>
+</tr>
+<tr>
+<td>CREATED</td>
+<td>13-OCT-10&nbsp;00:00</td>
+</tr>
+<tr>
+<td>LAST_DDL_TIME</td>
+<td>06-FEB-14&nbsp;00:00</td>
+</tr>
+<tr>
+<td>OWNER</td>
+<td>ENZYME</td>
+</tr>
+<tr>
+<td>TABLE_NAME</td>
+<td>ENZYMES</td>
+</tr>
+<tr>
+<td>TABLESPACE_NAME</td>
+<td>ENZYM_TAB</td>
+</tr>
+<tr>
+<td>CLUSTER_NAME</td>
+<td>null</td>
+</tr>
+<tr>
+<td>IOT_NAME</td>
+<td>null</td>
+</tr>
+<tr>
+<td>STATUS</td>
+<td>VALID</td>
+</tr>
+<tr>
+<td>PCT_FREE</td>
+<td>30</td>
+</tr>
+<tr>
+<td>PCT_USED</td>
+<td>null</td>
+</tr>
+<tr>
+<td>INI_TRANS</td>
+<td>1</td>
+</tr>
+<tr>
+<td>MAX_TRANS</td>
+<td>255</td>
+</tr>
+<tr>
+<td>INITIAL_EXTENT</td>
+<td>2097152</td>
+</tr>
+<tr>
+<td>NEXT_EXTENT</td>
+<td>1048576</td>
+</tr>
+<tr>
+<td>MIN_EXTENTS</td>
+<td>1</td>
+</tr>
+<tr>
+<td>MAX_EXTENTS</td>
+<td>2147483645</td>
+</tr>
+<tr>
+<td>PCT_INCREASE</td>
+<td>null</td>
+</tr>
+<tr>
+<td>FREELISTS</td>
+<td>null</td>
+</tr>
+<tr>
+<td>FREELIST_GROUPS</td>
+<td>null</td>
+</tr>
+<tr>
+<td>LOGGING</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>BACKED_UP</td>
+<td>N</td>
+</tr>
+<tr>
+<td>NUM_ROWS</td>
+<td>6879</td>
+</tr>
+<tr>
+<td>BLOCKS</td>
+<td>61</td>
+</tr>
+<tr>
+<td>EMPTY_BLOCKS</td>
+<td>0</td>
+</tr>
+<tr>
+<td>AVG_SPACE</td>
+<td>0</td>
+</tr>
+<tr>
+<td>CHAIN_CNT</td>
+<td>0</td>
+</tr>
+<tr>
+<td>AVG_ROW_LEN</td>
+<td>68</td>
+</tr>
+<tr>
+<td>AVG_SPACE_FREELIST_BLOCKS</td>
+<td>0</td>
+</tr>
+<tr>
+<td>NUM_FREELIST_BLOCKS</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DEGREE</td>
+<td>1</td>
+</tr>
+<tr>
+<td>INSTANCES</td>
+<td>1</td>
+</tr>
+<tr>
+<td>CACHE</td>
+<td>N</td>
+</tr>
+<tr>
+<td>TABLE_LOCK</td>
+<td>ENABLED</td>
+</tr>
+<tr>
+<td>SAMPLE_SIZE</td>
+<td>5058</td>
+</tr>
+<tr>
+<td>LAST_ANALYZED</td>
+<td>22-NOV-13&nbsp;00:00</td>
+</tr>
+<tr>
+<td>PARTITIONED</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>IOT_TYPE</td>
+<td>null</td>
+</tr>
+<tr>
+<td>OBJECT_ID_TYPE</td>
+<td>null</td>
+</tr>
+<tr>
+<td>TABLE_TYPE_OWNER</td>
+<td>null</td>
+</tr>
+<tr>
+<td>TABLE_TYPE</td>
+<td>null</td>
+</tr>
+<tr>
+<td>TEMPORARY</td>
+<td>N</td>
+</tr>
+<tr>
+<td>SECONDARY</td>
+<td>N</td>
+</tr>
+<tr>
+<td>NESTED</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>BUFFER_POOL</td>
+<td>DEFAULT</td>
+</tr>
+<tr>
+<td>ROW_MOVEMENT</td>
+<td>DISABLED</td>
+</tr>
+<tr>
+<td>GLOBAL_STATS</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>USER_STATS</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>DURATION</td>
+<td>null</td>
+</tr>
+<tr>
+<td>SKIP_CORRUPT</td>
+<td>DISABLED</td>
+</tr>
+<tr>
+<td>MONITORING</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>CLUSTER_OWNER</td>
+<td>null</td>
+</tr>
+<tr>
+<td>DEPENDENCIES</td>
+<td>DISABLED</td>
+</tr>
+<tr>
+<td>COMPRESSION</td>
+<td>DISABLED</td>
+</tr>
+<tr>
+<td>COMPRESS_FOR</td>
+<td>null</td>
+</tr>
+<tr>
+<td>DROPPED</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>COMMENTS</td>
+<td>Enzymes,&nbsp;main&nbsp;table&nbsp;storing&nbsp;enzymes.</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.7">
+<div class="masterreport">
+<table id="Table.37" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>PARTITION_NAME</th>
+<th>LAST_ANALYZED</th>
+<th>NUM_ROWS</th>
+<th>BLOCKS</th>
+<th>SAMPLE_SIZE</th>
+<th>HIGH_VALUE</th>
+</tr>
+</table>
+<br/>
+<hr/>
+<br/><div id="ChildTabs.7">
+<div class="currentchildtab" onclick="onSelectChildTab(this, 0)">
+<div>
+<p></p>
+</div>
+</div>
+</div>
+<br/>
+<div id="ChildReports.7">
+</div>
+</div>
+</div>
+<div id="Master.8">
+<div class="masterreport">
+<table id="Table.38" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>INDEX_OWNER</th>
+<th>INDEX_NAME</th>
+<th>UNIQUENESS</th>
+<th>STATUS</th>
+<th>INDEX_TYPE</th>
+<th>TEMPORARY</th>
+<th>PARTITIONED</th>
+<th>FUNCIDX_STATUS</th>
+<th>JOIN_INDEX</th>
+<th>COLUMNS</th>
+<th>COLUMN_EXPRESSION</th>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 38, 0)" class="currentrow">
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">UQ_ENZYMES$SOURCE$ID</td>
+<td class="currentcell">UNIQUE</td>
+<td class="currentcell">VALID</td>
+<td class="currentcell">NORMAL</td>
+<td class="currentcell">N</td>
+<td class="currentcell">NO</td>
+<td class="currentcell">null</td>
+<td class="currentcell">NO</td>
+<td class="currentcell">SOURCE,&nbsp;ENZYME_ID</td>
+<td class="currentcell">null</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 38, 1)">
+<td>ENZYME</td>
+<td>PK_ENZYMES</td>
+<td>UNIQUE</td>
+<td>VALID</td>
+<td>NORMAL</td>
+<td>N</td>
+<td>NO</td>
+<td>null</td>
+<td>NO</td>
+<td>ENZYME_ID</td>
+<td>null</td>
+</tr>
+</table>
+<br/>
+<hr/>
+<br/><div id="ChildTabs.8">
+<div class="currentchildtab" onclick="onSelectChildTab(this, 0)">
+<div>
+<p></p>
+</div>
+</div>
+</div>
+<br/>
+<div id="ChildReports.8">
+<div id="Child.0.0.8">
+<div class="currentchildreport"><table id="Table.39" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>INDEX_OWNER</th>
+<th>INDEX_NAME</th>
+<th>TABLE_OWNER</th>
+<th>TABLE_NAME</th>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+<th>COLUMN_LENGTH</th>
+<th>CHAR_LENGTH</th>
+<th>DESCEND</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 39)" class="currentrow">
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">UQ_ENZYMES$SOURCE$ID</td>
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">ENZYMES</td>
+<td class="currentcell">SOURCE</td>
+<td class="currentcell">1</td>
+<td class="currentcell">6</td>
+<td class="currentcell">6</td>
+<td class="currentcell">ASC</td>
+</tr>
+<tr onclick="table_onSelectRow(this, 39)">
+<td>ENZYME</td>
+<td>UQ_ENZYMES$SOURCE$ID</td>
+<td>ENZYME</td>
+<td>ENZYMES</td>
+<td>ENZYME_ID</td>
+<td>2</td>
+<td>22</td>
+<td>0</td>
+<td>ASC</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Child.0.1.8">
+<div class="childreport"><table id="Table.40" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>INDEX_OWNER</th>
+<th>INDEX_NAME</th>
+<th>TABLE_OWNER</th>
+<th>TABLE_NAME</th>
+<th>COLUMN_NAME</th>
+<th>COLUMN_POSITION</th>
+<th>COLUMN_LENGTH</th>
+<th>CHAR_LENGTH</th>
+<th>DESCEND</th>
+</tr>
+<tr onclick="table_onSelectRow(this, 40)" class="currentrow">
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">PK_ENZYMES</td>
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">ENZYMES</td>
+<td class="currentcell">ENZYME_ID</td>
+<td class="currentcell">1</td>
+<td class="currentcell">22</td>
+<td class="currentcell">0</td>
+<td class="currentcell">ASC</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

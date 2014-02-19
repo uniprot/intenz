@@ -1,21 +1,51 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF8" />
-<script src="../dbdoc.js" type="text/javascript"></script>
-<link href="../dbdoc.css" type="text/css" rel="stylesheet">
+<script src="EVENT/report.js" type="text/javascript"></script>
+<link href="EVENT/report.css" type="text/css" rel="stylesheet">
 </head>
-<body class="object">
-<div id="header"><h2>EVENT</h2>
-<div class="tabs clearfix">
-
-<div class="tab" id="current"><div><a href="EVENT.html">Doc</a></div></div>
-<div class="tab"><div><a href="EVENT_Details.html">Details</a></div></div>
-<div class="tab"><div><a href="EVENT_Grants.html">Grants</a></div></div>
-<div class="tab"><div><a href="EVENT_References.html">References</a></div></div>
-<div class="tab"><div><a href="EVENT_Dependencies.html">Dependencies</a></div></div>
-<div class="tab"><div><a href="EVENT_Code.html">Code</a></div></div>
-</div></div><br/>
-<div class="tab-panes"><TABLE CELLSPACING="0" CELLPADDING="1" WIDTH="100%" BORDER="0">
+<body>
+<div class="banner">
+<table width="98%"><tr>
+<td><h2 class="banner">EVENT</h2></td>
+</tr></table></div>
+<div id="maintabs">
+<div class="currentmaintab" onclick="onSelectMainTab(this, 0)">
+<div>
+<p>Doc</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 1)">
+<div>
+<p>Details</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 2)">
+<div>
+<p>Grants</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 3)">
+<div>
+<p>References</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 4)">
+<div>
+<p>Dependencies</p>
+</div>
+</div>
+<div class="maintab" onclick="onSelectMainTab(this, 5)">
+<div>
+<p>Code</p>
+</div>
+</div>
+</div>
+<br/>
+<div id="masterreports">
+<div id="Master.0">
+<div class="currentmasterreport">
+<TABLE CELLSPACING="0" CELLPADDING="1" WIDTH="100%" BORDER="0">
 <TR><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2">      SUMMARY:  <A HREF="#field_summary">FIELD</A> | <A HREF="#type_summary">TYPE</A> | <A HREF="#method_summary">METHOD</A></FONT></TD><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2"></TR></TABLE><HR><P> transit_class value for created enzymes </P><HR><P></P><A NAME="method_summary"></A><TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="3" BORDER="1"><TR CLASS="TableHeadingColor"><TD COLSPAN="2"><FONT SIZE="+2"><B>Method Summary</B></FONT></TD><TR CLASS="TableRowColor"><TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#p_insert_future_creation">p_insert_future_creation</A></B>( the_enzyme_id IN enzymes . enzyme_id % type , the_event_year IN date DEFAULT SYSDATE ) </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Notify the future_history table that a new enzyme has been suggested.<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Usage:<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      exec enzyme.event.p_insert_future_creation (<enzyme_id>);<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Optional parameters:<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      the_event_year: date of creation<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </TD></TR>
 <TR CLASS="TableRowColor"><TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#p_insert_future_deletion">p_insert_future_deletion</A></B>( the_before_id IN enzymes . enzyme_id % type , the_after_id IN enzymes . enzyme_id % type , the_event_year IN date DEFAULT SYSDATE , the_event_note IN future_events . event_note % type DEFAULT NULL , the_status IN future_events . status % type DEFAULT 'SU' ) </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Notify the future_history table that an enzyme is inofficially deleted.<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Usage:<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      exec enzyme.event.p_insert_future_deletion (<enzyme_id>, <to_enzyme_id>);<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Optional parameters:<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      the_event_year: date of deletion<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      the_event_note: optional note about the deletion<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      the_status    : necessary for intial update only<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </TD></TR>
 <TR CLASS="TableRowColor"><TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#p_insert_future_modification">p_insert_future_modification</A></B>( the_before_id IN enzymes . enzyme_id % type , the_after_id IN enzymes . enzyme_id % type , the_event_year IN date DEFAULT SYSDATE , the_status IN future_events . status % type DEFAULT 'SU' ) </CODE><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Notify the future_history table that an enzyme has been modified.<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Usage:<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      exec enzyme.event.p_insert_future_modification (<from_enzyme_id>, <to_enzyme_id>);<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Optional parameters:<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      the_event_year: date of transition<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      the_status    : necessary for intial update only<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </TD></TR>
@@ -40,4 +70,340 @@
 <H3>p_update_future_deletion</H3><PRE>          <B>p_update_future_deletion</B>( the_group_id IN future_events . group_id % type , the_event_id IN future_events . event_id % type , the_new_status IN future_events . status % type , the_new_note IN future_events . event_note % type ) </PRE><DL>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Updates a deletion event. In case of an approval all necessary steps of updating the history_events table will be performed.<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Usage:<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      exec enzyme.event.p_update_future_deletion(<group_id>, <event_id>, <new_status>, <new_note>);<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <DD><DL></DL></DD></DL><HR><A NAME="p_update_future_modification"></A>
 <H3>p_update_future_modification</H3><PRE>          <B>p_update_future_modification</B>( the_group_id IN future_events . group_id % type , the_event_id IN future_events . event_id % type , the_new_status IN future_events . status % type ) </PRE><DL>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Notify the future_history table that a modified enzyme's status has been updated.<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Usage:<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      exec enzyme.event.p_update_future_modification (<group_id>, <event_id>, <new_status>);<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <DD><DL></DL></DD></DL><HR><A NAME="p_update_future_transfer"></A>
 <H3>p_update_future_transfer</H3><PRE>          <B>p_update_future_transfer</B>( the_group_id IN future_events . group_id % type , the_event_id IN future_events . event_id % type , the_new_status IN future_events . status % type , the_new_note IN future_events . event_note % type , the_history_line IN enzymes . history % type ) </PRE><DL>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Updates a transfer event. In case of an approval all necessary steps of updating the history_events table will be performed.<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    Usage:<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      exec enzyme.event.p_update_future_transfer(<group_id>, <event_id>, <new_status>, <new_note>);<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <DD><DL></DL></DD></DL><HR><TABLE CELLSPACING="0" CELLPADDING="1" WIDTH="100%" BORDER="0">
-<TR><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2">      SUMMARY:  <A HREF="#field_summary">FIELD</A> | <A HREF="#type_summary">TYPE</A> | <A HREF="#method_summary">METHOD</A></FONT></TD><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2"></TR></TABLE></body></html>
+<TR><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2">      SUMMARY:  <A HREF="#field_summary">FIELD</A> | <A HREF="#type_summary">TYPE</A> | <A HREF="#method_summary">METHOD</A></FONT></TD><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2"></TR></TABLE></div>
+</div>
+<div id="Master.1">
+<div class="masterreport">
+<table id="Table.0" cellpadding="0" cellspacing="0" summary="">
+<th>NAME</th>
+<th>VALUE</th>
+</tr>
+<tr>
+<td>OWNER</td>
+<td>ENZYME</td>
+</tr>
+<tr>
+<td>OBJECT_NAME</td>
+<td>EVENT</td>
+</tr>
+<tr>
+<td>SUBOBJECT_NAME</td>
+<td>null</td>
+</tr>
+<tr>
+<td>OBJECT_ID</td>
+<td>64544</td>
+</tr>
+<tr>
+<td>DATA_OBJECT_ID</td>
+<td>0</td>
+</tr>
+<tr>
+<td>OBJECT_TYPE</td>
+<td>PACKAGE</td>
+</tr>
+<tr>
+<td>CREATED</td>
+<td>13-OCT-10&nbsp;00:00</td>
+</tr>
+<tr>
+<td>LAST_DDL_TIME</td>
+<td>06-FEB-14&nbsp;00:00</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>2013-03-19:09:40:35</td>
+</tr>
+<tr>
+<td>STATUS</td>
+<td>VALID</td>
+</tr>
+<tr>
+<td>TEMPORARY</td>
+<td>N</td>
+</tr>
+<tr>
+<td>GENERATED</td>
+<td>N</td>
+</tr>
+<tr>
+<td>SECONDARY</td>
+<td>N</td>
+</tr>
+<tr>
+<td>NAMESPACE</td>
+<td>1</td>
+</tr>
+<tr>
+<td>EDITION_NAME</td>
+<td>null</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.2">
+<div class="masterreport">
+<table id="Table.1" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>PRIVILEGE</th>
+<th>GRANTEE</th>
+<th>GRANTABLE</th>
+<th>GRANTOR</th>
+<th>OBJECT_NAME</th>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 0)" class="currentrow">
+<td class="currentcell">EXECUTE</td>
+<td class="currentcell">ENZYME_COMMITTEE</td>
+<td class="currentcell">NO</td>
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">EVENT</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 1)">
+<td>EXECUTE</td>
+<td>ENZYME_CURATOR</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>EVENT</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 1, 2)">
+<td>EXECUTE</td>
+<td>ENZYME_PRODUCTION</td>
+<td>NO</td>
+<td>ENZYME</td>
+<td>EVENT</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.3">
+<div class="masterreport">
+<table id="Table.2" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>NAME</th>
+<th>OWNER</th>
+<th>TYPE</th>
+<th>OBJECT_ID</th>
+<th>STATUS</th>
+<th>TYPE_LINK</th>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 2, 0)" class="currentrow">
+<td class="currentcell">EVENT</td>
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">PACKAGE&nbsp;BODY</td>
+<td class="currentcell">64546</td>
+<td class="currentcell">VALID</td>
+<td class="currentcell">PACKAGE</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.4">
+<div class="masterreport">
+<table id="Table.3" cellpadding="0" cellspacing="0" summary="">
+<tr>
+<th>NAME</th>
+<th>OWNER</th>
+<th>TYPE</th>
+<th>OBJECT_ID</th>
+<th>STATUS</th>
+<th>TYPE_LINK</th>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 3, 0)" class="currentrow">
+<td class="currentcell">ENZYMES</td>
+<td class="currentcell">ENZYME</td>
+<td class="currentcell">TABLE</td>
+<td class="currentcell">85746</td>
+<td class="currentcell">VALID</td>
+<td class="currentcell">TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 3, 1)">
+<td>TIMEOUTS</td>
+<td>ENZYME</td>
+<td>TABLE</td>
+<td>85806</td>
+<td>VALID</td>
+<td>TABLE</td>
+</tr>
+<tr onclick="table_onSelectMasterRow(this, 3, 2)">
+<td>FUTURE_EVENTS</td>
+<td>ENZYME</td>
+<td>TABLE</td>
+<td>85750</td>
+<td>VALID</td>
+<td>TABLE</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="Master.5">
+<div class="masterreport">
+<pre>
+PACKAGE event
+AS
+  /* transit_class value for created enzymes */
+  const_create      CONSTANT future_events.event_class%type := 'NEW';
+
+  /* transit_class value for modified enzymes */
+  const_modify      CONSTANT future_events.event_class%type := 'MOD';
+
+  /* event_class value for enzymes to be transferred */
+  const_transfer    CONSTANT future_events.event_class%type := 'TRA';
+
+  /* event_class value for enzymes to be deleted */
+  const_delete      CONSTANT future_events.event_class%type := 'DEL';
+
+
+
+  /*------------------------------------ INTERFACE ------------------------------------*/
+
+  /* TIMER PROCEDURE INTERFACES */
+
+  /*
+    Start a timeout for a certain enzyme.
+
+    Usage:
+      exec enzyme.event.p_start_timeout (&lt;timeout_id>, &lt;enzyme_id>);
+  */
+  PROCEDURE p_start_timeout (
+    the_timeout_id IN timeouts.timeout_id%type,
+    the_enzyme_id  IN enzymes.enzyme_id%type
+  );
+
+  /*
+    Restart a timeout for a certain enzyme.
+
+    Usage:
+      exec enzyme.event.p_restart_timeout (&lt;timeout_id>);
+  */
+  PROCEDURE p_restart_timeout (
+    the_timeout_id IN timeouts.timeout_id%type
+  );
+
+  /*
+    Stop a timeout for a certain enzyme.
+
+    Usage:
+      exec enzyme.event.p_stop_timeout (&lt;timeout_id>);
+  */
+  PROCEDURE p_stop_timeout (
+    the_timeout_id IN timeouts.timeout_id%type
+  );
+
+
+  /* FUTURE_GRAPH PROCEDURES INTERFACES */
+
+  /*
+    Notify the future_history table that a new enzyme has been suggested.
+    Usage:
+      exec enzyme.event.p_insert_future_creation (&lt;enzyme_id>);
+    Optional parameters:
+      the_event_year: date of creation
+  */
+  PROCEDURE p_insert_future_creation (
+    the_enzyme_id    IN enzymes.enzyme_id%type,
+    the_event_year   IN date DEFAULT SYSDATE
+  );
+
+  /*
+    Notify the future_history table that a new enzyme's status has been updated.
+    Usage:
+      exec enzyme.event.p_update_future_creation (&lt;enzyme_id>);
+  */
+  PROCEDURE p_update_future_creation (
+    the_group_id       IN future_events.group_id%type,
+    the_event_id       IN future_events.event_id%type,
+    the_new_status     IN future_events.status%type
+  );
+
+  /*
+    Notify the future_history table that an enzyme has been modified.
+    Usage:
+      exec enzyme.event.p_insert_future_modification (&lt;from_enzyme_id>, &lt;to_enzyme_id>);
+    Optional parameters:
+      the_event_year: date of transition
+      the_status    : necessary for intial update only
+  */
+  PROCEDURE p_insert_future_modification (
+    the_before_id    IN enzymes.enzyme_id%type,
+    the_after_id     IN enzymes.enzyme_id%type,
+    the_event_year   IN date DEFAULT SYSDATE,
+    the_status       IN future_events.status%type DEFAULT 'SU'
+  );
+
+  /*
+    Notify the future_history table that a modified enzyme's status has been updated.
+    Usage:
+      exec enzyme.event.p_update_future_modification (&lt;group_id>, &lt;event_id>, &lt;new_status>);
+  */
+  PROCEDURE p_update_future_modification (
+    the_group_id       IN future_events.group_id%type,
+    the_event_id       IN future_events.event_id%type,
+    the_new_status     IN future_events.status%type
+  );
+
+  /*
+    Notify the future_history table that an enzyme is inofficially transferred.
+    Usage:
+      exec enzyme.event.p_insert_future_transfer (&lt;from_enzyme_id>, &lt;to_enzyme_id>);
+    Optional parameters:
+      the_event_year: date of transition
+      the_event_note: optional note about the transition
+      the_status    : necessary for intial update only
+  */
+  PROCEDURE p_insert_future_transfer (
+    the_before_id    IN enzymes.enzyme_id%type,
+    the_after_id     IN enzymes.enzyme_id%type,
+    the_event_year   IN date DEFAULT SYSDATE,
+    the_event_note   IN future_events.event_note%type DEFAULT NULL,
+    the_status       IN future_events.status%type DEFAULT 'SU'
+  );
+
+  /*
+    Updates a transfer event. In case of an approval all necessary steps of updating the history_events table will be performed.
+    Usage:
+      exec enzyme.event.p_update_future_transfer(&lt;group_id>, &lt;event_id>, &lt;new_status>, &lt;new_note>);
+  */
+  PROCEDURE p_update_future_transfer (
+    the_group_id       IN future_events.group_id%type,
+    the_event_id       IN future_events.event_id%type,
+    the_new_status     IN future_events.status%type,
+    the_new_note       IN future_events.event_note%type,
+    the_history_line   IN enzymes.history%type
+  );
+
+
+  /*
+    Notify the future_history table that an enzyme is inofficially deleted.
+    Usage:
+      exec enzyme.event.p_insert_future_deletion (&lt;enzyme_id>, &lt;to_enzyme_id>);
+    Optional parameters:
+      the_event_year: date of deletion
+      the_event_note: optional note about the deletion
+      the_status    : necessary for intial update only
+  */
+  PROCEDURE p_insert_future_deletion (
+    the_before_id    IN enzymes.enzyme_id%type,
+    the_after_id     IN enzymes.enzyme_id%type,
+    the_event_year   IN date DEFAULT SYSDATE,
+    the_event_note   IN future_events.event_note%type DEFAULT NULL,
+    the_status       IN future_events.status%type DEFAULT 'SU'
+  );
+
+  /*
+    Updates a deletion event. In case of an approval all necessary steps of updating the history_events table will be performed.
+    Usage:
+      exec enzyme.event.p_update_future_deletion(&lt;group_id>, &lt;event_id>, &lt;new_status>, &lt;new_note>);
+  */
+  PROCEDURE p_update_future_deletion (
+    the_group_id       IN future_events.group_id%type,
+    the_event_id       IN future_events.event_id%type,
+    the_new_status     IN future_events.status%type,
+    the_new_note       IN future_events.event_note%type
+  );
+
+END event;</pre>
+</div>
+</div>
+</div>
+</body>
+</html>
