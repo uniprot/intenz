@@ -172,7 +172,7 @@
 
                               <%-- Common name data --%>
                               <td colspan="2" nowrap="nowrap" width="100%">
-                              	<html:text name="commonName" property="xmlName" size="70" maxlength="1000" indexed="true" />
+                              	<html:text name="commonName" property="xmlName" size="70" maxlength="2000" indexed="true" />
                               	<input type="button" value="&lt;x&gt;" onclick="openSpecialCharacterWindow('enzymeDTO', 'commonName[<%=index%>].xmlName');"
 									title="Open xchars window" class="xchars"/>
                               </td>
@@ -230,7 +230,7 @@
 
                             <%-- Systematic name data --%>
                             <td colspan="2" nowrap="nowrap" width="100%">
-                            	<html:text name="enzymeDTO" property="systematicName.xmlName" size="70" maxlength="1000"/>
+                            	<html:text name="enzymeDTO" property="systematicName.xmlName" size="70" maxlength="2000"/>
 								<input type="button" value="&lt;x&gt;" onclick="openSpecialCharacterWindow('enzymeDTO', 'systematicName.xmlName');"
 									title="Open xchars window" class="xchars"/>
                            	</td>
@@ -289,7 +289,7 @@
                                 <td width="130px">&nbsp;</td>
                               </logic:notEqual>
                               <td>
-                              	<html:text name="synonym" property="xmlName" size="70" maxlength="1000" indexed="true" />
+                              	<html:text name="synonym" property="xmlName" size="70" maxlength="2000" indexed="true" />
 								<input type="button" value="&lt;x&gt;" onclick="openSpecialCharacterWindow('enzymeDTO', 'synonym[<%=index%>].xmlName');"
 									title="Open xchars window" class="xchars"/>
                               	</td>

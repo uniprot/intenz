@@ -8,9 +8,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="4.2.15" date="" description="">
+        <release version="4.2.15" date="2014-02-19" description="Bug fix">
+            <action dev="rafalcan" type="fix">
+                Extended limit of text field for enzyme names.
+            </action>
             <action dev="rafalcan" type="update">
-                Updated to latest version of parent.
+                Updated to latest version of parent, intenz-ffwriter,
+                rhea-mapper, rhea-util, rhea-biopax, rhea-find-struts1 and
+                biobabel-core.
             </action>
         </release>
         <release version="4.2.14" date="2013-08-09" description="Bug fixes">
