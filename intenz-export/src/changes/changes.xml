@@ -9,11 +9,18 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="1.3.20" date=""
-            description="Enzyme synonyms in JSON">
+        <release version="1.3.20" date="2014-03-13"
+            description="Enzyme synonyms in JSON; RHEA: prefix for xrefs">
             <action dev="rafalcan" type="add">
                 Added synonyms to the JSON returned for a serial EC number.
             </action>
+            <action dev="rafalcan" type="add">
+                Added RHEA: prefix to the accession_number of Rhea links in
+                IntEnzXML.
+            </action>
+            <action dev="rafalcan" type="update">
+				Updated to intenz-translator-1.0.12.
+			</action>
         </release>
         <release version="1.3.19" date="2013-10-17" description="Bug fix">
             <action dev="rafalcan" type="fix">

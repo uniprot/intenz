@@ -584,7 +584,8 @@ public class XmlExporter implements IntenzExporter {
                     jaxbEnzyme.setLinks(of.createLinks());
                 LinkType rheaLink = of.createLinkType();
                 rheaLink.setDb(DatabaseType.RHEA);
-                rheaLink.setAccessionNumber(reaction.getId().toString());
+                rheaLink.setAccessionNumber("RHEA:"
+                        + reaction.getId().toString());
                 rheaLink.setView(ViewType.INTENZ);
                 rheaLink.setHref(Database.RHEA.getEntryUrl(reaction.getId().toString()));
                 rheaLink.getContent().add(getFlavoured(reaction.getTextualRepresentation()));
