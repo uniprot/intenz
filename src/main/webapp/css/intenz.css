@@ -2,6 +2,10 @@
 
 /* OVERRIDES -------------------------------------------------------------- */
 
+body {
+    max-width: none;
+}
+
 b i, i b {
     font-weight: bold;
     font-style: italic;
@@ -516,6 +520,14 @@ table.mailform td input, table.mailform textarea {
 }
 
 /* RHEA-CTIONS ---------------------------------------------------------- */
+
+.participant {
+    background-color: #DEE;
+    vertical-align: top;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0ex 0.5em 1ex;
+}
 .participant-coef-P:before {
 	content: "(";
 }
@@ -533,14 +545,19 @@ table.mailform td input, table.mailform textarea {
 	border: #aaa dotted thin;
 	background-color: #ffa;
 }
-.compoundFormula {
+.compoundHasUniprotName, .compoundHasUniprotNameRed,
+.compoundStatusCompound, .compoundStatusCompoundRed {
 	display: none;
 }
-.compoundFormattedName {
+.compoundFormattedName, .chebiId, .compoundFormula {
 	text-align: center;
 }
 .compoundFormattedName b {
 	font-weight: normal;
+}
+.plus, .reactionSymbol,
+.coef-F, .coef-A, .coef-G, .coef-P {
+	padding: 0ex 0.5em 1ex;
 }
 .coef-F, .coef-A, .coef-G, .coef-P {
 	font-weight: bold;
