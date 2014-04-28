@@ -8,9 +8,15 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="4.5.2" date="" description="Dependency updates">
+        <release version="4.6.0" date=""
+            description="New Rhea data model.">
+            <action dev="rafalcan" type="add">
+				Added methods to EnzymeCofactorMapper to manage compounds
+                (cofactors) independently of Rhea's.
+			</action>
             <action dev="rafalcan" type="update">
-                Updated to latest version of parent.
+                Updated to latest version of parent, intenz-core, rhea-domain
+                and rhea-mapper.
             </action>
         </release>
         <release version="4.5.1" date="2013-03-11"
