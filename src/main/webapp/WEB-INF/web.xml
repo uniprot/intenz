@@ -22,6 +22,20 @@
         <param-value>http://www.ebi.ac.uk/intenz/curation/rhea</param-value>
     </context-param>
     
+    <context-param>
+        <description>URL to get images for small molecules. This parameter is
+            used by /pages/view/reaction.jsp of rhea-find-struts1.</description>
+        <param-name>chebi.img.url</param-name>
+        <param-value>getCompoundImage?chebiId=</param-value>
+    </context-param>
+    
+    <context-param>
+        <description>URL to get images for polymers. This parameter is used by
+            /pages/view/reaction.jsp of rhea-find-struts1.</description>
+        <param-name>rhea.img.url</param-name>
+        <param-value>getCompoundImage?polymerId=</param-value>
+    </context-param>
+    
     <!-- Standard Action Servlet Configuration -->
     <servlet>
         <servlet-name>action</servlet-name>
@@ -31,7 +45,6 @@
             <param-value>
 				/WEB-INF/config/find-struts1-config.xml,
 				/WEB-INF/config/search-struts1-config.xml,
-				/WEB-INF/config/chebiIdAssigner-config.xml,
 				/WEB-INF/config/intenz-curator-config.xml
 			</param-value>
         </init-param>
@@ -48,6 +61,21 @@
     <servlet-mapping>
         <servlet-name>action</servlet-name>
         <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <description>
+            A servlet to get compound images (from rhea-webapp-util module).
+        </description>
+        <display-name>CompoundImageServlet</display-name>
+        <servlet-name>CompoundImageServlet</servlet-name>
+        <servlet-class>
+            uk.ac.ebi.rhea.webapp.controller.view.CompoundImageServlet
+        </servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CompoundImageServlet</servlet-name>
+        <url-pattern>/getCompoundImage</url-pattern>
     </servlet-mapping>
 
     <servlet>

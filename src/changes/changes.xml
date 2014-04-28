@@ -8,6 +8,13 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.3.0" date=""
+            description="Updates for new Rhea data model">
+            <action dev="rafalcan" type="update">
+				Updated to latest versions of intenz-core, intenz-mapper,
+                intenz-ffwriter and all rhea artifacts (new data model).
+			</action>
+        </release>
         <release version="4.2.15" date="2014-02-19" description="Bug fix">
             <action dev="rafalcan" type="fix">
                 Extended limit of text field for enzyme names.

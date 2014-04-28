@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +14,12 @@ import org.apache.struts.Globals;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.ActionServlet;
+
 import uk.ac.ebi.biobabel.util.db.DatabaseInstance;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.biobabel.webapp.listeners.ConnectionBindingListener;
 import uk.ac.ebi.intenz.webapp.utilities.UnitOfWork;
+import uk.ac.ebi.rhea.domain.Qualifier;
 import uk.ac.ebi.xchars.SpecialCharacters;
 
 /**
@@ -31,6 +34,14 @@ public class IntEnzActionServlet extends ActionServlet {
 
 	private static final Logger LOGGER =
     	Logger.getLogger(IntEnzActionServlet.class.getName());
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        getServletContext().setAttribute(
+                "reactionQualifiersForVisibleSearchOptions",
+                Qualifier.VISIBLE_SEARCH_OPTIONS);
+    }
 
     /**
      * Creates a <code>SpecialCharacters</code> instance and establishes a connection.

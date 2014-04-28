@@ -1,5 +1,6 @@
 package uk.ac.ebi.intenz.webapp.controller.common;
 
+import java.sql.Connection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
 import uk.ac.ebi.intenz.domain.enzyme.Cofactor;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
+import uk.ac.ebi.intenz.mapper.EnzymeCofactorMapper;
 import uk.ac.ebi.intenz.webapp.controller.modification.CurationAction;
 import uk.ac.ebi.intenz.webapp.dtos.CofactorDTO;
 import uk.ac.ebi.intenz.webapp.dtos.CommentDTO;
@@ -31,9 +33,8 @@ import uk.ac.ebi.intenz.webapp.utilities.ControlFlowToken;
 import uk.ac.ebi.intenz.webapp.utilities.PubMedAccessor;
 import uk.ac.ebi.rhea.domain.Compound;
 import uk.ac.ebi.rhea.domain.Reaction;
-import uk.ac.ebi.rhea.mapper.IRheaCompoundReader;
 import uk.ac.ebi.rhea.mapper.IRheaReader;
-import uk.ac.ebi.rhea.updater.ChebiUpdater;
+import uk.ac.ebi.rhea.mapper.util.IChebiHelper;
 import uk.ac.ebi.rhea.webapp.SessionManager;
 
 /**
@@ -163,6 +164,7 @@ public class FormButtonAction extends CurationAction {
 
 	private void processCofactors(EnzymeDTO enzymeDTO, HttpServletRequest request)
 	throws DomainException {
+	    // This is always a ChEBI ID, as cofactors are searched in ChEBI:
 		String pCofactorId = request.getParameter("cofactorId");
 		// If the cofactor has to be OR-ed to another existing one:
 		Integer complexCofactorDtoIndex =
@@ -177,21 +179,18 @@ public class FormButtonAction extends CurationAction {
 		boolean complexCofactorBrackets =
 			StringUtil.isNullOrEmpty(request.getParameter("complexCofactorBrackets"))?
 				false : Boolean.parseBoolean(request.getParameter("complexCofactorBrackets"));
-		
-		IRheaCompoundReader compoundReader =
-                SessionManager.getRheaCompoundReader(request);
+
+		EnzymeCofactorMapper cofactorMapper = new EnzymeCofactorMapper();
 		Compound compound = null;
 		try {
-			if (StringUtil.isInteger(pCofactorId)){
-				// internal Rhea compound ID:
-				compound = compoundReader.find(Long.valueOf(pCofactorId));
-			} else if (pCofactorId.toUpperCase().startsWith("CHEBI:")){
-				compound = compoundReader.findByAccession(pCofactorId);
-				if (compound == null){
-					// compound new to Rhea/IntEnz:
-		            ChebiUpdater chebiUpdater = SessionManager.getChebiUpdater(request);
-		            compound = chebiUpdater.importCompound(pCofactorId);
-				}
+		    Connection con = (Connection)
+		            request.getSession().getAttribute("connection");
+		    compound = cofactorMapper.findByChebiId(pCofactorId, con);
+			if (compound == null){
+				// compound new to IntEnz:
+			    IChebiHelper chebiHelper =
+			            SessionManager.getChebiProdHelper(request);
+			    compound = chebiHelper.getCompoundById(pCofactorId);
 			}
 			cofactorsPlus(enzymeDTO.getCofactors(), compound, complexCofactorDtoIndex,
 					complexCofactorDtoInternalIndex, complexCofactorOperator, complexCofactorBrackets);
@@ -285,7 +284,7 @@ public class FormButtonAction extends CurationAction {
 		assert cofactorDtos != null : "Parameter 'cofactors' must not be null.";
         // CHECK THAT THE COFACTOR IS NOT ALREADY ASSIGNED TO THIS ENZYME:
         for (CofactorDTO dto : cofactorDtos){
-            if (dto.getXmlCofactorValue().contains(cofactor.getName())
+            if (dto.getXmlCofactorValue().contains(cofactor.getXmlName())
                     && dto.getAccession().contains(cofactor.getAccession())
                     && dto.getCompoundId().contains(cofactor.getId().toString())){
                 throw new DomainException("cofactor", "errors.form.cofactor.already.present");
@@ -294,7 +293,7 @@ public class FormButtonAction extends CurationAction {
         if (complexCofactorDtoIndex == null){
 			CofactorDTO newCofactor = getNewCofactorDTOInstance(cofactorDtos.size());
 			newCofactor.setAccession(cofactor.getAccession());
-			newCofactor.setXmlCofactorValue(cofactor.getName());
+			newCofactor.setXmlCofactorValue(cofactor.getXmlName());
 			newCofactor.setCompoundId(cofactor.getId().toString());
 			cofactorDtos.add(newCofactor);
         } else {
@@ -305,7 +304,7 @@ public class FormButtonAction extends CurationAction {
 	        			+ cofactor.getAccession());
 	        	dto.setXmlCofactorValue(dto.getXmlCofactorValue()
 	        			+ " " + Cofactor.Operators.OR_OPTIONAL.getCode() + " "
-	        			+ cofactor.getName());
+	        			+ cofactor.getXmlName());
 	        	dto.setCompoundId(dto.getCompoundId()
 	        			+ " " + Cofactor.Operators.OR_OPTIONAL.getCode() + " "
 	        			+ cofactor.getId().toString());
@@ -317,7 +316,7 @@ public class FormButtonAction extends CurationAction {
         				.append(cofactor.getAccession()).toString());
         			dto.setXmlCofactorValue(new StringBuilder(dto.getXmlCofactorValue())
     					.append(' ').append(complexCofactorOperator).append(' ')
-        				.append(cofactor.getName()).toString());
+        				.append(cofactor.getXmlName()).toString());
         			dto.setCompoundId(new StringBuilder(dto.getCompoundId())
         				.append(' ').append(complexCofactorOperator).append(' ')
         				.append(cofactor.getId().toString()).toString());
@@ -328,7 +327,7 @@ public class FormButtonAction extends CurationAction {
 	        		String[] dtoXmls = splitComplexCofactorString(dto.getXmlCofactorValue());
 	       			dto.setXmlCofactorValue(replaceSimpleCofactorString(dto.getXmlCofactorValue(),
 						dtoXmls[complexCofactorDtoInternalIndex],
-						complexCofactorOperator, cofactor.getName(), complexCofactorBrackets));
+						complexCofactorOperator, cofactor.getXmlName(), complexCofactorBrackets));
 	        		String[] dtoCompoundIds = splitComplexCofactorString(dto.getCompoundId());
 	       			dto.setCompoundId(replaceSimpleCofactorString(dto.getCompoundId(),
 						dtoCompoundIds[complexCofactorDtoInternalIndex],

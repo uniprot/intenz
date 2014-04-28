@@ -491,6 +491,9 @@ a.link:link, a.link:visited, a.link:active, a.link:hover {
 .PE {
 	color: #008;
 }
+.PM {
+	color: #07a;
+}
 .RE {
 	color: #800;
 }
@@ -531,4 +534,26 @@ ul.warning {
 }
 .warning {
 	background-color: #fe2;
+}
+
+/* ------------------ COFACTORS ------------------------ */
+
+#compoundSearchResults {
+	max-height: 36ex;
+}
+#compoundData, #intenzCompound, #chebiCompound {
+	background-color: #fc8;
+	text-align: center;
+}
+img.compoundStructure {
+	margin: 1ex 1em;
+}
+
+#intenzCompoundBox, #chebiCompoundBox {
+	padding: 1ex 1em;
+	width: 45%;
+}
+#assignChebiIdButton {
+	width: 100%;
+	margin-top: 2ex;
 }

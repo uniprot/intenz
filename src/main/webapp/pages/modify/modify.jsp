@@ -433,6 +433,7 @@
                               <td colspan="2" valign="top" nowrap="nowrap" width="100%">
                               	<html:hidden name="cofactor" property="xmlCofactorValue" indexed="true"/>
                                 <html:hidden name="cofactor" property="compoundId" indexed="true"/>
+                                <html:hidden name="cofactor" property="accession" indexed="true"/>
                                  <%@ include file="edit_cofactors.jspf" %>
                               </td>
 

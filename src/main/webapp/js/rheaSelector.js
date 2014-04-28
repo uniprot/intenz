@@ -45,14 +45,17 @@ function cancelCofactor(){
 
 function openCofactorSelector(ev, action) {
     var e = jt_fixE(ev);
+    var popupWidth = 700;
     fba = action;
     if (cofactorSelectorPopup == null) {
-        cofactorSelectorPopup = new jt_AppConfirm('chebi_icon.png', selectCofactor, cancelCofactor);
-        cofactorSelectorPopup.setWidth(700);
+        cofactorSelectorPopup =
+        	new jt_AppConfirm('chebi_icon.png', selectCofactor, cancelCofactor);
+        cofactorSelectorPopup.setWidth(popupWidth);
         cofactorSelectorPopup.setTitle("ChEBI - select a compound as cofactor");
-        cofactorSelectorPopup.setUrl('searchCofactors.do', 400);
+        cofactorSelectorPopup.setUrl('searchCofactors.do', '46ex');
     }
-    cofactorSelectorPopup.moveTo(e.clientX, e.clientY + document.body.scrollTop);
+    cofactorSelectorPopup.moveTo(e.clientX - popupWidth,
+    		e.clientY + document.body.scrollTop - 100);
     cofactorSelectorPopup.askUser("Select a compound and click OK...");
     if (cofactorSelectorPopup.focus) cofactorSelectorPopup.focus();
 }

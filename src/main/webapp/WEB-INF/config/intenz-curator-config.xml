@@ -296,14 +296,25 @@
 			type="uk.ac.ebi.intenz.webapp.controller.search.GetCofactorList">
 			<forward name="cofactorList" path=".cofactorList" />
 		</action>
-		<action path="/assignChebiId" forward=".assignChebiId" />
-		<action path="/processChebiIdAssignment"
-			type="uk.ac.ebi.intenz.webapp.controller.modification.AssignCofactorChebiIdAction">
-			<forward name="success" path="/cofactorList.do" />
-		</action>
+        <action path="/searchCofactors"
+            forward="/pages/search/cofactorSelector.jsp" />
+        <action path="/searchCofactor"
+            type="uk.ac.ebi.intenz.webapp.controller.search.SearchCofactorAction">
+            <forward name="success" path="/pages/search/compoundsList.jsp" />
+            <forward name="error" path="/pages/edit/showCompoundErrors.jsp" />
+        </action>
+        <action path="/getCompound"
+            type="uk.ac.ebi.intenz.webapp.controller.search.GetCofactorAction">
+            <forward name="success" path="/pages/view/compound.jsp" />
+            <forward name="error" path="/pages/edit/showCompoundErrors.jsp" />
+        </action>
+        <action path="/assignChebiId" forward=".assignChebiId" />
+        <action path="/processChebiIdAssignment"
+            type="uk.ac.ebi.intenz.webapp.controller.modification.AssignCofactorChebiIdAction">
+            <forward name="success" path="/cofactorList.do" />
+        </action>
 		<!-- -->
 
-		<action path="/searchCofactors" forward="/pages/search/cofactorSelector.jsp" />
 		<action path="/previewTransferEntryUpdate"
 			type="uk.ac.ebi.intenz.webapp.controller.common.PreviewEntryAction"
 			name="enzymeDTO" input=".transfer_entry_update" validate="true"
