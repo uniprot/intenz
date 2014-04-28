@@ -11,8 +11,8 @@
     <body>
         <release version="1.0.6" date="" description="Dependency updates">
             <action dev="rafalcan" type="update">
-                Updated to latest versions of parent, intenz-mapper and
-                rhea-mapper.
+                Updated to latest versions of parent, intenz-mapper,
+                rhea-biopax and rhea-mapper (whic use the new Rhea data model).
             </action>
         </release>
     	<release version="1.0.5" date="2012-11-30" description="IUBMB flags">
