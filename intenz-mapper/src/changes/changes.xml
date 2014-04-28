@@ -8,7 +8,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="4.6.0" date=""
+        <release version="4.6.0" date="2014-04-28"
             description="New Rhea data model.">
             <action dev="rafalcan" type="add">
 				Added methods to EnzymeCofactorMapper to manage compounds
