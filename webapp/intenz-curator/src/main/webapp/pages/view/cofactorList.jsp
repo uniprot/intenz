@@ -58,9 +58,9 @@ th.sorted.order2:before {
 
 <h1>IntEnz cofactors</h1>
 <div style="font-size: small;">Cofactors in IntEnz are automatically updated
-with changes in ChEBI, unless they appear also as reaction participants.<br/>
-Any changes of mappings to ChEBI IDs here won't affect reaction participants
-in Rhea.
+with changes in ChEBI.<br/>
+Any changes of mappings to ChEBI IDs here will not affect reaction participants
+in Rhea (they are kept in different tables of the database).
 </div>
 
 <display:table id="cofactor" export="false" name="requestScope.results"
@@ -68,7 +68,7 @@ in Rhea.
 	pagesize="100" sort="list" defaultsort="2" defaultorder="descending">
     <display:column title="Cofactor" sortable="true"
         headerClass="cofactorsTableHeader">
-        <form action="assignChebiId.do">
+        <form action="assignChebiId.do" method="POST">
 	        <b><xchars:translate>${cofactor.key}</xchars:translate></b>
 	        <br/>
 	        <logic:empty name="cofactor" property="key.accession">
@@ -86,10 +86,11 @@ in Rhea.
 		        	alt="Edit in ChEBI curator tool"/></a>
 	        </logic:notEmpty>
 	        <br/>
-        	<input type="hidden" name="cofactor" value="true"/>
-        	<input type="hidden" name="name" value="${cofactor.key.name}">
+        	<input type="hidden" name="oldChebiId"
+                value="${empty cofactor.key.accession?
+                    '':cofactor.key.accession}"/>
+        	<input type="hidden" name="oldName" value="${cofactor.key.name}"/>
         	<button name="id" value="${cofactor.key.id}">
-        		<img src="img/Properties16.gif" alt=""/>
         		${empty cofactor.key.accession?'Add': 'Change'} ChEBI mapping
         	</button>
        	</form>

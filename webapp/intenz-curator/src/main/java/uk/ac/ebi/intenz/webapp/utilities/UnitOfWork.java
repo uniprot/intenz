@@ -3,6 +3,7 @@ package uk.ac.ebi.intenz.webapp.utilities;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -52,8 +53,9 @@ import uk.ac.ebi.intenz.webapp.exceptions.DeregisterException;
 import uk.ac.ebi.rhea.domain.Compound;
 import uk.ac.ebi.rhea.domain.Database;
 import uk.ac.ebi.rhea.domain.Reaction;
+import uk.ac.ebi.rhea.domain.XRef.Availability;
 import uk.ac.ebi.rhea.mapper.MapperException;
-import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
+import uk.ac.ebi.rhea.webapp.SessionManager;
 
 /**
  * This is a simple <i>UnitOfWork</i> implementation to ease database updates.
@@ -607,27 +609,45 @@ public class UnitOfWork implements HttpSessionBindingListener {
 	private Object getCofactorObject(final CofactorDTO cofactorDTO, final Connection con) {
 		assert cofactorDTO != null : "Parameter 'cofactorDTO' must not be null.";
 		Object o = null;
-		if (cofactorDTO.getCompoundId().indexOf(' ') > -1){ // we have an OperatorSet
-			OperatorSet.ObjectBuilder builder = new OperatorSet.ObjectBuilder(){
+		if (cofactorDTO.getCompoundId().indexOf(' ') > -1){
+		    // we have an OperatorSet
+            String[] operators = new String[Cofactor.Operators.values().length];
+            String operatorsRegex = "[()]";
+            for (int i = 0; i < operators.length; i++){
+                operators[i] = Cofactor.Operators.values()[i].getCode();
+                operatorsRegex += "| " + operators[i] + " ";
+            }
+            final List<String> accessionsList = Arrays.asList(
+                    cofactorDTO.getAccession().split(operatorsRegex));
+            final List<String> namesList = Arrays.asList(
+                    cofactorDTO.getXmlCofactorValue().split(operatorsRegex));
+
+            OperatorSet.ObjectBuilder builder = new OperatorSet.ObjectBuilder(){
+			    EnzymeCofactorMapper cofactorMapper = new EnzymeCofactorMapper();
 				public Object parse(String s) throws Exception {
-					Long compoundId = Long.valueOf(s);
-					Compound compound = new RheaCompoundDbReader(con).find(compoundId);
-					return Cofactor.valueOf(compound, EnzymeSourceConstant.valueOf(cofactorDTO.getSource()),
+					Compound compound = cofactorMapper.findByChebiId(s, con);
+					if (compound == null){ // not stored in IntEnz yet
+					    // We need just a skeleton with name and accession:
+					    String name = namesList.get(accessionsList.indexOf(s));
+					    compound = Compound.valueOf(Compound.NO_ID_ASSIGNED,
+					            null, name, null, null, s, null);
+					}
+					return Cofactor.valueOf(compound,
+					        EnzymeSourceConstant.valueOf(cofactorDTO.getSource()),
 							EnzymeViewConstant.valueOf(cofactorDTO.getView()));
 				}
 			};
 			try {
-                String[] operators = new String[Cofactor.Operators.values().length];
-                for (int i = 0; i < operators.length; i++){
-                    operators[i] = Cofactor.Operators.values()[i].getCode();
-                }
-				o = OperatorSet.parse(cofactorDTO.getCompoundId(), operators, builder);
+                o = OperatorSet.parse(cofactorDTO.getAccession(), operators, builder);
 			} catch (Exception e) {
 				LOGGER.error(e.getMessage(), e);
 			}
 		} else {
-			Compound compound = Compound.valueOf(Long.valueOf(cofactorDTO.getCompoundId()),
-					cofactorDTO.getXmlCofactorValue(), null, 0, null, null, null, null);
+			Compound compound = Compound.valueOf(
+			        Long.valueOf(cofactorDTO.getCompoundId()),
+			        Long.valueOf(cofactorDTO.getAccession().replace("CHEBI:", "")),
+					cofactorDTO.getXmlCofactorValue(), null, null,
+					cofactorDTO.getAccession(), Availability.P);
 			o = Cofactor.valueOf(compound, EnzymeSourceConstant.valueOf(cofactorDTO.getSource()),
 					EnzymeViewConstant.valueOf(cofactorDTO.getView()));
 		}

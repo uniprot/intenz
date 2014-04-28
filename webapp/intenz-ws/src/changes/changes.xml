@@ -10,6 +10,13 @@
 	</properties>
 	
 	<body>
+        <release version="2.0.5" date=""
+            description="Dependency updates (new Rhea data model)">
+            <action dev="rafalcan" type="update">
+				Updated to latest versions of intenz-core, intenz-mapper,
+                intenz-export, intenz-ffwriter, rhea-biopax and biobabel-core.
+			</action>
+        </release>
 	    <release version="2.0.4" date="2013-09-12"
 	        description="Independent configuration from website">
             <action dev="rafalcan" type="update">

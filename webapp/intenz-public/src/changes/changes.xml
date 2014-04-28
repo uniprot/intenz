@@ -9,6 +9,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="71.0.9" date=""
+            description="Dependency updates (new Rhea data model)">
+            <action dev="rafalcan" type="update">
+				Updated to latest versions of intenz-core, intenz-mapper,
+                intenz-ffwriter, intenz-database, rhea-domain, rhea-taglib and
+                biobabel-core.
+			</action>
+        </release>
         <release version="71.0.8" date="2014-03-07"
             description="Updated dependency">
             <action dev="rafalcan" type="update">

@@ -1,6 +1,5 @@
 package uk.ac.ebi.intenz.mapper;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,8 +22,8 @@ import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.Cofactor;
 import uk.ac.ebi.rhea.domain.Compound;
+import uk.ac.ebi.rhea.domain.XRef.Availability;
 import uk.ac.ebi.rhea.mapper.MapperException;
-import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
 
 /**
  * Maps reaction information to the corresponding database tables.
@@ -39,26 +38,11 @@ public class EnzymeCofactorMapper {
 
   private static final Logger LOGGER =
 	  Logger.getLogger(EnzymeCofactorMapper.class.getName());
-  
-  protected RheaCompoundDbReader rheaCompoundReader;
 
   public EnzymeCofactorMapper(){
-	  try {
-		rheaCompoundReader = new RheaCompoundDbReader(null);
-	} catch (IOException e) {
-		throw new RuntimeException(e);
-	}
   }
   
-  /**
-   * Closes the underlying {@link RheaCompoundDbReader}.
-   */
   public void close(){
-	  try {
-		rheaCompoundReader.close();
-	} catch (MapperException e) {
-		LOGGER.error("Closing rheaCompoundReader", e);
-	}
   }
 
   	@Override
@@ -72,6 +56,10 @@ public class EnzymeCofactorMapper {
   private static final String FIND_STM =
 	  "SELECT " + COLUMNS + " FROM cofactors WHERE enzyme_id = ? AND compound_id IS NOT NULL" +
 	  " ORDER BY order_in, op_grp ASC";
+  
+  private static final String FIND_BY_CHEBI_ID =
+          "SELECT cd.compound_id, cd.name FROM compound_data cd"
+          + " WHERE cd.accession = ?";
 
   private static final String FIND_SIB_COFACTORS_STM =
 	  "SELECT " + COLUMNS + " FROM cofactors" +
@@ -82,10 +70,22 @@ public class EnzymeCofactorMapper {
 	  "SELECT cf.compound_id, cf.enzyme_id, f_quad2string(e.ec1, e.ec2, e.ec3, e.ec4) ec" +
 	  " FROM cofactors cf, enzymes e WHERE cf.compound_id IS NOT NULL and cf.enzyme_id = e.enzyme_id" +
 	  " ORDER BY compound_id";
+  
+  private static final String LOAD_COMPOUND_STM =
+          "SELECT accession, name, formula, charge, published"
+          + " FROM compound_data WHERE compound_id = ?";
 
   private static final String INSERT_STM =
 	  "INSERT INTO cofactors (" + COLUMNS + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+  private static final String INSERT_COMPOUND_STM =
+          "INSERT INTO compound_data"
+          + " (compound_id, name, source, accession) VALUES"
+          + " (s_compound_id.nextval, ?, 'CHEBI', ?)";
+  
+  private static final String DELETE_COMPOUND_STM =
+          "DELETE FROM compound_data WHERE compound_id = ?";
+  
   private static final String DELETE_ALL_STM =
 	  "DELETE cofactors WHERE enzyme_id = ?";
   
@@ -128,6 +128,34 @@ public class EnzymeCofactorMapper {
               + enzymeId);
     }
     return result;
+  }
+  
+  /**
+   * Retrieves one cofactor from the IntEnz database by its ChEBI ID.
+   * @param chebiId the ChEBI ID of the cofactor.
+   * @param con a connection to IntEnz database.
+   * @return a Compound, or <code>null</code> if it does not exist in IntEnz.
+   * @throws SQLException in case of problem retrieving the cofactor.
+   * @since 4.6.0
+   */
+  public Compound findByChebiId(String chebiId, Connection con)
+  throws SQLException{
+      Compound compound = null;
+      PreparedStatement stm = null;
+      ResultSet rs = null;
+      try {
+          stm = con.prepareStatement(FIND_BY_CHEBI_ID);
+          stm.setString(1, chebiId);
+          rs = stm.executeQuery();
+          if (rs.next()){
+              compound = new Compound(rs.getLong("compound_id"),
+                      rs.getString("name"), "CHEBI", chebiId);
+          }
+      } finally {
+          if (rs != null) rs.close();
+          if (stm != null) stm.close();
+      }
+      return compound;
   }
 
   /**
@@ -180,7 +208,6 @@ public class EnzymeCofactorMapper {
 	  Statement stm = null;
 	  ResultSet rs = null;
 	  try {
-		  rheaCompoundReader.setConnection(con);
 		  stm = con.createStatement();
 		  rs = stm.executeQuery(FIND_ALL);
 		  Long lastCompoundId = null;
@@ -191,7 +218,7 @@ public class EnzymeCofactorMapper {
 			  String ec = rs.getString("ec");
 			  if (!compoundId.equals(lastCompoundId)){
 				  // new in the result
-				  Compound compound = rheaCompoundReader.find(compoundId);
+				  Compound compound = getCompound(con, compoundId);
 				  lastMap = new HashMap<Long, String>();
 				  result.put(compound, lastMap);
 			  }
@@ -201,7 +228,6 @@ public class EnzymeCofactorMapper {
 	  } finally {
 		  if (rs != null) rs.close();
 		  if (stm != null) stm.close();
-		  rheaCompoundReader.close();
 	  }
 	  return result;
   }
@@ -243,6 +269,61 @@ public class EnzymeCofactorMapper {
 	  }
   }
 
+  /**
+   * Inserts one compound (cofactor) into the COMPOUND_DATA table.
+   * @param compound a compound.
+   * @param con a connection to the IntEnz database.
+   * @throws SQLException in case of problem inserting the row.
+   * @return the internal ID of the compound in the table.
+   * @since 4.6.0
+   */
+  public Long insertCompound(Compound compound, Connection con)
+  throws SQLException {
+      Long compoundId = null;
+      PreparedStatement stm = null;
+      ResultSet rs = null;
+      try {
+          stm = con.prepareStatement(INSERT_COMPOUND_STM,
+                  new String[]{ "compound_id" });
+          stm.setString(1, compound.getXmlName());
+          stm.setString(2, compound.getAccession());
+          int result = stm.executeUpdate();
+          if (result > 0){
+              rs = stm.getGeneratedKeys();
+              if (rs != null && rs.next()){
+                  compoundId = rs.getLong(1);
+                  compound.setId(compoundId);
+              }
+          }
+          LOGGER.info("Inserted new cofactor: " + compound.getXmlName()
+                  + " [" + compound.getAccession() + "]");
+          return compoundId;
+      } finally {
+          if (rs != null) rs.close();
+          if (stm != null) stm.close();
+      }
+  }
+  
+  /**
+   * Deletes a cofactor from the COMPOUND_DATA table.
+   * @param compoundId the internal ID of the compound.
+   * @param con a connection to the IntEnz database.
+   * @throws SQLException in case of problem with the database.
+   * @since 4.6.0
+   */
+  public void deleteCompound(Long compoundId, Connection con)
+  throws SQLException{
+      PreparedStatement stm = null;
+      try {
+          stm = con.prepareStatement(DELETE_COMPOUND_STM);
+          stm.setLong(1, compoundId);
+          stm.execute();
+          LOGGER.info("Deleted compound with internal ID " + compoundId);
+      } finally {
+          if (stm != null) stm.close();
+      }
+  }
+  
   /**
    * Reloads the given list of cofactors into the database.
    *
@@ -315,10 +396,8 @@ public class EnzymeCofactorMapper {
    * @param rs The result set object.
    * @return a <code>Cofactor</code> instance.
    * @throws SQLException if a generic database error occurs.
-   * @throws MapperException in case of error loading compounds.
-   * @throws MapperException
    */
-  private Cofactor doLoad(ResultSet rs) throws SQLException, MapperException {
+  private Cofactor doLoad(ResultSet rs) throws SQLException {
     assert rs != null;
 
     String cofactorString = "";
@@ -333,17 +412,48 @@ public class EnzymeCofactorMapper {
 
     Compound compound = null;
 	if (compoundId == Compound.NO_ID_ASSIGNED){
-		compound = Compound.valueOf(compoundId, cofactorString, null, 0, null, null, null, null);
+		compound = Compound.valueOf(compoundId, null, cofactorString, null,
+		        null, null, Availability.N);
 	} else {
-        try {
-    	    rheaCompoundReader.setConnection(rs.getStatement().getConnection());
-    	    compound = rheaCompoundReader.find(compoundId);
-        } finally {
-        	rheaCompoundReader.close();
-        }
+	    Connection connection = rs.getStatement().getConnection();
+	    compound = getCompound(connection, compoundId);
 	}
     return Cofactor.valueOf(compound, EnzymeSourceConstant.valueOf(source), EnzymeViewConstant.valueOf(view));
   }
+
+  /**
+   * Retrieves a compound (cofactor) from the database.
+   * @param connection
+   * @param compoundId the internal compound ID.
+   * @return a cofactor.
+   * @throws SQLException
+   */
+    public Compound getCompound(Connection connection, Long compoundId)
+    throws SQLException {
+        Compound compound = null;
+        PreparedStatement stm = null;
+        ResultSet cofactorRs = null;
+        try {
+            stm = connection.prepareStatement(LOAD_COMPOUND_STM);
+            stm.setLong(1, compoundId);
+            cofactorRs = stm.executeQuery();
+            if (cofactorRs.next()){
+                String accession = cofactorRs.getString("accession");
+                String name = cofactorRs.getString("name");
+                String formula = cofactorRs.getString("formula");
+                String charge = String.valueOf(cofactorRs.getInt("charge"));
+                String avail = cofactorRs.getString("published");
+                compound = Compound.valueOf(compoundId,
+                        Long.valueOf(accession.replace("CHEBI:", "")),
+                        name, formula, charge, accession,
+                        avail == null? null : Availability.valueOf(avail));
+            }
+        } finally {
+        	if (cofactorRs != null) cofactorRs.close();
+        	if (stm != null) stm.close();
+        }
+        return compound;
+    }
 
   @SuppressWarnings("unchecked")
   private Set<Object> getCofactors(ResultSet rs)
@@ -412,13 +522,14 @@ public class EnzymeCofactorMapper {
     assert !(operator == null ^ operatorGroup == null) : "No operator w/o operator group and viceversa";
 
     insertStatement.setLong(1, enzymeId.longValue());
-    insertStatement.setString(2, cofactor.getCompound().getName());
+    insertStatement.setString(2, cofactor.getCompound().getXmlName());
     insertStatement.setInt(3, orderIn);
     insertStatement.setString(4, cofactor.getSource().toString());
     insertStatement.setString(5, status.getCode());
     insertStatement.setString(6, cofactor.getView().toString());
-    if (cofactor.getCompound().getId() == Compound.NO_ID_ASSIGNED){
-    	insertStatement.setNull(7, Types.NUMERIC);
+    if (Compound.NO_ID_ASSIGNED.equals(cofactor.getCompound().getId())){
+        insertStatement.setLong(7, insertCompound(
+                cofactor.getCompound(), insertStatement.getConnection()));
     } else {
         insertStatement.setLong(7, cofactor.getCompound().getId());
     }

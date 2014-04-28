@@ -36,9 +36,11 @@ public class EnzymeEntryHelperTest extends TestCase {
 
     public void testCofactorObjectLinks(){
         OperatorSet os = new OperatorSet(Cofactor.Operators.OR_OPTIONAL.getCode());
-        os.add(Cofactor.valueOf(Compound.valueOf(Compound.NO_ID_ASSIGNED, "Foo", null, 0, "CHEBI", "CHEBI:000999", null, Availability.P),
+        os.add(Cofactor.valueOf(Compound.valueOf(Compound.NO_ID_ASSIGNED, 
+                999L, "Foo", null, null, "CHEBI:000999", Availability.P),
                 EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ));
-        os.add(Cofactor.valueOf(Compound.valueOf(Compound.NO_ID_ASSIGNED, "Bar", null, 0, "CHEBI", "CHEBI:000888", null, Availability.P),
+        os.add(Cofactor.valueOf(Compound.valueOf(Compound.NO_ID_ASSIGNED,
+                888L, "Bar", null, null, "CHEBI:000888", Availability.P),
                 EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ));
         assertEquals("<a href=\"http://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:000999\" target=\"_blank\">Foo</a>"
                 + " or <a href=\"http://www.ebi.ac.uk/chebi/searchId.do?chebiId=CHEBI:000888\" target=\"_blank\">Bar</a>",

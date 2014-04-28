@@ -3,6 +3,20 @@
 	xmlns="http://java.sun.com/xml/ns/j2ee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    
+    <context-param>
+        <description>URL to get images for small molecules. This parameter is
+            used by intenz_view.jspf.</description>
+        <param-name>chebi.img.url</param-name>
+        <param-value>/rhea/compoundImage.xhtml?dimensions=200&amp;chebiId=</param-value>
+    </context-param>
+    
+    <context-param>
+        <description>URL to get images for polymers. This parameter is used by
+            intenz_view.jspf.</description>
+        <param-name>rhea.img.url</param-name>
+        <param-value>/rhea/compoundImage.xhtml?dimensions=200&amp;polymerId=</param-value>
+    </context-param>
 
     <filter>
         <filter-name>HealthFilter</filter-name>

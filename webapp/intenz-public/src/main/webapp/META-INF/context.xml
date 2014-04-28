@@ -1,0 +1,31 @@
+<Context displayName="IntEnz public interface TEST"
+	docBase="work/Catalina/localhost"
+    antiJARLocking="true">
+
+    <Resource
+        name="jdbc/intenz/web"
+        url="jdbc:oracle:thin:@ENZTST"
+        username="enzyme"
+        password="iota"
+        type="javax.sql.DataSource"
+        factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+        driverClassName="oracle.jdbc.OracleDriver"
+        auth="Container"
+        initSQL="ALTER SESSION SET CURRENT_SCHEMA = &quot;ENZYME&quot;"
+        maxWait="15000"
+        testOnBorrow="true"
+        validationQuery="SELECT 1 FROM DUAL"
+        removeAbandoned="true"
+        logAbandoned="true"
+        removeAbandonedTimeout="60"
+        />
+        
+    <Parameter name="chebi.img.url"
+        value="/rhea-public/compoundImage.xhtml?dimensions=200&amp;chebiId="
+        override="false" />
+
+    <Parameter name="rhea.img.url"
+        value="/rhea-public/compoundImage.xhtml?dimensions=200&amp;polymerId="
+        override="false" />
+
+</Context>

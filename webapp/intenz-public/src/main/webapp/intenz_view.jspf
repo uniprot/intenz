@@ -65,7 +65,7 @@
 <c:choose>
 	<c:when test="${er.reaction.id gt 0}"> <%-- RHEA-ction --%>
         <li style="list-style-type: ${fn:length(ers) gt 1? 'disc' : 'none'}">
-            <div>
+            <div style="margin-bottom: 2ex;">
                 <span style="margin-right: 1em"
                     class="${reaction.status eq 'PM'? 'preliminary' : ''}">
                     <a target="rheaFromIntEnz" class="rheaId"
@@ -74,10 +74,14 @@
                 </span>
                 <c:if test="${er.iubmb}"><b>[IUBMB]</b></c:if>
             </div>
-            <rhea:reaction reaction="${er.reaction}"
-                showRheaId="false" showChebiId="true"
-                rheaPublicUrl="http://www.ebi.ac.uk/rhea"
-                chebiPublicUrl="http://www.ebi.ac.uk/chebi"/>
+            <div style="overflow-x: auto; white-space: nowrap; width: 100%;">
+                <rhea:reaction reaction="${er.reaction}"
+                    showRheaId="false" showChebiId="true"
+                    rheaPublicUrl="http://www.ebi.ac.uk/rhea"
+                    chebiPublicUrl="http://www.ebi.ac.uk/chebi"
+                    chebiImgUrl="${initParam['chebi.img.url']}"
+                    rheaImgUrl="${initParam['rhea.img.url']}" />
+            </div>
         </li>
 	</c:when>
 	<c:otherwise><%-- not in Rhea (old plain text) --%>

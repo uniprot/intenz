@@ -24,7 +24,7 @@ import uk.ac.ebi.rhea.mapper.db.RheaDbReader;
  * {@link #close()} method, otherwise the underlying Rhea mapper objects will
  * keep their statements open.
  * @author Michael Darsow,
- * 		Rafael Alc�ntara
+ * 		Rafael Alcántara
  * @version $Revision: 1.6 $ $Date: 2009/05/26 14:59:09 $
  */
 public class EnzymeReactionMapper {
@@ -36,7 +36,8 @@ public class EnzymeReactionMapper {
 	
   public EnzymeReactionMapper(){
 	  try {
-		rheaReader = new RheaDbReader(new RheaCompoundDbReader(null));
+		rheaReader = new RheaDbReader(
+		        new RheaCompoundDbReader((Connection) null));
 	} catch (IOException e) {
 		throw new RuntimeException(e);
 	}
