@@ -91,12 +91,12 @@
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-core</artifactId>
-			<version>4.3.3-SNAPSHOT</version>
+			<version>4.3.3</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
 			<artifactId>intenz-mapper</artifactId>
-			<version>4.6.0-SNAPSHOT</version>
+			<version>4.6.0</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
@@ -112,32 +112,32 @@
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-domain</artifactId>
-			<version>1.8.0-SNAPSHOT</version>
+			<version>1.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-mapper</artifactId>
-			<version>3.8.0-SNAPSHOT</version>
+			<version>3.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-util</artifactId>
-			<version>4.1-SNAPSHOT</version>
+			<version>4.1</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-ph</artifactId>
-			<version>1.1.5-SNAPSHOT</version>
+			<version>1.1.5</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea</groupId>
 			<artifactId>rhea-biopax</artifactId>
-			<version>1.4.8-SNAPSHOT</version>
+			<version>1.4.8</version>
 		</dependency>
         <dependency>
             <groupId>uk.ac.ebi.rhea.webapp</groupId>
             <artifactId>rhea-webapp-util</artifactId>
-            <version>1.2.3-SNAPSHOT</version>
+            <version>1.2.3</version>
             <exclusions>
                 <exclusion>
                     <groupId>uk.ac.ebi.rhea</groupId>
@@ -148,31 +148,31 @@
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-find-struts1</artifactId>
-			<version>1.4-SNAPSHOT</version>
+			<version>1.4</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-find-struts1</artifactId>
-			<version>1.4-SNAPSHOT</version>
+			<version>1.4</version>
 			<classifier>classes</classifier>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-search-struts1</artifactId>
-			<version>1.4-SNAPSHOT</version>
+			<version>1.4</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-search-struts1</artifactId>
-			<version>1.4-SNAPSHOT</version>
+			<version>1.4</version>
 			<classifier>classes</classifier>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.rhea.webapp</groupId>
 			<artifactId>rhea-taglib</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>1.1</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
