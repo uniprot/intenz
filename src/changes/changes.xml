@@ -8,6 +8,11 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.3.3" date="2014-04-28" description="New Rhea model">
+            <action dev="rafalcan" type="update">
+				Updated to latest version of rhea-domain (new data model).
+			</action>
+        </release>
         <release version="4.3.2" date="2013-06-04"
             description="Database links fixed, sorted and added.">
             <action dev="rafalcan" type="fix">
