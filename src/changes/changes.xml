@@ -7,6 +7,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.1.5" date="2014-05-16" description="Bug fix">
+            <action dev="rafalcan" type="fix">
+                Fixed drop_all.sql script: the order of statements was wrong and
+                resulted in errors because of foreign keys.
+            </action>
+        </release>
         <release version="1.1.4" date="2014-05-14"
             description="Dependency updates (new Rhea data model)">
             <action dev="rafalcan" type="update">
