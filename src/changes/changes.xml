@@ -9,6 +9,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.4.0" date="" description="New Rhea data model">
+            <action devel="rafalcan" type="update">
+                Updated to intenz-core-4.3.3, intenz-mapper-4.6.0,
+                intenz-database-1.1.4, rhea-domain-1.8.0, rhea-mapper-3.8.1
+                rhea-biopax-1.4.8 and rhea-cml-1.0.2. These updates cover the
+                new Rhea data model and changes in the database schema.
+            </action>
+        </release>
         <release version="1.3.20" date="2014-03-13"
             description="Enzyme synonyms in JSON; RHEA: prefix for xrefs">
             <action dev="rafalcan" type="add">
