@@ -29,7 +29,7 @@ BEGIN
     if (reg.parent_id is null) then
       theChebiId := reg.c_id;
     else
-      DBMS_OUTPUT.PUT_LINE(reg.c_id || ' merged to ' || reg.parent_id);
+      DBMS_OUTPUT.PUT_LINE(reg.c_id || ' *MERGED* to ' || reg.parent_id);
       theChebiId := reg.parent_id;
       -- TODO: update the ChEBI ID
     end if;
@@ -43,25 +43,25 @@ BEGIN
         and cn.source in ('UniProt','ChEBI')
         and cn.type = 'NAME'
         and cn.status in ('C','S')
-        order by cn.source desc;
+        order by cn.source desc, cn.status asc;
       if (newName != reg.i_name) then
         -- TODO: update name
-        DBMS_OUTPUT.PUT_LINE(theChebiId || ' name CHANGED from ' || reg.i_name
+        DBMS_OUTPUT.PUT_LINE(theChebiId || ' *name CHANGED* from ' || reg.i_name
           || ' to ' || newName);
-      --else
-        --DBMS_OUTPUT.PUT_LINE(theChebiId || ' name unchanged: ' || reg.i_name);
+      else
+        DBMS_OUTPUT.PUT_LINE(theChebiId || ' name unchanged: ' || reg.i_name);
       end if;
     exception
       when no_data_found then
         if (reg.i_name != reg.c_name) then
-          DBMS_OUTPUT.PUT_LINE(theChebiId || ' name ERROR - was: ' || reg.i_name
+          DBMS_OUTPUT.PUT_LINE(theChebiId || ' *name ERROR* - was: ' || reg.i_name
             || '; found in ChEBI: ' || reg.c_name );
-        --else
-          --DBMS_OUTPUT.PUT_LINE(theChebiId || ' name (ChEBI) unchanged: '
-          --  || reg.i_name);
+        else
+          DBMS_OUTPUT.PUT_LINE(theChebiId || ' name (ChEBI) unchanged: '
+            || reg.i_name);
         end if;
       when others then
-        DBMS_OUTPUT.PUT_LINE(theChebiId || ' name ERROR - ' || SQLERRM);
+        DBMS_OUTPUT.PUT_LINE(theChebiId || ' name *ERROR* - ' || SQLERRM);
     end;
     
     -- Formula:
@@ -73,21 +73,21 @@ BEGIN
         and cd.type = 'FORMULA'
         and cd.status in ('C','S');
       if (reg.i_formula != newChemData) then
-          DBMS_OUTPUT.PUT_LINE(theChebiId || ' formula CHANGED from '
+          DBMS_OUTPUT.PUT_LINE(theChebiId || ' *formula CHANGED* from '
             || reg.i_formula || ' to ' || newChemData );
           -- TODO: update formula
-      --else
-        --DBMS_OUTPUT.PUT_LINE(theChebiId || ' formula unchanged: ' || reg.i_formula);
+      else
+        DBMS_OUTPUT.PUT_LINE(theChebiId || ' formula unchanged: ' || reg.i_formula);
       end if;
     exception
       when no_data_found then
         if (reg.i_formula is not null) then
-          DBMS_OUTPUT.PUT_LINE(theChebiId || ' formula VANISHED: ' || reg.i_formula);
-        --else
-          --DBMS_OUTPUT.PUT_LINE(theChebiId || ' formula unchanged: ' || reg.i_formula);
+          DBMS_OUTPUT.PUT_LINE(theChebiId || ' *formula VANISHED*: ' || reg.i_formula);
+        else
+          DBMS_OUTPUT.PUT_LINE(theChebiId || ' formula unchanged: ' || reg.i_formula);
         end if;
       when others then
-        DBMS_OUTPUT.PUT_LINE(theChebiId || ' formula ERROR - ' || SQLERRM);
+        DBMS_OUTPUT.PUT_LINE(theChebiId || ' *formula ERROR* - ' || SQLERRM);
     end;
     
     -- Charge:
@@ -99,21 +99,21 @@ BEGIN
         and cd.type = 'CHARGE'
         and cd.status in ('C','S');
       if (reg.i_charge != newChemData) then
-          DBMS_OUTPUT.PUT_LINE(theChebiId || ' charge CHANGED from '
+          DBMS_OUTPUT.PUT_LINE(theChebiId || ' *charge CHANGED* from '
             || reg.i_charge || ' to ' || newChemData );
           -- TODO: update charge
-      --else
-        --DBMS_OUTPUT.PUT_LINE(theChebiId || ' charge unchanged: ' || reg.i_charge);
+      else
+        DBMS_OUTPUT.PUT_LINE(theChebiId || ' charge unchanged: ' || reg.i_charge);
       end if;
     exception
       when no_data_found then
         if (reg.i_charge != 0) then
-          DBMS_OUTPUT.PUT_LINE(theChebiId || ' charge VANISHED: ' || reg.i_charge);
-        --else
-          --DBMS_OUTPUT.PUT_LINE(theChebiId || ' charge unchanged: ' || reg.i_charge);
+          DBMS_OUTPUT.PUT_LINE(theChebiId || ' *charge VANISHED*: ' || reg.i_charge);
+        else
+          DBMS_OUTPUT.PUT_LINE(theChebiId || ' charge unchanged: ' || reg.i_charge);
         end if;
       when others then
-        DBMS_OUTPUT.PUT_LINE(theChebiId || ' charge ERROR - ' || SQLERRM);
+        DBMS_OUTPUT.PUT_LINE(theChebiId || ' *charge ERROR* - ' || SQLERRM);
     end;
   end loop;
 END;
