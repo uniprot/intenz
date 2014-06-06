@@ -106,9 +106,14 @@ public class IntEnzActionServlet extends ActionServlet {
                     .getInitParameter("intenz.db.config"));
         Connection con = odbi.getConnection();
         con.setAutoCommit(false);
-        Statement stm = con.createStatement();
-        stm.execute("{CALL auditpackage.setosuser('"
-                + request.getUserPrincipal().getName() + " (webapp)" + "')}");
+        Statement stm = null;
+        try {
+            stm = con.createStatement();
+            stm.execute("{CALL auditpackage.setosuser('"
+                    + request.getUserPrincipal().getName() + " (webapp)" + "')}");
+        } finally {
+            if (stm != null) stm.close();
+        }
         request.getSession().setAttribute("connectionBindingListener", new ConnectionBindingListener(con));
         request.getSession().setAttribute("connection", con);
         request.getSession().setAttribute("rhea.connection", con);
