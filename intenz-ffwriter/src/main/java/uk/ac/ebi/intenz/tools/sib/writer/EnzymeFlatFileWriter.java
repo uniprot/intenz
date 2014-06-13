@@ -500,11 +500,15 @@ public class EnzymeFlatFileWriter {
     int count = 0;
     for (int iii = 0; iii < DRCrossReferences.size(); iii++) {
       EnzymeCrossReference enzymeCrossReference = (EnzymeCrossReference) DRCrossReferences.get(iii);
-      if (count == 0)
+      if (count == 0){
         DRContent.append("DR   ");
-      DRContent.append(enzymeCrossReference.getAccessionNumber());
+      }
+      // UniProt accessions may have from 6 up to 10 characters:
+      DRContent.append(getPaddedString(
+              enzymeCrossReference.getAccessionNumber(), 10));
       DRContent.append(", ");
-      DRContent.append(getNameWithLength11(enzymeCrossReference.getPropertyValue(EnzymeCrossReference.PROPERTY_DESCRIPTION)));
+      DRContent.append(getPaddedString(enzymeCrossReference.getPropertyValue(
+              EnzymeCrossReference.PROPERTY_DESCRIPTION), 11));
       DRContent.append(";  ");
       if (count == 2) {
         count = 0;
@@ -561,23 +565,20 @@ public class EnzymeFlatFileWriter {
 
     return groupedCrossReferences;
   }
-
+  
   /**
-   * Returns the normalised (name length max. is 11 characters at the moment) SwissProt cross reference name.
-   *
-   * @param name The cross reference name.
-   * @return the normalised cross reference name.
+   * Pads a string with trailing spaces up to a given length.
+   * @param s the string to pad.
+   * @param length the desired final length.
+   * @return a string with trailing spaces of length <code>length</code>.
    */
-  private static String getNameWithLength11(String name) {
-    assert name != null : name;
-
-    if (name.length() == 11) return name;
-    StringBuilder name11 = new StringBuilder(name);
-    for (int iii = name.length(); iii < 11; iii++) {
-      name11.append(" ");
-    }
-
-    return name11.toString();
+  private static String getPaddedString(String s, int length){
+      if (s.length() == length) return s;
+      StringBuilder sb = new StringBuilder(s);
+      for (int i = s.length(); i < length; i++){
+          sb.append(' ');
+      }
+      return sb.toString();
   }
 
   /**
