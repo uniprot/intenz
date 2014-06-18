@@ -7,6 +7,14 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.1.5" date="2014-06-18"
+            description="Split script to Rhea">
+            <action dev="rafalcan" type="remove">
+                Removed increment of Rhea release number from SQL script, which
+                now is not named in plural but in singular
+                (increaseReleaseNumber).
+            </action>
+        </release>
         <release version="1.1.4" date="2014-05-14"
             description="Dependency updates (new Rhea data model)">
             <action dev="rafalcan" type="update">
