@@ -9,12 +9,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="1.3.21" date=""
+        <release version="1.4.0" date=""
             description="Dependency updates (new Rhea data model)">
             <action dev="rafalcan" type="update">
-				Updated to latest versions of intenz-core, intenz-mapper,
-                intenz-biopax, intenz-database, rhea-domain, rhea-mapper and
-                biobabel-core.
+				Updated to intenz-core-4.3.3, intenz-mapper-4.6.0,
+                intenz-biopax-1.0.6, intenz-database-1.1.5, rhea-domain-1.8.1,
+                rhea-mapper-3.8.3 and biobabel-core-0.18.
 			</action>
         </release>
         <release version="1.3.20" date="2014-03-13"
