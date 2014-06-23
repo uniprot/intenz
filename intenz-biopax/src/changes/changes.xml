@@ -9,10 +9,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="1.0.6" date="" description="Dependency updates">
+        <release version="1.0.6" date="2014-06-23"
+            description="Dependency updates (new Rhea data model)">
             <action dev="rafalcan" type="update">
-                Updated to latest versions of parent, intenz-mapper,
-                rhea-biopax and rhea-mapper (whic use the new Rhea data model).
+                Updated to latest versions of parent, intenz-mapper-4.6.0,
+                rhea-biopax-1.4.8 and rhea-mapper-3.8.2 (whic use the new Rhea
+                data model).
             </action>
         </release>
     	<release version="1.0.5" date="2012-11-30" description="IUBMB flags">
