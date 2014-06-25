@@ -9,7 +9,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="1.4.0" date=""
+        <release version="1.4.0" date="2014-06-25"
             description="Dependency updates (new Rhea data model)">
             <action dev="rafalcan" type="update">
 				Updated to intenz-core-4.3.3, intenz-mapper-4.6.0,
