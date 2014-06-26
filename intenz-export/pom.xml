@@ -4,7 +4,7 @@
 
 	<groupId>uk.ac.ebi.intenz</groupId>
 	<artifactId>intenz-export</artifactId>
-	<version>1.4.0-SNAPSHOT</version>
+	<version>1.4.0</version>
 	<name>IntEnz export module</name>
 	<description>Module to export IntEnz in different formats</description>
 
