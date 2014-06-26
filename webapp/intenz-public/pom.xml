@@ -226,10 +226,4 @@
         </plugins>
     </reporting>
 
-
-  <scm>
-    <connection>scm:svn:svn://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-public-71.0.9</connection>
-    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/intenz/code/intenz/tags/intenz-public-71.0.9</developerConnection>
-    <url>https://sourceforge.net/p/intenz/code/webapp/intenz-public/tags/intenz-public-71.0.9</url>
-  </scm>
 </project>
