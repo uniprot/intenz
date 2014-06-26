@@ -6,7 +6,7 @@
 	<artifactId>intenz-public</artifactId>
     <name>IntEnz public webapp</name>
 	<packaging>war</packaging>
-	<version>71.0.9</version>
+	<version>71.0.10-SNAPSHOT</version>
 	<description>IntEnz public web application</description>
 
 	<parent>
