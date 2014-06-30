@@ -163,7 +163,7 @@ public class CC_LineFormatter extends DefaultLineFormatter {
       {"etc., ", ".*?"},
       {"etc.", ".*?"},
       {"etc.,", ".*?"},
-      {"sp. ", "(\\p{Lower}|\\p{Upper}+[ -]?\\p{Digit}+|OxB-1|PCC|A1-3|No\\.|\\d+|\\(|WS).*?"},
+      {"sp. ", "(\\p{Lower}|\\p{Upper}+[ -]?\\p{Digit}+|OxB-1|YAA|PCC|A1-3|No\\.|\\d+|\\(|WS).*?"},
       {"sp., ", ".*?"},
       {"sp.", ".*?"},
       {"sp.,", ".*?"},
