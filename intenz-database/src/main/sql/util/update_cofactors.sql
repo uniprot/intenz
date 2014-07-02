@@ -21,12 +21,9 @@ BEGIN
       where not exists (
       select 1 from cofactors where cofactors.compound_id = cd.compound_id))
   loop
-    --DBMS_OUTPUT.PUT_LINE(reg.compound_id || ' should be removed from COMPOUND_DATA table');
+    delete from compound_data where compound_id = reg.compound_id;
     remCofactors := remCofactors + 1;
   end loop;
-  if (remCofactors > 0) then
-    delete from compound_data where compound_id = reg.compound_id;
-  end if;
   
   /* Update remaining compounds (cofactors): */
   for reg in (SELECT
