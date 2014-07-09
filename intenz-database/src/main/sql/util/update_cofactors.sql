@@ -134,7 +134,7 @@ BEGIN
     end;
   end loop;
   
-  DBMS_OUTPUT.PUT_LINE('');
+  DBMS_OUTPUT.PUT_LINE(CHR(10));
   DBMS_OUTPUT.PUT_LINE('Unused cofactors removed: ' || remCofactors);
   DBMS_OUTPUT.PUT_LINE('Updated ChEBI IDs: ' || updatedChebiIds);
   DBMS_OUTPUT.PUT_LINE('Updated names: ' || updatedNames);
