@@ -4,6 +4,8 @@ ChEBI. Sends the report to stdout.
 */
 
 SET SERVEROUTPUT ON;
+SET FEEDBACK OFF;
+SET ECHO OFF;
 
 DECLARE
   remCofactors number := 0;
