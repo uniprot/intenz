@@ -50,6 +50,21 @@ GRANT SELECT ON cv_view TO ENZYME_SELECT;
 GRANT EXECUTE ON reaction_qualifiers TO ENZYME_SELECT;
 GRANT SELECT ON releases TO ENZYME_SELECT;
 
+-- Rhea tables added after the upgrade to handle generics and polymers:
+grant select on chebi_alias to ENZYME_SELECT;
+grant select on chebi_compound to ENZYME_SELECT;
+grant select on chebi_compound_update to ENZYME_SELECT;
+grant select on chebi_name to ENZYME_SELECT;
+grant select on chebi_normalized_exception to ENZYME_SELECT;
+grant select on chebi_notchemical to ENZYME_SELECT;
+grant select on chebi_rhea_compound to ENZYME_SELECT;
+grant select on generic to ENZYME_SELECT;
+grant select on polymer to ENZYME_SELECT;
+grant select on polymer_sru to ENZYME_SELECT;
+grant select on residue to ENZYME_SELECT;
+grant select on rhea_compound to ENZYME_SELECT;
+grant select on small_molecule to ENZYME_SELECT;
+
 -- Concrete users for the ENZYME_SELECT role:
 
 GRANT ENZYME_SELECT TO enzyme_webserver;

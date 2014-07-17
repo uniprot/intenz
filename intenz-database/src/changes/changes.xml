@@ -7,6 +7,12 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.1.6" date="2014-07-17"
+            description="Added grants to rhea tables">
+            <action dev="rafalcan" type="add">
+                Added missing grants to read-only users on Rhea tables.
+            </action>
+        </release>
         <release version="1.1.5" date="2014-06-18"
             description="Split script to Rhea">
             <action dev="rafalcan" type="remove">
