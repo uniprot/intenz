@@ -5,8 +5,8 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="1.0.12" date=""
-            description="Dependency updates (new Rhea data model)">
+        <release version="1.0.12" date="2014-07-17"
+            description="Dependency updates (new Rhea data model). 1st git tag.">
             <action dev="rafalcan" type="update">
                 Updated to latest versions of parent, intenz-mapper, biobabel-db
                 and log4j.

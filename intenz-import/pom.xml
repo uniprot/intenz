@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>uk.ac.ebi.intenz</groupId>
     <artifactId>intenz-import</artifactId>
-    <version>1.0.12-SNAPSHOT</version>
+    <version>1.0.12</version>
     <name>IntEnz import module</name>
     <description>Module to import external cross references</description>
 
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-mapper</artifactId>
-            <version>4.5.2-SNAPSHOT</version>
+            <version>4.6.0</version>
         </dependency>
         <dependency>
             <groupId>uk.ac.ebi.uniprot.kraken</groupId>
