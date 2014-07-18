@@ -9,6 +9,11 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.4.1" date="2014-07-18" description="Git tag.">
+            <action dev="rafalcan" type="fix">
+                Just a tag created with git, containing the whole code tree.
+            </action>
+        </release>
         <release version="1.4.0" date="2014-06-26"
             description="Dependency updates (new Rhea data model)">
             <action dev="rafalcan" type="update">
