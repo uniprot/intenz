@@ -3,7 +3,6 @@ package uk.ac.ebi.intenz.mapper;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-
 import junit.framework.TestCase;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
@@ -26,7 +25,7 @@ public class EnzymeLinkMapperTest extends TestCase {
 
     // NOTE: For these tests to work, the database must contain an entry with this id:
     private static Long id = new Long(16059l);
-
+    
     public void testFind() throws Exception {
         Long id1002 = new Long(1002l);
         List<?> entries = elm.find(id1002, con);

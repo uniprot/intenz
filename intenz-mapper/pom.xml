@@ -58,7 +58,7 @@
             <artifactId>ojdbc5</artifactId>
             <version>11.1.0.7.0</version>
 			<scope>provided</scope>
-		</dependency>
+        </dependency>    
         <dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
 			<artifactId>biobabel-db</artifactId>
