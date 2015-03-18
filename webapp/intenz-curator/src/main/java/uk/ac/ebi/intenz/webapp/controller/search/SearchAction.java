@@ -1,20 +1,28 @@
 package uk.ac.ebi.intenz.webapp.controller.search;
 
-import org.apache.struts.action.*;
-import org.apache.log4j.Logger;
-import uk.ac.ebi.intenz.webapp.dtos.SearchForm;
-import uk.ac.ebi.xchars.SpecialCharacters;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import uk.ac.ebi.intenz.webapp.dtos.SearchForm;
+import uk.ac.ebi.xchars.SpecialCharacters;
 
 /**
  * This Action ...
@@ -201,12 +209,15 @@ public class SearchAction extends Action {
 
   private String preParseQuery(String query) {
     query = detagString(query, true);
-
+    if(!query.isEmpty() && query.length() >0){
+       
     // Dots at the end of a searchForm.getQ() string combined with a wildcard operator
     // are not supported by interMedia (i.e. this is an interMedia error).
-    if (query.charAt(query.length() - 1) == '%' && query.charAt(query.length() - 2) == '.') {
+    if ( query.charAt(query.length() - 1) == '%' && query.charAt(query.length() - 2) == '.') {
       query = query.substring(0, query.length() - 2) + "%";
     }
+  }
+    
 
     return query;
   }

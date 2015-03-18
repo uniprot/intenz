@@ -19,7 +19,8 @@
 %>
 <html>
   <head>
-      <title>Search results for '<bean:write name="query" filter="true"/>' - Integrated Enzyme Database (IntEnz)</title>
+       <title>Search results for '${query}' - Integrated Enzyme Database (IntEnz)</title>
+ <%--      <title>Search results for '<bean:write name="query" filter="true"/>' - Integrated Enzyme Database (IntEnz)</title>--%>
       <link rel="stylesheet" href="<html:rewrite forward='intenzStyle'/>" type="text/css">
       <link rel="stylesheet" href="<html:rewrite forward='tabbedMenuStyle'/>" type="text/css">
     

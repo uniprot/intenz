@@ -4,17 +4,14 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.ActionServlet;
-
 import uk.ac.ebi.biobabel.util.db.DatabaseInstance;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.biobabel.webapp.listeners.ConnectionBindingListener;
@@ -101,6 +98,13 @@ public class IntEnzActionServlet extends ActionServlet {
      */
     private Connection establishConnection(HttpServletRequest request)
             throws SQLException, IOException, ClassNotFoundException {
+        
+        //only used locally due to issue with locating tns_admin in Netbeans IDE
+//         String userHome = System.getProperty("user.home");
+//                  System.setProperty(
+//                    "oracle.net.tns_admin",
+//                    userHome + "/tns_admin");
+        
         DatabaseInstance odbi = OracleDatabaseInstance.getInstance(
                 this.getServletConfig().getServletContext()
                     .getInitParameter("intenz.db.config"));
