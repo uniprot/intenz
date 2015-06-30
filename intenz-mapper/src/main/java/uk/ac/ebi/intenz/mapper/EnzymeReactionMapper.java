@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions;
+import uk.ac.ebi.intenz.rhea.mapper.db.IntEnzRheaCompoundDbReader;
+import uk.ac.ebi.intenz.rhea.mapper.db.IntEnzRheaDbReader;
 import uk.ac.ebi.rhea.domain.Database;
 import uk.ac.ebi.rhea.domain.Reaction;
 import uk.ac.ebi.rhea.domain.Status;
@@ -32,12 +34,15 @@ public class EnzymeReactionMapper {
 	private static final Logger LOGGER =
 		Logger.getLogger(EnzymeReactionMapper.class.getName());
 	
-	protected RheaDbReader rheaReader;
+//	protected RheaDbReader rheaReader;
+	protected IntEnzRheaDbReader rheaReader;
 	
   public EnzymeReactionMapper(){
 	  try {
-		rheaReader = new RheaDbReader(
-		        new RheaCompoundDbReader((Connection) null));
+//		rheaReader = new RheaDbReader(
+//		        new RheaCompoundDbReader((Connection) null));
+		  rheaReader = new IntEnzRheaDbReader(
+			        new IntEnzRheaCompoundDbReader((Connection) null));
 	} catch (IOException e) {
 		throw new RuntimeException(e);
 	}
