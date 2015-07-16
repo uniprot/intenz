@@ -11,9 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-
 import org.apache.log4j.Logger;
-
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameTypeConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
 import uk.ac.ebi.intenz.domain.constants.Status;
@@ -557,7 +555,7 @@ public class EnzymeEntryMapper {
       if (rs.next()) {
     	  if (ghost){
     		  result = doLoadGhost(rs);
-    	  } else {
+       	  } else {
     	      result = doLoad(rs);
     	      findEnzymeData(result, con);
     	  }

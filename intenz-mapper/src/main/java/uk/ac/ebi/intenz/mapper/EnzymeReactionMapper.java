@@ -5,9 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import org.apache.log4j.Logger;
-
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions;
 import uk.ac.ebi.rhea.domain.Database;
@@ -187,7 +185,8 @@ public class EnzymeReactionMapper {
     		insertReaction(enzymeId, reaction, view, iubmb, i+1, con);
     	} else {
     		insertMapping(enzymeId, reaction.getId(), view, iubmb, i+1, con);
-    	}
+        
+        }
     }
   }
   

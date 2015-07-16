@@ -25,6 +25,7 @@ public class EnzymeLinkMapperTest extends TestCase {
 
     // NOTE: For these tests to work, the database must contain an entry with this id:
     private static Long id = new Long(16059l);
+    //private static Long id= 21883l;
     
     public void testFind() throws Exception {
         Long id1002 = new Long(1002l);
@@ -76,6 +77,14 @@ public class EnzymeLinkMapperTest extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
+             String userHome = System.getProperty("user.home");
+
+        if (userHome != null) {
+            System.setProperty(
+                    "oracle.net.tns_admin",
+                    userHome + "/tns_admin");
+        }
+        
         con = OracleDatabaseInstance.getInstance("intenz-db-dev")
             .getConnection();
     }
