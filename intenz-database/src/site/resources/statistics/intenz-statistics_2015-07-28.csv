@@ -1,0 +1,35 @@
+Release number,111
+Release date,2015-07-28
+Classes,6
+Subclasses,69
+SubSubclasses,294
+Synonyms,20776
+Enzymes by status:
+APPROVED (active),5559
+APPROVED (inactive),899
+PRELIMINARY (active),63
+PRELIMINARY (inactive),159
+Xrefs - total:
+DIAGRAM,1782
+GO,3980
+PROSITE,1438
+Swiss-Prot,233658
+Xrefs - unique:
+DIAGRAM,597
+GO,3951
+PROSITE,465
+Swiss-Prot,220860
+Links - total:
+CAS,3344
+ERGO,161
+MEROPS,344
+NIST 74,350
+UM-BBD,217
+WIT,638
+Links - unique:
+CAS,3186
+ERGO,1
+MEROPS,337
+NIST 74,1
+UM-BBD,62
+WIT,593
