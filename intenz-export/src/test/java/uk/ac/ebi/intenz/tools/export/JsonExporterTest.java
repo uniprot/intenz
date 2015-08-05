@@ -1,7 +1,6 @@
 package uk.ac.ebi.intenz.tools.export;
 
 import java.sql.Connection;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +26,11 @@ public class JsonExporterTest {
 
     @Before
     public void setUp() throws Exception {
+//        //only used when IDE cannot get System environment variables
+//        String userHome = System.getProperty("user.home");           
+////        System.setProperty(
+////                    "oracle.net.tns_admin",
+////                    userHome + "/tns_admin"); 
         con = OracleDatabaseInstance.getInstance("intenz-db-dev")
                 .getConnection();
         exporter = new JsonExporter();
@@ -34,7 +38,9 @@ public class JsonExporterTest {
 
     @After
     public void tearDown() throws Exception {
-        if (con != null) con.close();
+        if (con != null) {
+            con.close();
+        }
     }
 
     @Test

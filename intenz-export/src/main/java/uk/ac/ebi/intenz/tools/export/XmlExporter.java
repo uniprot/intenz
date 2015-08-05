@@ -1,5 +1,6 @@
 package uk.ac.ebi.intenz.tools.export;
 
+import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -26,14 +26,12 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.xml.sax.SAXException;
 import org.xml_cml.schema.cml2.react.Cml;
 import org.xml_cml.schema.cml2.react.Label;
-
 import uk.ac.ebi.biobabel.util.collections.OperatorSet;
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameQualifierConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
@@ -77,8 +75,6 @@ import uk.ac.ebi.intenz.xml.jaxb.XmlContentType;
 import uk.ac.ebi.rhea.cml.CmlMapper;
 import uk.ac.ebi.rhea.domain.Database;
 import uk.ac.ebi.rhea.domain.Reaction;
-
-import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
 /**
  * Exporter of IntEnz data in XML format.
@@ -250,7 +246,9 @@ public class XmlExporter implements IntenzExporter {
             intenz.setRelease(BigInteger.valueOf(releaseNumber));
             intenz.setDate(DatatypeFactory.newInstance()
                     .newXMLGregorianCalendar(releaseDate));
+            if(enzymes != null){
             for (EnzymeEntry entry : enzymes) {
+                if(entry != null){
                 int ec1 = entry.getEc().getEc1();
                 int ec2 = entry.getEc().getEc2();
                 int ec3 = entry.getEc().getEc3();
@@ -261,9 +259,13 @@ public class XmlExporter implements IntenzExporter {
 
                 EntryType jaxbEntry = getJaxbEntry(entry);
                 subSubClazz.getEnzyme().add(jaxbEntry);
+                }
+                marshaller.marshal(intenz, getXMLSerializer(os));
             }
     //        marshaller.marshal(intenz, os);
-            marshaller.marshal(intenz, getXMLSerializer(os));
+           // marshaller.marshal(intenz, getXMLSerializer(os));
+           
+            }
         } catch (JAXBException e) {
             throw new IOException(e);
         } catch (DatatypeConfigurationException e) {
@@ -691,6 +693,7 @@ public class XmlExporter implements IntenzExporter {
 				if (!reaction.getStatus().isPublic()) continue;
 				org.xml_cml.schema.cml2.react.Reaction cmlReaction =
 						new CmlMapper().mapRheaReaction(reaction);
+                                System.out.println("CML REACTION "+ cmlReaction);
 				// As of 2012-11-13, Rhea reactions are only used in IntEnz view
 				Label viewLabel = new Label();
 				viewLabel.setValue("view:" + ViewType.INTENZ);
