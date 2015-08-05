@@ -8,7 +8,7 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
-        <release version="4.6.1" date="2014-04-28" description="Access to rhea after db split">
+        <release version="4.6.1" date="" description="Access to rhea after db split">
             <action type="update" system="xxxjira_ebi_tobeconfigured" issue="UES-12">
 				Using new intenz-rhea-mapper to access rhea data from intenz after the db split, instead
 				of rhea-mapper - see UES-12 for details.
