@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>Rhea mapper module change log</title>
+    </properties>
+    <body>
+        <release version="1.0" date="" description="Access to rhea after db split">
+            <action type="add" system="xxxjira_ebi_tobeconfigured" issue="UES-12">
+				Creation of intenz-rhea-mapper to access rhea data from intenz after the db split.
+				Basically, the IntenzRheaCompoundDbReader.java extends the RheaCompoundDbReader.java in
+				order to have specific sql queries. This is needed for CLOB access when using oracle database link
+			</action>
+        </release>		
+    </body>
+</document>
