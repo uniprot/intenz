@@ -373,3 +373,349 @@ SELECT cc.chebi_id, cc.rhea_ascii_name as name, cc.rhea_xml_name as xml_name, cc
 	FROM chebi_compound cc \
 	INNER JOIN chebi_normalized_exception cn ON cn.chebi_id=cc.chebi_id \
 	WHERE cc.chebi_id= ?
+
+
+--reaction.core:\
+SELECT equation, status, source, iubmb, qualifiers, data_comment, \
+    reaction_comment, public_in_chebi, direction, un_reaction \
+	FROM intenz_reactions WHERE reaction_id = ?
+
+--citations:\
+SELECT pub_id, source FROM reaction_citations \
+	WHERE reaction_id = f_rhea_family_id(?)
+
+--xrefs:\
+SELECT db_code, db_accession FROM reaction_xrefs \
+	WHERE reaction_id = ? ORDER BY db_code, db_accession
+
+
+--enzymes.related:\
+SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status \
+	FROM enzymes e, reactions_map rm \
+	WHERE rm.reaction_id = ? \
+	AND rm.enzyme_id = e.enzyme_id \
+	AND e.status IN ('OK','PM') AND e.active = 'Y' \
+	AND e.enzyme_id NOT IN \
+		(SELECT before_id FROM history_events WHERE event_class = 'MOD') \
+UNION \
+SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status \
+	FROM enzymes e, reactions_map rm, reaction_mergings rme \
+	WHERE (rme.to_id = ? and rm.reaction_id = rme.from_id) \
+	AND rm.enzyme_id = e.enzyme_id \
+	AND e.status IN ('OK','PM') AND e.active = 'Y' \
+	AND e.enzyme_id NOT IN \
+		(SELECT before_id FROM history_events WHERE event_class = 'MOD') \
+	ORDER BY ec
+
+--family.enzymes.related:\
+SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status, ir.direction \
+	FROM enzymes e, reactions_map rm, intenz_reactions ir \
+	WHERE rm.reaction_id IN \
+        (SELECT reaction_id FROM intenz_reactions \
+        WHERE reaction_id = ? OR un_reaction = ?) \
+	AND rm.enzyme_id = e.enzyme_id \
+	AND e.status IN ('OK','PM') AND e.active = 'Y' \
+	AND e.enzyme_id NOT IN \
+		(SELECT before_id FROM history_events WHERE event_class = 'MOD') \
+    AND rm.reaction_id = ir.reaction_id \
+UNION \
+SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status, ir.direction \
+	FROM enzymes e, reactions_map rm, reaction_mergings rme, intenz_reactions ir \
+	WHERE (rme.to_id IN \
+        (SELECT reaction_id FROM intenz_reactions \
+        WHERE reaction_id = ? OR un_reaction = ?) \
+    AND rm.reaction_id = rme.from_id) \
+	AND rm.enzyme_id = e.enzyme_id \
+	AND e.status IN ('OK','PM') AND e.active = 'Y' \
+	AND e.enzyme_id NOT IN \
+		(SELECT before_id FROM history_events WHERE event_class = 'MOD') \
+    AND rm.reaction_id = ir.reaction_id \
+	ORDER BY ec
+
+--citations:\
+SELECT pub_id, source FROM reaction_citations \
+	WHERE reaction_id = f_rhea_family_id(?)
+
+
+------------------------------
+-- importing everything from rhea module
+------------------------------
+
+--constraint.compound.name:\
+AND cd.name LIKE ?
+
+--constraint.compound.name.ignore.case:\
+AND LOWER(cd.ascii_name) LIKE LOWER(?)
+
+--constraint.directional:\
+AND ir.direction IN ('LR', 'RL')
+
+--constraint.direction:\
+AND ir.direction = ?
+
+--constraint.status:\
+AND ir.status = ?
+
+--constraint.merged:\
+AND EXISTS \
+	(SELECT mg.from_id FROM reaction_mergings mg \
+	WHERE mg.from_id = ir.reaction_id)
+
+--constraint.not.merged:\
+AND NOT EXISTS \
+	(SELECT mg.from_id FROM reaction_mergings mg \
+	WHERE mg.from_id = ir.reaction_id)
+
+--constraint.complex.stepwise:\
+AND cr.order_in > 0
+
+--constraint.complex.coupled:\
+AND cr.order_in = 0
+	
+--reaction.core:\
+SELECT equation, status, source, iubmb, qualifiers, data_comment, \
+    reaction_comment, public_in_chebi, direction, un_reaction \
+	FROM intenz_reactions WHERE reaction_id = ?
+	
+--reaction.directional.id:\
+SELECT reaction_id \
+	FROM intenz_reactions \
+	WHERE un_reaction = ? AND direction = ?
+
+--reaction.participants:\
+SELECT rp.side, rp.coefficient, rp.coeff_type, rp.compound_id, rp.location \
+	FROM intenz_reactions ir, reaction_participants rp \
+	WHERE ir.reaction_id = ? \
+	AND (ir.reaction_id = rp.reaction_id OR ir.un_reaction = rp.reaction_id) \
+	ORDER BY rp.side ASC
+
+--enzymes.related:\
+SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status \
+	FROM enzymes e, reactions_map rm \
+	WHERE rm.reaction_id = ? \
+	AND rm.enzyme_id = e.enzyme_id \
+	AND e.status IN ('OK','PM') AND e.active = 'Y' \
+	AND e.enzyme_id NOT IN \
+		(SELECT before_id FROM history_events WHERE event_class = 'MOD') \
+UNION \
+SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status \
+	FROM enzymes e, reactions_map rm, reaction_mergings rme \
+	WHERE (rme.to_id = ? and rm.reaction_id = rme.from_id) \
+	AND rm.enzyme_id = e.enzyme_id \
+	AND e.status IN ('OK','PM') AND e.active = 'Y' \
+	AND e.enzyme_id NOT IN \
+		(SELECT before_id FROM history_events WHERE event_class = 'MOD') \
+	ORDER BY ec
+
+--family.enzymes.related:\
+SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status, ir.direction \
+	FROM enzymes e, reactions_map rm, intenz_reactions ir \
+	WHERE rm.reaction_id IN \
+        (SELECT reaction_id FROM intenz_reactions \
+        WHERE reaction_id = ? OR un_reaction = ?) \
+	AND rm.enzyme_id = e.enzyme_id \
+	AND e.status IN ('OK','PM') AND e.active = 'Y' \
+	AND e.enzyme_id NOT IN \
+		(SELECT before_id FROM history_events WHERE event_class = 'MOD') \
+    AND rm.reaction_id = ir.reaction_id \
+UNION \
+SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status, ir.direction \
+	FROM enzymes e, reactions_map rm, reaction_mergings rme, intenz_reactions ir \
+	WHERE (rme.to_id IN \
+        (SELECT reaction_id FROM intenz_reactions \
+        WHERE reaction_id = ? OR un_reaction = ?) \
+    AND rm.reaction_id = rme.from_id) \
+	AND rm.enzyme_id = e.enzyme_id \
+	AND e.status IN ('OK','PM') AND e.active = 'Y' \
+	AND e.enzyme_id NOT IN \
+		(SELECT before_id FROM history_events WHERE event_class = 'MOD') \
+    AND rm.reaction_id = ir.reaction_id \
+	ORDER BY ec
+
+--citations:\
+SELECT pub_id, source FROM reaction_citations \
+	WHERE reaction_id = f_rhea_family_id(?)
+
+--xrefs:\
+SELECT db_code, db_accession FROM reaction_xrefs \
+	WHERE reaction_id = ? ORDER BY db_code, db_accession
+
+--xrefs.uniprot:\
+select distinct x.database_ac, x.name \
+	from reactions_map rm, xrefs x, enzymes e \
+	where rm.reaction_id = ?  \
+	and rm.enzyme_id = e.enzyme_id and e.status in ('OK','PM') \
+	and e.active = 'Y' \
+	and rm.enzyme_id = x.enzyme_id \
+	and x.database_code = 'S' \
+	order by x.name
+
+--family.xrefs:\
+SELECT ir.direction, rx.db_code, rx.db_accession \
+    FROM intenz_reactions ir, reaction_xrefs rx \
+    WHERE (ir.reaction_id = ? OR ir.un_reaction = ?) /* A FAMILY ID! */ \
+    AND ir.reaction_id = rx.reaction_id \
+    ORDER BY ir.reaction_id
+
+--family.xrefs.uniprot:\
+select distinct ir.direction, x.database_ac, x.name \
+	from intenz_reactions ir, reactions_map rm, xrefs x, enzymes e \
+	where (ir.reaction_id = ? or ir.un_reaction = ?) \
+	and ir.reaction_id = rm.reaction_id \
+	and rm.enzyme_id = x.enzyme_id \
+	and x.database_code = 'S' \
+	and rm.enzyme_id = e.enzyme_id and e.status in ('OK','PM') \
+	and e.active = 'Y' \
+	order by x.name
+
+--simple.by.compound.name:\
+SELECT ir.equation, ir.source, ir.iubmb, ir.reaction_id, ir.qualifiers, ir.status \
+	FROM intenz_reactions ir, chebi_rhea_compound cd, reaction_participants rp \
+	WHERE (ir.un_reaction = rp.reaction_id or ir.reaction_id = rp.reaction_id) \
+	AND rp.compound_id = cd.compound_id \
+	{0} {1} {2} {3} \
+	ORDER BY reaction_id ASC
+	
+--complex.by.compound.name:\
+SELECT ir.equation, ir.source, ir.iubmb, ir.reaction_id, ir.qualifiers, ir.status \
+	FROM intenz_reactions ir, complex_reactions cr \
+	WHERE ir.reaction_id = cr.parent_id \
+	AND cr.child_id IN (\
+		SELECT DISTINCT intenz_reactions.reaction_id \
+		FROM intenz_reactions, reaction_participants, chebi_rhea_compound cd \
+		WHERE intenz_reactions.un_reaction = reaction_participants.reaction_id \
+		AND reaction_participants.compound_id = cd.compound_id \
+		{0}) \
+	{1} {2} {3} {4} \
+	ORDER BY reaction_id ASC
+
+--reaction.identical.by.fp:\
+SELECT reaction_id FROM intenz_reactions WHERE fingerprint = ?
+
+--reaction.by.fp:\
+SELECT reaction_id FROM intenz_reactions \
+	WHERE fingerprint = ? OR fingerprint LIKE ?
+
+--simple.by.compound.accession.old:\
+SELECT ir.equation, ir.source, ir.iubmb, ir.reaction_id, ir.qualifiers, ir.status \
+	FROM intenz_reactions ir, rhea_compound r, chebi_rhea_compound cd, reaction_participants rp \
+	WHERE (ir.un_reaction = rp.reaction_id or ir.reaction_id = rp.reaction_id) \
+	AND rp.compound_id = cd.compound_id \
+	AND r.compound_id = rp.compound_id \
+	AND r.accession = ? {0} {1} {2} \
+	ORDER BY reaction_id ASC
+	
+--simple.by.compound.accession:\
+SELECT ir.equation, ir.source, ir.iubmb, ir.reaction_id, ir.qualifiers, ir.status \
+	FROM intenz_reactions ir, rhea_compound r, reaction_participants rp \
+	WHERE (ir.un_reaction = rp.reaction_id or ir.reaction_id = rp.reaction_id) \
+	AND r.compound_id = rp.compound_id \
+	AND r.accession = ? {0} {1} {2} \
+	ORDER BY reaction_id ASC
+
+	
+--complex.by.compound.accession:\
+SELECT ir.equation, ir.source, ir.iubmb, ir.reaction_id, ir.qualifiers, ir.status \
+	FROM intenz_reactions ir, complex_reactions cr \
+	WHERE ir.reaction_id = cr.parent_id \
+	AND cr.child_id in (\
+		SELECT DISTINCT intenz_reactions.reaction_id \
+		FROM intenz_reactions, reaction_participants, rhea_compound \
+		WHERE intenz_reactions.un_reaction = reaction_participants.reaction_id \
+		AND reaction_participants.compound_id = rhea_compound.compound_id \
+		AND rhea_compound.accession = ?) \
+	{0} {1} {2} {3} \
+	ORDER BY reaction_id ASC
+
+--reaction.by.ec:\
+SELECT ir.equation, ir.source, ir.iubmb, ir.reaction_id, ir.qualifiers, ir.status \
+	FROM intenz_reactions ir, reactions_map rm, enzymes e \
+	WHERE e.ec1||''.''||e.ec2||''.''||e.ec3||''.''||(case \
+	  WHEN e.status = ''PM'' THEN ''n'' ELSE '''' END)||e.ec4 LIKE ? \
+	AND e.enzyme_id = rm.enzyme_id \
+	AND rm.reaction_id = ir.reaction_id \
+	AND e.active = ''Y'' \
+	{0} {1} {2} \
+	ORDER BY reaction_id ASC
+
+--reaction.by.compound.id:\
+SELECT ir.equation, ir.source, ir.iubmb, ir.reaction_id, ir.qualifiers, ir.status \
+	FROM intenz_reactions ir, reaction_participants rp \
+	WHERE rp.reaction_id = ir.reaction_id \
+	AND rp.compound_id = ?
+	
+--parents:\
+SELECT parent_id FROM complex_reactions WHERE child_id = ?
+	
+--children:\
+SELECT child_id, order_in, coefficient FROM complex_reactions \
+	WHERE parent_id = ? ORDER BY order_in
+
+--decompositions:\
+SELECT reaction_id FROM intenz_reactions WHERE fingerprint LIKE ?||'|%'
+
+--related:\
+SELECT DISTINCT direction, reaction_id FROM intenz_reactions \
+	WHERE reaction_id != ? \
+	AND (\
+		un_reaction = ? \
+		OR reaction_id = (SELECT un_reaction FROM intenz_reactions \
+			WHERE reaction_id = ? AND un_reaction IS NOT NULL) \
+		OR un_reaction = (SELECT un_reaction FROM intenz_reactions \
+			WHERE reaction_id = ? AND un_reaction IS NOT NULL)\
+	) ORDER BY reaction_id
+
+--related.all:\
+SELECT DISTINCT direction, reaction_id FROM intenz_reactions \
+	WHERE reaction_id = ? \
+	OR un_reaction = ? \
+	OR reaction_id = (SELECT un_reaction FROM intenz_reactions \
+		WHERE reaction_id = ? AND un_reaction IS NOT NULL) \
+	OR un_reaction = (SELECT un_reaction FROM intenz_reactions \
+		WHERE reaction_id = ? AND un_reaction IS NOT NULL) \
+	ORDER BY reaction_id
+	
+--compound.participated.reactions:\
+SELECT DISTINCT reaction_id FROM reaction_participants rp \
+	WHERE rp.compound_id = ? \
+UNION \
+SELECT parent_id FROM complex_reactions WHERE child_id IN (\
+	SELECT DISTINCT reaction_id FROM intenz_reactions WHERE un_reaction IN (\
+		SELECT DISTINCT reaction_id  FROM reaction_participants rp \
+			WHERE rp.compound_id = ? \
+	)\
+)
+	
+--compound.participated.reactions.number:\
+SELECT COUNT(DISTINCT reaction_id) FROM reaction_participants \
+	WHERE compound_id = ?
+
+--participated.reactions.by.chebi.id:\
+SELECT distinct r.reaction_id \
+	FROM chebi_rhea_compound c, reaction_participants r \
+	WHERE c.compound_id = r.compound_id AND c.chebi_id = ?
+	
+--public.all:\
+SELECT reaction_id FROM intenz_reactions WHERE status IN ('OK','PM','OB') \
+	AND public_in_chebi = 'P'
+
+--mergings:\
+SELECT from_id, to_id, merging_when, merging_who, merging_comment \
+	FROM reaction_mergings \
+	WHERE from_id = ?
+
+--find.reactions.affected.by.chebi.formula.or.charge.update:\
+SELECT DISTINCT l.reaction_id, crc1.chebi_id, l.status, count_left, (CASE WHEN count_right IS NULL THEN 0 ELSE count_right END) AS count_right \
+FROM reaction_participants rp, chebi_rhea_compound crc1, v_ccu_left l \
+LEFT OUTER JOIN v_ccu_right r ON (l.reaction_id = r.reaction_id) \
+WHERE rp.reaction_id = l.reaction_id \
+AND rp.compound_id = crc1.compound_id \
+AND crc1.chebi_id = ? \
+UNION \
+SELECT DISTINCT r.reaction_id, crc2.chebi_id, r.status, (CASE WHEN count_left IS NULL THEN 0 ELSE count_left END) AS count_left, count_right \
+FROM reaction_participants rp, chebi_rhea_compound crc2, v_ccu_right r \
+LEFT OUTER JOIN v_ccu_left l ON (l.reaction_id = r.reaction_id) \
+WHERE rp.reaction_id = r.reaction_id \
+AND rp.compound_id = crc2.compound_id \
+AND crc2.chebi_id = ? \
+ORDER BY count_left,count_right
