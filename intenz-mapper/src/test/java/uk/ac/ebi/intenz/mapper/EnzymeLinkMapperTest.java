@@ -18,6 +18,7 @@ import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
  * Time: 11:36:12
  * To change this template use File | Settings | File Templates.
  */
+
 public class EnzymeLinkMapperTest extends TestCase {
 
     private static Connection con;
@@ -77,13 +78,6 @@ public class EnzymeLinkMapperTest extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-             String userHome = System.getProperty("user.home");
-
-        if (userHome != null) {
-            System.setProperty(
-                    "oracle.net.tns_admin",
-                    userHome + "/tns_admin");
-        }
         
         con = OracleDatabaseInstance.getInstance("intenz-db-dev")
             .getConnection();
