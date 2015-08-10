@@ -337,6 +337,7 @@
 
     <modules>
         <module>intenz-database</module>
+         <module>intenz-rhea-mapper</module>
         <module>intenz-core</module>
         <module>intenz-mapper</module>
         <module>intenz-import</module>
@@ -347,6 +348,7 @@
         <module>intenz-biopax</module>
         <module>intenz-dbIndexing</module>
         <module>webapp</module>
+       
     </modules>
 
 </project>
