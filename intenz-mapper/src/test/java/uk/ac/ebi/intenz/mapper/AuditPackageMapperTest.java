@@ -13,10 +13,10 @@ public class AuditPackageMapperTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-                   String userHome = System.getProperty("user.home");
-                  System.setProperty(
-                    "oracle.net.tns_admin",
-                    userHome + "/tns_admin"); 
+//                   String userHome = System.getProperty("user.home");
+//                  System.setProperty(
+//                    "oracle.net.tns_admin",
+//                    userHome + "/tns_admin"); 
         apm = new AuditPackageMapper();
         con = OracleDatabaseInstance.getInstance("intenz-db-dev")
                 .getConnection();
