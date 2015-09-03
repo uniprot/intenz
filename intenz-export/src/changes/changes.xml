@@ -9,6 +9,11 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="1.4.2" date="2015-09-03" description="Fix for reactome new ids">
+            <action dev="joseph,tlombard" type="fix">
+                using new biobabel-core to cope with new reactome ids - see UES-16
+            </action>
+        </release>
         <release version="1.4.1" date="2014-07-18" description="Git tag.">
             <action dev="rafalcan" type="fix">
                 Just a tag created with git, containing the whole code tree.
