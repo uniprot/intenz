@@ -8,6 +8,11 @@
         <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
     </properties>
     <body>
+        <release version="4.3.0.1" date="2015-09-04" description="Fix for reactome new ids">
+            <action dev="tlombard" type="fix">
+                using new biobabel-core to cope with new reactome ids - see UES-16
+            </action>
+        </release>
         <release version="4.3.0" date=""
             description="Updates for new Rhea data model">
             <action dev="rafalcan" type="update">
