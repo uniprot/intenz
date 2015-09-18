@@ -27,6 +27,6 @@ CP=${CONF_DIR:-$SCRIPT_DIR/../src/main/appResources}
 addJarsToCp target
 date
 echo "Exporting ${1:-all SIB entries}..."
-java -Xmx512M -cp $CP uk.ac.ebi.intenz.tools.sib.EnzymeFlatFileWriterApp $@
+java -Xmx2048M -cp $CP uk.ac.ebi.intenz.tools.sib.EnzymeFlatFileWriterApp $@
 date
 echo "Finished"
