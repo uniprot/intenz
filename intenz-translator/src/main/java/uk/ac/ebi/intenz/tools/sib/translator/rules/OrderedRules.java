@@ -2,7 +2,6 @@ package uk.ac.ebi.intenz.tools.sib.translator.rules;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.log4j.Logger;
 
 /**
@@ -112,7 +111,7 @@ public class OrderedRules implements RuleGroup {
             {"((\\d)\\((\\d))H(\\)-)","$1<element>H</element>$4"}
           };
 
-  private final String[][] RULES_REVERSED =
+private final String[][] RULES_REVERSED =
           {
             {"\\<greek\\>([Dd])elta\\<\\/greek\\>\\<smallsup\\>(\\d+)\\((\\d+)\\<smallsup\\>(\\d+)\\<\\/smallsup\\>\\)\\<\\/smallsup\\>",
              "$1elta($2($3($4)))"},
@@ -141,7 +140,7 @@ public class OrderedRules implements RuleGroup {
             {"\\<smallsub\\>(.+?)\\</smallsub\\>","($1)"},
             {"\\<smallsup\\>(.+?)\\</smallsup\\>","($1)"},
 // TODO: TAKE THE EXCEPTIONS OUT OF HERE TO A TEXT FILE!:
-            {"\\[(?!Fe\\([23]\\+\\)|Co\\(II\\)|NiFe|[234]Fe-[24]S|Glu\\]|heparan sulfate|lipopolysaccharide glucose|blood group substance|[Mm]yelin[ -]proteolipid|3\\.2\\.2|4-vinyl|1,4\\]|cd|ambiguous|misleading|misprint|obsolete|incorrect|\\d,\\d-[af]\\]|\\d,\\d-<ital>[af]</ital>\\]|<ital>a</ital>\\]|tRNA\\]|ligated tRNA|-\\d|side [12])([^\\[\\]]*?)\\]","($1)"},        // square brackets [ ]
+            {"\\[(?!Fe\\([23]\\+\\)|Co\\(II\\)|NiFe|[234]Fe-[24]S|Glu\\]|heparan sulfate|iron-sulfur|mRNA|glycerolipid|lipopolysaccharide|lipopolysaccharide glucose|blood group substance|[Mm]yelin[ -]proteolipid|3\\.2\\.2|4-vinyl|1,4\\]|cd|ambiguous|misleading|misprint|obsolete|incorrect|\\d,\\d-[af]\\]|\\d,\\d-<ital>[af]</ital>\\]|<ital>a</ital>\\]|tRNA\\]|ligated tRNA|-\\d|side [12])([^\\[\\]]*?)\\]","($1)"},        // square brackets [ ]
             {"\\{([^\\}]*?\\([^\\}]*?\\)[^\\}]*?)\\}","($1)"},        // curly brackets { }
             {"\\{","("},
             {"\\}", ")"}
