@@ -25,9 +25,9 @@ public class XmlExporterTest {
 
 //        //only used when IDE cannot get System environment variables
 //        String userHome = System.getProperty("user.home");           
-////        System.setProperty(
-////                    "oracle.net.tns_admin",
-////                    userHome + "/tns_admin");  
+//        System.setProperty(
+//                    "oracle.net.tns_admin",
+//                    userHome + "/tns_admin");  
         
         
         exporter = new XmlExporter();
