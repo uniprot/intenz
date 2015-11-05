@@ -693,7 +693,7 @@ public class XmlExporter implements IntenzExporter {
 				if (!reaction.getStatus().isPublic()) continue;
 				org.xml_cml.schema.cml2.react.Reaction cmlReaction =
 						new CmlMapper().mapRheaReaction(reaction);
-                                System.out.println("CML REACTION "+ cmlReaction);
+                               
 				// As of 2012-11-13, Rhea reactions are only used in IntEnz view
 				Label viewLabel = new Label();
 				viewLabel.setValue("view:" + ViewType.INTENZ);
