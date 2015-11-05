@@ -28,7 +28,7 @@
             <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-mapper</artifactId>
             <version>${intenz.mapper.version}</version>
-			<scope>test</scope>
+<!--			<scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
