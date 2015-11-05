@@ -269,15 +269,15 @@ public final class SQLLoader {
      * @throws SQLException
      */
     public void close() throws SQLException {
-        for (PreparedStatement stm : statementsMap.values()) {
-            try {
-                stm.close();
-            } catch (SQLException e) {
-                // Hack to avoid errors when closing a statement already closed
-                // (allowed according to the Statement interface).
-                LOGGER.error("Unable to close statement", e);
-            }
-        }
+//        for (PreparedStatement stm : statementsMap.values()) {
+//            try {
+//                stm.close();
+//            } catch (SQLException e) {
+//                // Hack to avoid errors when closing a statement already closed
+//                // (allowed according to the Statement interface).
+//                LOGGER.error("Unable to close statement", e);
+//            }
+//        }
         statementsMap.clear();
     }
 
