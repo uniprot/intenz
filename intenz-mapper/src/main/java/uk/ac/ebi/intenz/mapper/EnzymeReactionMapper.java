@@ -38,7 +38,7 @@ public class EnzymeReactionMapper {
     public EnzymeReactionMapper() {
         try {
 
-            SQLLoader sQLLoader = new SQLLoader(SQL_FILE);
+            SQLLoader sQLLoader = SQLLoader.getSQLLoader(SQL_FILE);
             rheaReader = new IntEnzRheaDbReader(new IntEnzRheaCompoundDbReader(null, sQLLoader));
         } catch (IOException e) {
             throw new RuntimeException(e);
