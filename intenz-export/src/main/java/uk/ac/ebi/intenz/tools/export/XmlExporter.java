@@ -260,10 +260,10 @@ public class XmlExporter implements IntenzExporter {
                 EntryType jaxbEntry = getJaxbEntry(entry);
                 subSubClazz.getEnzyme().add(jaxbEntry);
                 }
-                marshaller.marshal(intenz, getXMLSerializer(os));
+                //marshaller.marshal(intenz, getXMLSerializer(os));
             }
     //        marshaller.marshal(intenz, os);
-           // marshaller.marshal(intenz, getXMLSerializer(os));
+            marshaller.marshal(intenz, getXMLSerializer(os));
            
             }
         } catch (JAXBException e) {

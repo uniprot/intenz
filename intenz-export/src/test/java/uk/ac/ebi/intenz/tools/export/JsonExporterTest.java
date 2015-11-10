@@ -28,9 +28,9 @@ public class JsonExporterTest {
     public void setUp() throws Exception {
 //        //only used when IDE cannot get System environment variables
 //        String userHome = System.getProperty("user.home");           
-////        System.setProperty(
-////                    "oracle.net.tns_admin",
-////                    userHome + "/tns_admin"); 
+//        System.setProperty(
+//                    "oracle.net.tns_admin",
+//                    userHome + "/tns_admin"); 
         con = OracleDatabaseInstance.getInstance("intenz-db-dev")
                 .getConnection();
         exporter = new JsonExporter();
