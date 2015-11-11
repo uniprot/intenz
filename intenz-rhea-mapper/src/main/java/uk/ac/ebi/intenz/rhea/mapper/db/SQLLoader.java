@@ -271,7 +271,9 @@ public final class SQLLoader {
     public void close() throws SQLException {
         for (PreparedStatement stm : statementsMap.values()) {
             try {
-                stm.close();
+                if(!stm.isClosed()){
+                    stm.close();
+                }
             } catch (SQLException e) {
                 // Hack to avoid errors when closing a statement already closed
                 // (allowed according to the Statement interface).

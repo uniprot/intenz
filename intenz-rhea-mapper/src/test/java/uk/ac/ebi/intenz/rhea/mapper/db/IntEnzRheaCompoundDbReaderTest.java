@@ -41,7 +41,7 @@ public class IntEnzRheaCompoundDbReaderTest {
 //                userHome + "/tns_admin");
 
         SQLLoader sQLLoader = SQLLoader.getSQLLoader(SQL_FILE);
-        instance = new IntEnzRheaCompoundDbReader(null, sQLLoader);
+        instance = new IntEnzRheaCompoundDbReader(sQLLoader.getConnection(), sQLLoader);
     }
 
     @After
