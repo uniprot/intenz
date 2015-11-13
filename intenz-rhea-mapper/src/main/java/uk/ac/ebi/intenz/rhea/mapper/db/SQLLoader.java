@@ -45,7 +45,7 @@ public final class SQLLoader {
      */
     protected Map<String, PreparedStatement> statementsMap;
 
-    private Connection connection;
+    private static volatile Connection connection;
 
     public static SQLLoader getSQLLoader(String sqlFile) throws IOException {
         if (sQLLoader == null) {
@@ -133,13 +133,19 @@ public final class SQLLoader {
                 .getResourceAsStream(sqlFile));
 
         statementsMap = new HashMap<String, PreparedStatement>();
-        this.connection = getConnection();
+        connection = getConnection();
     }
 
-    public Connection getConnection() throws IOException {
-        connection = OracleDatabaseInstance.getInstance("intenz-db-dev")
-                .getConnection();
+    public static Connection getConnection() throws IOException {
+        if (connection == null) {
+            synchronized (SQLLoader.class) {
+                if (connection == null) {
+                    connection = OracleDatabaseInstance.getInstance("intenz-db-dev")
+                            .getConnection();
 
+                }
+            }
+        }
         return connection;
     }
 
@@ -271,9 +277,9 @@ public final class SQLLoader {
     public void close() throws SQLException {
         for (PreparedStatement stm : statementsMap.values()) {
             try {
-              
-                    stm.close();
-               
+
+                stm.close();
+
             } catch (SQLException e) {
                 // Hack to avoid errors when closing a statement already closed
                 // (allowed according to the Statement interface).
