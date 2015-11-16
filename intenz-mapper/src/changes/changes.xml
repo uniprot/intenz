@@ -5,9 +5,15 @@
 	http://maven.apache.org/plugins/maven-changes-plugin/xsd/changes-1.0.0.xsd">
     <properties>
         <title>Change log</title>
-        <author email="rafael.alcantara@ebi.ac.uk">Rafael Alcántara</author>
+        <author email="joseph@ebi.ac.uk">Joseph Onwubiko</author>
     </properties>
     <body>
+         <release version="4.6.1" date="2011-11-16"
+            description="Dependency update">
+            <action dev="joseph" type="update">
+               changed the scope of oracle ojdbc5
+            </action>
+        </release>
         <release version="4.6.0" date="2014-04-28"
             description="New Rhea data model.">
             <action dev="rafalcan" type="add">
