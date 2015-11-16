@@ -9,7 +9,7 @@
     <description>ENZYME.dat flat file writer</description>
     
     <properties>
-    	<intenz.mapper.version>4.6.0</intenz.mapper.version>
+    	<intenz.mapper.version>4.6.1-SNAPSHOT</intenz.mapper.version>
     </properties>
     
     <parent>
