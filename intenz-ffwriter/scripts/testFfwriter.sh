@@ -10,4 +10,5 @@ then
 fi
 
 SCRIPT_DIR=$(dirname $0)
-$SCRIPT_DIR/runFfwriter.sh $SCRIPT_DIR/../src/test/appResources $@
+#$SCRIPT_DIR/runFfwriter.sh $SCRIPT_DIR/../src/test/appResources $@
+$SCRIPT_DIR/runFfwriter.sh $@

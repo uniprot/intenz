@@ -10,6 +10,7 @@ public class AuditPackageMapperTest extends TestCase {
     private AuditPackageMapper apm;
     Connection con;
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         
