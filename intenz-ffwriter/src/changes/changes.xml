@@ -9,6 +9,12 @@
         <author email="joseph@ebi.ac.uk">Joseph Onwubiko</author>
     </properties>
     <body>
+       <release version="1.3.6" date="2015-12-02"
+                             description="Added DE line exception">
+            <action dev="joseph" type="update">
+                Updated DE_line_modifications.
+            </action>
+        </release>
         <release version="1.3.5" date="2015-11-16"
                              description="Added DE line exception">
             <action dev="joseph" type="update">
