@@ -382,7 +382,7 @@ SELECT equation, status, source, iubmb, qualifiers, data_comment, \
 
 --citations:\
 SELECT pub_id, source FROM reaction_citations \
-	WHERE reaction_id = f_rhea_family_id(?)
+	WHERE reaction_id = (SELECT CASE WHEN UN_REACTION IS NULL THEN REACTION_ID ELSE UN_REACTION END FROM INTENZ_REACTIONS WHERE REACTION_ID = ?)
 
 --xrefs:\
 SELECT db_code, db_accession FROM reaction_xrefs \
@@ -432,10 +432,6 @@ SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status, ir.dire
     AND rm.reaction_id = ir.reaction_id \
 	ORDER BY ec
 
---citations:\
-SELECT pub_id, source FROM reaction_citations \
-	WHERE reaction_id = f_rhea_family_id(?)
-
 
 ------------------------------
 -- importing everything from rhea module
@@ -472,10 +468,6 @@ AND cr.order_in > 0
 --constraint.complex.coupled:\
 AND cr.order_in = 0
 	
---reaction.core:\
-SELECT equation, status, source, iubmb, qualifiers, data_comment, \
-    reaction_comment, public_in_chebi, direction, un_reaction \
-	FROM intenz_reactions WHERE reaction_id = ?
 	
 --reaction.directional.id:\
 SELECT reaction_id \
@@ -532,9 +524,6 @@ SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status, ir.dire
     AND rm.reaction_id = ir.reaction_id \
 	ORDER BY ec
 
---citations:\
-SELECT pub_id, source FROM reaction_citations \
-	WHERE reaction_id = f_rhea_family_id(?)
 
 --xrefs:\
 SELECT db_code, db_accession FROM reaction_xrefs \
