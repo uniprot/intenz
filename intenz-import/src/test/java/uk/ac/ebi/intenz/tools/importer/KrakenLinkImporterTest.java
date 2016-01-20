@@ -1,11 +1,8 @@
 package uk.ac.ebi.intenz.tools.importer;
 
 import java.util.SortedSet;
-
 import junit.framework.TestCase;
-
 import org.apache.log4j.Logger;
-
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 
 public class KrakenLinkImporterTest extends TestCase {

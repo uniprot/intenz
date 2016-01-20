@@ -24,10 +24,15 @@
             <artifactId>intenz-mapper</artifactId>
             <version>4.6.0</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>uk.ac.ebi.uniprot.kraken</groupId>
             <artifactId>uniprotjapi</artifactId>
             <version>[2011.06,)</version>
+        </dependency>-->
+                <dependency>
+            <groupId>uk.ac.ebi.uniprot</groupId>
+            <artifactId>japi</artifactId>
+            <version>1.0.2</version>
         </dependency>
         <dependency>
             <groupId>uk.ac.ebi.biobabel</groupId>

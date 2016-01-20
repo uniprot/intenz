@@ -26,6 +26,11 @@ public class EnzymeEntryHelperTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
+        //        only used when IDE cannot get System environment variables
+//        String userHome = System.getProperty("user.home");
+//        System.setProperty(
+//                "oracle.net.tns_admin",
+//                userHome + "/tns_admin");
         super.setUp();
     }
 

@@ -1,7 +1,6 @@
 package uk.ac.ebi.intenz.tools.sib.writer;
 
 import java.sql.Connection;
-
 import junit.framework.TestCase;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.Status;
@@ -19,7 +18,13 @@ public class EnzymeFlatFileWriterTest extends TestCase {
     EnzymeEntryMapper entryMapper;
 
 	protected void setUp() throws Exception {
-		con = OracleDatabaseInstance.getInstance("intenz-db-dev").getConnection();
+	//        only used when IDE cannot get System environment variables
+//        String userHome = System.getProperty("user.home");
+//        System.setProperty(
+//                "oracle.net.tns_admin",
+//                userHome + "/tns_admin");	
+            
+            con = OracleDatabaseInstance.getInstance("intenz-db-dev").getConnection();
         entryMapper = new EnzymeEntryMapper();
 	}
 

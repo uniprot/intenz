@@ -12,6 +12,11 @@ public class SearchCommandTest extends TestCase {
   SearchCommand searchCommand;
   public SearchCommandTest(String name) {
     super(name);
+    //        only used when IDE cannot get System environment variables
+//        String userHome = System.getProperty("user.home");
+//        System.setProperty(
+//                "oracle.net.tns_admin",
+//                userHome + "/tns_admin");
     searchCommand = new SearchCommand();
   }
 
