@@ -8,13 +8,12 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymaticReactions;
-import uk.ac.ebi.intenz.rhea.mapper.db.IntEnzRheaCompoundDbReader;
-import uk.ac.ebi.intenz.rhea.mapper.db.IntEnzRheaDbReader;
-import uk.ac.ebi.intenz.rhea.mapper.db.SQLLoader;
 import uk.ac.ebi.rhea.domain.Database;
 import uk.ac.ebi.rhea.domain.Reaction;
 import uk.ac.ebi.rhea.domain.Status;
 import uk.ac.ebi.rhea.mapper.MapperException;
+import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
+import uk.ac.ebi.rhea.mapper.db.RheaDbReader;
 
 /**
  * Maps reaction information to the corresponding database table.
@@ -31,15 +30,20 @@ public class EnzymeReactionMapper {
     private static final Logger LOGGER
             = Logger.getLogger(EnzymeReactionMapper.class.getName());
 
-    ///protected RheaDbReader rheaReader;
-    protected IntEnzRheaDbReader rheaReader;
+    protected RheaDbReader rheaReader;
+    //protected IntEnzRheaDbReader rheaReader;
     private static final String SQL_FILE = "uk.ac.ebi.intenz.rhea.mapper.db.IntEnzRheaCompoundDbReader.sql";
 
     public EnzymeReactionMapper() {
         try {
 
-            SQLLoader sQLLoader = SQLLoader.getSQLLoader(SQL_FILE);
-            rheaReader = new IntEnzRheaDbReader(new IntEnzRheaCompoundDbReader(sQLLoader.getConnection(), sQLLoader));
+//            SQLLoader sQLLoader = SQLLoader.getSQLLoader(SQL_FILE);
+//            rheaReader = new IntEnzRheaDbReader(new IntEnzRheaCompoundDbReader(sQLLoader.getConnection(), sQLLoader));
+//            
+            	rheaReader = new RheaDbReader(
+		        new RheaCompoundDbReader((Connection) null));
+            
+            
         } catch (IOException e) {
             throw new RuntimeException(e);
 
