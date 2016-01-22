@@ -31,22 +31,13 @@ public class EnzymeReactionMapper {
             = Logger.getLogger(EnzymeReactionMapper.class.getName());
 
     protected RheaDbReader rheaReader;
-    //protected IntEnzRheaDbReader rheaReader;
-    private static final String SQL_FILE = "uk.ac.ebi.intenz.rhea.mapper.db.IntEnzRheaCompoundDbReader.sql";
 
     public EnzymeReactionMapper() {
         try {
-
-//            SQLLoader sQLLoader = SQLLoader.getSQLLoader(SQL_FILE);
-//            rheaReader = new IntEnzRheaDbReader(new IntEnzRheaCompoundDbReader(sQLLoader.getConnection(), sQLLoader));
-//            
-            	rheaReader = new RheaDbReader(
-		        new RheaCompoundDbReader((Connection) null));
-            
-            
+            rheaReader = new RheaDbReader(
+                    new RheaCompoundDbReader((Connection) null));
         } catch (IOException e) {
             throw new RuntimeException(e);
-
         }
     }
 
@@ -216,7 +207,6 @@ public class EnzymeReactionMapper {
                 insertReaction(enzymeId, reaction, view, iubmb, i + 1, con);
             } else {
                 insertMapping(enzymeId, reaction.getId(), view, iubmb, i + 1, con);
-
             }
         }
     }
@@ -375,14 +365,14 @@ public class EnzymeReactionMapper {
             reaction = loadEmtpyReaction(reactionId, equation, source, status);
         } else { // get the whole reaction
             try {
-                //rheaReader.setConnection(rs.getStatement().getConnection());//not sure why we need to set connection. a chance that it may have been closed
+                rheaReader.setConnection(rs.getStatement().getConnection());
                 reaction = rheaReader.findByReactionId(reactionId);
             } catch (Exception ex) {
                 LOGGER.error("Unable to retrieve reaction from Rhea", ex);
                 reaction = loadEmtpyReaction(reactionId, equation, source, status);
             } finally {
                 rheaReader.close();
-        }
+            }
         }
         return reaction;
     }
@@ -395,5 +385,4 @@ public class EnzymeReactionMapper {
     protected void finalize() throws Throwable {
         close();
     }
-
 }
