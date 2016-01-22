@@ -93,7 +93,7 @@ public final class SQLLoader {
                 .getResourceAsStream(aClass.getName() + ".sql"));
 
         statementsMap = new HashMap<String, PreparedStatement>();
-        this.connection = con;
+        SQLLoader.connection = con;
     }
 
     /**
@@ -126,7 +126,7 @@ public final class SQLLoader {
     private SQLLoader(String sqlFile) throws IOException {
         statementsSql = new Properties();
 
-// this is the default file loaded in the statement in this contenxt       
+// this is the default file loaded in the statement in this context       
 //             statementsSql.load(SQLLoader.class.getClassLoader()
 //                .getResourceAsStream("uk.ac.ebi.intenz.rhea.mapper.db.IntEnzRheaCompoundDbReader.sql"));   
         statementsSql.load(SQLLoader.class.getClassLoader()
