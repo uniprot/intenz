@@ -88,13 +88,19 @@
                 <dependency>
                     <groupId>uk.ac.ebi.rhea</groupId>
                     <artifactId>rhea-domain</artifactId>
-                    <version>1.8.3</version>
+                    <version>1.8.4</version>
                 </dependency>
-		        <dependency>
+<!--		        <dependency>
 		            <groupId>com.oracle</groupId>
 		            <artifactId>ojdbc5</artifactId>
 		            <version>11.1.0.7.0</version>
-		        </dependency>
+		        </dependency>-->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0.3</version>
+            <scope>provided</scope>
+        </dependency>  
             </dependencies>
             <build>
                 <resources>
