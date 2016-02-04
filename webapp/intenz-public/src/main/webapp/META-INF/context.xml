@@ -1,6 +1,6 @@
 <Context displayName="IntEnz public interface TEST"
 	docBase="work/Catalina/localhost"
-    antiJARLocking="true">
+    antiJARLocking="true" path="/intenz">
 
     <Resource
         name="jdbc/intenz/web"
