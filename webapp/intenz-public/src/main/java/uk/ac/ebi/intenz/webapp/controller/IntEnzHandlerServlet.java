@@ -7,8 +7,15 @@ import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.*;
-import javax.management.*;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.PropertyResourceBundle;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -18,18 +25,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-
 import org.apache.log4j.Logger;
 import uk.ac.ebi.intenz.domain.constants.View;
-import uk.ac.ebi.intenz.domain.enzyme.*;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeClass;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubSubclass;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubclass;
 import uk.ac.ebi.intenz.stats.IIntEnzStatistics;
 import uk.ac.ebi.intenz.stats.db.IntEnzDbStatistics;
 import uk.ac.ebi.intenz.webapp.IntEnzConfig;
+import static uk.ac.ebi.intenz.webapp.IntEnzConfig.Property.DATA_SOURCE;
 import uk.ac.ebi.intenz.webapp.controller.SearchECCommand.EnzymeEntryCacheKey;
 import uk.ac.ebi.intenz.webapp.utilities.IntEnzMessenger;
 import uk.ac.ebi.xchars.SpecialCharacters;
-
-import static uk.ac.ebi.intenz.webapp.IntEnzConfig.Property.DATA_SOURCE;
 
 /**
  * This servlet acts as a handler of the front controller.
@@ -280,7 +289,7 @@ public class IntEnzHandlerServlet extends HttpServlet
 
 	private Connection getConnection()
 	throws NamingException, SQLException, IOException {
-		DataSource ds = (DataSource)
+     	DataSource ds = (DataSource)
 		        envContext.lookup(config.getIntEnzDataSource());
 		return ds.getConnection();
 	}
