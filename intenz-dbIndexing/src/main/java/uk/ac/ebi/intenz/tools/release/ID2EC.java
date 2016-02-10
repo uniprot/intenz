@@ -1,14 +1,14 @@
 package uk.ac.ebi.intenz.tools.release;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import org.apache.log4j.Logger;
 import uk.ac.ebi.biobabel.util.db.DatabaseInstance;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
-import uk.ac.ebi.rhea.domain.Status;
-
-import java.io.IOException;
-import java.sql.*;
-
-import org.apache.log4j.Logger;
 
 /**
  * This class is used to populate the table <code>id2ec</code>.
@@ -32,7 +32,7 @@ public class ID2EC {
             .toString();
     }
 
-    private static String DELETE_ALL = "DELETE FROM id2ec";
+    private static final String DELETE_ALL = "TRUNCATE TABLE ID2EC"; //"DELETE FROM id2ec";
 
     private static String insertIDAndECStatement() {
         return "INSERT INTO id2ec (enzyme_id, ec, status, source) VALUES ( ?, ?, ?, ? )";
