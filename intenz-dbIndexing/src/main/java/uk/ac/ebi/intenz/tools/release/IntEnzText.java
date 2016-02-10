@@ -241,18 +241,14 @@ public class IntEnzText {
       LOGGER.info("   Loading sub-subclasses ...");
       selectEcStatement = con.prepareStatement("SELECT ec1, ec2, ec3 FROM subsubclasses");
       rs = selectEcStatement.executeQuery();
-       LOGGER.info("exec sub-subclasses statement  ..."+ rs);
       while (rs.next()) {
         idFake++;
         int ec1 = rs.getInt(1);
         int ec2 = rs.getInt(2);
         int ec3 = rs.getInt(3);
         try {
-          LOGGER.info("before calling enzymeSubSubclassMapper.find(....) " + ec1 + " "+ ec2+ " "+ ec3);
             EnzymeSubSubclass enzymeSubSubclass = enzymeSubSubclassMapper.find(ec1, ec2, ec3, con);
-          LOGGER.info("After exec enzymeSubSubclassMapper.find(....) "+ enzymeSubSubclass); 
           List textParts = getXmlParts(new StringBuffer(EnzymeSubSubclassHelper.toXML(enzymeSubSubclass, encoding)));
-  LOGGER.info("exec getXmlParts  ..."+ textParts);
           for (int iii = 0; iii < textParts.size(); iii++) {
             String text = (String) textParts.get(iii);
             insertStatement.setInt(1, idFake);
