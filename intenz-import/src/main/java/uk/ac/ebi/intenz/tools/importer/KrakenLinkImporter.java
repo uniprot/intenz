@@ -81,7 +81,7 @@ public class KrakenLinkImporter extends Importer {
         }
 
         SortedSet<EnzymeLink> updatedUniProtXrefs = new TreeSet<EnzymeLink>();
-
+       
         if (resultEntries.isPresent()) {
             QueryResult<UniProtEntry> queryResult = resultEntries.get();
             while (queryResult.hasNext()) {
