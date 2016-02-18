@@ -18,7 +18,7 @@ do
     CP=$CP:$JAR
 done
 
-#java -cp $CP uk.ac.ebi.intenz.tools.importer.ImportController $2 \
-   # &> logs/intenz-import-$(date +%Y%m%d).log
+java -cp $CP uk.ac.ebi.intenz.tools.importer.ImportController $2 \
+    &> logs/intenz-import-$(date +%Y%m%d).log
 
-mvn exec:java -Dexec.mainClass="uk.ac.ebi.intenz.tools.importer.ImportController" -Dexec.cleanupDaemonThreads=false -Dexec.args="$2"  &> logs/intenz-import-$(date +%Y%m%d).log
+#mvn exec:java -Dexec.mainClass="uk.ac.ebi.intenz.tools.importer.ImportController" -Dexec.cleanupDaemonThreads=false -Dexec.args="$2"  &> logs/intenz-import-$(date +%Y%m%d).log
