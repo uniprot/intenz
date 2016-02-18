@@ -49,6 +49,7 @@ public class KrakenLinkImporter extends Importer {
         impCon = OracleDatabaseInstance
                 .getInstance(importerProps.getProperty("intenz.database"))
                 .getConnection();
+        logger.debug("Database connection obtained "+ impCon);
        
         setupKraken();
     }
@@ -115,9 +116,11 @@ public class KrakenLinkImporter extends Importer {
 
     @Override
     protected void destroy() {
-        logger.debug("Closing IntEnz import connection...");
+        logger.debug("Closing IntEnz import connection..." + impCon);
         try {
-            impCon.close();
+           if(impCon != null){
+               impCon.close(); 
+           }
             uniProtService.stop();
         } catch (SQLException e) {
             logger.error(e);
