@@ -49,6 +49,7 @@ public class KrakenLinkImporter extends Importer {
         impCon = OracleDatabaseInstance
                 .getInstance(importerProps.getProperty("intenz.database"))
                 .getConnection();
+       
         setupKraken();
     }
 
