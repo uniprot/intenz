@@ -73,6 +73,7 @@ public class KrakenLinkImporter extends Importer {
     }
 
     protected SortedSet<EnzymeLink> getKrakenLinks(String ec) {
+         logger.warn("getKrakenLinks EC " + ec);
         Query query = UniProtQueryBuilder.ec(ec).and(UniProtQueryBuilder.swissprot());
         Optional< QueryResult<UniProtEntry>> resultEntries = Optional.empty();
         try {
