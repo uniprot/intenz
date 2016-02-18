@@ -140,7 +140,7 @@ public final class SQLLoader {
         if (connection == null) {
             synchronized (SQLLoader.class) {
                 if (connection == null) {
-                    connection = OracleDatabaseInstance.getInstance("intenz-db-dev")
+                    connection = OracleDatabaseInstance.getInstance("intenz-db-prod")
                             .getConnection();
 
                 }
