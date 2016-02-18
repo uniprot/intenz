@@ -88,8 +88,9 @@ public class KrakenLinkImporter extends Importer {
         if (resultEntries.isPresent()) {
             QueryResult<UniProtEntry> queryResult = resultEntries.get();
             while (queryResult.hasNext()) {
-                String accession = queryResult.next().getPrimaryUniProtAccession().getValue();
-                final UniProtId uniprotId = queryResult.next().getUniProtId();
+                UniProtEntry entry = queryResult.next();
+                String accession = entry.getPrimaryUniProtAccession().getValue();
+                final UniProtId uniprotId = entry.getUniProtId();
                 EnzymeLink enzymeLink = EnzymeLink.valueOf(XrefDatabaseConstant.SWISSPROT,
                         XrefDatabaseConstant.SWISSPROT.getUrl(),
                         accession,
