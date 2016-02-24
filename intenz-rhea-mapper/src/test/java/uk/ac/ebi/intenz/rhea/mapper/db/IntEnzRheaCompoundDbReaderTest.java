@@ -21,6 +21,7 @@ import org.junit.After;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
+import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 
 /**
  *
@@ -30,18 +31,34 @@ public class IntEnzRheaCompoundDbReaderTest {
 
     private IntEnzRheaCompoundDbReader instance;
     private static final String SQL_FILE = "uk.ac.ebi.intenz.rhea.mapper.db.IntEnzRheaCompoundDbReader.sql";
+    private final static String db = "intenz-db-dev";
+     private static volatile Connection connection;
+    
+    
+        public static Connection getConnection() throws IOException {
+        if (connection == null) {
+            synchronized (SQLLoader.class) {
+                if (connection == null) {
+                    connection = OracleDatabaseInstance.getInstance(db)
+                            .getConnection();
+
+                }
+            }
+        }
+        return connection;
+    }
 
     @Before
     public void setUp() throws IOException {
 
 ////        only used when IDE cannot get System environment variables
-//        String userHome = System.getProperty("user.home");
-//        System.setProperty(
-//                "oracle.net.tns_admin",
-//                userHome + "/tns_admin");
+        String userHome = System.getProperty("user.home");
+        System.setProperty(
+                "oracle.net.tns_admin",
+                userHome + "/tns_admin");
 
         SQLLoader sQLLoader = SQLLoader.getSQLLoader(SQL_FILE);
-        instance = new IntEnzRheaCompoundDbReader(SQLLoader.getConnection(), sQLLoader);
+        instance = new IntEnzRheaCompoundDbReader(getConnection(), sQLLoader);
     }
 
     @After
@@ -51,6 +68,7 @@ public class IntEnzRheaCompoundDbReaderTest {
 
     /**
      * Test of getSqlLoader method, of class IntEnzRheaCompoundDbReader.
+     *
      * @throws java.io.IOException
      */
     @Test
