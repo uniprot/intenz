@@ -52,10 +52,10 @@ public class IntEnzRheaCompoundDbReaderTest {
     public void setUp() throws IOException {
 
 ////        only used when IDE cannot get System environment variables
-        String userHome = System.getProperty("user.home");
-        System.setProperty(
-                "oracle.net.tns_admin",
-                userHome + "/tns_admin");
+//        String userHome = System.getProperty("user.home");
+//        System.setProperty(
+//                "oracle.net.tns_admin",
+//                userHome + "/tns_admin");
 
         SQLLoader sQLLoader = SQLLoader.getSQLLoader(SQL_FILE);
         instance = new IntEnzRheaCompoundDbReader(getConnection(), sQLLoader);
