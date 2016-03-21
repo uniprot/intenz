@@ -49,23 +49,21 @@ import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
  * motivations, UES-14 for specific sql queries
  *
  */
-public class IntEnzRheaDbReader  {
+public class IntEnzRheaDbReader {
 
     /**
      * Compound field used for a search.
      */
     private enum Field {
-
+        
         NAME, ACCESSION
     }
-
+    
     private final Logger LOGGER = Logger.getLogger(IntEnzRheaDbReader.class);
-
+    
     protected Connection con;
     protected SQLLoader sqlLoader;
     protected IntEnzRheaCompoundDbReader compoundReader;
-
-
 
     /**
      * @param compoundReader the object who retrieves information about reaction
@@ -75,13 +73,11 @@ public class IntEnzRheaDbReader  {
     public IntEnzRheaDbReader(IntEnzRheaCompoundDbReader compoundReader) throws IOException {
         this.compoundReader = compoundReader;
         this.con = compoundReader.getConnection();
-     
-   
+        
         this.sqlLoader = compoundReader.getSqlLoader();
-      
+        
     }
-
-   
+    
     public IntEnzRheaCompoundDbReader getCompoundReader() {
         return compoundReader;
     }
@@ -104,12 +100,13 @@ public class IntEnzRheaDbReader  {
 
     /**
      * getter for the database connection. added for MET-187
+     *
      * @return con
      */
     public Connection getConnection() {
         return this.con;
     }
-
+    
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
@@ -121,15 +118,20 @@ public class IntEnzRheaDbReader  {
      * the connection or return it to a pool, please call explicitly the method
      * {@link Connection#close()} or {@link #returnPooledConnection()}
      * respectively.
+     *
      * @throws uk.ac.ebi.rhea.mapper.MapperException
      */
     public void close() throws MapperException {
-        compoundReader.close(); 
-//        try {
-//            sqlLoader.close();
-//        } catch (SQLException ex) {
-//            throw new MapperException(ex);
-//        }
+        //compoundReader.close(); 
+        try {
+            if (sqlLoader != null) {
+                  //LOGGER.warn("SQLLOADER close() has been called " + sqlLoader);
+                sqlLoader.close();
+              
+            }
+        } catch (SQLException ex) {
+            throw new MapperException(ex);
+        }
     }
 
     /**
@@ -146,10 +148,11 @@ public class IntEnzRheaDbReader  {
      * null.
      */
     public void returnPooledConnection() throws MapperException, SQLException {
-        compoundReader.close();
-        compoundReader.setConnection(null);
-        close();
-        if (con != null) {
+        //compoundReader.close();
+        //compoundReader.setConnection(null);
+        //close();
+          LOGGER.warn("Connection Pool close() has been called " + con);
+        if (con != null && con.isValid(5000)) {
             con.close();
             con = null;
         }
@@ -210,7 +213,7 @@ public class IntEnzRheaDbReader  {
             }
         }
     }
-
+    
     public Set<Reaction> findParentReactions(Long id)
             throws MapperException {
         ResultSet parentsRs = null;
@@ -333,13 +336,14 @@ public class IntEnzRheaDbReader  {
 
     /**
      * Get reaction IDs for in which a given ChEBI ID is used
+     *
      * @param chebiId
      * @return reaction ids
      * @throws uk.ac.ebi.rhea.mapper.MapperException
      */
     public Set<Long> findParticipatedReactionsByChebiId(Long chebiId)
             throws MapperException {
-
+        
         ResultSet rs = null;
         try {
             Set<Long> result = null;
@@ -365,7 +369,7 @@ public class IntEnzRheaDbReader  {
                 }
             }
         }
-
+        
     }
 
     /**
@@ -491,7 +495,7 @@ public class IntEnzRheaDbReader  {
         }
         return result;
     }
-
+    
     private String fixPreliminaryEcNumber(String ec) {
         // Add 'n' to last digit of EC number:
         int lastDot = ec.lastIndexOf('.');
@@ -500,7 +504,7 @@ public class IntEnzRheaDbReader  {
         ec = ec123 + ".n" + ec4;
         return ec;
     }
-
+    
     private Reaction getReactionCore(Long reactionId)
             throws SQLException {
         ResultSet rs = null;
@@ -652,7 +656,7 @@ public class IntEnzRheaDbReader  {
         }
         return found;
     }
-
+    
     public Long findIdenticalByFingerprint(String fp) throws MapperException {
         ResultSet rs = null;
         try {
@@ -677,7 +681,7 @@ public class IntEnzRheaDbReader  {
             }
         }
     }
-
+    
     public Collection<Long> findByFingerprint(String fp) throws MapperException {
         ResultSet rs = null;
         try {
@@ -706,11 +710,11 @@ public class IntEnzRheaDbReader  {
             }
         }
     }
-
+    
     public Set<Reaction> findByEcNumber(String ec, SearchOptions searchOptions)
             throws MapperException {
         String stmKey = "--reaction.by.ec";
-		// Constraints applied to the query. Every constraint requiring a
+        // Constraints applied to the query. Every constraint requiring a
         // parameter should add it immediately to the stmParams list:
         List<String> queryConstraints = new ArrayList<String>();
         List<String> stmParams = new ArrayList<String>();
@@ -735,7 +739,7 @@ public class IntEnzRheaDbReader  {
             throw new MapperException(ex);
         }
     }
-
+    
     public Set<Reaction> findByCompoundName(String name,
             SearchOptions searchOptions) throws MapperException {
         try {
@@ -759,11 +763,11 @@ public class IntEnzRheaDbReader  {
     private Set<Reaction> findByCompound(String text, Field field,
             SearchOptions searchOptions) throws SQLException {
         String stmKey = null;
-		// Constraints applied to the query. Every query or constraint
+        // Constraints applied to the query. Every query or constraint
         // requiring a parameter should add it immediately to the stmParams list:
         List<String> queryConstraints = new ArrayList<String>();
         List<String> stmParams = new ArrayList<String>();
-
+        
         switch (searchOptions.getSimpleSwitch()) {
             case ANY:
                 SearchOptions clonedOptions = null;
@@ -777,7 +781,7 @@ public class IntEnzRheaDbReader  {
                 clonedOptions.setSimpleSwitch(SearchSwitch.NO);
                 Set<Reaction> complex = findByCompound(text, field, clonedOptions);
                 return processSearchResult(simple, complex, searchOptions);
-
+            
             case NO: // searching for complex ones
                 switch (field) {
                     case NAME:
@@ -801,7 +805,7 @@ public class IntEnzRheaDbReader  {
                         queryConstraints.add("");
                 }
                 break;
-
+            
             case YES: // searching for simple ones
                 switch (field) {
                     case NAME:
@@ -817,7 +821,7 @@ public class IntEnzRheaDbReader  {
                 break;
         }
         stmParams.add(text);
-
+        
         return findReactions(stmKey, queryConstraints, stmParams, searchOptions);
     }
 
@@ -837,10 +841,10 @@ public class IntEnzRheaDbReader  {
             SearchOptions searchOptions)
             throws SQLException {
         applyReactionConstraints(searchOptions, queryConstraints, stmParams);
-
+        
         PreparedStatement stm
                 = sqlLoader.getPreparedStatement(stmKey, queryConstraints.toArray());
-
+        
         ResultSet rs = null;
         try {
             stm.clearParameters();
@@ -872,7 +876,7 @@ public class IntEnzRheaDbReader  {
      */
     private void applyReactionConstraints(SearchOptions searchOptions,
             List<String> queryConstraints, List<String> stmParams) {
-
+        
         EnumSet<Direction> dirOption = searchOptions.getDirection();
         String directionConstraint = "";
         if (dirOption == null) {
@@ -885,14 +889,14 @@ public class IntEnzRheaDbReader  {
             directionConstraint = "--constraint.directional";
         } // other cases ignored
         queryConstraints.add(directionConstraint);
-
+        
         if (searchOptions.getStatus() != null) {
             queryConstraints.add("--constraint.status");
             stmParams.add(searchOptions.getStatus());
         } else {
             queryConstraints.add("");
         }
-
+        
         switch (searchOptions.getMergedSwitch()) {
             case YES:
                 queryConstraints.add("--constraint.merged");
@@ -904,7 +908,7 @@ public class IntEnzRheaDbReader  {
                 queryConstraints.add("");
         }
     }
-
+    
     public Set<Reaction> findByCompoundAccession(String accession, SearchOptions searchOptions)
             throws MapperException {
         try {
@@ -913,7 +917,7 @@ public class IntEnzRheaDbReader  {
             throw new MapperException(ex);
         }
     }
-
+    
     public Set<Reaction> findByCompoundId(Long compoundId)
             throws MapperException {
         ResultSet rs = null;
@@ -977,7 +981,7 @@ public class IntEnzRheaDbReader  {
             }
         }
     }
-
+    
     private Set<XRef> getXrefs(Long reactionId) throws MapperException {
         Set<XRef> result = null;
         ResultSet rs = null;
@@ -1032,7 +1036,7 @@ public class IntEnzRheaDbReader  {
         }
         return result;
     }
-
+    
     private Map<Direction, Set<XRef>> getFamilyXrefs(Long familyId)
             throws SQLException, MapperException {
         Map<Direction, Set<XRef>> familyXrefs = null;
@@ -1093,7 +1097,7 @@ public class IntEnzRheaDbReader  {
         }
         return familyXrefs;
     }
-
+    
     private Set<Reaction> loadReactions(ResultSet rs)
             throws SQLException {
         Set<Reaction> result = null;
@@ -1113,7 +1117,7 @@ public class IntEnzRheaDbReader  {
         }
         return (result == null) ? null : new HashSet<Reaction>(result);
     }
-
+    
     private Reaction loadReaction(ResultSet rs) throws SQLException {
         Reaction reaction = null;
         if (rs.next()) {
@@ -1172,7 +1176,7 @@ public class IntEnzRheaDbReader  {
         }
         return rq;
     }
-
+    
     private void loadParticipants(Reaction reaction)
             throws SQLException, ReactionException, MapperException {
         ResultSet rs = null;
@@ -1310,7 +1314,7 @@ public class IntEnzRheaDbReader  {
             }
         }
     }
-
+    
     public List<Merging> findMergings(Long id) throws MapperException {
         List<Merging> mergings = null;
         ResultSet rs = null;
@@ -1419,13 +1423,13 @@ public class IntEnzRheaDbReader  {
 //	public void findModifiedReactions(Map<Long, String> l1, Map<Long, String> l2) { 
         PreparedStatement stm = null;
         ResultSet rs = null;
-
+        
         try {
             stm = sqlLoader.getPreparedStatement("--find.reactions.affected.by.chebi.formula.or.charge.update");
             stm.setLong(1, chebiId);
             stm.setLong(2, chebiId);
             rs = stm.executeQuery();
-
+            
             if (rs != null) {
                 while (rs.next()) {
                     Long reactionId = rs.getLong(1);
@@ -1444,7 +1448,7 @@ public class IntEnzRheaDbReader  {
 
                 }
             }
-
+            
         } catch (SQLException e) {
             throw new MapperException(e);
         } finally {
@@ -1457,5 +1461,5 @@ public class IntEnzRheaDbReader  {
             }
         }
     }
-
+    
 }

@@ -50,8 +50,6 @@ public class XmlExporterTest {
             throws Exception {
         try {
             EnzymeEntry entry = mapper.findById(1000L, con);
-            System.out.println("EXPORTER "+ exporter);
-            System.out.println("ENTRY "+ entry);
             exporter.export(entry, System.out);
         } catch (IOException e) {
             fail(e.getMessage());

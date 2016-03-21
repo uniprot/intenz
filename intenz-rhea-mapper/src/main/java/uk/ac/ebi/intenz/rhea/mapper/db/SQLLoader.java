@@ -34,7 +34,7 @@ import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
  */
 public final class SQLLoader {
 
-    private static volatile SQLLoader sQLLoader = null;
+    private static SQLLoader sQLLoader = null;
     private final Properties statementsSql;
 
     private final Logger LOGGER = Logger.getLogger(SQLLoader.class);
@@ -137,15 +137,15 @@ public final class SQLLoader {
     }
 
     public static Connection getConnection() throws IOException {
+        //if (connection == null) {
+        //synchronized (SQLLoader.class) {
         if (connection == null) {
-            synchronized (SQLLoader.class) {
-                if (connection == null) {
-                    connection = OracleDatabaseInstance.getInstance("intenz-db-prod")
-                            .getConnection();
+            connection = OracleDatabaseInstance.getInstance("intenz-db-prod")
+                    .getConnection();
 
-                }
-            }
         }
+        // }
+        //}
         return connection;
     }
 

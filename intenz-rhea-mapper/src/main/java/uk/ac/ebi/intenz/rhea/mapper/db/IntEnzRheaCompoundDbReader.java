@@ -25,7 +25,7 @@ public class IntEnzRheaCompoundDbReader extends RheaCompoundDbReader {
     }
 
     public Connection getConnection() throws IOException {
-        return getSqlLoader().getConnection();
+        return SQLLoader.getConnection();
     }
 
 }

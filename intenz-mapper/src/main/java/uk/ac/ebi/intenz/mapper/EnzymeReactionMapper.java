@@ -39,7 +39,7 @@ public class EnzymeReactionMapper {
         try {
 
             SQLLoader sQLLoader = SQLLoader.getSQLLoader(SQL_FILE);
-            rheaReader = new IntEnzRheaDbReader(new IntEnzRheaCompoundDbReader(sQLLoader.getConnection(), sQLLoader));
+            rheaReader = new IntEnzRheaDbReader(new IntEnzRheaCompoundDbReader(SQLLoader.getConnection(), sQLLoader));
         } catch (IOException e) {
             throw new RuntimeException(e);
 
@@ -371,7 +371,7 @@ public class EnzymeReactionMapper {
             reaction = loadEmtpyReaction(reactionId, equation, source, status);
         } else { // get the whole reaction
             try {
-                //rheaReader.setConnection(rs.getStatement().getConnection());//not sure why we need to set connection. a chance that it may have been closed
+                rheaReader.setConnection(rs.getStatement().getConnection());//not sure why we need to set connection. a chance that it may have been closed
                 reaction = rheaReader.findByReactionId(reactionId);
             } catch (Exception ex) {
                 LOGGER.error("Unable to retrieve reaction from Rhea", ex);
