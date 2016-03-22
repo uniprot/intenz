@@ -61,7 +61,7 @@ public class ExporterApp {
 
     private Properties spotlights;
 
-    private static volatile Connection intenzConnection;
+    private static Connection intenzConnection;
     // Object to retrieve release number and date from:
     private IIntEnzStatistics stats;
 
@@ -195,12 +195,10 @@ public class ExporterApp {
     }
 
     public static Connection getConnectionInstance(String dbConfig) throws IOException {
-        if (intenzConnection == null) {
-            synchronized (ExporterApp.class) {
-                if (intenzConnection == null) {
-                    intenzConnection = OracleDatabaseInstance.getInstance(dbConfig)
-                            .getConnection();
-                }
+        synchronized (ExporterApp.class) {
+            if (intenzConnection == null) {
+                intenzConnection = OracleDatabaseInstance.getInstance(dbConfig)
+                        .getConnection();
             }
         }
         return intenzConnection;

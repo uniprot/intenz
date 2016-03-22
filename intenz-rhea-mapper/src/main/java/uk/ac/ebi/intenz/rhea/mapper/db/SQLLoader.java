@@ -48,11 +48,9 @@ public final class SQLLoader {
     private static volatile Connection connection;
 
     public static SQLLoader getSQLLoader(String sqlFile) throws IOException {
-        if (sQLLoader == null) {
-            synchronized (SQLLoader.class) {
-                if (sQLLoader == null) {
-                    sQLLoader = new SQLLoader(sqlFile);
-                }
+        synchronized (SQLLoader.class) {
+            if (sQLLoader == null) {
+                sQLLoader = new SQLLoader(sqlFile);
             }
         }
         return sQLLoader;
@@ -93,7 +91,7 @@ public final class SQLLoader {
                 .getResourceAsStream(aClass.getName() + ".sql"));
 
         statementsMap = new HashMap<String, PreparedStatement>();
-        this.connection = con;
+        SQLLoader.connection = con;
     }
 
     /**
@@ -137,15 +135,13 @@ public final class SQLLoader {
     }
 
     public static Connection getConnection() throws IOException {
-        //if (connection == null) {
-        //synchronized (SQLLoader.class) {
+
         if (connection == null) {
             connection = OracleDatabaseInstance.getInstance("intenz-db-prod")
                     .getConnection();
 
         }
-        // }
-        //}
+
         return connection;
     }
 

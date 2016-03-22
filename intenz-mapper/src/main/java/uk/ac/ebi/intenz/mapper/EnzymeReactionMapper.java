@@ -36,14 +36,23 @@ public class EnzymeReactionMapper {
     private static final String SQL_FILE = "uk.ac.ebi.intenz.rhea.mapper.db.IntEnzRheaCompoundDbReader.sql";
 
     public EnzymeReactionMapper() {
-        try {
+        constructIntEnzRheaDbReader();
+    }
 
-            SQLLoader sQLLoader = SQLLoader.getSQLLoader(SQL_FILE);
-            rheaReader = new IntEnzRheaDbReader(new IntEnzRheaCompoundDbReader(SQLLoader.getConnection(), sQLLoader));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    private SQLLoader getSQLLoader() throws IOException {
+        return SQLLoader.getSQLLoader(SQL_FILE);
+    }
 
+    private IntEnzRheaDbReader constructIntEnzRheaDbReader() {
+        if (rheaReader == null) {
+            try {
+                SQLLoader loader = getSQLLoader();
+                rheaReader = new IntEnzRheaDbReader(new IntEnzRheaCompoundDbReader(SQLLoader.getConnection(), loader));
+            } catch (IOException ex) {
+                LOGGER.error(ex.getMessage(), ex);
+            }
         }
+        return rheaReader;
     }
 
     private static final String SEL_COLS_FROM_TBLS
@@ -371,14 +380,15 @@ public class EnzymeReactionMapper {
             reaction = loadEmtpyReaction(reactionId, equation, source, status);
         } else { // get the whole reaction
             try {
-                rheaReader.setConnection(rs.getStatement().getConnection());//not sure why we need to set connection. a chance that it may have been closed
+               
+                //rheaReader.setConnection(rs.getStatement().getConnection());//not sure why we need to get get and set connection here.
                 reaction = rheaReader.findByReactionId(reactionId);
             } catch (Exception ex) {
                 LOGGER.error("Unable to retrieve reaction from Rhea", ex);
                 reaction = loadEmtpyReaction(reactionId, equation, source, status);
             } finally {
                 rheaReader.close();
-        }
+            }
         }
         return reaction;
     }

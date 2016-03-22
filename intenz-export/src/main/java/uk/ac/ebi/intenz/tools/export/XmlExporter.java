@@ -688,6 +688,7 @@ public class XmlExporter implements IntenzExporter {
         for (int i = 0; i < er.size(); i++) {
             Reaction reaction = er.getReaction(i);
             Object xmlReaction = null;
+            if(reaction.getId() != null){
 			if (reaction.getId() > Reaction.NO_ID_ASSIGNED){
 				// Rhea reaction:
 				if (!reaction.getStatus().isPublic()) continue;
@@ -710,6 +711,7 @@ public class XmlExporter implements IntenzExporter {
 	            jaxbReaction.setIubmb(er.getReactionIubmbFlag(i));
 	            xmlReaction = jaxbReaction;
 			}
+            }
             if (jaxbEnzyme.getReactions() == null)
                 jaxbEnzyme.setReactions(of.createReactions());
 
