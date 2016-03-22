@@ -61,7 +61,7 @@ public class ExporterApp {
 
     private Properties spotlights;
 
-    private static Connection intenzConnection;
+    private static volatile Connection intenzConnection;
     // Object to retrieve release number and date from:
     private IIntEnzStatistics stats;
 

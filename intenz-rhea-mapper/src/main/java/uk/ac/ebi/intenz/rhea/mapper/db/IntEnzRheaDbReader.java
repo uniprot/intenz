@@ -1124,7 +1124,6 @@ public class IntEnzRheaDbReader {
 
     private Reaction loadReaction(ResultSet rs) throws SQLException {
         Reaction reaction = null;
-        if (!rs.isClosed()) {
             if (rs.next()) {
                 String equation = rs.getString("equation");
                 String status = rs.getString("status");
@@ -1157,7 +1156,7 @@ public class IntEnzRheaDbReader {
                     reaction.setReactionComment(reactionComment);
                 }
             }
-        }
+
         return reaction;
     }
 
