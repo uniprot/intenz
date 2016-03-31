@@ -122,7 +122,7 @@ public class IntEnzRheaDbReader {
      * @throws uk.ac.ebi.rhea.mapper.MapperException
      */
     public void close() throws MapperException {
-        compoundReader.close();
+        //compoundReader.close();
 //        try {
 //            if (sqlLoader != null) {
 //                //LOGGER.warn("SQLLOADER close() has been called " + sqlLoader);
