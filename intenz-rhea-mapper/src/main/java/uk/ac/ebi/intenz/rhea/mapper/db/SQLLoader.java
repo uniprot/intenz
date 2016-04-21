@@ -16,6 +16,7 @@
 package uk.ac.ebi.intenz.rhea.mapper.db;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,7 +38,7 @@ public final class SQLLoader {
     private static SQLLoader sQLLoader = null;
     private final Properties statementsSql;
 
-    private final Logger LOGGER = Logger.getLogger(SQLLoader.class);
+    private static final Logger logger = Logger.getLogger(SQLLoader.class);
 
     /**
      * A mapping from String - SQL double-dash comments - to already open
@@ -134,12 +135,24 @@ public final class SQLLoader {
         connection = getConnection();
     }
 
+    private static String getDBConfig() throws IOException {
+
+        Properties prop = new Properties();
+        InputStream in = SQLLoader.class.getClassLoader().getResourceAsStream("application.properties");
+        prop.load(in);
+        return prop.getProperty("application.db.config");
+
+    }
+
     public static Connection getConnection() throws IOException {
 
         if (connection == null) {
-            connection = OracleDatabaseInstance.getInstance("intenz-db-prod")
-                    .getConnection();
 
+            String dbConfig = getDBConfig();
+//            connection = OracleDatabaseInstance.getInstance("intenz-db-prod")
+//                    .getConnection();
+            connection = OracleDatabaseInstance.getInstance(dbConfig)
+                    .getConnection();
         }
 
         return connection;
@@ -279,7 +292,7 @@ public final class SQLLoader {
             } catch (SQLException e) {
                 // Hack to avoid errors when closing a statement already closed
                 // (allowed according to the Statement interface).
-                LOGGER.error("Unable to close statement", e);
+                logger.error("Unable to close statement", e);
             }
         }
         statementsMap.clear();

@@ -39,6 +39,7 @@ import uk.ac.ebi.rhea.domain.Status;
 import uk.ac.ebi.rhea.domain.XRef;
 import uk.ac.ebi.rhea.domain.XRef.Availability;
 import uk.ac.ebi.rhea.mapper.IRheaCompoundReader;
+import uk.ac.ebi.rhea.mapper.IRheaReader;
 import uk.ac.ebi.rhea.mapper.MapperException;
 import uk.ac.ebi.rhea.mapper.SearchOptions;
 import uk.ac.ebi.rhea.mapper.SearchSwitch;
@@ -49,7 +50,7 @@ import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
  * motivations, UES-14 for specific sql queries
  *
  */
-public class IntEnzRheaDbReader {
+public class IntEnzRheaDbReader implements IRheaReader{
 
     /**
      * Compound field used for a search.

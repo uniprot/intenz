@@ -4,7 +4,7 @@
 
     <groupId>uk.ac.ebi.intenz</groupId>
     <artifactId>intenz-rhea-mapper</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
    
     <name>intenz-rhea-mapper</name>
@@ -15,25 +15,25 @@
 
 
     
-    	<parent>
-		<groupId>uk.ac.ebi.intenz</groupId>
-		<artifactId>intenz</artifactId>
-		<version>4.2.6-SNAPSHOT</version>
-	</parent>
+    <parent>
+        <groupId>uk.ac.ebi.intenz</groupId>
+        <artifactId>intenz</artifactId>
+        <version>4.2.5</version>
+    </parent>
 
     <build>
-            <finalName>intenz-rhea-mapper</finalName>
+        <finalName>intenz-rhea-mapper</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
-                          <resource>
-                        <directory>${intenz.config.dir}</directory>
-                        <includes>
-                            <include>intenz-db-*.properties</include>
-                            <include>ebi-proxy.properties</include>
-                        </includes>
-                    </resource>
+            <resource>
+                <directory>${intenz.config.dir}</directory>
+                <includes>
+                    <include>intenz-db-*.properties</include>
+                    <include>ebi-proxy.properties</include>
+                </includes>
+            </resource>
         </resources>
         <testResources>
             <testResource>
@@ -48,7 +48,7 @@
                     <include>intenz-db-dev.properties</include>
                 </includes>
             </testResource>
-<!--            <testResource>
+            <!--            <testResource>
                 <directory>${rhea.config.dir}</directory>
                 <includes>
                     <include>rhea-db-dev.properties</include>
@@ -71,6 +71,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
+                <version>3.5.1</version>
                 <configuration>
                     <reportPlugins>
                         <plugin>
@@ -147,6 +148,12 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
+            <version>3.5.1</version>
+            <type>maven-plugin</type>
+        </dependency>
 
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
