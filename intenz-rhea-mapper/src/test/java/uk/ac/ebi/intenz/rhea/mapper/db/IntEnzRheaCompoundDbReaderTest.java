@@ -40,7 +40,6 @@ public class IntEnzRheaCompoundDbReaderTest {
                 if (connection == null) {
                     connection = OracleDatabaseInstance.getInstance(db)
                             .getConnection();
-                    System.out.println("whatis connection "+ connection);
 
                 }
             }
