@@ -5,11 +5,10 @@ in the root directory of this distribution.
 */
 package uk.ac.ebi.intenz.tools.sib;
 
-import org.apache.log4j.Logger;
-
-import java.util.PropertyResourceBundle;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.PropertyResourceBundle;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -57,7 +56,7 @@ public class ApplicationResources extends PropertyResourceBundle {
    public static ApplicationResources getInstance () {
       if ( resources == null ) {
          synchronized ( ApplicationResources.class ) {
-            if ( resources == null ) {
+            //if ( resources == null ) {
                try {
 				   //FileInputStream in = new FileInputStream(
                    //     ApplicationResources.class.getClassLoader().getResource("application.properties").getPath());
@@ -68,7 +67,7 @@ public class ApplicationResources extends PropertyResourceBundle {
                   LOGGER.fatal("Application properties file could not be loaded.", e);
                   System.exit(1);
                }
-            }
+            //}
          }
       }
       return resources;

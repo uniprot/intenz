@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import org.apache.log4j.Logger;
-
 import uk.ac.ebi.biobabel.validator.DbIdentifierValidator;
 import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeCrossReference;
 import uk.ac.ebi.intenz.tools.sib.sptr_enzyme.EnzymeEntryImpl;
@@ -613,7 +612,7 @@ public class EnzymeFlatFileWriter {
 			.append("CC   1211 Geneva 4\n")
 			.append("CC   Switzerland\n")
 			.append("CC\n")
-			.append("CC   Email: enzyme@isb-sib.ch\n")
+			.append("CC   Email: enzyme@expasy.org\n")
 			.append("CC\n")
 			.append("CC   WWW server: http://enzyme.expasy.org/\n")
 			.append("CC\n")
