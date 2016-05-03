@@ -138,7 +138,7 @@ public final class SQLLoader {
     private static String getDBConfig() throws IOException {
 
         Properties prop = new Properties();
-        InputStream in = SQLLoader.class.getClassLoader().getResourceAsStream("application.properties");
+        InputStream in = SQLLoader.class.getClassLoader().getResourceAsStream("dbconfig.properties");
         prop.load(in);
         return prop.getProperty("application.db.config");
 
@@ -149,10 +149,21 @@ public final class SQLLoader {
         if (connection == null) {
 
             String dbConfig = getDBConfig();
-//            connection = OracleDatabaseInstance.getInstance("intenz-db-prod")
-//                    .getConnection();
-            connection = OracleDatabaseInstance.getInstance(dbConfig)
-                    .getConnection();
+
+//workaround for localhost issues 
+//            String userHome = System.getProperty("user.home");
+//            System.setProperty(
+//                    "oracle.net.tns_admin",
+//                    userHome + "/tns_admin");
+            logger.debug("DBConfig being used :: "+ dbConfig);
+            if (dbConfig == null) {
+                connection = OracleDatabaseInstance.getInstance("intenz-db-prod")
+                        .getConnection();
+            } else {
+                connection = OracleDatabaseInstance.getInstance(dbConfig)
+                        .getConnection();
+            }
+
         }
 
         return connection;
