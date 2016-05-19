@@ -27,22 +27,22 @@ import uk.ac.ebi.rhea.mapper.MapperException;
  * @version $Revision: 1.6 $ $Date: 2009/05/26 14:59:09 $
  */
 public class EnzymeReactionMapper {
-
+    
     private static final Logger LOGGER
             = Logger.getLogger(EnzymeReactionMapper.class.getName());
 
     ///protected RheaDbReader rheaReader;
     protected IntEnzRheaDbReader rheaReader;
     private static final String SQL_FILE = "uk.ac.ebi.intenz.rhea.mapper.db.IntEnzRheaCompoundDbReader.sql";
-
+    
     public EnzymeReactionMapper() {
         constructIntEnzRheaDbReader();
     }
-
+    
     private SQLLoader getSQLLoader() throws IOException {
         return SQLLoader.getSQLLoader(SQL_FILE);
     }
-
+    
     private IntEnzRheaDbReader constructIntEnzRheaDbReader() {
         if (rheaReader == null) {
             try {
@@ -54,27 +54,27 @@ public class EnzymeReactionMapper {
         }
         return rheaReader;
     }
-
+    
     private static final String SEL_COLS_FROM_TBLS
             = "SELECT rm.reaction_id, rm.web_view, rm.order_in, rm.iubmb,"
             + " ir.equation, ir.source, ir.qualifiers, ir.status"
             + " FROM reactions_map rm, intenz_reactions ir";
-
+    
     private static final String FIND_STM
             = SEL_COLS_FROM_TBLS
             + " WHERE rm.enzyme_id = ? AND rm.reaction_id = ir.reaction_id"
             + " ORDER BY rm.order_in";
-
+    
     private static final String FIND_SIB_STM
             = SEL_COLS_FROM_TBLS
             + " WHERE rm.enzyme_id = ? AND rm.reaction_id = ir.reaction_id"
             + " AND (rm.web_view  LIKE '%SIB%' OR rm.web_view = 'INTENZ')"
             + " ORDER BY rm.order_in";
-
+    
     private static final String INSERT_STM
             = "INSERT INTO reactions_map (reaction_id, enzyme_id, web_view, iubmb,"
             + " order_in) VALUES (?, ?, ?, ?, ?)";
-
+    
     private static final String DELETE_ALL_STM
             = "DELETE reactions_map WHERE enzyme_id = ?";
 
@@ -84,19 +84,19 @@ public class EnzymeReactionMapper {
     private static final String SEL_ABSTRACT_COLS_FROM_TBLS
             = "SELECT equation, web_view, order_in, source, NULL reaction_id,"
             + " 'N' iubmb, NULL qualifiers, status FROM reactions";
-
+    
     private static final String FIND_ABSTRACT_STM
             = SEL_ABSTRACT_COLS_FROM_TBLS
             + " WHERE enzyme_id = ? ORDER BY order_in";
-
+    
     private static final String FIND_ABSTRACT_SIB_STM
             = SEL_ABSTRACT_COLS_FROM_TBLS + " WHERE enzyme_id = ? AND"
             + " (web_view LIKE '%SIB%' OR web_view = 'INTENZ') ORDER BY order_in";
-
+    
     private static final String INSERT_ABSTRACT_STM
             = "INSERT INTO reactions (enzyme_id, equation, order_in, status, source,"
             + " web_view) VALUES (?, ?, ?, ?, ?, ?)";
-
+    
     private static final String DELETE_ALL_ABSTRACT_STM
             = "DELETE reactions WHERE enzyme_id = ?";
 
@@ -119,7 +119,7 @@ public class EnzymeReactionMapper {
         if (con == null) {
             throw new NullPointerException("Parameter 'con' must not be null.");
         }
-
+        
         EnzymaticReactions result = find(enzymeId, con, FIND_STM);
         EnzymaticReactions abstractReactions
                 = find(enzymeId, con, FIND_ABSTRACT_STM);
@@ -155,7 +155,7 @@ public class EnzymeReactionMapper {
         if (con == null) {
             throw new NullPointerException("Parameter 'con' must not be null.");
         }
-
+        
         EnzymaticReactions result = find(enzymeId, con, FIND_SIB_STM);
         if (result == null) {
             result = find(enzymeId, con, FIND_ABSTRACT_SIB_STM);
@@ -164,7 +164,7 @@ public class EnzymeReactionMapper {
         }
         return result;
     }
-
+    
     private EnzymaticReactions find(Long enzymeId, Connection con,
             String findQuery)
             throws SQLException, MapperException {
@@ -212,7 +212,7 @@ public class EnzymeReactionMapper {
         if (con == null) {
             throw new NullPointerException("Parameter 'con' must not be null.");
         }
-
+        
         for (int i = 0; i < reactions.size(); i++) {
             Reaction reaction = reactions.getReaction(i);
             EnzymeViewConstant view = reactions.getReactionView(i);
@@ -221,7 +221,7 @@ public class EnzymeReactionMapper {
                 insertReaction(enzymeId, reaction, view, iubmb, i + 1, con);
             } else {
                 insertMapping(enzymeId, reaction.getId(), view, iubmb, i + 1, con);
-
+                
             }
         }
     }
@@ -318,7 +318,7 @@ public class EnzymeReactionMapper {
         if (con == null) {
             throw new NullPointerException("Parameter 'con' must not be null.");
         }
-
+        
         PreparedStatement stm = null;
         try {
             stm = con.prepareStatement(DELETE_ALL_STM);
@@ -366,7 +366,7 @@ public class EnzymeReactionMapper {
      */
     private Reaction loadReaction(ResultSet rs) throws SQLException, MapperException {
         assert rs != null : "Parameter 'rs' must not be null.";
-
+        
         String equation = rs.getString("equation");
         String source = rs.getString("source");
         Long reactionId = rs.getLong("reaction_id");
@@ -380,10 +380,14 @@ public class EnzymeReactionMapper {
             reaction = loadEmtpyReaction(reactionId, equation, source, status);
         } else { // get the whole reaction
             try {
-               
-                //rheaReader.setConnection(rs.getStatement().getConnection());//not sure why we need to get get and set connection here.
+
+                rheaReader.setConnection(rs.getStatement().getConnection());//not sure why we need to get get and set connection here.
                 reaction = rheaReader.findByReactionId(reactionId);
-            } catch (Exception ex) {
+               
+            } catch (SQLException ex) {
+                LOGGER.error("Unable to retrieve reaction from Rhea", ex);
+                reaction = loadEmtpyReaction(reactionId, equation, source, status);
+            } catch (MapperException ex) {
                 LOGGER.error("Unable to retrieve reaction from Rhea", ex);
                 reaction = loadEmtpyReaction(reactionId, equation, source, status);
             } finally {
@@ -392,14 +396,14 @@ public class EnzymeReactionMapper {
         }
         return reaction;
     }
-
+    
     public void close() throws MapperException {
         rheaReader.close();
     }
-
+    
     @Override
     protected void finalize() throws Throwable {
         close();
     }
-
+    
 }

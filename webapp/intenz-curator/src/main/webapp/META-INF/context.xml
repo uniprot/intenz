@@ -4,7 +4,7 @@
         docBase="work/Catalina/localhost">
 
 	<Parameter name="intenz.db.config"
-		value="intenz-db-test"
+		value="intenz-db-dev"
 		override="false" />
     <Parameter name="chebi.prod.db.config"
         value="chebi-db-prod"
