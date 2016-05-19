@@ -421,9 +421,9 @@ SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status, ir.dire
 UNION \
 SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status, ir.direction \
 	FROM enzymes e, reactions_map rm, reaction_mergings rme, intenz_reactions ir \
-	WHERE (rme.to_id IN \
-        (SELECT reaction_id FROM intenz_reactions \
-        WHERE reaction_id = ? OR un_reaction = ?) \
+	WHERE (EXISTS \
+        (SELECT reaction_id FROM intenz_reactions ir2 \
+        WHERE reaction_id = ? OR un_reaction = ? AND rme.to_id = ir2.reaction_id) \
     AND rm.reaction_id = rme.from_id) \
 	AND rm.enzyme_id = e.enzyme_id \
 	AND e.status IN ('OK','PM') AND e.active = 'Y' \
@@ -499,30 +499,6 @@ SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status \
 		(SELECT before_id FROM history_events WHERE event_class = 'MOD') \
 	ORDER BY ec
 
---family.enzymes.related:\
-SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status, ir.direction \
-	FROM enzymes e, reactions_map rm, intenz_reactions ir \
-	WHERE rm.reaction_id IN \
-        (SELECT reaction_id FROM intenz_reactions \
-        WHERE reaction_id = ? OR un_reaction = ?) \
-	AND rm.enzyme_id = e.enzyme_id \
-	AND e.status IN ('OK','PM') AND e.active = 'Y' \
-	AND e.enzyme_id NOT IN \
-		(SELECT before_id FROM history_events WHERE event_class = 'MOD') \
-    AND rm.reaction_id = ir.reaction_id \
-UNION \
-SELECT f_quad2string(e.ec1,e.ec2,e.ec3,e.ec4) ec, e.enzyme_id, e.status, ir.direction \
-	FROM enzymes e, reactions_map rm, reaction_mergings rme, intenz_reactions ir \
-	WHERE (rme.to_id IN \
-        (SELECT reaction_id FROM intenz_reactions \
-        WHERE reaction_id = ? OR un_reaction = ?) \
-    AND rm.reaction_id = rme.from_id) \
-	AND rm.enzyme_id = e.enzyme_id \
-	AND e.status IN ('OK','PM') AND e.active = 'Y' \
-	AND e.enzyme_id NOT IN \
-		(SELECT before_id FROM history_events WHERE event_class = 'MOD') \
-    AND rm.reaction_id = ir.reaction_id \
-	ORDER BY ec
 
 
 --xrefs:\
