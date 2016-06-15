@@ -56,7 +56,7 @@ public class KrakenLinkImporter extends Importer {
         uniProtService = IntenzUniprotService.getIntenzUniprotService().uniProtService();
     }
 
-    @Override
+   @Override
     protected void importData() throws Exception {
         EnzymeEntryMapper mapper = new EnzymeEntryMapper();
         enzymeEntries = mapper.findAll(impCon);
@@ -81,12 +81,13 @@ public class KrakenLinkImporter extends Importer {
         }
 
         SortedSet<EnzymeLink> updatedUniProtXrefs = new TreeSet<EnzymeLink>();
-
+       
         if (resultEntries.isPresent()) {
             QueryResult<UniProtEntry> queryResult = resultEntries.get();
             while (queryResult.hasNext()) {
-                String accession = queryResult.next().getPrimaryUniProtAccession().getValue();
-                final UniProtId uniprotId = queryResult.next().getUniProtId();
+                UniProtEntry entry = queryResult.next();
+                String accession = entry.getPrimaryUniProtAccession().getValue();
+                final UniProtId uniprotId = entry.getUniProtId();
                 EnzymeLink enzymeLink = EnzymeLink.valueOf(XrefDatabaseConstant.SWISSPROT,
                         XrefDatabaseConstant.SWISSPROT.getUrl(),
                         accession,
