@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
@@ -16,6 +17,7 @@ import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
  *
  * @author rafalcan
  */
+@Ignore
 public class BiopaxCatalysisTest {
 
     private EnzymeEntryMapper mapper;
