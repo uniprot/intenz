@@ -337,7 +337,7 @@
 
     <modules>
         <module>intenz-database</module>
-         <module>intenz-rhea-mapper</module>
+<!--         <module>intenz-rhea-mapper</module>-->
         <module>intenz-core</module>
         <module>intenz-mapper</module>
         <module>intenz-import</module>
