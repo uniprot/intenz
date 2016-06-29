@@ -4,12 +4,19 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
-
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import uk.ac.ebi.biobabel.util.WebUtil;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.exceptions.EcException;
@@ -316,8 +323,9 @@ public class SearchCommand extends DatabaseCommand {
    * @throws InvalidUTF8OctetSequenceException
    *          if the given octets are invalid (see <code>XChars</code> library for more info).
    */
-  private String decodeQuery(String queryString, boolean isNotParameter) throws InvalidUTF8OctetSequenceException {
-    if (queryString == null || queryString.equals("")) return queryString;
+  private String decodeQuery(String queryStringRaw, boolean isNotParameter) throws InvalidUTF8OctetSequenceException {
+    if (queryStringRaw == null || queryStringRaw.equals("")) return queryStringRaw;
+    String queryString = Jsoup.clean(queryStringRaw, Whitelist.basic());
 
     StringBuffer searchQuery = new StringBuffer(replacePlus(getSearchQuery(queryString, isNotParameter)));
     Pattern utf8HexPattern = Pattern.compile("((%([a-fA-F0-9]){2}?)+)"); // Pattern for octet sequences.
@@ -334,8 +342,9 @@ public class SearchCommand extends DatabaseCommand {
     return searchQuery.toString();
   }
 
-  private String getSearchQuery(String queryString, boolean isNotParameter) {
-    if (queryString == null || queryString.equals("")) return "";
+  private String getSearchQuery(String queryString_raw, boolean isNotParameter) {
+    if (queryString_raw == null || queryString_raw.equals("")) return "";
+   String queryString = Jsoup.clean(queryString_raw, Whitelist.basic());
     int searchQueryStart = 0;
     if (isNotParameter)
       searchQueryStart = queryString.indexOf("not=");
@@ -387,8 +396,9 @@ public class SearchCommand extends DatabaseCommand {
 
   // ------------------- PRIVATE METHODS ------------------------
 
-  private String escapeUTF8(String query) {
-    // Existing XChars elements will be transformed into escaped UTF-8 strings.
+  private String escapeUTF8(String queryString) {
+     String query = Jsoup.clean(queryString, Whitelist.basic());
+// Existing XChars elements will be transformed into escaped UTF-8 strings.
     SpecialCharacters encoding = (SpecialCharacters) request.getSession().getServletContext().getAttribute("characters");
     if (query.indexOf("<small>") > -1 || query.indexOf("</small>") > -1 || query.indexOf("<smallsup>") > -1 ||
             query.indexOf("</smallsup>") > -1 || query.indexOf("</smallsub>") > -1 || query.indexOf("<smallsub>") > -1)
