@@ -70,3 +70,5 @@ GRANT EXECUTE ON f_rhea_family_id      		TO ENZYME_WEBSERVER;
 -- Permissions for CHEBI Users
 GRANT SELECT ON chebi_xrefs			TO CHEBI;
 GRANT SELECT ON chebi_reactions			TO CHEBI;
+
+GRANT SELECT ON reaction_relationship TO ENZYME_SELECT;
