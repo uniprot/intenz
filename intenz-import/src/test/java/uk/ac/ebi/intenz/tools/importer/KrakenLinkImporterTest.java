@@ -23,6 +23,7 @@ public class KrakenLinkImporterTest extends TestCase {
 
 	public void testGetKrakenLinks() {
 		//SortedSet<EnzymeLink> links = importer.getKrakenLinks("1.2.3.4");
+               //SortedSet<EnzymeLink> links = importer.getKrakenLinks("2.1.1.61");//probematic in japi
                 SortedSet<EnzymeLink> links = importer.getKrakenLinks("1.1.1.1");
 		assertFalse(links.isEmpty());
 		for (EnzymeLink link : links) {

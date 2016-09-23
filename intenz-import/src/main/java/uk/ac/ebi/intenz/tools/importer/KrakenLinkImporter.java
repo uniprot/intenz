@@ -28,6 +28,7 @@ import uk.ac.ebi.uniprot.dataservice.query.Query;
 
 /**
  * code partly adapted from Rafa
+ *
  * @author Joseph <joseph@ebi.ac.uk>
  */
 public class KrakenLinkImporter extends Importer {
@@ -49,8 +50,8 @@ public class KrakenLinkImporter extends Importer {
         impCon = OracleDatabaseInstance
                 .getInstance(importerProps.getProperty("intenz.database"))
                 .getConnection();
-        logger.debug("Database connection obtained "+ impCon);
-       
+        logger.debug("Database connection obtained " + impCon);
+
         setupKraken();
     }
 
@@ -73,7 +74,7 @@ public class KrakenLinkImporter extends Importer {
     }
 
     protected SortedSet<EnzymeLink> getKrakenLinks(String ec) {
-       
+
         Query query = UniProtQueryBuilder.ec(ec).and(UniProtQueryBuilder.swissprot());
         Optional< QueryResult<UniProtEntry>> resultEntries = Optional.empty();
         try {
@@ -84,20 +85,22 @@ public class KrakenLinkImporter extends Importer {
         }
 
         SortedSet<EnzymeLink> updatedUniProtXrefs = new TreeSet<EnzymeLink>();
-  
+
         if (resultEntries.isPresent()) {
             QueryResult<UniProtEntry> queryResult = resultEntries.get();
             while (queryResult.hasNext()) {
                 UniProtEntry entry = queryResult.next();
-                String accession = entry.getPrimaryUniProtAccession().getValue();
-                final UniProtId uniprotId = entry.getUniProtId();
-                EnzymeLink enzymeLink = EnzymeLink.valueOf(XrefDatabaseConstant.SWISSPROT,
-                        XrefDatabaseConstant.SWISSPROT.getUrl(),
-                        accession,
-                        uniprotId.getValue(),
-                        EnzymeSourceConstant.INTENZ,
-                        EnzymeViewConstant.SIB_INTENZ);
-                updatedUniProtXrefs.add(enzymeLink);
+                if(entry != null){
+                 String accession = entry.getPrimaryUniProtAccession().getValue();
+                    final UniProtId uniprotId = entry.getUniProtId();
+                    EnzymeLink enzymeLink = EnzymeLink.valueOf(XrefDatabaseConstant.SWISSPROT,
+                            XrefDatabaseConstant.SWISSPROT.getUrl(),
+                            accession,
+                            uniprotId.getValue(),
+                            EnzymeSourceConstant.INTENZ,
+                            EnzymeViewConstant.SIB_INTENZ);
+                    updatedUniProtXrefs.add(enzymeLink);
+                }
             }
         }
 
@@ -120,9 +123,9 @@ public class KrakenLinkImporter extends Importer {
     protected void destroy() {
         logger.debug("Closing IntEnz import connection..." + impCon);
         try {
-           if(impCon != null){
-               impCon.close(); 
-           }
+            if (impCon != null) {
+                impCon.close();
+            }
             uniProtService.stop();
         } catch (SQLException e) {
             logger.error(e);
