@@ -100,6 +100,8 @@ public class KrakenLinkImporter extends Importer {
                             EnzymeSourceConstant.INTENZ,
                             EnzymeViewConstant.SIB_INTENZ);
                     updatedUniProtXrefs.add(enzymeLink);
+                }else{
+                    logger.error("UniProtEntry (QueryResult<>) was Null for this EC "+ ec);
                 }
             }
         }
