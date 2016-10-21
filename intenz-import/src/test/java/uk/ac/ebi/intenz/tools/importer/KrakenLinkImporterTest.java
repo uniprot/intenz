@@ -7,16 +7,18 @@ import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 
 public class KrakenLinkImporterTest extends TestCase {
 
-	private static Logger LOGGER = Logger.getLogger(KrakenLinkImporter.class);
+	private static final Logger logger = Logger.getLogger(KrakenLinkImporter.class);
 	
 	private KrakenLinkImporter importer;
 
+        @Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		importer = new KrakenLinkImporter();
 		importer.setupKraken();
 	}
 
+        @Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
@@ -25,7 +27,7 @@ public class KrakenLinkImporterTest extends TestCase {
 		SortedSet<EnzymeLink> links = importer.getKrakenLinks("1.2.3.4");
 		assertFalse(links.isEmpty());
 		for (EnzymeLink link : links) {
-			LOGGER.info(link.getName() + " - " + link.getAccession());
+			logger.info(link.getName() + " - " + link.getAccession());
 		}
 	}
 
