@@ -52,6 +52,16 @@ import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
  */
 public class IntEnzRheaDbReader implements IRheaReader{
 
+    @Override
+    public Reaction findByReactionId(Long l, boolean bln, boolean bln1) throws MapperException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Reaction findByReactionId(String string, boolean bln) throws MapperException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * Compound field used for a search.
      */

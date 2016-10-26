@@ -47,7 +47,7 @@ public class JsonExporterTest {
     public void testExportEnzyme() throws Exception {
         EnzymeEntryMapper mapper = new EnzymeEntryMapper();
         try {
-            EnzymeEntry e = mapper.findByEc("1.2.3.4", Status.APPROVED, con);
+            EnzymeEntry e = mapper.findByEc("1.1.3.41", Status.APPROVED, con);
             System.out.println("************ Exporting enzyme:");
             exporter.export(e, System.out);
         } finally {
