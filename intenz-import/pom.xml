@@ -22,7 +22,7 @@
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-mapper</artifactId>
-            <version>4.6.0</version>
+            <version>4.6.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
