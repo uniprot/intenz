@@ -1,0 +1,32 @@
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib uri="http://www.ebi.ac.uk/xchars" prefix="xchars" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<bean:size id="listSize" name="enzymeDTO" property="cofactors" />
+<logic:greaterThan name="listSize" value="0">
+    <tr>
+        <td colspan="2" class="data_region_header_row">Cofactors</td>
+        <td width="100px" align="center" class="data_region_header_row_small_blue">Source</td>
+        <td width="100px" align="center" class="data_region_header_row_small_blue">View</td>
+    </tr>
+    <logic:iterate id="cofactor" name="enzymeDTO" property="cofactors" type="CofactorDTO">
+        <tr>
+            <td colspan="2">
+                <%@ include file="cofactor-linked.jspf" %>
+            </td>
+            <td width="100px" align="center" valign="top">
+                <bean:write name="cofactor" property="source" filter="false" />
+            </td>
+            <td width="100px" align="center" valign="top">
+                <bean:write name="cofactor" property="viewDisplayImage" filter="false" />
+            </td>
+        </tr>
+    </logic:iterate>
+    
+    <tr>
+        <td height="40px" colspan="4">&nbsp;</td>
+    </tr>
+</logic:greaterThan>

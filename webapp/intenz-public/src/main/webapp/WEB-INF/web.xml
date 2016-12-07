@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding='iso-8859-1'?>
+<web-app version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    
+    <context-param>
+        <description>URL to get images for small molecules. This parameter is
+            used by intenz_view.jspf.</description>
+        <param-name>chebi.img.url</param-name>
+        <param-value>/rhea/compoundImage.xhtml?dimensions=200&amp;chebiId=</param-value>
+    </context-param>
+    
+    <context-param>
+        <description>URL to get images for polymers. This parameter is used by
+            intenz_view.jspf.</description>
+        <param-name>rhea.img.url</param-name>
+        <param-value>/rhea/compoundImage.xhtml?dimensions=200&amp;polymerId=</param-value>
+    </context-param>
+
+    <filter>
+        <filter-name>HealthFilter</filter-name>
+        <filter-class>uk.ac.ebi.es.HealthFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>HealthFilter</filter-name>
+        <url-pattern>*.noaccesslog</url-pattern>
+    </filter-mapping>
+
+	<servlet>
+		<servlet-name>index</servlet-name>
+		<jsp-file>/index.jsp</jsp-file>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>query</servlet-name>
+		<servlet-class>uk.ac.ebi.intenz.webapp.controller.IntEnzHandlerServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>contact</servlet-name>
+		<servlet-class>uk.ac.ebi.intenz.webapp.controller.IntEnzContactServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>sitemap</servlet-name>
+		<servlet-class>uk.ac.ebi.intenz.webapp.controller.SitemapServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>query</servlet-name>
+		<url-pattern>/query</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>contact</servlet-name>
+		<url-pattern>/contact</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>sitemap</servlet-name>
+		<url-pattern>/sitemap.xml.gz</url-pattern>
+	</servlet-mapping>
+
+	<!-- Health checks filtered for not logging access: -->
+	<servlet-mapping>
+		<servlet-name>query</servlet-name>
+		<url-pattern>/query.noaccesslog</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>index</servlet-name>
+		<url-pattern>/index.jsp.noaccesslog</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error.jsp</location>
+	</error-page>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error.jsp</location>
+	</error-page>
+
+</web-app>

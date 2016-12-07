@@ -1,0 +1,106 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="x" uri="http://www.ebi.ac.uk/xchars" %>
+<%@ taglib prefix="i" tagdir="/WEB-INF/tags/intenz" %>
+
+<fmt:setBundle basename="linksTitles" var="linksTitles"/>
+
+<c:choose>
+	<c:when test="${entry.status eq 'PRELIMINARY'}">
+	<br/>This is a preliminary entry, not supported by NC-IUBMB.
+	</c:when>
+	<c:otherwise>
+
+<div style="text-align: center; font-weight: bold; display: table; width: 100%">
+	IUBMB Enzyme Nomenclature<br/>
+	<span style="font-size: 150%">EC ${entry.ec}</span>
+	<c:if test="${entry.status eq 'PROPOSED'}"><br/>(proposal)</c:if>
+</div>
+
+<div class="iubmb">
+	<b>Accepted name:</b> <x:translate>${entry.commonName.name}</x:translate>
+</div>
+
+<div class="iubmb">
+	<i:getReactions var="reactions" entry="${entry}" view="IUBMB"/>
+	<b>Reaction${fn:length(reactions) > 1? 's' : ''}:</b>
+	<c:set var="steps" value="0"/>
+	<c:forEach var="reaction" items="${reactions}" varStatus="i">
+		<c:choose>
+			<c:when test="${fn:length(reactions) > 1
+				and !fn:startsWith(reaction.textualRepresentation, '(1a)')
+				and !fn:startsWith(reaction.textualRepresentation, '(1b)')
+				and !fn:startsWith(reaction.textualRepresentation, '(1c)')
+				and !fn:startsWith(reaction.textualRepresentation, '(1d)')
+				and !fn:startsWith(reaction.textualRepresentation, '(2a)')
+				and !fn:startsWith(reaction.textualRepresentation, '(2b)')}">
+				(${1 + i.index - steps})
+			</c:when>
+			<c:otherwise>
+				<c:set var="steps" value="${steps + 1}"/>
+			</c:otherwise>
+		</c:choose>
+		<x:translate><i:cleanLinks>${reaction}</i:cleanLinks></x:translate>
+		<c:if test="${not i.last}"><br/></c:if>
+	</c:forEach>
+</div>
+
+<i:getSynonyms var="synonyms" entry="${entry}" view="IUBMB" />
+<c:if test="${not empty synonyms}">
+<div class="iubmb">
+	<b>Other name${fn:length(synonyms) gt 1? 's' : ''}:</b>
+	<c:forEach var="synonym" items="${synonyms}" varStatus="i">
+		<x:translate>${synonym.name}</x:translate>
+		<c:if test="${not empty synonym.qualifier and synonym.qualifier ne 'NON'}">
+			[${synonym.qualifier.label}]</c:if>
+	</c:forEach>
+</div>
+</c:if>
+
+<c:if test="${not empty entry.systematicName.name and entry.systematicName.name ne '-'}">
+<div class="iubmb">
+	<b>Systematic name:</b> <x:translate>${entry.systematicName.name}</x:translate>
+</div>
+</c:if>
+
+<i:getComments view="IUBMB" var="comments" entry="${entry}"/>
+<c:if test="${not empty comments}">
+<div class="iubmb"><b>Comments:</b>
+<c:forEach var="comment" items="${comments}" varStatus="i">
+	<i:cleanLinks><ucfl><x:translate>${comment.commentText}</x:translate></ucfl></i:cleanLinks>
+	<c:if test="${not i.last}"><br/></c:if>
+</c:forEach>
+</div>
+</c:if>
+
+<i:getLinks view="IUBMB" var="links" entry="${entry}"/>
+<div class="iubmb">
+	<b>Links to other databases:</b>
+	<c:forEach var="link" items="${links}" varStatus="i">
+		<i:link enzymeLink="${link}" ec="${entry.ec}"/><c:if test="${not i.last}">,</c:if>
+	</c:forEach>
+	<c:if test="${not empty entry.casNumbers}">,
+	CAS Registry Number${fn:length(entry.casNumbers) > 1? 's' : '' }:
+		<c:forEach var="casNo" items="${entry.casNumbers}" varStatus="i">
+			${casNo.accession}
+			<c:if test="${not empty casNo.dataComment}">(${casNo.dataComment})</c:if>
+		</c:forEach>
+	</c:if>
+</div>
+
+<div class="iubmb">
+	<b>References:</b>
+	<ol>
+	<c:forEach var="ref" items="${entry.references}">
+		<li><x:translate>${ref}</x:translate></li>
+	</c:forEach>
+	</ol>
+</div>
+
+<div class="iubmbHistory">[${entry.history.rootNode.historyLine}]</div>
+
+</c:otherwise>
+</c:choose>

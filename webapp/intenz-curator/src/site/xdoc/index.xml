@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+	<properties>
+		<title>Curator web application</title>
+		<author email="rafalcan@ebi.ac.uk">Rafael Alcántara</author>
+	</properties>
+	<body>
+		<section name="IntEnz curator web application">
+			<div>
+            This is the web application for IntEnz curators.
+            <br/>
+            Since the beginning of the development four versions of the curator
+            tool had been developed, where the first was only a prototype.
+            The second version included more functionality and bug fixes.
+            The third version was a complete reimplementation using the Struts framework.
+            And the current version includes a dependency to Rhea.
+
+            The following sections will give a brief overview of the implementation
+            and all necessary details to create releases.
+            For detailed code documentation, please refer to the JavaDocs documentation.
+			</div>
+            
+            <subsection name="Purpose and Requirements">
+            	<div>
+                As with every curation tool the basic idea of this tool is to enable
+                curators to maintain the enzyme data stored in the relational database.
+                The main requirements for this tool have been implemented and are listed below.:
+                <ul>
+                    <li>provide views for ENZYME, NC-IUBMB and IntEnz related data</li>
+                    <li>provide a search interface</li>
+                    <li>enable the curator to add, amend, delete and transfer entries and add subclasses</li>
+                    <li>keep the lifecycle of an enzyme</li>
+                    <li>only privileged users are allowed to use the tool</li>
+                    <li>provide a means to merge and split enzymes</li>
+                </ul>
+                There have been much more (fine-grained) requirements throughout the
+                last three years, which either have been implemented or discarded.
+                Please refer to the documentation and the BioBabel work package 5 description.
+            	</div>
+            </subsection>
+        
+            <subsection name="Curator manual">
+            	<div>
+                The curator manual is available at the
+                <a href="http://intranet.isb-sib.ch/display/cv/IntEnz+Curator+Tool+manual">SIB
+                confluence pages</a>.
+            	</div>
+            </subsection>
+		</section>
+	</body>
+</document>

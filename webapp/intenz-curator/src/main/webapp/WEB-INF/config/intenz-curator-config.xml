@@ -1,0 +1,356 @@
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="ecSearchForm" type="uk.ac.ebi.intenz.webapp.dtos.EcSearchForm" />
+		<form-bean name="searchForm" type="uk.ac.ebi.intenz.webapp.dtos.SearchForm" />
+		<form-bean name="exportForm"
+			type="uk.ac.ebi.intenz.webapp.dtos.FlatFileExportForm" />
+		<form-bean name="enzymeDTO" type="uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO" />
+		<form-bean name="inactiveEnzymeDTO" type="uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO" />
+		<form-bean name="newEnzymeDTO" type="uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO" />
+		<form-bean name="iubmbEnzymeDTO"
+			type="uk.ac.ebi.intenz.webapp.dtos.IubmbEnzymeDTO" />
+		<form-bean name="sibEnzymeDTO" type="uk.ac.ebi.intenz.webapp.dtos.SibEnzymeDTO" />
+		<form-bean name="enzymeListDTO" type="uk.ac.ebi.intenz.webapp.dtos.EnzymeListDTO" />
+		<form-bean name="subSubclassDTO"
+			type="uk.ac.ebi.intenz.webapp.dtos.EnzymeSubSubclassDTO" />
+		<form-bean name="subclassDTO"
+			type="uk.ac.ebi.intenz.webapp.dtos.EnzymeSubclassDTO" />
+		<form-bean name="enzymeClassDTO"
+			type="uk.ac.ebi.intenz.webapp.dtos.EnzymeClassDTO" />
+		<form-bean name="ghostEnzymeListDTO"
+			type="uk.ac.ebi.intenz.webapp.dtos.GhostEnzymeListDTO" />
+		<form-bean name="compoundForm" type="uk.ac.ebi.rhea.webapp.forms.CompoundForm" />
+	</form-beans>
+	<global-exceptions>
+		<exception type="java.sql.SQLException" key="errors.application.sql.standard"
+			path=".error" handler="uk.ac.ebi.intenz.webapp.utilities.IntEnzExceptionHandler" />
+		<exception type="java.lang.NumberFormatException" key="errors.application.standard"
+			path=".error" handler="uk.ac.ebi.intenz.webapp.utilities.IntEnzExceptionHandler" />
+		<exception type="java.lang.NullPointerException" key="errors.application.standard"
+			path=".error" handler="uk.ac.ebi.intenz.webapp.utilities.IntEnzExceptionHandler" />
+		<exception type="java.lang.IllegalArgumentException" key="errors.application.standard"
+			path=".error" handler="uk.ac.ebi.intenz.webapp.utilities.IntEnzExceptionHandler" />
+		<exception type="uk.ac.ebi.intenz.webapp.exceptions.DomainException"
+			key="errors.application.standard" path=".error"
+			handler="uk.ac.ebi.intenz.webapp.utilities.IntEnzExceptionHandler" />
+		<exception type="uk.ac.ebi.intenz.webapp.exceptions.DeregisterException"
+			key="errors.application.uow.deregister" path=".error"
+			handler="uk.ac.ebi.intenz.webapp.utilities.IntEnzExceptionHandler" />
+		<exception type="uk.ac.ebi.intenz.webapp.exceptions.EcException"
+			key="errors.application.ec.detail" path=".error"
+			handler="uk.ac.ebi.intenz.webapp.utilities.IntEnzExceptionHandler" />
+		<exception type="uk.ac.ebi.interfaces.sptr.SPTRException"
+			key="errors.application.standard" path=".error"
+			handler="uk.ac.ebi.intenz.webapp.utilities.IntEnzExceptionHandler" />
+	</global-exceptions>
+	<global-forwards>
+		<forward name="intenzStyle" path="/css/intenz.css" />
+		<forward name="tabbedMenuStyle" path="/css/tabs.css" />
+		<forward name="rheaSelectorStyle" path="/css/rheaSelector.css" />
+		<forward name="enzyme_class" path=".enzyme_class" />
+		<forward name="subclass" path=".subclass" />
+		<forward name="sub_subclass" path=".sub_subclass" />
+		<forward name="add_sub_subclass" path=".add_sub_subclass" />
+		<forward name="intenz_entry" path=".intenz_entry" />
+		<forward name="intenz_entry_preview" path=".intenz_entry_preview" />
+		<forward name="deleted_intenz_entry" path=".deleted_intenz_entry" />
+		<forward name="transferred_intenz_entry" path=".transferred_intenz_entry" />
+		<forward name="sib_entry" path=".sib_entry" />
+		<forward name="sib_entry_preview" path=".sib_entry_preview" />
+		<forward name="entries" path=".all_entries" />
+		<forward name="error" path=".error" />
+		<forward name="unknown" path=".unknown" />
+		<forward name="searchId" path="/searchId.do" />
+		<forward name="result" path="/result.jsp" />
+		<forward name="index" path=".index" />
+		<forward name="logon" path="/logon.jsp" />
+		<forward name="logout" path="/logout.jsp" />
+		<forward name="searchEc" path="/search/openSearchEc.xml"
+			redirect="false" />
+		<forward name="searchText" path="/search/openSearchText.xml"
+			redirect="false" />
+	</global-forwards>
+	<action-mappings>
+		<action path="/init" type="uk.ac.ebi.intenz.webapp.controller.InitAction"
+			roles="intenz curator" input="/init.jsp" validate="false" scope="request">
+			<forward name="index" path=".index" />
+		</action>
+		<action path="/addSubSubclassFWD"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.AddSubSubclassFWDAction"
+			parameter=".add_sub_subclass" roles="intenz curator" scope="request" />
+		<action path="/deleteEntryFWD"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.DeleteEntryFWDAction"
+			parameter=".delete_entry" roles="intenz curator" scope="request" />
+		<action path="/deleteEntryUpdateFWD"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.DeleteEntryUpdateFWDAction"
+			parameter=".delete_entry_update" roles="intenz curator" scope="request" />
+		<action path="/transferEntryFWD"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.TransferEntryFWDAction"
+			parameter=".transfer_entry" roles="intenz curator" scope="request" />
+		<action path="/transferEntryUpdateFWD"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.TransferEntryUpdateFWDAction"
+			parameter=".transfer_entry_update" roles="intenz curator" scope="request" />
+		<action path="/amendEntryFWD"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.AmendEntryFWDAction"
+			parameter=".amend_entry" roles="intenz curator" scope="request" />
+		<action path="/amendEntryUpdateFWD"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.AmendEntryUpdateFWDAction"
+			parameter=".amend_entry_update" roles="intenz curator" scope="request" />
+		<action path="/createEntryFWD"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.CreateEntryFWDAction"
+			parameter=".create_entry" roles="intenz curator" scope="request" />
+		<action path="/createInactiveEntryFWD"
+			name="enzymeDTO" scope="request" validate="false"
+			forward=".create_inactive"
+			roles="intenz curator"/>
+		<action path="/createEntryUpdateFWD"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.forwards.CreateEntryUpdateFWDAction"
+			parameter=".create_entry_update" roles="intenz curator" scope="request" />
+		<action path="/searchEc"
+			type="uk.ac.ebi.intenz.webapp.controller.search.SearchEcAction" name="ecSearchForm"
+			input="/index.jsp" validate="true" roles="intenz curator" scope="request">
+			<exception type="uk.ac.ebi.intenz.webapp.exceptions.EcException"
+				key="errors.application.ec.detail" handler="uk.ac.ebi.intenz.webapp.utilities.IntEnzExceptionHandler" />
+			<forward name="populateIntEnzEnzymeDTO" path="/populateIntEnzEnzymeDTO.do" />
+			<forward name="populateEnzymeListDTO" path="/populateEnzymeListDTO.do" />
+			<forward name="populateSubSubclassDTO" path="/populateSubSubclassDTO.do" />
+			<forward name="populateSubclassDTO" path="/populateSubclassDTO.do" />
+			<forward name="populateEnzymeClassDTO" path="/populateEnzymeClassDTO.do" />
+		</action>
+		<action path="/searchId"
+			type="uk.ac.ebi.intenz.webapp.controller.search.SearchIdAction"
+			parameter="id" roles="intenz curator" scope="request">
+			<forward name="populateIntEnzEnzymeDTO" path="/populateIntEnzEnzymeDTO.do" />
+			<forward name="populateIubmbEnzymeDTO" path="/populateIubmbEnzymeDTO.do" />
+			<forward name="populateSibEnzymeDTO" path="/populateSibEnzymeDTO.do" />
+		</action>
+		<action path="/search"
+			type="uk.ac.ebi.intenz.webapp.controller.search.SearchAction" name="searchForm"
+			input="/index.jsp" validate="true" roles="intenz curator" scope="session"
+			parameter="id" />
+		<action path="/searchProposed"
+			type="uk.ac.ebi.intenz.webapp.controller.search.SearchProposedAction"
+			name="ghostEnzymeListDTO" validate="false" roles="intenz curator"
+			scope="request">
+			<forward name="proposed_entries" path=".proposed_entries" />
+		</action>
+		<action path="/searchSuggested"
+			type="uk.ac.ebi.intenz.webapp.controller.search.SearchSuggestedAction"
+			name="ghostEnzymeListDTO" validate="false" roles="intenz curator"
+			scope="request">
+			<forward name="suggested_entries" path=".suggested_entries" />
+		</action>
+		<action path="/searchPreliminary"
+			type="uk.ac.ebi.intenz.webapp.controller.search.SearchPreliminaryAction"
+			validate="false" roles="intenz curator" scope="request">
+			<forward name="preliminary_ecs" path=".preliminary_ecs" />
+		</action>
+		<action path="/populateIntEnzEnzymeDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateIntEnzEnzymeDTOAction"
+			name="enzymeDTO" validate="false" roles="intenz curator" scope="session">
+			<forward name="searchId" path="/searchId.do" />
+		</action>
+		<action path="/populatePreviewIntEnzEnzymeDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulatePreviewIntEnzEnzymeDTOAction"
+			validate="false" roles="intenz curator" scope="request" />
+		<action path="/populateIubmbEnzymeDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateIubmbEnzymeDTOAction"
+			name="iubmbEnzymeDTO" validate="false" roles="intenz curator" scope="request">
+			<forward name="iubmb_entry" path=".iubmb_entry" />
+			<forward name="iubmb_entry_del_trans" path=".iubmb_entry_del_trans" />
+		</action>
+		<action path="/populatePreviewIubmbEnzymeDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulatePreviewIubmbEnzymeDTOAction"
+			name="iubmbEnzymeDTO" validate="false" roles="intenz curator" scope="request">
+			<forward name="iubmb_entry_preview" path=".iubmb_entry_preview" />
+		</action>
+		<action path="/populateSibEnzymeDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateSibEnzymeDTOAction"
+			name="sibEnzymeDTO" validate="false" roles="intenz curator" scope="request">
+			<forward name="searchId" path="/searchId.do" />
+		</action>
+		<action path="/populatePreviewSibEnzymeDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulatePreviewSibEnzymeDTOAction"
+			name="sibEnzymeDTO" validate="false" roles="intenz curator" scope="request" />
+		<action path="/populateEnzymeListDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateEnzymeListDTOAction"
+			name="enzymeListDTO" validate="false" roles="intenz curator" scope="request" />
+		<action path="/populateSubSubclassDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateSubSubclassDTOAction"
+			name="subSubclassDTO" validate="false" roles="intenz curator" scope="request" />
+		<action path="/populateSubclassDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateSubclassDTOAction"
+			name="subclassDTO" validate="false" roles="intenz curator" scope="request" />
+		<action path="/populateEnzymeClassDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.helper.dtoinit.PopulateEnzymeClassDTOAction"
+			name="enzymeClassDTO" validate="false" roles="intenz curator" scope="request" />
+		<action path="/addSubSubclass"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.AddSubSubclassAction"
+			name="subSubclassDTO" input=".add_sub_subclass" validate="true"
+			roles="intenz curator" scope="request">
+			<forward name="searchEc" path="/searchEc.do" />
+		</action>
+		<action path="/deleteEntry"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.DeleteEntryAction"
+			name="enzymeDTO" input=".delete_entry" validate="false" roles="intenz curator"
+			scope="session">
+			<forward name="searchEc" path="/searchEc.do" />
+			<forward name="searchId" path="/searchId.do" />
+		</action>
+		<action path="/deleteEntryUpdate"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.DeleteEntryUpdateAction"
+			name="enzymeDTO" input=".delete_entry_update" validate="false"
+			roles="intenz curator" scope="session">
+			<forward name="searchEc" path="/searchEc.do" />
+			<forward name="searchId" path="/searchId.do" />
+		</action>
+		<action path="/transferEntry"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.TransferEntryAction"
+			name="enzymeDTO" input=".transfer_entry" validate="true" roles="intenz curator"
+			scope="session">
+			<forward name="searchEc" path="/searchEc.do" />
+		</action>
+		<action path="/transferEntryUpdate"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.TransferEntryUpdateAction"
+			name="enzymeDTO" input=".transfer_entry_update" validate="true"
+			roles="intenz curator" scope="session">
+			<forward name="searchEc" path="/searchEc.do" />
+		</action>
+		<action path="/transferredEntryUpdate"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.TransferEntryUpdateAction"
+			name="enzymeDTO" scope="session" validate="true"
+			input=".transfer_entry" roles="intenz curator">
+			<forward name="searchEc" path="/searchEc.do" />
+		</action>
+		<action path="/amendEntry"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.AmendEntryAction"
+			name="enzymeDTO" scope="session" input=".amend_entry" validate="true"
+			roles="intenz curator">
+			<forward name="searchEc" path="/searchEc.do" />
+		</action>
+		<action path="/amendEntryUpdate"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.AmendEntryUpdateAction"
+			name="enzymeDTO" input=".amend_entry_update" validate="true"
+			roles="intenz curator" scope="session">
+			<forward name="searchEc" path="/searchEc.do" />
+		</action>
+		<action path="/createEntry" name="enzymeDTO"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.CreateEntryAction"
+			input=".create_entry" validate="true" roles="intenz curator" scope="session">
+			<forward name="populateIntEnzEnzymeDTO" path="/populateIntEnzEnzymeDTO.do" />
+			<forward name="searchEc" path="/searchEc.do" />
+		</action>
+		<action path="/createEntryUpdate"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.CreateEntryUpdateAction"
+			name="enzymeDTO" input=".create_entry_update" validate="true"
+			roles="intenz curator" scope="session">
+			<forward name="searchEc" path="/searchEc.do" />
+		</action>
+		<action path="/createInactiveEntry"
+			name="enzymeDTO" scope="request" validate="true"
+			type="uk.ac.ebi.intenz.webapp.controller.modification.CreateEntryAction"
+			input=".create_inactive" roles="intenz curator">
+			<forward name="searchEc" path="/searchEc.do" />
+		</action>
+		<action path="/formButtonTransferEntryUpdate"
+			type="uk.ac.ebi.intenz.webapp.controller.common.FormButtonAction"
+			name="enzymeDTO" input=".transfer_entry_update" validate="false"
+			roles="intenz curator" scope="session" />
+		<action path="/formButtonCreate"
+			type="uk.ac.ebi.intenz.webapp.controller.common.FormButtonAction"
+			name="enzymeDTO" input=".create_entry" validate="false" roles="intenz curator"
+			scope="session" />
+		<action path="/formButtonCreateUpdate"
+			type="uk.ac.ebi.intenz.webapp.controller.common.FormButtonAction"
+			name="enzymeDTO" input=".create_entry_update" validate="false"
+			roles="intenz curator" scope="session" />
+		<action path="/formButtonAmend"
+			type="uk.ac.ebi.intenz.webapp.controller.common.FormButtonAction"
+			name="enzymeDTO" input=".amend_entry" validate="false" roles="intenz curator"
+			scope="session" />
+		<action path="/formButtonAmendUpdate"
+			type="uk.ac.ebi.intenz.webapp.controller.common.FormButtonAction"
+			name="enzymeDTO" input=".amend_entry_update" validate="false"
+			roles="intenz curator" scope="session" />
+		<action path="/searchRhea" forward="/pages/search/rheactionSelector.jsp" />
+		<action path="/searchReaction"
+			type="uk.ac.ebi.rhea.webapp.controller.search.SearchReactionAction"
+			name="reactionSearchForm" validate="false" scope="request">
+			<forward name="success_embed" path="/pages/search/reactionsList.jsp"
+				redirect="false" />
+			<forward name="success" path="/pages/search/rheactionSelector.jsp"
+				redirect="false" />
+		</action>
+		<action path="/view"
+			type="uk.ac.ebi.rhea.webapp.controller.view.GetReactionAction" name="reactionForm"
+			validate="false" scope="request">
+			<forward name="success_embed" path="/pages/view/reaction.jsp"
+				redirect="false" />
+			<forward name="success" path="/pages/view/reaction_minimal.jsp"
+				redirect="false" />
+		</action>
+
+		<!-- Cofactor handling: -->
+		<action path="/cofactorList"
+			type="uk.ac.ebi.intenz.webapp.controller.search.GetCofactorList">
+			<forward name="cofactorList" path=".cofactorList" />
+		</action>
+        <action path="/searchCofactors"
+            forward="/pages/search/cofactorSelector.jsp" />
+        <action path="/searchCofactor"
+            type="uk.ac.ebi.intenz.webapp.controller.search.SearchCofactorAction">
+            <forward name="success" path="/pages/search/compoundsList.jsp" />
+            <forward name="error" path="/pages/edit/showCompoundErrors.jsp" />
+        </action>
+        <action path="/getCompound"
+            type="uk.ac.ebi.intenz.webapp.controller.search.GetCofactorAction">
+            <forward name="success" path="/pages/view/compound.jsp" />
+            <forward name="error" path="/pages/edit/showCompoundErrors.jsp" />
+        </action>
+        <action path="/assignChebiId" forward=".assignChebiId" />
+        <action path="/processChebiIdAssignment"
+            type="uk.ac.ebi.intenz.webapp.controller.modification.AssignCofactorChebiIdAction">
+            <forward name="success" path="/cofactorList.do" />
+        </action>
+		<!-- -->
+
+		<action path="/previewTransferEntryUpdate"
+			type="uk.ac.ebi.intenz.webapp.controller.common.PreviewEntryAction"
+			name="enzymeDTO" input=".transfer_entry_update" validate="true"
+			roles="intenz curator" scope="session" />
+		<action path="/previewAmendEntry"
+			type="uk.ac.ebi.intenz.webapp.controller.common.PreviewEntryAction"
+			name="enzymeDTO" scope="session" input=".amend_entry" validate="true"
+			roles="intenz curator" />
+		<action path="/previewAmendEntryUpdate"
+			type="uk.ac.ebi.intenz.webapp.controller.common.PreviewEntryAction"
+			name="enzymeDTO" input=".amend_entry_update" validate="true"
+			roles="intenz curator" scope="session" />
+		<action path="/previewCreateEntry"
+			type="uk.ac.ebi.intenz.webapp.controller.common.PreviewEntryAction"
+			name="enzymeDTO" input=".create_entry" validate="true" roles="intenz curator"
+			scope="session" />
+		<action path="/previewCreateEntryUpdate"
+			type="uk.ac.ebi.intenz.webapp.controller.common.PreviewEntryAction"
+			name="enzymeDTO" input=".create_entry_update" validate="true"
+			roles="intenz curator" scope="session" />
+		<action path="/exportFlatFile"
+			type="uk.ac.ebi.intenz.webapp.controller.export.ExportFlatFileAction"
+			name="exportForm" input=".export_flat_file" validate="true" roles="intenz curator"
+			scope="request" />
+		<action path="/unknown" unknown="true" forward=".unknown" />
+	</action-mappings>
+	<controller processorClass="org.apache.struts.tiles.TilesRequestProcessor" />
+	<message-resources parameter="application" />
+	<message-resources parameter="form" key="form" />
+	<plug-in className="org.apache.struts.tiles.TilesPlugin">
+		<set-property property="definitions-config" value="/WEB-INF/config/tiles-defs.xml" />
+		<set-property property="moduleAware" value="true" />
+	</plug-in>
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames"
+			value="/WEB-INF/config/validator-rules.xml,/WEB-INF/config/validation.xml" />
+	</plug-in>
+	<plug-in className="uk.ac.ebi.intenz.webapp.controller.IntEnzPlugInAction" />
+</struts-config>

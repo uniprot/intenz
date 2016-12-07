@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context displayName="IntEnz curator tool TEST"
+        path="/intenz/curation"
+        docBase="work/Catalina/localhost">
+
+	<Parameter name="intenz.db.config"
+		value="intenz-db-dev"
+		override="false" />
+    <Parameter name="chebi.prod.db.config"
+        value="chebi-db-prod"
+        override="false" />
+    <Parameter name="chebi.pub.db.config"
+        value="chebi-db-public"
+        override="false" />
+	<Parameter name="rhea.curator.url"
+		value="http://wwwdev.ebi.ac.uk/rhea/curation"
+		override="false" />
+
+</Context>
