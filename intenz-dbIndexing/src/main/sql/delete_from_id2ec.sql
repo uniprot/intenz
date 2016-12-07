@@ -1,4 +1,0 @@
-SET DOC OFF
-SET ECHO ON;
-
-DELETE FROM id2ec; 

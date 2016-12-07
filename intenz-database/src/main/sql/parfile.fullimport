@@ -1,5 +1,0 @@
-BUFFER=99999
-FULL=N
-INDEXES=Y
-ROWS=Y
-LOG=enzyme-import.log
