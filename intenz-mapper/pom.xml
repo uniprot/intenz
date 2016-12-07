@@ -11,8 +11,8 @@
 
     <parent>
         <groupId>uk.ac.ebi.intenz</groupId>
-        <artifactId>intenz</artifactId>
-        <version>4.2.6-SNAPSHOT</version>
+        <artifactId>intenz-release</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <build>
@@ -22,8 +22,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
         </plugins>
@@ -43,18 +44,8 @@
             <artifactId>intenz-core</artifactId>
             <version>4.3.4-SNAPSHOT</version>
         </dependency>
-        <!-- 		<dependency> -->
-        <!-- 			<groupId>uk.ac.ebi.rhea</groupId> -->
-        <!-- 			<artifactId>rhea-mapper</artifactId> -->
-        <!-- 			<version>3.8.0</version> -->
-        <!-- 		</dependency> -->
         <dependency>
-
-<!--            <groupId>uk.ac.ebi.rhea</groupId>
-            <artifactId>rhea-mapper</artifactId>
-            <version>3.8.4</version>-->
-
-            <groupId>uk.ac.ebi.intenz</groupId>
+           <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-rhea-mapper</artifactId>
             <version>1.0.1-SNAPSHOT</version>
 
@@ -62,7 +53,7 @@
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
             <artifactId>rhea-domain</artifactId>
-            <version>1.8.4</version>
+            <version>1.8.9</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>

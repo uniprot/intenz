@@ -48,6 +48,8 @@ import uk.ac.ebi.rhea.mapper.db.RheaCompoundDbReader;
 /**
  * created to access to rhea from intenz after db split - see UES-12 for
  * motivations, UES-14 for specific sql queries
+ * see the interface IRheaReader
+ * https://sourceforge.net/p/rhea-ebi/code/HEAD/tree/trunk/rhea-mapper/src/main/java/uk/ac/ebi/rhea/mapper/IRheaReader.java
  *
  */
 public class IntEnzRheaDbReader implements IRheaReader{

@@ -4,15 +4,15 @@
 	
     <groupId>uk.ac.ebi.intenz.webapp</groupId>
     <artifactId>intenz-curator</artifactId>
-    <version>4.3.0.migration-v5</version>    
+    <version>1.0.0-SNAPSHOT</version>    
     <name>IntEnz curator webapp</name>
     <description>IntEnz curator tool - Web application</description>
     <packaging>war</packaging>
 
     <parent>
         <groupId>uk.ac.ebi.intenz</groupId>
-        <artifactId>webapp</artifactId>
-        <version>1.2.4-SNAPSHOT</version>
+        <artifactId>webapp-curation</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <distributionManagement>
@@ -85,15 +85,25 @@
                     </warSourceExcludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <showDeprecation>true</showDeprecation>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
     <dependencies>
-        <dependency>
+<!--        <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
-            <artifactId>intenz-core</artifactId>
-            <version>4.3.4-SNAPSHOT</version>
-        </dependency>
+            <artifactId>intenz-curation-core</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>-->
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-mapper</artifactId>
@@ -102,7 +112,7 @@
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-ffwriter</artifactId>
-            <version>1.2.54</version>
+            <version>1.3.3-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <artifactId>antlr</artifactId>
@@ -113,16 +123,8 @@
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
             <artifactId>rhea-domain</artifactId>
-            <version>1.8.0</version>
+            <version>1.8.9</version>
         </dependency>
-        <!--		<dependency>
-                <groupId>uk.ac.ebi.rhea</groupId>
-                <artifactId>rhea-mapper</artifactId>
-                <version>3.8.0</version>
-      <groupId>uk.ac.ebi.intenz</groupId>
-    <artifactId>intenz-rhea-mapper</artifactId>
-    <version>1.0-SNAPSHOT</version>
-        </dependency>-->
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
             <artifactId>rhea-util</artifactId>
@@ -327,13 +329,13 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
 			<version>2.4</version>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jsp-api</artifactId>
             <version>2.0</version>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>junit</groupId>

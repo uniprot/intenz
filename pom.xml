@@ -6,8 +6,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>uk.ac.ebi.intenz</groupId>
-    <artifactId>intenz</artifactId>
-    <version>4.2.6-SNAPSHOT</version>
+    <artifactId>intenz-release</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>IntEnz</name>
     <description>IntEnz project</description>
@@ -128,8 +128,9 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
             <plugin>
@@ -336,16 +337,16 @@
     </ciManagement>
 
     <modules>
+        <module>intenz-core</module>
         <module>intenz-database</module>
         <module>intenz-rhea-mapper</module>
-        <module>intenz-core</module>
         <module>intenz-mapper</module>
         <module>intenz-import</module>
-        <module>intenz-export</module>
-        <module>intenz-ffwriter</module>
         <module>intenz-translator</module>
         <module>intenz-xml</module>
         <module>intenz-biopax</module>
+        <module>intenz-export</module>
+        <module>intenz-ffwriter</module>      
         <module>intenz-dbIndexing</module>
         <module>webapp</module>
 

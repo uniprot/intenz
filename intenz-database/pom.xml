@@ -9,11 +9,24 @@
     <description>IntEnz database scripts and utilities.</description>
 
     <parent>
-        <artifactId>intenz</artifactId>
+        <artifactId>intenz-release</artifactId>
         <groupId>uk.ac.ebi.intenz</groupId>
-        <version>4.2.6-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
-	
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
