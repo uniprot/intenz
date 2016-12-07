@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>uk.ac.ebi.intenz</groupId>
-    <artifactId>intenz-release</artifactId>
+    <artifactId>intenz-curation</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>IntEnz</name>
@@ -337,17 +337,17 @@
     </ciManagement>
 
     <modules>
-        <module>intenz-core</module>
-        <module>intenz-database</module>
-        <module>intenz-rhea-mapper</module>
+<!--        <module>intenz-core</module>-->
+<!--        <module>intenz-database</module>
+        <module>intenz-rhea-mapper</module>-->
         <module>intenz-mapper</module>
-        <module>intenz-import</module>
+<!--        <module>intenz-import</module>
         <module>intenz-translator</module>
         <module>intenz-xml</module>
         <module>intenz-biopax</module>
-        <module>intenz-export</module>
+        <module>intenz-export</module>-->
         <module>intenz-ffwriter</module>      
-        <module>intenz-dbIndexing</module>
+<!--        <module>intenz-dbIndexing</module>-->
         <module>webapp</module>
 
     </modules>

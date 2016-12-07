@@ -3,18 +3,18 @@
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>uk.ac.ebi.intenz</groupId>
-    <artifactId>intenz-ffwriter</artifactId>
-    <version>1.3.3-SNAPSHOT</version>
+    <artifactId>intenz-ffwriter-curation</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <name>IntEnz flat file writer</name>
     <description>ENZYME.dat flat file writer</description>
     
     <properties>
-        <intenz.mapper.version>4.6.1-SNAPSHOT</intenz.mapper.version>
+        <intenz.mapper.curation.version>1.0.0-SNAPSHOT</intenz.mapper.curation.version>
     </properties>
     
     <parent>
         <groupId>uk.ac.ebi.intenz</groupId>
-        <artifactId>intenz-release</artifactId>
+        <artifactId>intenz-curation</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     
@@ -26,8 +26,8 @@
         </dependency>-->
         <dependency>
             <groupId>uk.ac.ebi.intenz</groupId>
-            <artifactId>intenz-mapper</artifactId>
-            <version>${intenz.mapper.version}</version>
+            <artifactId>intenz-mapper-curation</artifactId>
+            <version>${intenz.mapper.curation.version}</version>
             <!--			<scope>test</scope>-->
         </dependency>
         <dependency>
@@ -90,7 +90,7 @@
                 <dependency>
                     <groupId>uk.ac.ebi.intenz</groupId>
                     <artifactId>intenz-mapper</artifactId>
-                    <version>${intenz.mapper.version}</version>
+                    <version>${intenz.mapper.curation.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>uk.ac.ebi.rhea</groupId>
