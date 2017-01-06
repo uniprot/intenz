@@ -27,9 +27,9 @@
             </plugin>
         </plugins>
     </build>
-    <modules>        
+    <modules>  
+        <module>intenz-config</module>      
         <module>intenz-curator</module>
-        <module>intenz-config</module>
     </modules>
     
 </project>

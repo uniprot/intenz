@@ -1,13 +1,12 @@
 package uk.ac.ebi.intenz.webapp.controller.helper.forwards;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.ForwardAction;
 import uk.ac.ebi.intenz.webapp.dtos.EnzymeDTO;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * This Action ...

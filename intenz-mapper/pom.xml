@@ -48,7 +48,12 @@
            <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-rhea-mapper</artifactId>
             <version>1.0.1-SNAPSHOT</version>
-
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-digester</groupId>
+                    <artifactId>commons-digester</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
