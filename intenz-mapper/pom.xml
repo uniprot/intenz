@@ -41,8 +41,7 @@
 
             <groupId>uk.ac.ebi.rhea</groupId>
             <artifactId>rhea-mapper</artifactId>
-<!--             <version>3.8.4</version>-->
-            <version>3.8.12</version>
+            <version>3.8.15</version>
 
         </dependency>
         <dependency>
