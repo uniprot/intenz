@@ -3,16 +3,16 @@
     <modelVersion>4.0.0</modelVersion>
 	
     <groupId>uk.ac.ebi.intenz.webapp</groupId>
-    <artifactId>intenz-public</artifactId>
+    <artifactId>intenz-website</artifactId>
     <name>IntEnz public webapp</name>
     <packaging>war</packaging>
-    <version>71.0.14-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <description>IntEnz public web application</description>
 
     <parent>
         <groupId>uk.ac.ebi.intenz</groupId>
         <artifactId>webapp</artifactId>
-        <version>1.2.3</version>
+        <version>1.2.4-SNAPSHOT</version>
     </parent>
 
     <distributionManagement>

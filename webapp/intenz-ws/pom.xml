@@ -10,7 +10,7 @@
 	<parent>
 		<artifactId>webapp</artifactId>
 		<groupId>uk.ac.ebi.intenz</groupId>
-		<version>1.2.3</version>
+		<version>1.2.4-SNAPSHOT</version>
 	</parent>
 
     <distributionManagement>
