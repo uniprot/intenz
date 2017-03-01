@@ -4,7 +4,7 @@
 
     <groupId>uk.ac.ebi.intenz</groupId>
     <artifactId>intenz-rhea-mapper</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
     <name>intenz-rhea-mapper</name>
     <packaging>jar</packaging>
     <description>Interfaces for mapping Rhea domain objects to a data source for Intenz, overriding

@@ -141,10 +141,10 @@ SELECT c.chebi_id, c.rhea_ascii_name as name, c.rhea_xml_name as xml_name, \
 	FROM chebi_compound c, chebi_compound_delete cd WHERE c.chebi_id=cd.chebi_id
 
 --find.structure.by.chebi.accession:\
-select * from table(rhea_data.find_rhea_structure_by_acc(?));
+select * from table(rhea_data.find_rhea_structure_by_acc(?))
 
 --find.structure.by.chebi.update.accession:\
-select * from table(rhea_data.find_rhea_structure_by_update(?));
+select * from table(rhea_data.find_rhea_structure_by_update(?))
 
 --find.chebi.compounds.by.ids:\
 SELECT c.chebi_id, c.rhea_ascii_name as name, c.rhea_xml_name as xml_name, c.formula, c.charge, c.accession, c.published, c.is_normalized as isnormalized, c.chebi_normalized as chebinormalized, status_compound, has_uniprot_name, uniprot_name_status \
@@ -152,7 +152,7 @@ SELECT c.chebi_id, c.rhea_ascii_name as name, c.rhea_xml_name as xml_name, c.for
         WHERE c.chebi_id IN ({0})
 
 --find.image.by.chebi.id:\
-select * from table(rhea_data.find_rhea_image_by_chebi_id(?));
+select * from table(rhea_data.find_rhea_image_by_chebi_id(?))
 
 
 
@@ -166,10 +166,10 @@ SELECT compound_id, accession, ascii_name, xml_name, global_formula, global_char
 	FROM generic
 
 --find.all.polymers:\
-select * from table(rhea_data.find_all_rhea_polymers);
+select * from table(rhea_data.find_all_rhea_polymers)
 
 --find.polymer.by.fingerprint:\
-select * from table(rhea_data.find_rhea_polymer_fingerprint(?));
+select * from table(rhea_data.find_rhea_polymer_fingerprint(?))
 
 --find.generic.by.fingerprint:\
 SELECT compound_id, accession, ascii_name, xml_name, global_formula, global_charge, fingerprint, is_root, root_accession, generic_type \
@@ -186,7 +186,7 @@ SELECT compound_id, accession, ascii_name, xml_name, global_formula, global_char
 select * from table(rhea_data.find_rhea_polymer_by_id(?))
 
 --find.polymers.by.ids:\
-select * from table(rhea_data.find_rhea_polymer_by_ids(id_arr({0})));
+select * from table(rhea_data.find_rhea_polymer_by_ids(id_arr({0})))
 
 --find.generic.by.id:\
 SELECT compound_id, accession, is_root, root_accession, fingerprint, ascii_name, xml_name, global_formula, global_charge, generic_type \
@@ -275,7 +275,7 @@ SELECT gen.compound_id, gen.accession, gen.ascii_name, gen.xml_name, gen.global_
 	ORDER BY gen.accession ASC
 
 --find.structure.by.polymerid:\
-SELECT * FROM table(rhea_data.find_rhea_structure_by_polymer(?);
+SELECT * FROM table(rhea_data.find_rhea_structure_by_polymer(?)
 
 --find.generic.ids.by.names:\
 select g.compound_id from generic g where lower(g.ascii_name) like {0}

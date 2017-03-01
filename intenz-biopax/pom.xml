@@ -63,8 +63,8 @@
         <dependency>               
             <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-rhea-mapper</artifactId>
-            <version>1.0.2-SNAPSHOT</version>         
-            <scope>test</scope>
+            <version>1.0.3-SNAPSHOT</version>         
+<!--            <scope>test</scope>-->
                 
         </dependency>
             <dependency>
