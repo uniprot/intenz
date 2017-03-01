@@ -337,7 +337,7 @@
     </ciManagement>
 
     <modules>
-       <module>intenz-rhea-mapper</module>
+<!--       <module>intenz-rhea-mapper</module>-->
         <module>intenz-mapper</module>
         <module>intenz-ffwriter</module>      
         <module>webapp</module>
