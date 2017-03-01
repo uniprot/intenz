@@ -4,7 +4,7 @@
 	
     <groupId>uk.ac.ebi.intenz.webapp</groupId>
     <artifactId>intenz-curator</artifactId>
-    <version>1.0.0-SNAPSHOT</version>    
+    <version>1.0.1-SNAPSHOT</version>    
     <name>IntEnz curator webapp</name>
     <description>IntEnz curator tool - Web application</description>
     <packaging>war</packaging>
@@ -170,7 +170,7 @@
         <dependency>
             <groupId>uk.ac.ebi.rhea.webapp</groupId>
             <artifactId>rhea-find-struts1</artifactId>
-            <version>1.4</version>
+            <version>1.4.2</version>
             <type>war</type>
             <exclusions>
                 <exclusion>
@@ -182,19 +182,19 @@
         <dependency>
             <groupId>uk.ac.ebi.rhea.webapp</groupId>
             <artifactId>rhea-find-struts1</artifactId>
-            <version>1.4</version>
+            <version>1.4.2</version>
             <classifier>classes</classifier>
         </dependency>
         <dependency>
             <groupId>uk.ac.ebi.rhea.webapp</groupId>
             <artifactId>rhea-search-struts1</artifactId>
-            <version>1.4</version>
+            <version>1.4.2</version>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>uk.ac.ebi.rhea.webapp</groupId>
             <artifactId>rhea-search-struts1</artifactId>
-            <version>1.4</version>
+            <version>1.4.2</version>
             <classifier>classes</classifier>
         </dependency>
         <dependency>
