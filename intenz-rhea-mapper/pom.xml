@@ -15,7 +15,7 @@
     
     <parent>
         <groupId>uk.ac.ebi.intenz</groupId>
-        <artifactId>intenz-curation</artifactId>
+        <artifactId>intenz-release</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
