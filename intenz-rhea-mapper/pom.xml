@@ -4,9 +4,7 @@
 
     <groupId>uk.ac.ebi.intenz</groupId>
     <artifactId>intenz-rhea-mapper</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
-
-   
+    <version>1.0.2-SNAPSHOT</version>
     <name>intenz-rhea-mapper</name>
     <packaging>jar</packaging>
     <description>Interfaces for mapping Rhea domain objects to a data source for Intenz, overriding
@@ -162,6 +160,20 @@
             <artifactId>maven-site-plugin</artifactId>
             <version>3.5.1</version>
             <type>maven-plugin</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.struts</groupId>
+                    <artifactId>struts-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.struts</groupId>
+                    <artifactId>struts-taglib</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.struts</groupId>
+                    <artifactId>struts-tiles</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
