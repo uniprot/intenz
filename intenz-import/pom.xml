@@ -24,11 +24,11 @@
             <artifactId>intenz-mapper</artifactId>
             <version>4.6.1-SNAPSHOT</version>
         </dependency>
-
+<!--http://www.ebi.ac.uk/uniprot/japi/-->
         <dependency>
             <groupId>uk.ac.ebi.uniprot</groupId>
             <artifactId>japi</artifactId>
-            <version>1.0.8</version>
+            <version>1.0.12</version>
         </dependency>
         <dependency>
             <groupId>uk.ac.ebi.biobabel</groupId>

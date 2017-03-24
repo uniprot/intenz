@@ -385,9 +385,9 @@ public class EnzymeReactionMapper {
                 reaction = rheaReader.findByReactionId(reactionId);
                
             } catch (SQLException ex) {
-                LOGGER.error("Unable to retrieve reaction from Rhea", ex);
-                reaction = loadEmtpyReaction(reactionId, equation, source, status);
-            } catch (MapperException ex) {
+                //LOGGER.error("Unable to retrieve reaction from Rhea", ex);
+               // reaction = loadEmtpyReaction(reactionId, equation, source, status);
+            //} catch (MapperException ex) {
                 LOGGER.error("Unable to retrieve reaction from Rhea", ex);
                 reaction = loadEmtpyReaction(reactionId, equation, source, status);
             } finally {

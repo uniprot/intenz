@@ -48,7 +48,7 @@
            <groupId>uk.ac.ebi.intenz</groupId>
             <artifactId>intenz-rhea-mapper</artifactId>
             <version>1.0.3-SNAPSHOT</version>
-
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
