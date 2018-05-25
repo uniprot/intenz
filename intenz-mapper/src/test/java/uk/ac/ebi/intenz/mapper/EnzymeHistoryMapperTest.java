@@ -17,6 +17,7 @@ import uk.ac.ebi.intenz.domain.history.HistoryGraph;
  *
  * @author rafalcan
  */
+//@Ignore
 public class EnzymeHistoryMapperTest extends TestCase {
 
     Connection con;
@@ -29,6 +30,10 @@ public class EnzymeHistoryMapperTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
+//                          String userHome = System.getProperty("user.home");
+//                  System.setProperty(
+//                    "oracle.net.tns_admin", userHome + "/tns_admin");
+        
         con = OracleDatabaseInstance.getInstance("intenz-db-dev").getConnection();
         entryMapper = new EnzymeEntryMapper();
         historyMapper = new EnzymeHistoryMapper();

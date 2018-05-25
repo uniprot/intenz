@@ -19,15 +19,15 @@
     <!-- CSS concatenated and minified via ant build script-->
     <!-- Not yet implemented -->
     <link rel="stylesheet" type="text/css"
-    	href="http://www.ebi.ac.uk/web_guidelines/css/compliance/develop/boilerplate-style.css">
+    	href="https://www.ebi.ac.uk/web_guidelines/css/compliance/develop/boilerplate-style.css">
     <link rel="stylesheet" type="text/css" media="screen"
-    	href="http://www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-global.css">
+    	href="https://www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-global.css">
     <link rel="stylesheet" type="text/css" media="screen"
-    	href="http://www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-visual.css">
+    	href="https://www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-visual.css">
     <link rel="stylesheet" type="text/css" media="screen"
-    	href="http://www.ebi.ac.uk/web_guidelines/css/compliance/develop/984-24-col-fluid.css">
+    	href="https://www.ebi.ac.uk/web_guidelines/css/compliance/develop/984-24-col-fluid.css">
     <link rel="stylesheet" type="text/css" media="screen"
-    	href="http://www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css">
+    	href="https://www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css">
     <link rel="stylesheet" type="text/css"
     	href="css/intenz.css"/>
 
@@ -39,7 +39,7 @@
         title="IntEnz RSS feed" href="${intenzConfig.rssUrl}"/>
 
     <!-- script type="text/javascript" src="js/jquery-1.js"></script -->
-    <script src="http://www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>
+    <script src="https://www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>
 	<script src="js/jquery-1.8.0.min.js"></script>
 	<script src="js/jquery-ui-1.8.23.custom.min.js"></script>
     <script src="js/intenz.js"></script>

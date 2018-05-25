@@ -19,9 +19,9 @@
 <title><%=title%> - Integrated Enzyme Database (IntEnz)</title>
 <!-- InstanceEndEditable -->
 
-<link rel="stylesheet" type="text/css" href="http://www.ebi.ac.uk/inc/css/contents.css"/>
-<link rel="stylesheet" type="text/css" href="http://www.ebi.ac.uk/inc/css/userstyles.css" />
-<link rel="stylesheet" type="text/css" href="http://www.ebi.ac.uk/inc/css/sidebars.css"/>
+<link rel="stylesheet" type="text/css" href="https://www.ebi.ac.uk/inc/css/contents.css"/>
+<link rel="stylesheet" type="text/css" href="https://www.ebi.ac.uk/inc/css/userstyles.css" />
+<link rel="stylesheet" type="text/css" href="https://www.ebi.ac.uk/inc/css/sidebars.css"/>
 <link rel="stylesheet" type="text/css" href="intenz.css"/>
 
 <link rel="search" href="openSearchDescription.xml"
@@ -40,9 +40,9 @@
 </style>
 <!-- InstanceEndEditable -->
 
-<link rel="SHORTCUT ICON" href="http://www.ebi.ac.uk/bookmark.ico" />
+<link rel="SHORTCUT ICON" href="https://www.ebi.ac.uk/bookmark.ico" />
 
-<script type="text/javascript" src="http://www.ebi.ac.uk/inc/js/contents.js"></script>
+<script type="text/javascript" src="https://www.ebi.ac.uk/inc/js/contents.js"></script>
 <script type="text/javascript" src="resources/intenz.js"></script>
 <script language='javascript'>
   function windowOpenWithSize(theurl, thewd, theht) {
@@ -74,7 +74,7 @@
 <table class="contentspane" id="contentspane" summary="The main content pane of the page" style="width: 100%">
 	<tr>
 		<td class="leftmargin">
-			<img src="http://www.ebi.ac.uk/inc/images/spacer.gif" class="spacer" alt="spacer" />
+			<img src="https://www.ebi.ac.uk/inc/images/spacer.gif" class="spacer" alt="spacer" />
 		</td>
 		<td class="leftmenucell" id="leftmenucell">
 
@@ -84,7 +84,7 @@
 			style="width: 145px; visibility: visible; display: block;">
 
 			<a href="index.jsp" class="centered"><img
-				src="http://www.ebi.ac.uk/Groups/images/intenz_small.gif"
+				src="https://www.ebi.ac.uk/Groups/images/intenz_small.gif"
 				width="75" height="50" border="0"
 				style="margin: 5px"/></a>
 
@@ -214,7 +214,7 @@ docs.add("Statistics");
 				</li>
 			</ul>
 
-<script type="text/javascript" src="http://www.ebi.ac.uk/inc/js/sidebars.js"></script>
+<script type="text/javascript" src="https://www.ebi.ac.uk/inc/js/sidebars.js"></script>
 
 <% if (title.equals("Home")) { %>
 	<div class="iconboxheading">News</div>
@@ -268,16 +268,16 @@ docs.add("Statistics");
 
 <!-- Navigation end -->
 
-		<img src="http://www.ebi.ac.uk/inc/images/spacer.gif" class="spacer" alt="spacer" />
+		<img src="https://www.ebi.ac.uk/inc/images/spacer.gif" class="spacer" alt="spacer" />
 
 		</div>
 		</td>
 		<td class="contentsarea" id="contentsarea">
 
 			<div class="breadcrumbs">
-				<a href="http://www.ebi.ac.uk/" class="firstbreadcrumb">EBI</a>
-				<a href="http://www.ebi.ac.uk/Databases/">Databases</a>
-				<a href="http://www.ebi.ac.uk/Databases/enzymes.html">Enzymes</a>
+				<a href="https://www.ebi.ac.uk/" class="firstbreadcrumb">EBI</a>
+				<a href="https://www.ebi.ac.uk/Databases/">Databases</a>
+				<a href="https://www.ebi.ac.uk/Databases/enzymes.html">Enzymes</a>
 				<a href="index.jsp">IntEnz</a>
 			</div>
 
@@ -291,11 +291,11 @@ docs.add("Statistics");
 			</div>
 
 			<!-- InstanceEndEditable -->
-			<img src="http://www.ebi.ac.uk/inc/images/spacer.gif" class="spacer" alt="spacer" />
+			<img src="https://www.ebi.ac.uk/inc/images/spacer.gif" class="spacer" alt="spacer" />
 		</td>
 		<td class="rightmenucell" id="rightmenucell">
 			<div class="rightmenu" id="rightmenu">
-				<img src="http://www.ebi.ac.uk/inc/images/spacer.gif" class="spacer" alt="spacer" />
+				<img src="https://www.ebi.ac.uk/inc/images/spacer.gif" class="spacer" alt="spacer" />
 			</div>
 		</td>
 	</tr>
@@ -315,7 +315,7 @@ docs.add("Statistics");
 	</tr>
 </table>
 
-<script src="http://www.ebi.ac.uk/inc/js/footer.js" type="text/javascript"></script>
+<script src="https://www.ebi.ac.uk/inc/js/footer.js" type="text/javascript"></script>
 </div>
 </body>
 <!-- InstanceEnd -->
