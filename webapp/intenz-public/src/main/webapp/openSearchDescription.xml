@@ -3,9 +3,10 @@
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
  <ShortName>IntEnz</ShortName>
  <Description>Search IntEnz database</Description>
- <Contact>rafael.alcantara@ebi.ac.uk</Contact>
+<!-- <Contact>rafael.alcantara@ebi.ac.uk</Contact>-->
+<Contact>joseph@ebi.ac.uk</Contact>
  <Tags>IntEnz enzyme EBI EMBL</Tags>
- <Image height="16" width="16" type="image/vnd.microsoft.icon">http://www.ebi.ac.uk/intenz/images/intenz.ico</Image>
+ <Image height="16" width="16" type="image/vnd.microsoft.icon">https://www.ebi.ac.uk/intenz/images/intenz.ico</Image>
  <Url type="text/html"
-      template="http://www.ebi.ac.uk/intenz/query?cmd=Search&amp;q={searchTerms}"/>
+      template="https://www.ebi.ac.uk/intenz/query?cmd=Search&amp;q={searchTerms}"/>
 </OpenSearchDescription>

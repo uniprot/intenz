@@ -74,7 +74,7 @@
 }
         </bb:param>
     </bb:include>
-    
+
     <input type="hidden" id="global-searchbox">
     
     <c:if test="${not empty requestScope.query}">

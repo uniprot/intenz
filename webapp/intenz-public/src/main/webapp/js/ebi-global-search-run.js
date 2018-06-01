@@ -13,7 +13,7 @@ $(document).ready(function() {
 			/* The simplest implementation, used on your zero search results pages */
 		    updateSummary({
 		    	noResults: true,
-		    	searchBaseURL: 'http://www.ebi.ac.uk/ebisearch/',
+		    	searchBaseURL: 'https://www.ebi.ac.uk/ebisearch/',
 		    	searchboxId: 'global-searchbox'
     		});	        
 		} catch (except_1) {}
@@ -28,7 +28,7 @@ $(document).ready(function() {
 	            		$(this).attr("data-icon", "u");
 	            if ($(this).attr("data-icon") === 'w') {
 	            	updateSummary({
-	            		searchBaseURL: 'http://www.ebi.ac.uk/ebisearch/',
+	            		searchBaseURL: 'https://www.ebi.ac.uk/ebisearch/',
 	    		    	searchboxId: 'global-searchbox'
         			});
 	            }
