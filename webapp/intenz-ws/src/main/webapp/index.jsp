@@ -13,7 +13,7 @@
 	<div class="grid_24 clearfix" id="content" role="main">
         <h2>IntEnz web services</h2>
         <p>For any comments or suggestions, please send an e-mail
-        	to the <a href="mailto:intenz-devel@lists.sourceforge.net">IntEnz
+        	to the <a href="mailto:enzyme-portal@ebi.ac.uk">IntEnz
         	developers</a>.
        	</p>
         
