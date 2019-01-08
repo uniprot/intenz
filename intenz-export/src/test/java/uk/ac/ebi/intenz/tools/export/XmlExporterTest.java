@@ -76,7 +76,8 @@ public class XmlExporterTest {
             fail(e.getMessage());
         }
         try {
-          EnzymeEntry entry=   mapper.findByEc("1.1.3.41", Status.APPROVED, con);
+         // EnzymeEntry entry=   mapper.findByEc("1.1.3.41", Status.APPROVED, con);
+          EnzymeEntry entry=   mapper.findByEc("1.1.1.1", Status.APPROVED, con);
             exporter.export(entry, System.out);
         } catch (IOException e) {
             fail(e.getMessage());
