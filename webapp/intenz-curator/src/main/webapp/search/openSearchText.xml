@@ -3,7 +3,7 @@
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
  <ShortName>IntEnz curator - Text</ShortName>
  <Description>Search IntEnz production database for free text</Description>
- <Contact>rafael.alcantara@ebi.ac.uk</Contact>
+ <Contact>joseph@ebi.ac.uk</Contact>
  <Tags>IntEnz enzyme EBI EMBL</Tags>
  <Image height="16" width="16" type="image/vnd.microsoft.icon">http://www.ebi.ac.uk/bookmark.ico</Image>
  <Url type="text/html"

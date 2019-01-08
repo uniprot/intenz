@@ -81,6 +81,10 @@
 								<td><html:link page="/searchEc.do?ec=6"
 									styleClass="no_decoration">EC 6&nbsp;&nbsp;Ligases</html:link></td>
 							</tr>
+                                                        <tr>
+								<td><html:link page="/searchEc.do?ec=7"
+									styleClass="no_decoration">EC 6&nbsp;&nbsp;Translocases</html:link></td>
+							</tr>
 						</table>
 						</td>
 					</tr>
