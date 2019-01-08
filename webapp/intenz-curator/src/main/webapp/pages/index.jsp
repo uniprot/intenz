@@ -83,7 +83,7 @@
 							</tr>
                                                         <tr>
 								<td><html:link page="/searchEc.do?ec=7"
-									styleClass="no_decoration">EC 6&nbsp;&nbsp;Translocases</html:link></td>
+									styleClass="no_decoration">EC 7&nbsp;&nbsp;Translocases</html:link></td>
 							</tr>
 						</table>
 						</td>
