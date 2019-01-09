@@ -26,6 +26,7 @@
 			<li><a href="query?cmd=SearchEC&ec=4">EC 4</a>&nbsp;&nbsp;Lyases</li>
 			<li><a href="query?cmd=SearchEC&ec=5">EC 5</a>&nbsp;&nbsp;Isomerases</li>
 			<li><a href="query?cmd=SearchEC&ec=6">EC 6</a>&nbsp;&nbsp;Ligases</li>
+                        <li><a href="query?cmd=SearchEC&ec=7">EC 7</a>&nbsp;&nbsp;Translocases</li>
 		</ul>
 	</div>
 </div>
