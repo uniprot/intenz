@@ -76,7 +76,7 @@
                 <td>json</td>
                 <td>json</td>
                 <td class="mimeType">application/json</td>
-                <td><a href="http://json.org/">JSON</a> (JavaScript Object
+                <td><a href="https://json.org/">JSON</a> (JavaScript Object
                     Notation). This is the only case where the requested
                     <code>{ecNumber}</code> can be an EC sub-subclass,
                     subclass, class or even empty (meaning all of the EC
