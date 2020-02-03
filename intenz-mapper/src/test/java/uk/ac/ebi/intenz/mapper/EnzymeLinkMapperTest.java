@@ -27,7 +27,7 @@ public class EnzymeLinkMapperTest extends TestCase {
     // NOTE: For these tests to work, the database must contain an entry with this id:
     private static Long id = new Long(16059l);
     //private static Long id= 21883l;
-    
+
     public void testFind() throws Exception {
         Long id1002 = new Long(1002l);
         List<?> entries = elm.find(id1002, con);
@@ -65,11 +65,11 @@ public class EnzymeLinkMapperTest extends TestCase {
         List<EnzymeLink> sampleLinks = new ArrayList<EnzymeLink>();
         // One non-xref:
         EnzymeLink sl1 = EnzymeLink.valueOf(XrefDatabaseConstant.KEGG, "http://www.google.com", "G666",
-            "TestLinkG", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
+                "TestLinkG", EnzymeSourceConstant.INTENZ, EnzymeViewConstant.INTENZ);
         sl1.setDataComment("a google kegg comment 4321");
         // One xref:
         EnzymeLink sl2 = EnzymeLink.valueOf(XrefDatabaseConstant.SWISSPROT, "http://www.yahoo.com", "Y666",
-            "TestLinkY", EnzymeSourceConstant.IUBMB, EnzymeViewConstant.INTENZ);
+                "TestLinkY", EnzymeSourceConstant.IUBMB, EnzymeViewConstant.INTENZ);
         sl2.setDataComment("a yahoo swissprot comment 9876");
         sampleLinks.add(sl1);
         sampleLinks.add(sl2);
@@ -78,14 +78,14 @@ public class EnzymeLinkMapperTest extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         con = OracleDatabaseInstance.getInstance("intenz-db-dev")
-            .getConnection();
+                .getConnection();
     }
 
     protected void tearDown() throws Exception {
         super.tearDown();
         if (con != null) con.close();
-    }
+        }
 
 }

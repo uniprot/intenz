@@ -37,7 +37,7 @@ public class EnzymeHistoryMapperTest extends TestCase {
     @Override
     protected void tearDown() throws Exception {
         if (con != null) con.close();
-    }
+        }
 
     /**
      * Test of find method, of class EnzymeHistoryMapper.

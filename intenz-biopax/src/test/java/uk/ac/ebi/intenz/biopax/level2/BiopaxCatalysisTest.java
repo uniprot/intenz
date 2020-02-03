@@ -43,7 +43,7 @@ public class BiopaxCatalysisTest {
     @After
     public void tearDown() throws SQLException {
         if (con != null) con.close();
-    }
+        }
 
     /**
      * Just a visual test (check the output).

@@ -1,0 +1,17 @@
+/intenz-core/target/
+/intenz-database/target/
+/intenz-mapper/target/
+/intenz-import/target/
+/intenz-export/target/
+/intenz-ffwriter/target/
+/intenz-translator/target/
+/intenz-xml/target/
+/intenz-biopax/target/
+/intenz-dbIndexing/target/
+/webapp/intenz-curator/target/
+/webapp/intenz-public/target/
+/webapp/intenz-ws/target/
+/webapp/intenz-config/target/
+/intenz-rhea-mapper/target/
+/webapp/intenz-config/intenz-config.iml
+/webapp/intenz-public/src/main/webapp/META-INF/sampleContext.txt

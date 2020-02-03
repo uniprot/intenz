@@ -15,10 +15,9 @@
  */
 package uk.ac.ebi.intenz.tools.importer;
 
-import uk.ac.ebi.uniprot.dataservice.client.Client;
-import uk.ac.ebi.uniprot.dataservice.client.ServiceFactory;
-import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtService;
-
+//import uk.ac.ebi.uniprot.dataservice.client.Client;
+//import uk.ac.ebi.uniprot.dataservice.client.ServiceFactory;
+//import uk.ac.ebi.uniprot.dataservice.client.uniprot.UniProtService;
 /**
  *
  * @author Joseph <joseph@ebi.ac.uk>
@@ -31,6 +30,16 @@ public class IntenzUniprotService {
 
     }
 
+//    public static IntenzUniprotService getIntenzUniprotService() {
+//        if (intenzUniprotService == null) {
+//            synchronized (IntenzUniprotService.class) {
+//                if (intenzUniprotService == null) {
+//                    intenzUniprotService = new IntenzUniprotService();
+//                }
+//            }
+//        }
+//        return intenzUniprotService;
+//    }
     public static IntenzUniprotService getIntenzUniprotService() {
         if (intenzUniprotService == null) {
             synchronized (IntenzUniprotService.class) {
@@ -42,10 +51,14 @@ public class IntenzUniprotService {
         return intenzUniprotService;
     }
 
-    public UniProtService uniProtService() {
-        ServiceFactory serviceFactoryInstance = Client.getServiceFactoryInstance();
-        UniProtService uniprotService = serviceFactoryInstance.getUniProtQueryService();
-        uniprotService.start();
-        return uniprotService;
+    public UniprotService uniprotService() {
+        return new UniprotService();
     }
+
+//    public UniProtService uniProtService() {
+//        ServiceFactory serviceFactoryInstance = Client.getServiceFactoryInstance();
+//        UniProtService uniprotService = serviceFactoryInstance.getUniProtQueryService();
+//        uniprotService.start();
+//        return uniprotService;
+//    }
 }

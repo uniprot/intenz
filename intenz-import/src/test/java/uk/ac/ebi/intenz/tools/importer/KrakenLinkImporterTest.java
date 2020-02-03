@@ -14,7 +14,8 @@ public class KrakenLinkImporterTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		importer = new KrakenLinkImporter();
-		importer.setupKraken();
+		//importer.setupKraken();
+                importer.setupProteinApi();
 	}
 
 	protected void tearDown() throws Exception {
