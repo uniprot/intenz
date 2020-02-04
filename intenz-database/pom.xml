@@ -59,7 +59,8 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jar-plugin</artifactId>
-                        <executions>
+                        <version>3.1.1</version>
+                        <!--                        <executions>
                             <execution>
                                 <goals>
                                     <goal>jar</goal>
@@ -70,7 +71,24 @@
                             <excludes>
                                 <exclude>**/*App.class</exclude>
                             </excludes>
-                        </configuration>
+                        </configuration>-->
+                        
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>client</classifier>
+                                    <includes>
+                                        <include>**/*App.class</include>
+                                    </includes>
+                                </configuration>
+                            </execution>
+                        </executions>       
+                        
+                        
                     </plugin>
                 </plugins>
             </build>
@@ -108,7 +126,7 @@
                 </plugins>
             </build>
             <dependencies>
-                  <dependency>
+                <dependency>
                     <groupId>com.oracle</groupId>
                     <artifactId>ojdbc6</artifactId>
                     <version>11.2.0.3</version>
