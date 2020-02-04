@@ -65,7 +65,7 @@
             <artifactId>woodstox-core-asl</artifactId>
             <version>4.4.1</version>
         </dependency>-->
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>woodstox</groupId>
             <artifactId>wstx-asl</artifactId>
             <version>3.0.0</version>
@@ -101,6 +101,10 @@
         <repository>
             <id>ebi-m2repo</id>
             <url> https://www.ebi.ac.uk/~maven/m2repo</url>
+        </repository>
+        <repository>
+            <id>ebi-m2repo-snapshots</id>
+            <url>https://www.ebi.ac.uk/~maven/m2repo_snapshots</url>
         </repository>
 
     </repositories>
