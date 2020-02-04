@@ -214,7 +214,7 @@
             </build>
         </profile>
     </profiles>
-    <repositories>
+<!--    <repositories>
         <repository>
             <id>ebi-m2repo</id>
             <url> https://www.ebi.ac.uk/~maven/m2repo</url>
@@ -224,6 +224,6 @@
             <url>https://www.ebi.ac.uk/~maven/m2repo_snapshots</url>
         </repository>
 
-    </repositories>
+    </repositories>-->
 
 </project>
