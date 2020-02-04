@@ -30,7 +30,7 @@
             <artifactId>japi</artifactId>
             <version>1.0.25</version>
         </dependency>-->
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.8</version>
@@ -40,7 +40,7 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>2.10.1</version>
-             <type>jar</type>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -52,7 +52,7 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.10.1</version>
-             <type>jar</type>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -135,7 +135,15 @@
             </plugin>
         </plugins>
     </build>
-        <repositories>
+    <repositories>
+        <repository>
+            <id>ebi-m2repo</id>
+            <url> https://www.ebi.ac.uk/~maven/m2repo</url>
+        </repository>
+        <repository>
+            <id>ebi-m2repo-snapshots</id>
+            <url>https://www.ebi.ac.uk/~maven/m2repo_snapshots</url>
+        </repository>
         <repository>
             <id>io.spring.repo.maven.release</id>
             <url>https://repo.spring.io/release/</url>
