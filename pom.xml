@@ -71,7 +71,7 @@
             <id>biobabel-repo</id>
             <url>${biobabel.maven.repo.url}</url>
         </repository>
-<!--        <repository>
+        <repository>
             <id>maven.java.net</id>
             <name>java.net repository for Maven2</name>
             <url>https://maven.java.net/content/groups/public/</url>
@@ -96,7 +96,7 @@
                 <enabled>true</enabled>    
                 <updatePolicy>never</updatePolicy>    
             </snapshots>    
-        </repository> -->
+        </repository> 
     </repositories>
 
 <!--    <pluginRepositories>
