@@ -51,6 +51,11 @@
             <version>4.3.25.RELEASE</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.3.25.RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>uk.ac.ebi.biobabel</groupId>
             <artifactId>biobabel-db</artifactId>
             <version>1.3.7</version>
@@ -111,7 +116,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>3.6.0</version>
                 <configuration>
                     <showDeprecation>true</showDeprecation>
                     <source>1.8</source>
@@ -120,7 +125,7 @@
             </plugin>
         </plugins>
     </build>
-    <repositories>
+    <!--    <repositories>
         <repository>
             <id>io.spring.repo.maven.release</id>
             <url>https://repo.spring.io/release/</url>
@@ -128,5 +133,5 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-    </repositories>
+    </repositories>-->
 </project>

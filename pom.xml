@@ -46,42 +46,6 @@
                 <role>Developer</role>
             </roles>
         </developer>
-        <developer>
-            <id>martin</id>
-            <name>Maria-Jesus Martin</name>
-            <email>martin@ebi.ac.uk</email>
-            <organization>EMBL-EBI</organization>
-            <roles>
-                <role>Team leader</role>
-            </roles>
-        </developer>
-        <developer>
-            <id>rafalcan</id>
-            <name>Rafael Alcántara</name>
-            <email>rafael.alcantara@ebi.ac.uk</email>
-            <organization>EMBL-EBI</organization>
-            <roles>
-                <role>Former Developer</role>
-            </roles>
-        </developer>
-        <developer>
-            <id>pmatos</id>
-            <name>Paula de Matos</name>
-            <email>pmatos@ebi.ac.uk</email>
-            <organization>EMBL-EBI</organization>
-            <roles>
-                <role>Former coordinator</role>
-            </roles>
-        </developer>
-        <developer>
-            <id>steinbeck</id>
-            <name>Christoph Steinbeck</name>
-            <email>steinbeck@ebi.ac.uk</email>
-            <organization>EMBL-EBI</organization>
-            <roles>
-                <role>Former Team leader</role>
-            </roles>
-        </developer>
     </developers>
 
     <repositories>
@@ -108,20 +72,40 @@
             <url>${biobabel.maven.repo.url}</url>
         </repository>
         <repository>
-            <id>dev.java.net.2</id>
+            <id>maven.java.net</id>
             <name>java.net repository for Maven2</name>
-            <url>http://download.java.net/maven/2/</url>
+            <url>https://maven.java.net/content/groups/public/</url>
             <layout>default</layout>
         </repository>
+        <repository>
+            <id>maven.spring.io</id>
+            <name>spring repository for Maven2</name>
+            <url>https://repo.spring.io/release/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>    
+            <id>jboss-public-repository-group</id>    
+            <name>JBoss Public Repository Group</name>    
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>    
+            <layout>default</layout>    
+            <releases>    
+                <enabled>true</enabled>    
+                <updatePolicy>never</updatePolicy>    
+            </releases>    
+            <snapshots>    
+                <enabled>true</enabled>    
+                <updatePolicy>never</updatePolicy>    
+            </snapshots>    
+        </repository> 
     </repositories>
 
-    <pluginRepositories>
+<!--    <pluginRepositories>
         <pluginRepository>
             <id>maven2-repository.dev.java.net</id>
             <name>Java.net Maven 2 Repository</name>
-            <url>http://download.java.net/maven/2</url>
+            <url>https://maven.java.net/content/groups/public/</url>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories>-->
 
     <build>
         <plugins>
@@ -130,7 +114,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <showDeprecation>true</showDeprecation>
+<!--                    <showDeprecation>true</showDeprecation>-->
                 </configuration>
             </plugin>
             <plugin>
@@ -159,7 +143,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ssh</artifactId>
-                <version>2.5</version>
+                <version>3.1.0</version>
             </extension>
         </extensions>
         <pluginManagement>
@@ -167,22 +151,22 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.1</version>
+                    <version>3.6.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.16</version>
+                    <version>2.22.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>cobertura-maven-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>2.7</version>
                 </plugin> 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>2.4.1</version>
+                    <version>2.5.2</version>
                 </plugin> 
                 <!--This plugin's configuration is used to store Eclipse m2e
                 settings only. It has no influence on the Maven build itself.-->
@@ -231,12 +215,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.7</version>
+                <version>3.0.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.16</version>
+                <version>2.22.2</version>
                 <configuration>
                     <outputDirectory>${basedir}/target/site</outputDirectory>
                 </configuration>
@@ -244,7 +228,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.6</version>
                 <configuration>
                     <outputDirectory>${basedir}/target/site</outputDirectory>
                 </configuration>
@@ -252,32 +236,32 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.3</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.10</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.6</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-changes-plugin</artifactId>
-                <version>2.9</version>
+                <version>2.12</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -289,7 +273,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.1</version>
+                <version>2.7</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -348,7 +332,7 @@
         <module>intenz-export</module>
         <module>intenz-ffwriter</module>      
         <module>intenz-dbIndexing</module>
-<!--        <module>webapp</module>-->
+        <!--        <module>webapp</module>-->
 
     </modules>
 
