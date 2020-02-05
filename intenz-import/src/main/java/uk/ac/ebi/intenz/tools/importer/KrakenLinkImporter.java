@@ -20,35 +20,31 @@ import uk.ac.ebi.intenz.mapper.EnzymeLinkMapper;
 import uk.ac.ebi.intenz.tools.importer.dto.UniprotApi;
 
 /**
- * code partly adapted from Rafa
+ *
  *
  * @author Joseph <joseph@ebi.ac.uk>
  */
 public class KrakenLinkImporter extends Importer {
 
-    private static final Logger logger = Logger.getLogger(KrakenLinkImporter.class);
+    private static final Logger LOG = Logger.getLogger(KrakenLinkImporter.class);
 
     private Connection impCon;
     private List<EnzymeEntry> enzymeEntries;
 
-    // private UniProtService uniProtService;
-    //@Autowired
     private UniprotService uniprotService;
 
     protected KrakenLinkImporter() throws IOException {
         super();
-        //uniprotService = new UniprotService();
+ 
     }
 
     @Override
     protected void setup() throws Exception {
-        logger.debug("Opening IntEnz import database connections");
+        LOG.debug("Opening IntEnz import database connections");
         impCon = OracleDatabaseInstance
                 .getInstance(importerProps.getProperty("intenz.database"))
                 .getConnection();
-        logger.debug("Database connection obtained " + impCon);
-
-        //setupKraken();
+        LOG.debug("Database connection obtained " + impCon);
         setupProteinApi();
     }
 
@@ -56,14 +52,12 @@ public class KrakenLinkImporter extends Importer {
         uniprotService = IntenzUniprotService.getIntenzUniprotService().uniprotService();
     }
 
-//    protected void setupKraken() {
-//        uniProtService = IntenzUniprotService.getIntenzUniprotService().uniProtService();
-//    }
+
     @Override
     protected void importData() throws Exception {
         EnzymeEntryMapper mapper = new EnzymeEntryMapper();
         enzymeEntries = mapper.findAll(impCon);
-        logger.debug("Obtained enzymes to be updated.");
+        LOG.debug("Obtained enzymes to be updated.");
 
         Iterator<EnzymeEntry> iter = enzymeEntries.iterator();
         while (iter.hasNext()) {
@@ -81,7 +75,7 @@ public class KrakenLinkImporter extends Importer {
 
             uniprotResult.forEach(api -> processUniprotApiResult(api, updatedUniProtXrefs));
         } else {
-            logger.error("No Uniprot result for this EC " + ec);
+            LOG.error("No Uniprot result for this EC " + ec);
         }
         return updatedUniProtXrefs;
     }
@@ -99,77 +93,28 @@ public class KrakenLinkImporter extends Importer {
         updatedUniProtXrefs.add(enzymeLink);
     }
 
-//    protected SortedSet<EnzymeLink> getKrakenLinksX(String ec) {
-//
-//        Query query = UniProtQueryBuilder.ec(ec).and(UniProtQueryBuilder.swissprot());
-//        Optional< QueryResult<UniProtEntry>> resultEntries = Optional.empty();
-//        try {
-//            resultEntries = Optional.ofNullable(uniProtService.getEntries(query));
-//        } catch (ServiceException ex) {
-//
-//            logger.error(ex.getMessage(), ex);
-//        }
-//
-//        SortedSet<EnzymeLink> updatedUniProtXrefs = new TreeSet<EnzymeLink>();
-//
-//        if (resultEntries.isPresent()) {
-//            QueryResult<UniProtEntry> queryResult = resultEntries.get();
-//            while (queryResult.hasNext()) {
-//                UniProtEntry entry = queryResult.next();
-//                if (entry != null) {
-//                    String accession = entry.getPrimaryUniProtAccession().getValue();
-//                    final UniProtId uniprotId = entry.getUniProtId();
-//                    System.out.println("DATA FOUND " + uniprotId);
-//                    EnzymeLink enzymeLink = EnzymeLink.valueOf(XrefDatabaseConstant.SWISSPROT,
-//                            XrefDatabaseConstant.SWISSPROT.getUrl(),
-//                            accession,
-//                            uniprotId.getValue(),
-//                            EnzymeSourceConstant.INTENZ,
-//                            EnzymeViewConstant.SIB_INTENZ);
-//                    updatedUniProtXrefs.add(enzymeLink);
-//                } else {
-//                    logger.error("UniProtEntry (QueryResult<>) was Null for this EC " + ec);
-//                }
-//            }
-//        }
-//
-//        return updatedUniProtXrefs;
-//    }
     @Override
     protected void loadData() throws Exception {
-        logger.debug("Load data");
+        LOG.debug("Load data");
         Iterator<EnzymeEntry> iter = enzymeEntries.iterator();
         EnzymeLinkMapper mapper = new EnzymeLinkMapper();
         while (iter.hasNext()) {
             EnzymeEntry entry = (EnzymeEntry) iter.next();
             mapper.deleteByCodeXref(entry.getId(), XrefDatabaseConstant.SWISSPROT.getDatabaseCode(), impCon);
-            mapper.insert(new ArrayList<EnzymeLink>(entry.getLinks()), entry.getId(), entry.getStatus(), impCon);
+            mapper.insert(new ArrayList<>(entry.getLinks()), entry.getId(), entry.getStatus(), impCon);
         }
     }
 
     @Override
     protected void destroy() {
-        logger.debug("Closing IntEnz import connection..." + impCon);
+        LOG.debug("Closing IntEnz import connection..." + impCon);
         try {
             if (impCon != null) {
                 impCon.close();
             }
-            //uniProtService.stop();
-        } catch (SQLException e) {
-            logger.error(e);
+         } catch (SQLException e) {
+            LOG.error(e);
         }
     }
 
-//    @Override
-//    protected void destroy() {
-//             logger.debug("Closing IntEnz import connection..." + impCon);
-//        try {
-//            if (impCon != null) {
-//                impCon.close();
-//            }
-//            uniProtService.stop();
-//        } catch (SQLException e) {
-//            logger.error(e);
-//        }
-//    }
 }
