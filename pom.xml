@@ -33,7 +33,7 @@
 
     <organization>
         <name>EMBL-EBI</name>
-        <url>http://www.ebi.ac.uk</url>
+        <url>https://www.ebi.ac.uk</url>
     </organization>
 
     <developers>
@@ -139,13 +139,13 @@
                 </executions>
             </plugin> 
         </plugins>
-<!--        <extensions>
+        <extensions>
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ssh</artifactId>
                 <version>3.1.0</version>
             </extension>
-        </extensions>-->
+        </extensions>
         <pluginManagement>
             <plugins>
                 <plugin>
