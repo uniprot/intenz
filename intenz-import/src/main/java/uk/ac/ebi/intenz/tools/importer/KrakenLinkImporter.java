@@ -1,12 +1,21 @@
 package uk.ac.ebi.intenz.tools.importer;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
@@ -19,23 +28,15 @@ import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeLink;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeLinkMapper;
-import uk.ac.ebi.kraken.interfaces.uniprot.UniProtEntry;
-import uk.ac.ebi.kraken.interfaces.uniprot.UniProtId;
-import uk.ac.ebi.kraken.uuw.services.remoting.Attribute;
-import uk.ac.ebi.kraken.uuw.services.remoting.AttributeIterator;
-import uk.ac.ebi.kraken.uuw.services.remoting.Query;
-import uk.ac.ebi.kraken.uuw.services.remoting.UniProtJAPI;
-import uk.ac.ebi.kraken.uuw.services.remoting.UniProtQueryBuilder;
-import uk.ac.ebi.kraken.uuw.services.remoting.UniProtQueryService;
 
 public class KrakenLinkImporter extends Importer {
 
 	private static Logger LOGGER = Logger.getLogger(KrakenLinkImporter.class);
+	private static final String URL_PREFIX = "https://www.ebi.ac.uk/proteins/api/proteins?offset=0&size=-1&reviewed=true&format=txt&ec=";
 
 	private Connection impCon;
 	private List<EnzymeEntry> enzymeEntries;
-	private UniProtQueryService uniProtQueryService;
-	
+
 	protected KrakenLinkImporter() throws IOException {
 		super();
 	}
@@ -43,14 +44,7 @@ public class KrakenLinkImporter extends Importer {
 	@Override
 	protected void setup() throws Exception {
 		LOGGER.debug("Opening IntEnz import database connections");
-        impCon = OracleDatabaseInstance
-	    	.getInstance(importerProps.getProperty("intenz.database"))
-	    	.getConnection();
-		setupKraken();
-	}
-	
-	protected void setupKraken(){
-		uniProtQueryService = UniProtJAPI.factory.getUniProtQueryService();
+		impCon = OracleDatabaseInstance.getInstance(importerProps.getProperty("intenz.database")).getConnection();
 	}
 
 	@Override
@@ -60,29 +54,85 @@ public class KrakenLinkImporter extends Importer {
 		LOGGER.debug("Obtained enzymes to be updated.");
 
 		Iterator<EnzymeEntry> iter = enzymeEntries.iterator();
-		while ( iter.hasNext() ) {
+		while (iter.hasNext()) {
 			EnzymeEntry entry = (EnzymeEntry) iter.next();
 			String ec = entry.getEc().toString();
-			entry.setLinks(getKrakenLinks(ec));
+			entry.setLinks(getUniProtLinks(ec));
 		}
 	}
 
-	protected SortedSet<EnzymeLink> getKrakenLinks(String ec) {
-		Query query = UniProtQueryBuilder.buildECNumberQuery(ec);
-		Query queryReviewed = UniProtQueryBuilder.setReviewedEntries(query);
-		AttributeIterator<UniProtEntry> it =
-			uniProtQueryService.getAttributes(queryReviewed, "ognl:uniProtId");
+	static Map<String, String> getAcc2IdMap(String ec) {
+		Map<String, String> acc2Id = new TreeMap<>();
+		String uri = URL_PREFIX + ec;
+		Reader reader = null;
+		try {
+			URL url = new URL(uri);
+
+			URLConnection connection = url.openConnection();
+			HttpURLConnection httpConnection = (HttpURLConnection) connection;
+
+			// httpConnection.setRequestProperty("Accept", "application/xml");
+
+			InputStream response = connection.getInputStream();
+			int responseCode = httpConnection.getResponseCode();
+
+			if (responseCode != 200) {
+				return acc2Id;
+			}
+
+			String output;
+
+			reader = new BufferedReader(new InputStreamReader(response, "UTF-8"));
+			StringBuilder builder = new StringBuilder();
+			char[] buffer = new char[8192];
+			int read;
+			while ((read = reader.read(buffer, 0, buffer.length)) > 0) {
+				builder.append(buffer, 0, read);
+			}
+			output = builder.toString();
+
+			String[] entries = output.split("//\n");
+			for (String entry : entries) {
+				String[] lines = entry.split("\n");
+				String id = null;
+				String acc = null;
+				for (String line : lines) {
+					if (line.startsWith("ID   ")) {
+						int index = line.indexOf(" ", "ID   ".length());
+						id = line.substring("ID   ".length(), index);
+					} else if (line.startsWith("AC   ")) {
+						int index = line.indexOf(";", "AC   ".length());
+						acc = line.substring("AC   ".length(), index);
+					}
+					if ((id != null) && (acc != null)) {
+						acc2Id.put(acc, id);
+						break;
+					}
+				}
+			}
+			return acc2Id;
+		} catch (IOException e) {
+			LOGGER.warn("failed fetch data for enzyme: " + ec);
+		} finally {
+			if (reader != null)
+				try {
+					reader.close();
+				} catch (IOException logOrIgnore) {
+					logOrIgnore.printStackTrace();
+				}
+		}
+		return acc2Id;
+
+	}
+
+	protected SortedSet<EnzymeLink> getUniProtLinks(String ec) {
+		Map<String, String> acc2Id = getAcc2IdMap(ec);
 		SortedSet<EnzymeLink> updatedUniProtXrefs = new TreeSet<EnzymeLink>();
-		for (Attribute attribute : it) {
-			String accession = attribute. getAccession();
-			final UniProtId uniprotId  = (UniProtId) attribute.getValue();
-			EnzymeLink enzymeLink = EnzymeLink.valueOf(XrefDatabaseConstant.SWISSPROT ,
-	        	XrefDatabaseConstant.SWISSPROT.getUrl(),
-	        	accession,
-	        	uniprotId.getValue(),
-	        	EnzymeSourceConstant.INTENZ,
-	        	EnzymeViewConstant.SIB_INTENZ);
-        	updatedUniProtXrefs.add(enzymeLink);
+		for (Map.Entry<String, String> entry : acc2Id.entrySet()) {
+			EnzymeLink enzymeLink = EnzymeLink.valueOf(XrefDatabaseConstant.SWISSPROT,
+					XrefDatabaseConstant.SWISSPROT.getUrl(), entry.getKey(), entry.getValue(),
+					EnzymeSourceConstant.INTENZ, EnzymeViewConstant.SIB_INTENZ);
+			updatedUniProtXrefs.add(enzymeLink);
 		}
 		return updatedUniProtXrefs;
 	}
@@ -102,7 +152,7 @@ public class KrakenLinkImporter extends Importer {
 	@Override
 	protected void destroy() {
 		LOGGER.debug("Closing IntEnz import connection...");
-        try {
+		try {
 			impCon.close();
 		} catch (SQLException e) {
 			LOGGER.error(e);
