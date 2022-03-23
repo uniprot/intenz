@@ -1,7 +1,6 @@
 package uk.ac.ebi.intenz.tools.sib.writer;
 
 import java.sql.Connection;
-
 import junit.framework.TestCase;
 import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.Status;
@@ -19,7 +18,13 @@ public class EnzymeFlatFileWriterTest extends TestCase {
     EnzymeEntryMapper entryMapper;
 
 	protected void setUp() throws Exception {
-		con = OracleDatabaseInstance.getInstance("intenz-db-dev").getConnection();
+	//        only used when IDE cannot get System environment variables
+//        String userHome = System.getProperty("user.home");
+//        System.setProperty(
+//                "oracle.net.tns_admin",
+//                userHome + "/tns_admin");	
+            
+            con = OracleDatabaseInstance.getInstance("intenz-db-dev").getConnection();
         entryMapper = new EnzymeEntryMapper();
 	}
 
@@ -40,16 +45,17 @@ public class EnzymeFlatFileWriterTest extends TestCase {
         EnzymeEntryImpl sibEntry = SibEntryHelper.getSibEnzymeEntry(entry,
                 SpecialCharacters.getInstance(null), EncodingType.SWISSPROT_CODE);
 		String ffEntry = EnzymeFlatFileWriter.export(sibEntry);
-
-		entry = entryMapper.findById(18543L, con);
-        sibEntry = SibEntryHelper.getSibEnzymeEntry(entry,
-                SpecialCharacters.getInstance(null), EncodingType.SWISSPROT_CODE);
-		ffEntry = EnzymeFlatFileWriter.export(sibEntry);
+		System.out.println(ffEntry);
+//		entry = entryMapper.findById(18543L, con);
+//        sibEntry = SibEntryHelper.getSibEnzymeEntry(entry,
+//                SpecialCharacters.getInstance(null), EncodingType.SWISSPROT_CODE);
+//		ffEntry = EnzymeFlatFileWriter.export(sibEntry);
 		
 		entry = entryMapper.findByEc(3, 4, 22, 55, Status.APPROVED, con);
         sibEntry = SibEntryHelper.getSibEnzymeEntry(entry,
                 SpecialCharacters.getInstance(null), EncodingType.SWISSPROT_CODE);
 		ffEntry = EnzymeFlatFileWriter.export(sibEntry);
+	System.out.println(ffEntry);
     }
  
     public void testLineWrapping() throws Exception{

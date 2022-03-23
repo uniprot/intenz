@@ -2,6 +2,7 @@ package uk.ac.ebi.intenz.webapp.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -101,10 +102,7 @@ public class IntEnzActionServlet extends ActionServlet {
      */
     private Connection establishConnection(HttpServletRequest request)
             throws SQLException, IOException, ClassNotFoundException {
-        DatabaseInstance odbi = OracleDatabaseInstance.getInstance(
-                this.getServletConfig().getServletContext()
-                    .getInitParameter("intenz.db.config"));
-        Connection con = odbi.getConnection();
+        Connection con = getConnection("intenz.db.config");
         con.setAutoCommit(false);
         Statement stm = null;
         try {
@@ -120,17 +118,43 @@ public class IntEnzActionServlet extends ActionServlet {
         return con;
     }
 
-    private Connection establishChebiProductionConnection(HttpServletRequest req) throws IOException {
-        DatabaseInstance dbi = OracleDatabaseInstance
-                .getInstance(getServletContext().getInitParameter("chebi.prod.db.config"));
-        Connection con = dbi.getConnection();
-        if (con != null){
+    private Connection establishChebiProductionConnection(HttpServletRequest req) throws SQLException, IOException, ClassNotFoundException{
+        //Connection con = getConnection("chebi.prod.db.config");
+       Connection con = getChebiConnection();
+	 if (con != null){
         	req.getSession().setAttribute("chebi.connection.production", con);
             req.getSession().setAttribute("chebiProdConBindingListener", new ConnectionBindingListener(con));
         }
         return con;
     }
+   
+    private Connection getChebiConnection() throws SQLException, ClassNotFoundException{
+        Class.forName("oracle.jdbc.OracleDriver");
+        String url = "jdbc:oracle:thin:@//ora-chez-pro-hl.ebi.ac.uk:1531/chezpro";
+        return  DriverManager.getConnection(url, "enzyme", "delphi");
 
+    }     
+    private  Connection getConnection (String parameter) throws SQLException, IOException, ClassNotFoundException{
+    	 DatabaseInstance dbi = OracleDatabaseInstance
+                 .getInstance(getServletContext().getInitParameter(parameter));
+         Connection con = dbi.getConnection();
+         if(con ==null) {
+        	 return retryConnection(dbi);
+         }else
+        	 return con;
+    }
+
+    private Connection retryConnection (DatabaseInstance dbi ) throws SQLException, ClassNotFoundException {
+        	Class.forName(dbi.getDriver());
+     
+            return DriverManager.getConnection(getOracleThinUrl(dbi), dbi.getUser(), dbi.getPassword());
+       
+    }
+    
+    public String getOracleThinUrl (DatabaseInstance dbi) {
+        return "jdbc:oracle:thin:@//" + dbi.getHost() + ":" + dbi.getPort() + "/" + dbi.getName().toUpperCase();
+     }
+    
     /**
      * Keeps error messages for user feedback.
      *
