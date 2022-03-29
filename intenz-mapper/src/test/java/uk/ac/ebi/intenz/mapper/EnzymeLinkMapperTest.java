@@ -3,8 +3,9 @@ package uk.ac.ebi.intenz.mapper;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+
 import junit.framework.TestCase;
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
+import uk.ac.ebi.intenz.db.util.NewDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.Status;
@@ -76,7 +77,7 @@ public class EnzymeLinkMapperTest extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        con = OracleDatabaseInstance.getInstance("intenz-db-dev")
+        con = NewDatabaseInstance.getInstance("intenz-db-dev")
             .getConnection();
     }
 

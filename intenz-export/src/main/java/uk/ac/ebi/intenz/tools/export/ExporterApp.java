@@ -8,19 +8,34 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 import javax.xml.bind.JAXBException;
 
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.biopax.level2.Biopax;
+import uk.ac.ebi.intenz.db.util.NewDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.Status;
-import uk.ac.ebi.intenz.domain.enzyme.*;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeClass;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber.Type;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubSubclass;
+import uk.ac.ebi.intenz.domain.enzyme.EnzymeSubclass;
 import uk.ac.ebi.intenz.domain.exceptions.DomainException;
 import uk.ac.ebi.intenz.mapper.EnzymeClassMapper;
 import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
@@ -172,7 +187,7 @@ public class ExporterApp {
 
     protected ExporterApp(String dbConfig)
     throws SQLException, IOException, DomainException {
-        intenzConnection = OracleDatabaseInstance.getInstance(dbConfig)
+        intenzConnection = NewDatabaseInstance.getInstance(dbConfig)
         		.getConnection();
         stats = new IntEnzDbStatistics(intenzConnection);
     }

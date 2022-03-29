@@ -1,12 +1,19 @@
 package uk.ac.ebi.intenz.mapper;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import uk.ac.ebi.intenz.db.util.NewDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.EnzymeNameTypeConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
@@ -22,7 +29,7 @@ import uk.ac.ebi.intenz.domain.reference.Reference;
 import uk.ac.ebi.rhea.domain.Database;
 import uk.ac.ebi.rhea.domain.Reaction;
 
-public class CommonProceduresMapperTest extends TestCase {
+public class CommonProceduresMapperTest {
 
 	private CommonProceduresMapper cpm;
 	private EnzymeEntryMapper eem;
@@ -55,9 +62,8 @@ public class CommonProceduresMapperTest extends TestCase {
 	private final String PUBMED = "";
 	private final String MEDLINE = "";
 
-    @Override
-	protected void setUp() throws Exception {
-		super.setUp();
+    @Before
+	public void setUp() throws Exception {
 		cpm = new CommonProceduresMapper();
 		eem = new EnzymeEntryMapper();
 		enm = new EnzymeNameMapper();
@@ -65,13 +71,13 @@ public class CommonProceduresMapperTest extends TestCase {
 		ecm = new EnzymeCommentMapper();
 		elm = new EnzymeLinkMapper();
 		erefm = new EnzymeReferenceMapper();
-		fakeId = new Long(-1L);
+		fakeId = -1L;
 		fakeEc = EnzymeCommissionNumber.valueOf(1,1,1,9999);
 		fakeStatus = Status.APPROVED;
 		fakeSource = EnzymeSourceConstant.INTENZ;
 		fakeView = EnzymeViewConstant.INTENZ;
 		fakePubId = new Long(-666);
-		con = OracleDatabaseInstance.getInstance("intenz-db-dev")
+		con = NewDatabaseInstance.getInstance("intenz-db-dev")
             .getConnection();
 
 		eem.insert(fakeId, fakeEc, fakeStatus, fakeSource, NOTE, HISTORY, true, con);
@@ -90,28 +96,86 @@ public class CommonProceduresMapperTest extends TestCase {
 		elm.insertLink(EnzymeLink.UMBBD, fakeId, fakeStatus, con);
 		erefm.insert(new Journal(fakePubId, AUTHOR, TITLE, YEAR, PUB_NAME, FIRST_PAGE, LAST_PAGE, VOLUME, PUBMED, MEDLINE, fakeView, fakeSource),
 				fakeId, fakeStatus, con);
-		con.commit();
+	
 	}
 
-    @Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
+    
+    @After
+	public void tearDown() throws Exception {
 		// Clone:
-		enm.deleteNames(cloneId, EnzymeNameTypeConstant.SYSTEMATIC_NAME, con);
-		enm.deleteNames(cloneId, EnzymeNameTypeConstant.COMMON_NAME, con);
-		erm.deleteAll(cloneId, con);
-		ecm.deleteAll(cloneId, con);
-		elm.deleteAll(cloneId, con);
-		erefm.deleteAll(cloneId, con);
+    	try {
+    		enm.deleteNames(cloneId, EnzymeNameTypeConstant.SYSTEMATIC_NAME, con);
+    	}catch(Exception e) {
+    		
+    	}
+    	try {
+    		enm.deleteNames(cloneId, EnzymeNameTypeConstant.COMMON_NAME, con);
+    	}catch(Exception e) {
+    		
+    	}
+    	try {
+    		erm.deleteAll(cloneId, con);
+    	}catch(Exception e) {
+    		
+    	}
+    	try {
+    		ecm.deleteAll(cloneId, con);
+    	}catch(Exception e) {
+    		
+    	}
+    	try {
+    		elm.deleteAll(cloneId, con);
+    	}catch(Exception e) {
+    		
+    	}
+		
+    	try {
+    		erefm.deleteAll(cloneId, con);
+    	}catch(Exception e) {
+    		
+    	}
+    	try {
+    		enm.deleteNames(fakeId, EnzymeNameTypeConstant.SYSTEMATIC_NAME, con);
+    	}catch(Exception e) {
+    		
+    	}
 		// Original:
-		enm.deleteNames(fakeId, EnzymeNameTypeConstant.SYSTEMATIC_NAME, con);
-		enm.deleteNames(fakeId, EnzymeNameTypeConstant.COMMON_NAME, con);
-		erm.deleteAll(fakeId, con);
-		ecm.deleteAll(fakeId, con);
-		elm.deleteAll(fakeId, con);
-		erefm.deleteAll(fakeId, con);
+    	try {
+    		enm.deleteNames(fakeId, EnzymeNameTypeConstant.COMMON_NAME, con);
+    	}catch(Exception e) {
+    		
+    	}
+    	try {
+    		erm.deleteAll(fakeId, con);
+    	}catch(Exception e) {
+    		
+    	}
+    	try {
+    		ecm.deleteAll(fakeId, con);
+    	}catch(Exception e) {
+    		
+    	}
+    	try {
+    		elm.deleteAll(fakeId, con);
+    	}catch(Exception e) {
+    		
+    	}
+    	try {
+    		erefm.deleteAll(fakeId, con);
+    	}catch(Exception e) {
+    		
+    	}
+		
+    	try {
+    		erefm.deletePublication(fakePubId, con);
+    	}catch(Exception e) {
+    		
+    	}
+		
+		
+		
 
-		erefm.deletePublication(fakePubId, con);
+		
 
 		// Delete the test enzymes (original and clone)
 		PreparedStatement stm = con.prepareStatement("DELETE FROM enzymes WHERE enzyme_id = ?");
@@ -121,13 +185,12 @@ public class CommonProceduresMapperTest extends TestCase {
 		stm.execute();
 		stm.close();
 
-		con.commit();
 		con.close();
 	}
-
+    @Test
 	public void testCreateClone() throws Exception {
 		cloneId = cpm.createClone(fakeId, con);
-		con.commit();
+
 		// Names:
 		List<EnzymeName> cloneNames = enm.find(cloneId, con);
 		assertNotNull(cloneNames);

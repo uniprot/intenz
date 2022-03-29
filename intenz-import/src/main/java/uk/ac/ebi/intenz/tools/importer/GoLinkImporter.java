@@ -15,7 +15,7 @@ import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
 
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
+import uk.ac.ebi.intenz.db.util.NewDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
@@ -52,10 +52,10 @@ public class GoLinkImporter extends Importer {
      */
     public final void setup() throws Exception {
         Class.forName("oracle.jdbc.driver.OracleDriver");
-        impCon = OracleDatabaseInstance
+        impCon = NewDatabaseInstance
         	.getInstance(importerProps.getProperty("intenz.database"))
         	.getConnection();
-        expCon = OracleDatabaseInstance
+        expCon = NewDatabaseInstance
         	.getInstance(importerProps.getProperty("go.database"))
         	.getConnection();
     }
@@ -129,7 +129,6 @@ public class GoLinkImporter extends Importer {
                mapper.deleteByCodeXref(entry.getId(), XrefDatabaseConstant.GO.getDatabaseCode(), impCon);
                mapper.insert(new ArrayList<EnzymeLink>(entry.getLinks()), entry.getId(), entry.getStatus(), impCon);
             }
-            impCon.commit();
         } catch (Exception e){
             impCon.rollback();
             throw e;

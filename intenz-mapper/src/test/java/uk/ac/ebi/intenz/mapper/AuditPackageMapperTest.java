@@ -2,8 +2,9 @@ package uk.ac.ebi.intenz.mapper;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
 import junit.framework.TestCase;
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
+import uk.ac.ebi.intenz.db.util.NewDatabaseInstance;
 
 public class AuditPackageMapperTest extends TestCase {
 
@@ -13,7 +14,7 @@ public class AuditPackageMapperTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         apm = new AuditPackageMapper();
-        con = OracleDatabaseInstance.getInstance("intenz-db-dev")
+        con = NewDatabaseInstance.getInstance("intenz-db-dev")
                 .getConnection();
     }
 

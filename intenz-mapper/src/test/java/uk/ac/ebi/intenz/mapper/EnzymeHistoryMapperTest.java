@@ -5,11 +5,18 @@
 
 package uk.ac.ebi.intenz.mapper;
 
+import static org.junit.Assert.assertEquals;
+
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import junit.framework.TestCase;
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import uk.ac.ebi.intenz.db.util.NewDatabaseInstance;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
 import uk.ac.ebi.intenz.domain.history.HistoryGraph;
 
@@ -17,25 +24,22 @@ import uk.ac.ebi.intenz.domain.history.HistoryGraph;
  *
  * @author rafalcan
  */
-public class EnzymeHistoryMapperTest extends TestCase {
+public class EnzymeHistoryMapperTest {
 
     Connection con;
     EnzymeEntryMapper entryMapper;
     EnzymeHistoryMapper historyMapper;
 
-    public EnzymeHistoryMapperTest(String testName) {
-        super(testName);
-    }
 
-    @Override
-    protected void setUp() throws Exception {
-        con = OracleDatabaseInstance.getInstance("intenz-db-dev").getConnection();
+    @Before
+    public void setUp() throws Exception {
+        con = NewDatabaseInstance.getInstance("intenz-db-dev").getConnection();
         entryMapper = new EnzymeEntryMapper();
         historyMapper = new EnzymeHistoryMapper();
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         if (con != null) con.close();
     }
 
@@ -43,6 +47,8 @@ public class EnzymeHistoryMapperTest extends TestCase {
      * Test of find method, of class EnzymeHistoryMapper.
      * @throws Exception
      */
+    @Ignore
+    @Test
     public void testFind() throws Exception {
         EnzymeEntry enzymeEntry = entryMapper.findById(1000L, con);
         HistoryGraph graph = historyMapper.find(enzymeEntry, con);

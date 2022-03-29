@@ -3,7 +3,6 @@ package uk.ac.ebi.intenz.tools.release;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,8 +12,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import uk.ac.ebi.biobabel.util.db.DatabaseInstance;
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
+import uk.ac.ebi.intenz.db.util.NewDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeClass;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
@@ -81,9 +79,9 @@ public class IntEnzText {
       }
 
       String instanceName = args[0];
-      DatabaseInstance instance = null;
+      NewDatabaseInstance instance = null;
       try {
-          instance = OracleDatabaseInstance.getInstance(instanceName);
+          instance = NewDatabaseInstance.getInstance(instanceName);
       } catch (IOException e) {
           LOGGER.error("Missing database configuration for " + instanceName, e);
           System.exit(2);
@@ -95,16 +93,8 @@ public class IntEnzText {
       }
 
 
-    Connection con = null;
-    try {
-      Class.forName(instance.getDriver());
-      String url =  instance.getOracleThinUrl();
-      con = DriverManager.getConnection(url, instance.getUser(), instance.getPassword());
-      con.setAutoCommit(false);
-    } catch (Exception e) {
-      LOGGER.error("Could not open connection to " + instanceName, e);
-      System.exit(4);
-    }
+    Connection con =instance.getConnection();
+
 
       Statement deleteAllStatement = null;
       try {

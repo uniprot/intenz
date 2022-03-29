@@ -153,6 +153,7 @@
     </profiles>
 
     <build>
+    <!--
         <testResources>
             <testResource>
                 <directory>${intenz.config.dir}</directory>
@@ -161,6 +162,7 @@
                 </includes>
             </testResource>
         </testResources>
+        -->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

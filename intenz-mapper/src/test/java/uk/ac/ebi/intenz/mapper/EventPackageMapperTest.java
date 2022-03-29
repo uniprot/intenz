@@ -1,17 +1,24 @@
 package uk.ac.ebi.intenz.mapper;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import junit.framework.TestCase;
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import uk.ac.ebi.intenz.db.util.NewDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 
-public class EventPackageMapperTest extends TestCase {
+public class EventPackageMapperTest{
 
 	private EventPackageMapper epm;
 	private EnzymeEntryMapper eem;
@@ -30,30 +37,29 @@ public class EventPackageMapperTest extends TestCase {
 	private final String PR = "PR";
 	private final String OK = "OK";
 
-	protected void setUp() throws Exception {
-		super.setUp();
+	@Before
+	public void setUp() throws Exception {
 		epm = new EventPackageMapper();
 		eem = new EnzymeEntryMapper();
-		con = OracleDatabaseInstance.getInstance("intenz-db-dev").getConnection();
+		con = NewDatabaseInstance.getInstance("intenz-db-dev").getConnection();
 		stm = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		id1 = new Long(-1L);
-		id2 = new Long(-2L);
+		id1 = -1L;
+		id2 = -2L;
 		ec1 = EnzymeCommissionNumber.valueOf(1,1,1,9999);
 		ec2 = EnzymeCommissionNumber.valueOf(1,1,1,9998);
 		status = Status.APPROVED;
 		source = EnzymeSourceConstant.INTENZ;
 	}
-
-	protected void tearDown() throws Exception {
-		super.tearDown();
+	@After
+	public void tearDown() throws Exception {
 		stm.execute("DELETE FROM future_events WHERE before_id < 0 OR after_id < 0");
 		stm.execute("DELETE FROM history_events WHERE before_id < 0 OR after_id < 0");
 		stm.execute("DELETE FROM enzymes WHERE enzyme_id < 0");
-		con.commit();
 		stm.close();
 		con.close();
 	}
 
+	@Test
 	public void testInsertFutureCreationEvent() throws SQLException {
 		eem.insert(id1, ec1, status, source, "enzyme1", "just testing", false, con);
 		epm.insertFutureCreationEvent(id1, con);
@@ -68,7 +74,7 @@ public class EventPackageMapperTest extends TestCase {
 			if (rs != null) rs.close();
 		}
 	}
-
+	@Test
 	public void testUpdateFutureCreationEvent() throws SQLException {
 		eem.insert(id1, ec1, status, source, "enzyme1", "just testing", false, con);
 		ResultSet rs = null;
@@ -98,7 +104,8 @@ public class EventPackageMapperTest extends TestCase {
 			if (rs != null) rs.close();
 		}
 	}
-
+	
+	@Test
 	public void testInsertFutureModificationEvent() throws SQLException {
 		eem.insert(id1, ec1, status, source, "enzyme1", "just testing", true, con);
 		eem.insert(id2, ec2, status, source, "enzyme2", "just testing", false, con);
@@ -116,6 +123,7 @@ public class EventPackageMapperTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testUpdateFutureModificationEvent() throws SQLException {
 		eem.insert(id1, ec1, status, source, "enzyme1", "just testing", true, con);
 		eem.insert(id2, ec2, status, source, "enzyme2", "just testing", false, con);
@@ -152,7 +160,7 @@ public class EventPackageMapperTest extends TestCase {
 			if (rs != null) rs.close();
 		}
 	}
-
+	@Test
 	public void testInsertFutureTransferEvent() throws SQLException {
 		eem.insert(id1, ec1, status, source, "enzyme1", "just testing", true, con);
 		eem.insert(id2, ec2, status, source, "enzyme2", "just testing", false, con);
@@ -169,7 +177,7 @@ public class EventPackageMapperTest extends TestCase {
 			if (rs != null) rs.close();
 		}
 	}
-
+	@Test
 	public void testUpdateFutureTransferEvent() throws SQLException {
 		eem.insert(id1, ec1, status, source, "enzyme1", "just testing", true, con);
 		eem.insert(id2, ec2, status, source, "enzyme2", "just testing", false, con);
@@ -224,7 +232,7 @@ public class EventPackageMapperTest extends TestCase {
 			if (rs != null) rs.close();
 		}
 	}
-
+	@Test
 	public void testUpdateFutureDeletionEvent() throws SQLException {
 		eem.insert(id1, ec1, status, source, "enzyme1", "just testing", true, con);
 		eem.insert(id2, ec2, status, source, "enzyme2", "just testing", false, con);

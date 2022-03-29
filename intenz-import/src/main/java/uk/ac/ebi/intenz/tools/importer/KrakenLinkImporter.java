@@ -20,7 +20,7 @@ import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
 
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
+import uk.ac.ebi.intenz.db.util.NewDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.EnzymeSourceConstant;
 import uk.ac.ebi.intenz.domain.constants.EnzymeViewConstant;
 import uk.ac.ebi.intenz.domain.constants.XrefDatabaseConstant;
@@ -31,6 +31,8 @@ import uk.ac.ebi.intenz.mapper.EnzymeLinkMapper;
 
 public class KrakenLinkImporter extends Importer {
 
+	private static final String AC = "AC   ";
+	private static final String ID2 = "ID   ";
 	private static Logger LOGGER = Logger.getLogger(KrakenLinkImporter.class);
 	private static final String URL_PREFIX = "https://www.ebi.ac.uk/proteins/api/proteins?offset=0&size=-1&reviewed=true&format=txt&ec=";
 
@@ -44,7 +46,7 @@ public class KrakenLinkImporter extends Importer {
 	@Override
 	protected void setup() throws Exception {
 		LOGGER.debug("Opening IntEnz import database connections");
-		impCon = OracleDatabaseInstance.getInstance(importerProps.getProperty("intenz.database")).getConnection();
+		impCon = NewDatabaseInstance.getInstance(importerProps.getProperty("intenz.database")).getConnection();
 	}
 
 	@Override
@@ -97,12 +99,12 @@ public class KrakenLinkImporter extends Importer {
 				String id = null;
 				String acc = null;
 				for (String line : lines) {
-					if (line.startsWith("ID   ")) {
-						int index = line.indexOf(" ", "ID   ".length());
-						id = line.substring("ID   ".length(), index);
-					} else if (line.startsWith("AC   ")) {
-						int index = line.indexOf(";", "AC   ".length());
-						acc = line.substring("AC   ".length(), index);
+					if (line.startsWith(ID2)) {
+						int index = line.indexOf(" ", ID2.length());
+						id = line.substring(ID2.length(), index);
+					} else if (line.startsWith(AC)) {
+						int index = line.indexOf(";", AC.length());
+						acc = line.substring(AC.length(), index);
 					}
 					if ((id != null) && (acc != null)) {
 						acc2Id.put(acc, id);

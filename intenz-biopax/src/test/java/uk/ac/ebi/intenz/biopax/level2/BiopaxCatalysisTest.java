@@ -8,10 +8,11 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
-import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 
+import uk.ac.ebi.intenz.db.util.NewDatabaseInstance;
+import uk.ac.ebi.intenz.mapper.EnzymeEntryMapper;
 /**
  *
  * @author rafalcan
@@ -36,7 +37,7 @@ public class BiopaxCatalysisTest {
     @Before
     public void setUp() throws IOException {
         mapper = new EnzymeEntryMapper();
-        con = OracleDatabaseInstance.getInstance("intenz-db-dev").getConnection();
+        con = NewDatabaseInstance.getInstance("intenz-db-dev").getConnection();
         model = Biopax.createModel();
     }
 
@@ -48,7 +49,8 @@ public class BiopaxCatalysisTest {
     /**
      * Just a visual test (check the output).
      */
-    @Test
+    @Ignore
+  //  @Test
     public void testWrite() throws Exception {
         // Old plain text reaction (no public rheaction yet), lots of xrefs:
         new BiopaxCatalysis(mapper.findByEc(1, 1, 1, 1, null, con), model);

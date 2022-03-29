@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
@@ -106,8 +105,7 @@ public class EnzymeFlatFileWriterApp {
     String errorEc = null;
     try {
       String dbConfig = ApplicationResources.getInstance().getDbConfig();
-      con = OracleDatabaseInstance.getInstance(dbConfig).getConnection();
-      con.setAutoCommit(false);
+      con = NewDatabaseInstance.getInstance(dbConfig).getConnection();
 
       EnzymeEntryMapper enzymeEntryMapper = new EnzymeEntryMapper();
       List sibEntries = null;

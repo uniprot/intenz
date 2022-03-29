@@ -16,12 +16,11 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.ActionServlet;
 
-import uk.ac.ebi.biobabel.util.db.DatabaseInstance;
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.biobabel.webapp.listeners.ConnectionBindingListener;
 import uk.ac.ebi.intenz.webapp.utilities.UnitOfWork;
 import uk.ac.ebi.rhea.domain.Qualifier;
 import uk.ac.ebi.xchars.SpecialCharacters;
+import uk.ac.ebi.intenz.webapp.utilities.NewDatabaseInstance;
 
 /**
  * The IntEnz Action Servlet creates a <code>SpecialCharacters</code> instance and establishes a connection.
@@ -135,7 +134,7 @@ public class IntEnzActionServlet extends ActionServlet {
 
     }     
     private  Connection getConnection (String parameter) throws SQLException, IOException, ClassNotFoundException{
-    	 DatabaseInstance dbi = OracleDatabaseInstance
+    	 NewDatabaseInstance dbi = NewDatabaseInstance
                  .getInstance(getServletContext().getInitParameter(parameter));
          Connection con = dbi.getConnection();
          if(con ==null) {
@@ -144,15 +143,15 @@ public class IntEnzActionServlet extends ActionServlet {
         	 return con;
     }
 
-    private Connection retryConnection (DatabaseInstance dbi ) throws SQLException, ClassNotFoundException {
+    private Connection retryConnection (NewDatabaseInstance dbi ) throws SQLException, ClassNotFoundException {
         	Class.forName(dbi.getDriver());
      
             return DriverManager.getConnection(getOracleThinUrl(dbi), dbi.getUser(), dbi.getPassword());
        
     }
     
-    public String getOracleThinUrl (DatabaseInstance dbi) {
-        return "jdbc:oracle:thin:@//" + dbi.getHost() + ":" + dbi.getPort() + "/" + dbi.getName().toUpperCase();
+    public String getOracleThinUrl (NewDatabaseInstance dbi) {
+        return "jdbc:oracle:thin:@//" + dbi.getHost() + ":" + dbi.getPort() + "/" + dbi.getServiceName().toUpperCase();
      }
     
     /**

@@ -1190,6 +1190,9 @@ public class EnzymeEntryMapper {
       insertStatement.setString(9, source.toString());
       insertStatement.setString(10, isActive ? "Y" : "N");
       insertStatement.execute();
+    }catch(SQLException e) {
+    	e.printStackTrace();
+    	throw e;
     } finally {
       insertStatement.close();
     }

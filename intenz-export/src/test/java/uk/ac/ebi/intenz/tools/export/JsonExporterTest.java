@@ -5,7 +5,8 @@ import java.sql.Connection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
+
+import uk.ac.ebi.intenz.db.util.NewDatabaseInstance;
 import uk.ac.ebi.intenz.domain.constants.Status;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeClass;
 import uk.ac.ebi.intenz.domain.enzyme.EnzymeEntry;
@@ -27,7 +28,7 @@ public class JsonExporterTest {
 
     @Before
     public void setUp() throws Exception {
-        con = OracleDatabaseInstance.getInstance("intenz-db-dev")
+        con = NewDatabaseInstance.getInstance("intenz-db-dev")
                 .getConnection();
         exporter = new JsonExporter();
     }

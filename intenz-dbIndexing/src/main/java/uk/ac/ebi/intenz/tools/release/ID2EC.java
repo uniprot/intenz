@@ -1,14 +1,15 @@
 package uk.ac.ebi.intenz.tools.release;
 
-import uk.ac.ebi.biobabel.util.db.DatabaseInstance;
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
-import uk.ac.ebi.intenz.domain.enzyme.EnzymeCommissionNumber;
-import uk.ac.ebi.rhea.domain.Status;
-
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.apache.log4j.Logger;
+
+import uk.ac.ebi.intenz.db.util.NewDatabaseInstance;
 
 /**
  * This class is used to populate the table <code>id2ec</code>.
@@ -52,9 +53,9 @@ public class ID2EC {
         }
 
         String instanceName = args[0];
-        DatabaseInstance instance = null;
+        NewDatabaseInstance instance = null;
         try {
-            instance = OracleDatabaseInstance.getInstance(instanceName);
+            instance = NewDatabaseInstance.getInstance(instanceName);
         } catch (IOException e) {
             LOGGER.error("Missing database configuration for " + instanceName, e);
             System.exit(2);
@@ -67,7 +68,7 @@ public class ID2EC {
 
         Connection con = instance.getConnection();
         if (con == null){
-            LOGGER.error("Could not open connection to " + instance.getName());
+            LOGGER.error("Could not open connection to " + instance.getInstance());
             System.exit(4);
         }
 
@@ -117,7 +118,7 @@ public class ID2EC {
                 insertIntoID2EC.clearParameters();
             }
 
-            con.commit();
+          
         } catch (SQLException e) {
             try {
                 con.rollback();

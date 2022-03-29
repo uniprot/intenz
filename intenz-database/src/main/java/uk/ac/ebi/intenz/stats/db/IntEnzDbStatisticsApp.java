@@ -16,8 +16,8 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
+import uk.ac.ebi.intenz.db.util.NewDatabaseInstance;
 
-import uk.ac.ebi.biobabel.util.db.OracleDatabaseInstance;
 import uk.ac.ebi.intenz.stats.IIntEnzStatistics;
 
 /**
@@ -33,7 +33,7 @@ public class IntEnzDbStatisticsApp {
      * Gathers statistics and dumps them to stdout in CSV format.                                                                                                                                                 
      * @param args <ol>
      *      <li>database connection configuration (see
-     *          {@link OracleDatabaseInstance})</li>
+     *          {@link NewDatabaseInstance})</li>
      *      <li>output directory for generated file(s)</li>
      * </ol>
      * @throws SQLException In case of problem closing the connection                                                                                                                                             
@@ -41,7 +41,7 @@ public class IntEnzDbStatisticsApp {
     public static void main(String args[]) throws SQLException{                                                                                                                                                   
         Connection con = null;    
         try {
-            con = OracleDatabaseInstance.getInstance(args[0]).getConnection();                                                                                                                                    
+            con = NewDatabaseInstance.getInstance(args[0]).getConnection();                                                                                                                                    
             File outputDir = new File(args[1]);
             IIntEnzStatistics statistics = new IntEnzDbStatistics(con);                                                                                                                                           
             
