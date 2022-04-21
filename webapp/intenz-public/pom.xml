@@ -91,7 +91,6 @@
 			<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
-			<version>12.2.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.intenz</groupId>
@@ -121,7 +120,6 @@
         <dependency>
             <groupId>uk.ac.ebi.rhea</groupId>
             <artifactId>rhea-domain</artifactId>
-            <version>1.8.1</version>
         </dependency>
         <dependency>
             <groupId>uk.ac.ebi.rhea.webapp</groupId>
@@ -132,12 +130,10 @@
 		<dependency>
 			<groupId>uk.ac.ebi.xchars</groupId>
 			<artifactId>xchars</artifactId>
-			<version>1.2.6</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.xchars</groupId>
 			<artifactId>xchars-config</artifactId>
-			<version>1.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.xchars</groupId>
@@ -147,7 +143,6 @@
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel</groupId>
 			<artifactId>biobabel-core</artifactId>
-			<version>0.20</version>
 		</dependency>
 		<dependency>
 			<groupId>uk.ac.ebi.biobabel.webapp</groupId>
@@ -175,12 +170,10 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>1.4.3</version>
         </dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>3.2.1</version>
 		</dependency>
 		<dependency>
 			<groupId>taglibs</groupId>
@@ -206,7 +199,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.2</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

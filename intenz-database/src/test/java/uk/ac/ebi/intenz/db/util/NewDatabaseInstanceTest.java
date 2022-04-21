@@ -17,11 +17,11 @@ public class NewDatabaseInstanceTest {
 		
 		assertEquals("enzyme_portal", properties.getProperty("user"));
 		assertEquals("epsilon", properties.getProperty("password"));
-		assertEquals("ora-dlvm-044.ebi.ac.uk", properties.getProperty("host"));
+		assertEquals("ora-uzp-dev-hl.ebi.ac.uk", properties.getProperty("host"));
 		assertEquals("1521", properties.getProperty("port"));
 		assertEquals("Oracle", properties.getProperty("type"));
-		assertEquals("VUZPDEV", properties.getProperty("instance"));
-	//	assertEquals("UZPDEV", properties.getProperty("serviceName"));
+	//	assertEquals("VUZPDEV", properties.getProperty("instance"));
+		assertEquals("UZPDEV", properties.getProperty("serviceName"));
 	}
 	
 	@Test
@@ -29,11 +29,11 @@ public class NewDatabaseInstanceTest {
 		NewDatabaseInstance instance = NewDatabaseInstance.getInstance("ep-db-uzpdev");
 		assertEquals("enzyme_portal", instance.getUser());
 		assertEquals("epsilon",instance.getPassword());
-		assertEquals("ora-dlvm-044.ebi.ac.uk", instance.getHost());
+		assertEquals("ora-uzp-dev-hl.ebi.ac.uk", instance.getHost());
 		assertEquals("1521",instance.getPort());
 		assertEquals("Oracle", instance.getDbType());
-		assertEquals("VUZPDEV", instance.getInstance());
-	//	assertEquals("UZPDEV", instance.getServiceName());
+	//	assertEquals("VUZPDEV", instance.getInstance());
+		assertEquals("UZPDEV", instance.getServiceName());
 		assertEquals("enzyme_portal", instance.getSchema());
 		
 		Connection connection = instance.getConnection();
