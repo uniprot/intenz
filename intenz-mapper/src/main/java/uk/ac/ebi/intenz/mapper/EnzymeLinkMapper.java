@@ -283,12 +283,14 @@ public class EnzymeLinkMapper {
         EnzymeLink link = links.get(iii);
         if (link.getXrefDatabaseConstant().isXref()) {
           doInsertXref(link, enzymeId, status, insertXrefStatement);
-          insertXrefStatement.execute();
+          insertXrefStatement.addBatch();;
         } else {
           doInsert(link, enzymeId, status, insertStatement);
-          insertStatement.execute();
+          insertStatement.addBatch();
         }
       }
+      insertStatement.executeBatch();
+      insertXrefStatement.executeBatch();
     } finally {
       if (insertStatement != null) insertStatement.close();
       if (insertXrefStatement != null) insertXrefStatement.close();

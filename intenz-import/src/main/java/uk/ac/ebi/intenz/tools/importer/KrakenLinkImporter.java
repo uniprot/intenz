@@ -11,6 +11,7 @@ import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class KrakenLinkImporter extends Importer {
 	private static final String ID2 = "ID   ";
 	private static Logger LOGGER = Logger.getLogger(KrakenLinkImporter.class);
 	private static final String URL_PREFIX = "https://www.ebi.ac.uk/proteins/api/proteins?offset=0&size=-1&reviewed=true&format=txt&ec=";
-
+	private static final String URL_PREFIX_NEW ="https://rest.uniprot.org/uniprotkb/stream?fields=accession,id&format=tsv&query=ec";
 	private Connection impCon;
 	private List<EnzymeEntry> enzymeEntries;
 
@@ -53,17 +54,72 @@ public class KrakenLinkImporter extends Importer {
 	protected void importData() throws Exception {
 		EnzymeEntryMapper mapper = new EnzymeEntryMapper();
 		enzymeEntries = mapper.findAll(impCon);
+		LOGGER.debug("REtrieve All SwissProt Ec to Acc and Id map.");
+		Map<String,Map<String, String> > ec2acc2IdMap = UniProtServiceClient.getSwissProtEcAcc2IdMap();
 		LOGGER.debug("Obtained enzymes to be updated.");
-
 		Iterator<EnzymeEntry> iter = enzymeEntries.iterator();
 		while (iter.hasNext()) {
 			EnzymeEntry entry = (EnzymeEntry) iter.next();
 			String ec = entry.getEc().toString();
-			entry.setLinks(getUniProtLinks(ec));
+			entry.setLinks(getUniProtLinks(ec, ec2acc2IdMap));
 		}
 	}
-
 	static Map<String, String> getAcc2IdMap(String ec) {
+		Map<String, String> acc2Id = new TreeMap<>();
+		String uri = URL_PREFIX_NEW + ec;
+		Reader reader = null;
+		try {
+			URL url = new URL(uri);
+
+			URLConnection connection = url.openConnection();
+			HttpURLConnection httpConnection = (HttpURLConnection) connection;
+
+			// httpConnection.setRequestProperty("Accept", "application/xml");
+
+			InputStream response = connection.getInputStream();
+			int responseCode = httpConnection.getResponseCode();
+
+			if (responseCode != 200) {
+				return acc2Id;
+			}
+
+			String output;
+			reader = new BufferedReader(new InputStreamReader(response, "UTF-8"));
+			StringBuilder builder = new StringBuilder();
+			char[] buffer = new char[8192];
+			int read;
+			while ((read = reader.read(buffer, 0, buffer.length)) > 0) {
+				builder.append(buffer, 0, read);
+			}
+			output = builder.toString();
+
+			String[] lines = output.split("\n");
+			for(String line: lines) {
+				line= line.trim();
+				if(line.startsWith("Entry")) {
+					continue;
+				}
+				String[] tokens =line.split("\t");
+				if(tokens.length==2)
+					acc2Id.put(tokens[0], tokens[1]);
+			}
+		
+			return acc2Id;
+		} catch (IOException e) {
+			LOGGER.warn("failed fetch data for enzyme: " + ec);
+		} finally {
+			if (reader != null)
+				try {
+					reader.close();
+				} catch (IOException logOrIgnore) {
+					logOrIgnore.printStackTrace();
+				}
+		}
+		return acc2Id;
+	}
+			
+
+	static Map<String, String> getAcc2IdMap2(String ec) {
 		Map<String, String> acc2Id = new TreeMap<>();
 		String uri = URL_PREFIX + ec;
 		Reader reader = null;
@@ -127,9 +183,10 @@ public class KrakenLinkImporter extends Importer {
 
 	}
 
-	protected SortedSet<EnzymeLink> getUniProtLinks(String ec) {
-		Map<String, String> acc2Id = getAcc2IdMap(ec);
+	protected SortedSet<EnzymeLink> getUniProtLinks(String ec,Map<String,Map<String, String> > ec2acc2IdMap ) {
+		Map<String, String> acc2Id = ec2acc2IdMap.getOrDefault(ec, Collections.emptyMap());
 		SortedSet<EnzymeLink> updatedUniProtXrefs = new TreeSet<EnzymeLink>();
+	
 		for (Map.Entry<String, String> entry : acc2Id.entrySet()) {
 			EnzymeLink enzymeLink = EnzymeLink.valueOf(XrefDatabaseConstant.SWISSPROT,
 					XrefDatabaseConstant.SWISSPROT.getUrl(), entry.getKey(), entry.getValue(),

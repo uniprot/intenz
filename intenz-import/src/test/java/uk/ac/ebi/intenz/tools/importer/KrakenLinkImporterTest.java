@@ -21,13 +21,13 @@ public class KrakenLinkImporterTest {
 		
 	}
 
-	@Test
-	public void testGetKrakenLinks() {
-		SortedSet<EnzymeLink> links = importer.getUniProtLinks("1.2.3.4");
-		assertFalse(links.isEmpty());
-		for (EnzymeLink link : links) {
-			LOGGER.info(link.getName() + " - " + link.getAccession());
-		}
-	}
+//	@Test
+//	public void testGetKrakenLinks() {
+//		SortedSet<EnzymeLink> links = importer.getUniProtLinks("1.2.3.4");
+//		assertFalse(links.isEmpty());
+//		for (EnzymeLink link : links) {
+//			LOGGER.info(link.getName() + " - " + link.getAccession());
+//		}
+//	}
 
 }
